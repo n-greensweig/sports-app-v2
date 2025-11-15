@@ -67,30 +67,6 @@ struct LivePrompt: Identifiable, Codable {
         case intermediate
         case advanced
     }
-
-    init(
-        id: UUID = UUID(),
-        gameId: UUID,
-        prompt: String,
-        options: [String],
-        correctAnswer: Int,
-        explanation: String,
-        timestamp: Date = Date(),
-        gameContext: String,
-        difficulty: PromptDifficulty = .intermediate,
-        xpValue: Int? = nil
-    ) {
-        self.id = id
-        self.gameId = gameId
-        self.prompt = prompt
-        self.options = options
-        self.correctAnswer = correctAnswer
-        self.explanation = explanation
-        self.timestamp = timestamp
-        self.gameContext = gameContext
-        self.difficulty = difficulty
-        self.xpValue = xpValue ?? difficulty.baseXP
-    }
 }
 
 extension LivePrompt.PromptDifficulty {
@@ -172,6 +148,7 @@ extension Game {
 
 extension LivePrompt {
     static let mockPrompt = LivePrompt(
+        id: UUID(),
         gameId: Game.mockLiveGame.id,
         prompt: "The offense just got a first down. What happens next?",
         options: [
@@ -182,11 +159,14 @@ extension LivePrompt {
         ],
         correctAnswer: 0,
         explanation: "When a team gets a first down, the down counter resets and they get 4 new downs to try to advance another 10 yards.",
+        timestamp: Date(),
         gameContext: "1st & 10 from the 35-yard line",
-        difficulty: .beginner
+        difficulty: .beginner,
+        xpValue: 10
     )
 
     static let mockAdvancedPrompt = LivePrompt(
+        id: UUID(),
         gameId: Game.mockLiveGame.id,
         prompt: "The quarterback is in the shotgun formation. What does this tell you?",
         options: [
@@ -197,6 +177,7 @@ extension LivePrompt {
         ],
         correctAnswer: 1,
         explanation: "Shotgun formation (QB stands 5-7 yards behind center) is typically used for passing plays because it gives the QB more time to read the defense and throw.",
+        timestamp: Date(),
         gameContext: "2nd & 7 from the 42-yard line",
         difficulty: .advanced,
         xpValue: 25

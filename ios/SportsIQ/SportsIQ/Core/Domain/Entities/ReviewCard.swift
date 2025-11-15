@@ -20,30 +20,6 @@ struct ReviewCard: Identifiable, Codable {
     let createdAt: Date
     var lastReviewedAt: Date?
 
-    init(
-        id: UUID = UUID(),
-        userId: UUID,
-        itemId: UUID,
-        sportId: UUID,
-        dueDate: Date = Date(),
-        interval: TimeInterval = 86400, // 1 day default
-        easeFactor: Double = 2.5,
-        repetitions: Int = 0,
-        createdAt: Date = Date(),
-        lastReviewedAt: Date? = nil
-    ) {
-        self.id = id
-        self.userId = userId
-        self.itemId = itemId
-        self.sportId = sportId
-        self.dueDate = dueDate
-        self.interval = interval
-        self.easeFactor = easeFactor
-        self.repetitions = repetitions
-        self.createdAt = createdAt
-        self.lastReviewedAt = lastReviewedAt
-    }
-
     var isDue: Bool {
         dueDate <= Date()
     }
@@ -106,26 +82,6 @@ struct ReviewSession: Identifiable, Codable {
     var correctAnswers: Int
     var xpEarned: Int
 
-    init(
-        id: UUID = UUID(),
-        userId: UUID,
-        sportId: UUID,
-        startedAt: Date = Date(),
-        completedAt: Date? = nil,
-        cardsReviewed: Int = 0,
-        correctAnswers: Int = 0,
-        xpEarned: Int = 0
-    ) {
-        self.id = id
-        self.userId = userId
-        self.sportId = sportId
-        self.startedAt = startedAt
-        self.completedAt = completedAt
-        self.cardsReviewed = cardsReviewed
-        self.correctAnswers = correctAnswers
-        self.xpEarned = xpEarned
-    }
-
     var accuracy: Double {
         guard cardsReviewed > 0 else { return 0 }
         return Double(correctAnswers) / Double(cardsReviewed)
@@ -140,23 +96,29 @@ struct ReviewSession: Identifiable, Codable {
 // MARK: - Mock Data
 extension ReviewCard {
     static let mockCard1 = ReviewCard(
+        id: UUID(),
         userId: UUID(),
         itemId: UUID(),
         sportId: Sport.football.id,
         dueDate: Date().addingTimeInterval(-3600), // Due 1 hour ago
         interval: 86400,
         easeFactor: 2.5,
-        repetitions: 2
+        repetitions: 2,
+        createdAt: Date().addingTimeInterval(-86400 * 7), // Created 7 days ago
+        lastReviewedAt: Date().addingTimeInterval(-3600)
     )
 
     static let mockCard2 = ReviewCard(
+        id: UUID(),
         userId: UUID(),
         itemId: UUID(),
         sportId: Sport.football.id,
         dueDate: Date(), // Due now
         interval: 86400 * 6,
         easeFactor: 2.3,
-        repetitions: 3
+        repetitions: 3,
+        createdAt: Date().addingTimeInterval(-86400 * 30), // Created 30 days ago
+        lastReviewedAt: Date().addingTimeInterval(-86400 * 6)
     )
 
     static let mockCards = [mockCard1, mockCard2]

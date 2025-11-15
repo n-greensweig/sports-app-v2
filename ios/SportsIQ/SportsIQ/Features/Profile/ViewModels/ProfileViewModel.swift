@@ -38,8 +38,20 @@ class ProfileViewModel {
 
             // Mock earned badges (in real app, fetch from repository)
             earnedBadges = [
-                UserBadge(userId: userId, badge: Badge.firstLesson, sportId: Sport.football.id),
-                UserBadge(userId: userId, badge: Badge.perfectScore, sportId: Sport.football.id)
+                UserBadge(
+                    id: UUID(),
+                    userId: userId,
+                    badge: Badge.firstLesson,
+                    earnedAt: Date(),
+                    sportId: Sport.football.id
+                ),
+                UserBadge(
+                    id: UUID(),
+                    userId: userId,
+                    badge: Badge.perfectScore,
+                    earnedAt: Date(),
+                    sportId: Sport.football.id
+                )
             ]
         } catch {
             errorMessage = "Failed to load progress: \(error.localizedDescription)"

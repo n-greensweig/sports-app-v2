@@ -50,8 +50,14 @@ class ReviewViewModel {
 
         // Start review session
         reviewSession = ReviewSession(
+            id: UUID(),
             userId: userId,
-            sportId: sportId
+            sportId: sportId,
+            startedAt: Date(),
+            completedAt: nil,
+            cardsReviewed: 0,
+            correctAnswers: 0,
+            xpEarned: 0
         )
 
         isLoading = false

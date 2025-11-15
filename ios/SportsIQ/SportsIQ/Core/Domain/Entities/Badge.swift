@@ -56,14 +56,6 @@ struct UserBadge: Identifiable, Codable {
     let badge: Badge
     let earnedAt: Date
     let sportId: UUID?
-
-    init(id: UUID = UUID(), userId: UUID, badge: Badge, earnedAt: Date = Date(), sportId: UUID? = nil) {
-        self.id = id
-        self.userId = userId
-        self.badge = badge
-        self.earnedAt = earnedAt
-        self.sportId = sportId
-    }
 }
 
 // MARK: - Mock Data

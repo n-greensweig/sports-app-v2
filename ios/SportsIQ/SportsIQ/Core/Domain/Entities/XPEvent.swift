@@ -43,24 +43,6 @@ struct XPEvent: Identifiable, Codable {
     let amount: Int
     let timestamp: Date
     let relatedItemId: UUID? // Lesson, Module, etc.
-
-    init(
-        id: UUID = UUID(),
-        userId: UUID,
-        sportId: UUID? = nil,
-        source: XPSource,
-        amount: Int? = nil,
-        timestamp: Date = Date(),
-        relatedItemId: UUID? = nil
-    ) {
-        self.id = id
-        self.userId = userId
-        self.sportId = sportId
-        self.source = source
-        self.amount = amount ?? source.baseXP
-        self.timestamp = timestamp
-        self.relatedItemId = relatedItemId
-    }
 }
 
 /// Streak tracking
@@ -70,20 +52,6 @@ struct Streak: Codable {
     let currentStreak: Int
     let longestStreak: Int
     let lastActivityDate: Date
-
-    init(
-        userId: UUID,
-        sportId: UUID,
-        currentStreak: Int = 0,
-        longestStreak: Int = 0,
-        lastActivityDate: Date = Date()
-    ) {
-        self.userId = userId
-        self.sportId = sportId
-        self.currentStreak = currentStreak
-        self.longestStreak = longestStreak
-        self.lastActivityDate = lastActivityDate
-    }
 
     func isActiveToday() -> Bool {
         Calendar.current.isDateInToday(lastActivityDate) ||

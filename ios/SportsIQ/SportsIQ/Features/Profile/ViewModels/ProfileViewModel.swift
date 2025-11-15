@@ -15,6 +15,7 @@ class ProfileViewModel {
 
     // MARK: - State
     var userProgress: UserProgress?
+    var earnedBadges: [UserBadge] = []
     var isLoading = false
     var errorMessage: String?
 
@@ -34,6 +35,12 @@ class ProfileViewModel {
                 userId: userId,
                 sportId: Sport.football.id
             )
+
+            // Mock earned badges (in real app, fetch from repository)
+            earnedBadges = [
+                UserBadge(userId: userId, badge: Badge.firstLesson, sportId: Sport.football.id),
+                UserBadge(userId: userId, badge: Badge.perfectScore, sportId: Sport.football.id)
+            ]
         } catch {
             errorMessage = "Failed to load progress: \(error.localizedDescription)"
         }

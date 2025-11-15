@@ -17,6 +17,9 @@ class LessonViewModel {
     // MARK: - State
     var currentItemIndex = 0
     var selectedAnswer: Int?
+    var selectedAnswers: Set<Int> = [] // For multi-select
+    var sliderValue: Double = 50 // For slider
+    var textAnswer: String = "" // For free text
     var showFeedback = false
     var isCurrentAnswerCorrect = false
     var correctAnswersCount = 0
@@ -46,20 +49,45 @@ class LessonViewModel {
         selectedAnswer = index
     }
 
+    func toggleMultiSelectAnswer(_ index: Int) {
+        if selectedAnswers.contains(index) {
+            selectedAnswers.remove(index)
+        } else {
+            selectedAnswers.insert(index)
+        }
+    }
+
+    func updateSliderValue(_ value: Double) {
+        sliderValue = value
+    }
+
+    func updateTextAnswer(_ text: String) {
+        textAnswer = text
+    }
+
     @MainActor
     func submitAnswer() async {
-        guard let selectedAnswer = selectedAnswer,
-              let currentItem = currentItem else { return }
+        guard let currentItem = currentItem else { return }
+
+        // Determine user's answer based on item type
+        let userAnswer: UserAnswer
+        switch currentItem.type {
+        case .mcq, .binary:
+            guard let selectedAnswer = selectedAnswer else { return }
+            userAnswer = .single(selectedAnswer)
+        case .multiSelect:
+            userAnswer = .multiple(Array(selectedAnswers).sorted())
+        case .slider:
+            userAnswer = .range(sliderValue)
+        case .freeText:
+            userAnswer = .text(textAnswer.trimmingCharacters(in: .whitespacesAndNewlines))
+        case .clipLabel:
+            // TODO: Implement clip label
+            return
+        }
 
         // Check if answer is correct
-        switch currentItem.correctAnswer {
-        case .single(let correctIndex):
-            isCurrentAnswerCorrect = selectedAnswer == correctIndex
-        case .boolean(let correctBool):
-            isCurrentAnswerCorrect = (selectedAnswer == 0 && correctBool) || (selectedAnswer == 1 && !correctBool)
-        default:
-            isCurrentAnswerCorrect = false
-        }
+        isCurrentAnswerCorrect = checkAnswer(userAnswer: userAnswer, correctAnswer: currentItem.correctAnswer)
 
         if isCurrentAnswerCorrect {
             correctAnswersCount += 1
@@ -70,7 +98,7 @@ class LessonViewModel {
             let submission = try await learningRepository.submitAnswer(
                 userId: userId,
                 itemId: currentItem.id,
-                answer: .single(selectedAnswer),
+                answer: userAnswer,
                 context: .lesson,
                 timeSpentSeconds: 10 // TODO: Track actual time
             )
@@ -82,10 +110,46 @@ class LessonViewModel {
         showFeedback = true
     }
 
+    private func checkAnswer(userAnswer: UserAnswer, correctAnswer: ItemAnswer) -> Bool {
+        switch (userAnswer, correctAnswer) {
+        case (.single(let userIndex), .single(let correctIndex)):
+            return userIndex == correctIndex
+        case (.single(let userIndex), .boolean(let correctBool)):
+            return (userIndex == 0 && correctBool) || (userIndex == 1 && !correctBool)
+        case (.multiple(let userIndices), .multiple(let correctIndices)):
+            return Set(userIndices) == Set(correctIndices)
+        case (.range(let userValue), .range(let min, let max)):
+            return userValue >= min && userValue <= max
+        case (.text(let userText), .text(let correctText)):
+            return userText.lowercased() == correctText.lowercased()
+        default:
+            return false
+        }
+    }
+
     func nextItem() {
         currentItemIndex += 1
         selectedAnswer = nil
+        selectedAnswers = []
+        sliderValue = 50
+        textAnswer = ""
         showFeedback = false
         isCurrentAnswerCorrect = false
+    }
+
+    var hasAnswer: Bool {
+        guard let currentItem = currentItem else { return false }
+        switch currentItem.type {
+        case .mcq, .binary:
+            return selectedAnswer != nil
+        case .multiSelect:
+            return !selectedAnswers.isEmpty
+        case .slider:
+            return true // Slider always has a value
+        case .freeText:
+            return !textAnswer.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        case .clipLabel:
+            return false // TODO: Implement
+        }
     }
 }

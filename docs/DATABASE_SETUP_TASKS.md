@@ -1,0 +1,1124 @@
+# SportsIQ Database Setup - Task Tracking
+
+**Last Updated**: 2025-11-15
+**Status**: In Progress
+**Approach**: Supabase (Backend-as-a-Service) with Full Schema
+
+---
+
+## Quick Reference
+
+**Total Tasks**: 8
+**Completed**: 2 / 8
+**In Progress**: 0
+**Estimated Total Time**: ~5 hours
+
+---
+
+## Task Status Overview
+
+- [x] **Task 1**: Supabase Project & Database Schema ⚡ **COMPLETED**
+- [x] **Task 2**: Environment Configuration Files ⚡ **COMPLETED**
+- [ ] **Task 3**: iOS Supabase Client Setup **← NEXT**
+- [ ] **Task 4**: DTOs and Data Transfer Objects
+- [ ] **Task 5**: Repository Implementation - Learning
+- [ ] **Task 6**: Repository Implementation - User & Progress
+- [ ] **Task 7**: Repository Implementation - Games & Live
+- [ ] **Task 8**: Authentication Integration
+
+---
+
+## Execution Strategy
+
+### Phase 1: Foundation (Sequential)
+1. Task 1 → Task 2 (Must complete in order)
+
+### Phase 2: Client & Models (Parallel)
+2. Task 3 ↔ Task 4 (Can run in parallel)
+
+### Phase 3: Repositories (Parallel)
+3. Task 5 ↔ Task 6 ↔ Task 7 (All can run in parallel)
+
+### Phase 4: Integration
+4. Task 8 (Integrates with all repositories)
+
+---
+
+## Task Dependencies Visualization
+
+```
+Task 1 (Supabase Setup) ⚡ START HERE
+  ↓
+Task 2 (Config Files)
+  ↓
+Task 3 (Client) ←→ Task 4 (DTOs) [PARALLEL]
+  ↓                    ↓
+  └────────┬───────────┘
+           ↓
+Task 5 ←→ Task 6 ←→ Task 7 [ALL PARALLEL]
+           ↓
+Task 8 (Auth) - Integrates with all
+```
+
+---
+
+## Shared Credentials & Info
+
+**✅ Completed - Credentials Saved:**
+
+```
+Supabase Project URL: https://gzghfnqpzjmcsenrnjme.supabase.co
+Supabase Anon Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6Z2hmbnFwemptY3NlbnJuam1lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMxOTg1NTUsImV4cCI6MjA3ODc3NDU1NX0.LDaomGRd1Vxga8WSulh7qTRD6DC-GcWNQW-J-g_QAxA
+Supabase Service Role Key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6Z2hmbnFwemptY3NlbnJuam1lIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MzE5ODU1NSwiZXhwIjoyMDc4Nzc0NTU1fQ.s91E-pdq_-U-R7qjZsZGKGABNlHAcLzzruDci37tQmg
+Supabase Project ID: gzghfnqpzjmcsenrnjme
+Database Password: Iwillrememberthis
+```
+
+---
+
+# Task 1: Supabase Project & Database Schema ⚡
+
+**Status**: [ ] Not Started | [ ] In Progress | [x] Complete
+**Prerequisites**: None (MUST COMPLETE FIRST)
+**Agent Assigned**: Claude (2025-11-15)
+**Estimated Time**: 45 minutes
+**Actual Time**: ~60 minutes (including debugging)
+
+## Objectives
+
+1. Create Supabase account and project
+2. Implement full database schema from `docs/DATABASE_SCHEMA.md`
+3. Set up all tables, indexes, constraints, partitioning
+4. Create materialized views, functions, and triggers
+5. Insert seed data
+
+## Steps
+
+### 1.1 Create Supabase Project
+- [x] Go to https://supabase.com and create account
+- [x] Click "New Project"
+- [x] Name: `sportsiq` or `sportsiq-dev`
+- [x] Set database password (save it!)
+- [x] Choose region (closest to you)
+- [x] Wait for project to provision (~2 minutes)
+
+### 1.2 Get Project Credentials
+- [x] Navigate to Project Settings → API
+- [x] Copy **Project URL** (save for other tasks)
+- [x] Copy **anon/public key** (save for other tasks)
+- [x] Copy **service_role key** (save for other tasks)
+- [x] **Update "Shared Credentials" section above**
+
+### 1.3 Implement Database Schema
+- [x] Open Supabase SQL Editor (icon on left sidebar)
+- [x] Create new query
+- [x] Copy schema from migration file `supabase/migrations/00_initial_schema.sql`
+- [x] Execute in order:
+  - [x] Core tables (users, sports, modules, lessons, items)
+  - [x] Learning tables (submissions, user_progress, review_cards)
+  - [x] Gamification tables (xp_events, badges, user_badges, streaks)
+  - [x] Live tables (games, teams, plays, live_prompts, live_submissions)
+  - [x] Social tables (friends, leaderboards)
+  - [x] System tables (devices, sessions, analytics)
+  - [x] Indexes and constraints
+  - [x] Partitioning for submissions and xp_events
+  - [x] Materialized views (leaderboard_daily, leaderboard_weekly, etc.)
+  - [x] Functions (update_overall_rating, calculate_streak, etc.)
+  - [x] Triggers (update_updated_at, etc.)
+
+### 1.4 Insert Seed Data
+- [x] Execute seed data SQL from migration file:
+  - [x] Sports (6 sports: Football, Basketball, Baseball, Hockey, Soccer, Golf)
+  - [x] Leagues (NFL, NBA, MLB, NHL, MLS, PGA)
+  - [ ] Teams (all professional teams) - Deferred to later task
+  - [ ] Initial football modules and lessons (at minimum) - Deferred to content creation
+  - [ ] Concepts and tags - Deferred to content creation
+  - [ ] Badge definitions - Deferred to content creation
+
+### 1.5 Verify Schema
+- [x] Open Table Editor in Supabase
+- [x] Verify all tables exist
+- [x] Check that foreign keys are properly set up
+- [x] Test sample queries verified 6 sports and 7 leagues
+
+## Deliverables
+
+- [x] Supabase project created and provisioned
+- [x] All 40+ tables implemented
+- [x] Indexes, constraints, partitioning configured
+- [x] Materialized views created
+- [x] Functions and triggers set up
+- [x] Seed data inserted
+- [x] Credentials documented in "Shared Credentials" section above
+
+## Notes & Issues
+
+```
+Agent: Claude (2025-11-15)
+
+COMPLETED SUCCESSFULLY ✅
+
+Migration File Location: supabase/migrations/00_initial_schema.sql
+
+Issues Encountered & Resolved:
+1. Reserved Keyword Error: Column name 'window' conflicted with PostgreSQL reserved keyword
+   - Fix: Renamed to 'time_window' in leaderboards table
+
+2. Partitioned Table Primary Key Constraints: PostgreSQL requires PRIMARY KEY to include partition column
+   - Fix: Updated all partitioned tables to composite PRIMARY KEYs:
+     * user_xp_events: PRIMARY KEY (id, occurred_at)
+     * provider_events: PRIMARY KEY (id, received_at)
+     * submissions: PRIMARY KEY (id, submitted_at)
+     * analytics_events: PRIMARY KEY (id, occurred_at)
+
+3. Foreign Key References to Partitioned Tables: Must reference complete composite key
+   - Fix: Updated referencing tables to include partition columns:
+     * submission_judgments: Added submission_submitted_at, provider_event_received_at
+     * srs_reviews: Added submission_submitted_at
+     * provider_mappings: Added provider_event_received_at
+
+4. Immutable Function Error: Index predicates cannot use volatile functions like now()
+   - Fix: Removed WHERE clause with now() from idx_srs_cards_user_due index
+
+Final State:
+- 40+ tables created successfully
+- All indexes, constraints, triggers, and functions deployed
+- Materialized view for leaderboards created
+- 4 partitioned tables with proper constraints
+- 6 sports and 7 leagues seeded
+- All foreign key relationships validated
+
+Deferred Items:
+- Team data (will be populated from sports data API later)
+- Content (modules, lessons, items) - separate content creation task
+- Badge definitions - will be defined after MVP features are finalized
+
+Total Execution Time: ~60 minutes (including debugging and fixes)
+```
+
+---
+
+# Task 2: Environment Configuration Files
+
+**Status**: [ ] Not Started | [ ] In Progress | [x] Complete
+**Prerequisites**: Task 1 (needs Supabase credentials)
+**Agent Assigned**: Claude (2025-11-15)
+**Estimated Time**: 15 minutes
+**Actual Time**: ~20 minutes
+
+## Objectives
+
+1. Create `.env` file in project root with Supabase credentials
+2. Create `.env.example` template
+3. Create `.xcconfig` file for iOS
+4. Update `Info.plist` to read from xcconfig
+5. Document configuration setup
+
+## Steps
+
+### 2.1 Create Root .env File
+- [x] Create `/Users/noahgreensweig/Desktop/SportsIQ/.env`
+- [x] Add Supabase credentials (get from Task 1):
+  ```env
+  SUPABASE_URL=https://xxxxx.supabase.co
+  SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+  SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+  ```
+- [x] Verify `.env` is in `.gitignore`
+
+### 2.2 Create .env.example Template
+- [x] Create `/Users/noahgreensweig/Desktop/SportsIQ/.env.example`
+- [x] Add template without real values:
+  ```env
+  SUPABASE_URL=your_supabase_project_url_here
+  SUPABASE_ANON_KEY=your_anon_key_here
+  SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
+  ```
+
+### 2.3 Create iOS Config File
+- [x] Create `/Users/noahgreensweig/Desktop/SportsIQ/ios/SportsIQ/Config.xcconfig`
+- [x] Add Supabase credentials:
+  ```
+  SUPABASE_URL = https://xxxxx.supabase.co
+  SUPABASE_ANON_KEY = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+  ```
+- [x] Verify `Config.xcconfig` is in `.gitignore`
+
+### 2.4 Update Xcode Project Configuration
+- [x] Created comprehensive documentation for Xcode configuration steps
+- [x] Documented in `ios/CONFIG_SETUP.md` (requires manual Xcode steps)
+- [x] Provided both Option A (Info.plist) and Option B (Configuration File) approaches
+
+### 2.5 Update Info.plist
+- [x] Documented steps in `ios/CONFIG_SETUP.md`
+- [x] Info.plist may need to be created manually in Xcode (modern SwiftUI projects may not have one initially)
+- [x] Alternative approach documented for Swift-only configuration
+
+### 2.6 Create Config Helper in Swift
+- [x] Create `/Users/noahgreensweig/Desktop/SportsIQ/ios/SportsIQ/SportsIQ/Shared/Utils/Config.swift`
+- [x] Add helper to read from Info.plist:
+  ```swift
+  enum Config {
+      static var supabaseURL: String {
+          guard let url = Bundle.main.infoDictionary?["SUPABASE_URL"] as? String else {
+              fatalError("SUPABASE_URL not found in Info.plist")
+          }
+          return url
+      }
+
+      static var supabaseAnonKey: String {
+          guard let key = Bundle.main.infoDictionary?["SUPABASE_ANON_KEY"] as? String else {
+              fatalError("SUPABASE_ANON_KEY not found in Info.plist")
+          }
+          return key
+      }
+  }
+  ```
+
+### 2.7 Document Setup
+- [x] Update project README with environment setup instructions
+- [x] Document how to get Supabase credentials
+- [x] Add troubleshooting section for config issues
+
+## Deliverables
+
+- [x] `.env` file created with real credentials
+- [x] `.env.example` template created
+- [x] `Config.xcconfig` created for iOS
+- [x] Info.plist configuration documented (requires manual Xcode steps)
+- [x] Swift Config helper created
+- [x] Documentation updated
+
+## Notes & Issues
+
+```
+Agent: Claude (2025-11-15)
+
+COMPLETED SUCCESSFULLY ✅
+
+Files Created:
+1. /.env - Root environment file with actual Supabase credentials (gitignored)
+2. /.env.example - Template for team members
+3. /ios/SportsIQ/Config.xcconfig - iOS configuration file (gitignored)
+4. /ios/SportsIQ/SportsIQ/Shared/Utils/Config.swift - Swift helper to access config values
+5. /ios/CONFIG_SETUP.md - Comprehensive setup guide with Xcode instructions
+
+Key Points:
+- All sensitive files (.env, Config.xcconfig) are properly gitignored
+- Config.swift includes debug helper (printConfiguration) for verification
+- Provided two configuration approaches:
+  * Option A: xcconfig + Info.plist (recommended)
+  * Option B: Swift Secrets file (fallback if xcconfig has issues)
+
+Manual Steps Required (documented in ios/CONFIG_SETUP.md):
+1. Add Config.xcconfig to Xcode project configuration
+2. Set xcconfig for Debug and Release configurations
+3. Add Config.swift to Xcode project if not auto-detected
+4. Optional: Add SUPABASE_URL and SUPABASE_ANON_KEY to Info.plist
+
+Notes:
+- Modern SwiftUI projects may not have Info.plist by default
+- Alternative approach provided using Swift Secrets.swift file
+- Comprehensive troubleshooting guide included
+- README.md updated with configuration setup instructions
+
+Credentials Configured:
+✓ Supabase URL: https://gzghfnqpzjmcsenrnjme.supabase.co
+✓ Supabase Anon Key: (configured)
+✓ Supabase Service Role Key: (configured)
+✓ Supabase Project ID: gzghfnqpzjmcsenrnjme
+
+Next Steps:
+- Developer needs to complete manual Xcode configuration steps
+- After Xcode setup, run app and verify Config.printConfiguration() output
+- Ready to proceed with Task 3: iOS Supabase Client Setup
+
+Total Execution Time: ~20 minutes
+```
+
+---
+
+# Task 3: iOS Supabase Client Setup
+
+**Status**: [ ] Not Started | [ ] In Progress | [ ] Complete
+**Prerequisites**: Task 1 (needs credentials), Task 2 (needs config files)
+**Can Run in Parallel With**: Task 4
+**Agent Assigned**: ___________
+**Estimated Time**: 30 minutes
+
+## Objectives
+
+1. Add Supabase Swift SDK to Xcode project
+2. Create SupabaseClient service class
+3. Configure Supabase client with credentials
+4. Set up base networking utilities
+5. Add dependency injection setup
+
+## Steps
+
+### 3.1 Add Supabase Swift SDK
+- [ ] Open Xcode project
+- [ ] File → Add Packages
+- [ ] Add package: `https://github.com/supabase/supabase-swift`
+- [ ] Select latest version
+- [ ] Add to SportsIQ target
+- [ ] Verify package added successfully
+
+### 3.2 Create Network Directory Structure
+- [ ] Create `/ios/SportsIQ/SportsIQ/Core/Data/Network/` directory (may already exist)
+- [ ] Verify folder is added to Xcode project
+
+### 3.3 Create SupabaseClient Service
+- [ ] Create `/ios/SportsIQ/SportsIQ/Core/Data/Network/SupabaseClient.swift`
+- [ ] Implement singleton or injectable service:
+  ```swift
+  import Supabase
+
+  class SupabaseClient {
+      static let shared = SupabaseClient()
+
+      let client: SupabaseClient
+
+      private init() {
+          self.client = SupabaseClient(
+              supabaseURL: URL(string: Config.supabaseURL)!,
+              supabaseKey: Config.supabaseAnonKey
+          )
+      }
+  }
+  ```
+
+### 3.4 Create Networking Utilities
+- [ ] Create `/ios/SportsIQ/SportsIQ/Core/Data/Network/NetworkError.swift`
+- [ ] Define error types:
+  ```swift
+  enum NetworkError: LocalizedError {
+      case invalidURL
+      case noData
+      case decodingError(Error)
+      case serverError(Int, String)
+      case unauthorized
+      case notFound
+      case unknown(Error)
+
+      var errorDescription: String? { ... }
+  }
+  ```
+
+### 3.5 Create Response Parser
+- [ ] Create `/ios/SportsIQ/SportsIQ/Core/Data/Network/ResponseParser.swift`
+- [ ] Add generic parsing utilities:
+  ```swift
+  struct ResponseParser {
+      static func decode<T: Decodable>(_ type: T.Type, from data: Data) throws -> T {
+          let decoder = JSONDecoder()
+          decoder.keyDecodingStrategy = .convertFromSnakeCase
+          return try decoder.decode(type, from: data)
+      }
+  }
+  ```
+
+### 3.6 Set Up Dependency Injection
+- [ ] Update `/ios/SportsIQ/SportsIQ/App/SportsIQApp.swift`
+- [ ] Add SupabaseClient to environment:
+  ```swift
+  @main
+  struct SportsIQApp: App {
+      @StateObject private var supabaseClient = SupabaseClient.shared
+
+      var body: some Scene {
+          WindowGroup {
+              ContentView()
+                  .environmentObject(supabaseClient)
+          }
+      }
+  }
+  ```
+
+### 3.7 Test Connection
+- [ ] Create simple test query in a view or playground
+- [ ] Test fetching from sports table:
+  ```swift
+  let sports = try await SupabaseClient.shared.client
+      .from("sports")
+      .select()
+      .execute()
+  ```
+- [ ] Verify connection works
+
+## Deliverables
+
+- [x] Supabase Swift SDK added to project
+- [x] SupabaseClient service created
+- [x] NetworkError enum defined
+- [x] ResponseParser utilities created
+- [x] Dependency injection configured
+- [x] Connection tested successfully
+
+## Notes & Issues
+
+```
+[Agent: Add any notes, issues encountered, or deviations from plan here]
+
+
+
+
+```
+
+---
+
+# Task 4: DTOs and Data Transfer Objects
+
+**Status**: [ ] Not Started | [ ] In Progress | [ ] Complete
+**Prerequisites**: Task 1 (needs to understand database schema)
+**Can Run in Parallel With**: Task 3
+**Agent Assigned**: ___________
+**Estimated Time**: 45 minutes
+
+## Objectives
+
+1. Create DTOs directory structure
+2. Implement DTOs for all entities matching Supabase schema
+3. Add conversion methods (DTOs ↔ Domain entities)
+4. Ensure proper Codable conformance with snake_case mapping
+
+## Steps
+
+### 4.1 Create DTOs Directory
+- [ ] Create `/ios/SportsIQ/SportsIQ/Core/Data/Network/DTOs/` directory
+- [ ] Verify folder is added to Xcode project
+
+### 4.2 Create Core DTOs
+- [ ] Create `SportDTO.swift`:
+  ```swift
+  struct SportDTO: Codable {
+      let id: String
+      let name: String
+      let icon: String
+      let color_hex: String
+      let is_active: Bool
+      let display_order: Int
+      let created_at: String
+
+      func toDomain() -> Sport { ... }
+  }
+  ```
+- [ ] Create `ModuleDTO.swift`
+- [ ] Create `LessonDTO.swift`
+- [ ] Create `ItemDTO.swift`
+
+### 4.3 Create User & Progress DTOs
+- [ ] Create `UserDTO.swift`
+- [ ] Create `UserProgressDTO.swift`
+- [ ] Create `SubmissionDTO.swift`
+- [ ] Create `ReviewCardDTO.swift`
+
+### 4.4 Create Gamification DTOs
+- [ ] Create `XPEventDTO.swift`
+- [ ] Create `BadgeDTO.swift`
+- [ ] Create `UserBadgeDTO.swift`
+- [ ] Create `StreakDTO.swift`
+- [ ] Create `LeaderboardEntryDTO.swift`
+
+### 4.5 Create Live/Game DTOs
+- [ ] Create `GameDTO.swift`
+- [ ] Create `TeamDTO.swift`
+- [ ] Create `LeagueDTO.swift`
+- [ ] Create `PlayDTO.swift`
+- [ ] Create `LivePromptDTO.swift`
+- [ ] Create `LiveSubmissionDTO.swift`
+
+### 4.6 Add Domain Entity Extensions
+- [ ] For each Domain entity, add `toDTO()` method:
+  ```swift
+  // In /Core/Domain/Entities/Sport.swift
+  extension Sport {
+      func toDTO() -> SportDTO {
+          SportDTO(
+              id: id.uuidString,
+              name: name,
+              icon: icon,
+              color_hex: colorHex,
+              is_active: isActive,
+              display_order: displayOrder,
+              created_at: ISO8601DateFormatter().string(from: createdAt)
+          )
+      }
+  }
+  ```
+
+### 4.7 Create Helpers for Common Patterns
+- [ ] Create `DateFormatters.swift` for ISO8601 date conversion
+- [ ] Create `UUIDExtensions.swift` for safe UUID parsing
+- [ ] Create `CodableHelpers.swift` for common Codable patterns
+
+### 4.8 Add Unit Tests
+- [ ] Create tests for DTO ↔ Domain conversion
+- [ ] Test edge cases (null values, invalid UUIDs, etc.)
+
+## Deliverables
+
+- [x] All DTOs created for entities in database schema
+- [x] `toDomain()` methods implemented on all DTOs
+- [x] `toDTO()` extensions added to Domain entities
+- [x] Date/UUID helper utilities created
+- [x] Unit tests passing
+
+## DTO Checklist
+
+### Core
+- [ ] SportDTO
+- [ ] ModuleDTO
+- [ ] LessonDTO
+- [ ] ItemDTO
+- [ ] ConceptDTO
+- [ ] TagDTO
+
+### User
+- [ ] UserDTO
+- [ ] UserProgressDTO
+- [ ] UserSettingsDTO
+- [ ] DeviceDTO
+
+### Learning
+- [ ] SubmissionDTO
+- [ ] ReviewCardDTO
+- [ ] SessionDTO
+
+### Gamification
+- [ ] XPEventDTO
+- [ ] BadgeDTO
+- [ ] UserBadgeDTO
+- [ ] StreakDTO
+- [ ] LeaderboardEntryDTO
+
+### Live/Games
+- [ ] GameDTO
+- [ ] TeamDTO
+- [ ] LeagueDTO
+- [ ] SeasonDTO
+- [ ] PlayDTO
+- [ ] LivePromptDTO
+- [ ] LiveSubmissionDTO
+
+### Social
+- [ ] FriendDTO
+
+## Notes & Issues
+
+```
+[Agent: Add any notes, issues encountered, or deviations from plan here]
+
+
+
+
+```
+
+---
+
+# Task 5: Repository Implementation - Learning
+
+**Status**: [ ] Not Started | [ ] In Progress | [ ] Complete
+**Prerequisites**: Task 3 (SupabaseClient), Task 4 (DTOs)
+**Can Run in Parallel With**: Tasks 6, 7
+**Agent Assigned**: ___________
+**Estimated Time**: 45 minutes
+
+## Objectives
+
+1. Create `SupabaseLearningRepository` class
+2. Implement all methods from `LearningRepository` protocol
+3. Replace `MockLearningRepository` in dependency injection
+4. Add error handling and retry logic
+5. Test with real Supabase data
+
+## Steps
+
+### 5.1 Create Repository File
+- [ ] Create `/ios/SportsIQ/SportsIQ/Core/Data/Repositories/SupabaseLearningRepository.swift`
+
+### 5.2 Implement Repository Class
+- [ ] Implement `LearningRepository` protocol
+- [ ] Inject SupabaseClient as dependency
+- [ ] Implement methods:
+
+#### `fetchSports()`
+- [ ] Query `sports` table
+- [ ] Filter by `is_active = true`
+- [ ] Order by `display_order`
+- [ ] Convert DTOs to Domain entities
+
+#### `fetchModules(sportId:)`
+- [ ] Query `modules` table with foreign key
+- [ ] Include related data if needed
+- [ ] Handle locked/unlocked logic
+- [ ] Order by `order_index`
+
+#### `fetchLessons(moduleId:)`
+- [ ] Query `lessons` table
+- [ ] Check if lessons are locked based on user progress
+- [ ] Order by `order_index`
+
+#### `fetchLesson(id:)`
+- [ ] Query single lesson with items
+- [ ] Join with `items` table
+- [ ] Include media URLs
+- [ ] Sort items by `order_index`
+
+#### `submitAnswer(itemId:answer:userId:)`
+- [ ] Insert into `submissions` table
+- [ ] Check if answer is correct
+- [ ] Award XP if correct
+- [ ] Update user progress
+- [ ] Return result with feedback
+
+### 5.3 Add Error Handling
+- [ ] Wrap Supabase calls in try/catch
+- [ ] Map Supabase errors to NetworkError
+- [ ] Add retry logic for network failures
+- [ ] Log errors appropriately
+
+### 5.4 Add Caching (Optional)
+- [ ] Cache sports and modules locally
+- [ ] Implement cache invalidation
+- [ ] Use UserDefaults or SwiftData for cache
+
+### 5.5 Update Dependency Injection
+- [ ] Open `/ios/SportsIQ/SportsIQ/App/SportsIQApp.swift`
+- [ ] Replace MockLearningRepository with SupabaseLearningRepository
+- [ ] OR create environment variable to toggle mock/real
+
+### 5.6 Test Implementation
+- [ ] Test fetching sports
+- [ ] Test fetching modules for Football
+- [ ] Test fetching a lesson with items
+- [ ] Test submitting an answer
+- [ ] Verify data appears correctly in UI
+
+## Deliverables
+
+- [x] SupabaseLearningRepository created
+- [x] All LearningRepository methods implemented
+- [x] Error handling added
+- [x] Dependency injection updated
+- [x] Integration tested with UI
+
+## Notes & Issues
+
+```
+[Agent: Add any notes, issues encountered, or deviations from plan here]
+
+
+
+
+```
+
+---
+
+# Task 6: Repository Implementation - User & Progress
+
+**Status**: [ ] Not Started | [ ] In Progress | [ ] Complete
+**Prerequisites**: Task 3 (SupabaseClient), Task 4 (DTOs)
+**Can Run in Parallel With**: Tasks 5, 7
+**Agent Assigned**: ___________
+**Estimated Time**: 40 minutes
+
+## Objectives
+
+1. Create `SupabaseUserRepository` class
+2. Implement all methods from `UserRepository` protocol
+3. Replace `MockUserRepository` in dependency injection
+4. Add local caching for user data
+5. Test with real Supabase data
+
+## Steps
+
+### 6.1 Create Repository File
+- [ ] Create `/ios/SportsIQ/SportsIQ/Core/Data/Repositories/SupabaseUserRepository.swift`
+
+### 6.2 Implement Repository Class
+- [ ] Implement `UserRepository` protocol
+- [ ] Inject SupabaseClient as dependency
+- [ ] Implement methods:
+
+#### `getUser(id:)`
+- [ ] Query `users` table by ID
+- [ ] Convert DTO to Domain entity
+- [ ] Cache user data locally
+
+#### `createUser(email:username:)`
+- [ ] Insert into `users` table
+- [ ] Create initial user_progress records for each sport
+- [ ] Return created user
+
+#### `updateUser(user:)`
+- [ ] Update `users` table
+- [ ] Update local cache
+- [ ] Handle partial updates
+
+#### `getUserProgress(userId:sportId:)`
+- [ ] Query `user_progress` table
+- [ ] Include related data (completed lessons, modules)
+- [ ] Calculate stats (accuracy, streak, etc.)
+
+#### `updateProgress(userId:sportId:lessonId:score:)`
+- [ ] Update `user_progress` table
+- [ ] Mark lesson as complete
+- [ ] Unlock next lesson if needed
+- [ ] Recalculate overall rating
+
+#### `getXPHistory(userId:sportId:)`
+- [ ] Query `xp_events` table
+- [ ] Filter by user and sport
+- [ ] Order by timestamp descending
+- [ ] Paginate if needed
+
+#### `getBadges(userId:)`
+- [ ] Query `user_badges` joined with `badges`
+- [ ] Include earned date
+- [ ] Order by earned date descending
+
+#### `getStreaks(userId:sportId:)`
+- [ ] Query `user_streaks` table
+- [ ] Return current streak and best streak
+
+### 6.3 Add Local Caching
+- [ ] Create UserDefaults helper for caching
+- [ ] Cache current user data
+- [ ] Cache user progress
+- [ ] Implement cache invalidation
+
+### 6.4 Update Dependency Injection
+- [ ] Replace MockUserRepository with SupabaseUserRepository
+- [ ] OR create environment toggle
+
+### 6.5 Test Implementation
+- [ ] Test creating a new user
+- [ ] Test fetching user progress
+- [ ] Test updating progress after lesson completion
+- [ ] Test fetching XP history
+- [ ] Verify UI updates correctly
+
+## Deliverables
+
+- [x] SupabaseUserRepository created
+- [x] All UserRepository methods implemented
+- [x] Local caching implemented
+- [x] Dependency injection updated
+- [x] Integration tested
+
+## Notes & Issues
+
+```
+[Agent: Add any notes, issues encountered, or deviations from plan here]
+
+
+
+
+```
+
+---
+
+# Task 7: Repository Implementation - Games & Live
+
+**Status**: [ ] Not Started | [ ] In Progress | [ ] Complete
+**Prerequisites**: Task 3 (SupabaseClient), Task 4 (DTOs)
+**Can Run in Parallel With**: Tasks 5, 6
+**Agent Assigned**: ___________
+**Estimated Time**: 40 minutes
+
+## Objectives
+
+1. Create `SupabaseGameRepository` class
+2. Implement all methods from `GameRepository` protocol
+3. Set up Supabase Realtime subscriptions for live games
+4. Handle WebSocket connections
+5. Test with mock live data
+
+## Steps
+
+### 7.1 Create Repository File
+- [ ] Create `/ios/SportsIQ/SportsIQ/Core/Data/Repositories/SupabaseGameRepository.swift`
+
+### 7.2 Implement Repository Class
+- [ ] Implement `GameRepository` protocol
+- [ ] Inject SupabaseClient as dependency
+- [ ] Implement methods:
+
+#### `fetchGames(date:)`
+- [ ] Query `games` table by date
+- [ ] Include teams, league info
+- [ ] Filter by sport if needed
+- [ ] Order by start time
+
+#### `getGameDetails(gameId:)`
+- [ ] Query single game with full details
+- [ ] Include teams, plays, stats
+- [ ] Return comprehensive game data
+
+#### `subscribeToLiveGame(gameId:completion:)`
+- [ ] Set up Supabase Realtime subscription
+- [ ] Listen to `plays` table inserts
+- [ ] Listen to `live_prompts` table inserts
+- [ ] Handle real-time updates via completion handler
+
+#### `unsubscribeFromGame(gameId:)`
+- [ ] Remove Realtime subscription
+- [ ] Clean up resources
+
+#### `submitLiveAnswer(promptId:answer:userId:)`
+- [ ] Insert into `live_submissions` table
+- [ ] Check if answer is correct
+- [ ] Award XP if correct
+- [ ] Return immediate feedback
+
+### 7.3 Set Up Realtime Subscriptions
+- [ ] Use Supabase Realtime API:
+  ```swift
+  let channel = supabase.channel("game-\(gameId)")
+      .on(.insert, schema: "public", table: "live_prompts") { message in
+          // Handle new live prompt
+      }
+      .subscribe()
+  ```
+- [ ] Handle connection states (connected, disconnected, error)
+- [ ] Implement reconnection logic
+
+### 7.4 Add Mock/Test Mode
+- [ ] Create mock live game data for testing
+- [ ] Add flag to toggle between real and mock data
+- [ ] Simulate live prompts appearing
+
+### 7.5 Update Dependency Injection
+- [ ] Add SupabaseGameRepository to DI container
+- [ ] Make it available to LiveMode features
+
+### 7.6 Test Implementation
+- [ ] Test fetching games for today
+- [ ] Test subscribing to a game
+- [ ] Test receiving mock live prompts
+- [ ] Test submitting live answers
+- [ ] Verify UI updates in real-time
+
+## Deliverables
+
+- [x] SupabaseGameRepository created
+- [x] All GameRepository methods implemented
+- [x] Realtime subscriptions working
+- [x] Mock mode available for testing
+- [x] Integration tested
+
+## Notes & Issues
+
+```
+[Agent: Add any notes, issues encountered, or deviations from plan here]
+
+
+
+
+```
+
+---
+
+# Task 8: Authentication Integration
+
+**Status**: [ ] Not Started | [ ] In Progress | [ ] Complete
+**Prerequisites**: Task 1 (DB), Task 3 (SupabaseClient)
+**Can Run in Parallel With**: Tasks 5, 6, 7 (initially, then integrate)
+**Agent Assigned**: ___________
+**Estimated Time**: 45 minutes
+
+## Objectives
+
+1. Choose authentication approach (Clerk OR Supabase Auth)
+2. Implement authentication flow
+3. Add auth token to API requests
+4. Create login/signup UI
+5. Update repositories to use authenticated user
+
+## Steps
+
+### 8.1 Choose Authentication Approach
+
+**Option A: Supabase Auth (Recommended for simplicity)**
+- [ ] Use Supabase's built-in authentication
+- [ ] Simpler setup, fewer dependencies
+- [ ] Built-in session management
+
+**Option B: Clerk (As specified in docs)**
+- [ ] More features (social auth, user management UI)
+- [ ] Requires Clerk + Supabase integration
+- [ ] Need to set up JWT verification
+
+**Decision**: [ ] Supabase Auth | [ ] Clerk
+
+---
+
+### 8.2 If Using Supabase Auth
+
+#### 8.2.1 Set Up Auth in Supabase
+- [ ] Enable Email/Password auth in Supabase dashboard
+- [ ] Configure email templates (optional)
+- [ ] Enable OAuth providers (Google, Apple) if desired
+
+#### 8.2.2 Implement Auth Service
+- [ ] Create `/ios/SportsIQ/SportsIQ/Shared/Services/AuthService.swift`
+- [ ] Implement methods:
+  ```swift
+  class AuthService {
+      func signUp(email: String, password: String) async throws -> User
+      func signIn(email: String, password: String) async throws -> User
+      func signOut() async throws
+      func getCurrentUser() async -> User?
+      func resetPassword(email: String) async throws
+  }
+  ```
+
+#### 8.2.3 Add Session Management
+- [ ] Listen to auth state changes
+- [ ] Store session token securely
+- [ ] Auto-refresh expired tokens
+
+---
+
+### 8.3 If Using Clerk
+
+#### 8.3.1 Set Up Clerk
+- [ ] Create Clerk account
+- [ ] Create application
+- [ ] Get Clerk publishable key
+- [ ] Add to Config.xcconfig
+
+#### 8.3.2 Add Clerk SDK
+- [ ] Add Clerk iOS SDK via SPM
+- [ ] Configure in app initialization
+
+#### 8.3.3 Set Up Clerk + Supabase Integration
+- [ ] Configure Supabase RLS policies
+- [ ] Set up JWT verification in Supabase
+- [ ] Add Clerk JWT template
+
+#### 8.3.4 Implement Auth Service
+- [ ] Wrap Clerk SDK in AuthService
+- [ ] Implement sign up, sign in, sign out
+- [ ] Get Clerk token and pass to Supabase
+
+---
+
+### 8.4 Create Auth State Management
+- [ ] Create `@Observable` class for auth state
+- [ ] Track: isAuthenticated, currentUser, loading states
+- [ ] Add to environment
+
+### 8.5 Create Login/Signup UI
+- [ ] Create `/Features/Auth/Views/LoginView.swift`
+- [ ] Create `/Features/Auth/Views/SignUpView.swift`
+- [ ] Add form validation
+- [ ] Handle errors gracefully
+- [ ] Add "Forgot Password" flow
+
+### 8.6 Add Auth Token to Requests
+- [ ] Update SupabaseClient to include auth token
+- [ ] Add token to headers for all requests:
+  ```swift
+  let token = try await authService.getToken()
+  supabase.auth.setSession(token)
+  ```
+
+### 8.7 Update Repositories
+- [ ] Modify repositories to get current user ID from auth
+- [ ] Add auth checks before operations
+- [ ] Handle unauthorized errors
+
+### 8.8 Add Root Navigation Logic
+- [ ] Update `/App/SportsIQApp.swift`
+- [ ] Show LoginView if not authenticated
+- [ ] Show HomeView if authenticated
+- [ ] Handle auth state changes
+
+### 8.9 Test Authentication Flow
+- [ ] Test sign up with new user
+- [ ] Test sign in with existing user
+- [ ] Test sign out
+- [ ] Test password reset
+- [ ] Test staying logged in after app restart
+- [ ] Test token refresh
+
+## Deliverables
+
+- [x] Authentication approach chosen and documented
+- [x] Auth service implemented
+- [x] Login/signup UI created
+- [x] Auth tokens added to API requests
+- [x] Repositories updated to use authenticated user
+- [x] Auth flow tested end-to-end
+
+## Notes & Issues
+
+```
+[Agent: Add any notes, issues encountered, or deviations from plan here]
+
+
+
+
+```
+
+---
+
+## Final Integration Checklist
+
+Once all tasks are complete:
+
+- [ ] All 8 tasks marked complete
+- [ ] iOS app connects to Supabase successfully
+- [ ] User can sign up and log in
+- [ ] User can view sports and modules
+- [ ] User can complete a lesson
+- [ ] Progress is saved to database
+- [ ] XP is awarded correctly
+- [ ] User can see their progress/stats
+- [ ] Live game subscription works (with mock data)
+- [ ] No critical errors or crashes
+- [ ] Code is committed to git
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+**Supabase Connection Fails**
+- Check URL and keys are correct
+- Verify network connection
+- Check Supabase project is active
+- Look at Supabase logs
+
+**DTOs Not Decoding**
+- Check snake_case vs camelCase mapping
+- Verify DTO fields match database columns exactly
+- Use `convertFromSnakeCase` key decoding strategy
+
+**Auth Not Working**
+- Verify auth is enabled in Supabase dashboard
+- Check token is being sent in headers
+- Look at Supabase auth logs
+- Verify RLS policies if using Clerk
+
+**Realtime Not Connecting**
+- Check Realtime is enabled in Supabase
+- Verify channel name is correct
+- Check WebSocket connection in logs
+
+---
+
+## Resources
+
+- [Supabase Documentation](https://supabase.com/docs)
+- [Supabase Swift SDK](https://github.com/supabase/supabase-swift)
+- [Clerk iOS SDK](https://clerk.com/docs/quickstarts/ios)
+- [SportsIQ Project Docs](../README.md)
+- [Database Schema Reference](./DATABASE_SCHEMA.md)
+
+---
+
+**Good luck! Update this file as you complete tasks and encounter issues.**

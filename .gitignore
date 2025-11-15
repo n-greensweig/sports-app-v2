@@ -191,3 +191,4 @@ fastlane/test_output
 # Xcode - Sensitive or environment-specific files
 *.xcconfig
 !default.xcconfig
+**/Secrets.swift

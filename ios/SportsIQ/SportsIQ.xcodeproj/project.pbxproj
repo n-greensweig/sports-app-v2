@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B55B178F2EC9461300098907 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = B55B178E2EC9461300098907 /* Config.xcconfig */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		B55B150C2EC8DA4500098907 /* SportsIQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B55B178E2EC9461300098907 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -34,6 +39,7 @@
 			children = (
 				B55B150E2EC8DA4500098907 /* SportsIQ */,
 				B55B150D2EC8DA4500098907 /* Products */,
+				B55B178E2EC9461300098907 /* Config.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B55B178F2EC9461300098907 /* Config.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,6 +134,7 @@
 /* Begin XCBuildConfiguration section */
 		B55B15152EC8DA4800098907 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B55B178E2EC9461300098907 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -190,6 +198,7 @@
 		};
 		B55B15162EC8DA4800098907 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B55B178E2EC9461300098907 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

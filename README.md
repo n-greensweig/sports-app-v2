@@ -105,8 +105,12 @@ See [PROJECT_SCOPE.md](./docs/PROJECT_SCOPE.md) for complete roadmap.
 git clone https://github.com/n-greensweig/sports-app-v2.git
 cd sports-app-v2
 
-# Install dependencies (once iOS project is initialized)
-# Coming soon...
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your actual Supabase credentials
+
+# For iOS configuration setup, see:
+# ios/CONFIG_SETUP.md
 ```
 
 ### Development

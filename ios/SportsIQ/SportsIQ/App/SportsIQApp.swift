@@ -12,6 +12,8 @@ struct SportsIQApp: App {
     @State private var appCoordinator: AppCoordinator
 
     init() {
+        Config.printConfiguration()
+        
         // Initialize repositories (mock for now)
         let learningRepository = MockLearningRepository()
         let userRepository = MockUserRepository()

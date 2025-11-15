@@ -47,14 +47,6 @@ struct Team: Codable, Hashable {
     let shortName: String
     let logoURL: String?
     let primaryColorHex: String
-
-    init(id: UUID, name: String, shortName: String, logoURL: String? = nil, primaryColorHex: String) {
-        self.id = id
-        self.name = name
-        self.shortName = shortName
-        self.logoURL = logoURL
-        self.primaryColorHex = primaryColorHex
-    }
 }
 
 /// Live prompt shown during a game
@@ -117,6 +109,7 @@ extension Team {
         id: UUID(),
         name: "Kansas City Chiefs",
         shortName: "KC",
+        logoURL: nil,
         primaryColorHex: "#E31837"
     )
 
@@ -124,6 +117,7 @@ extension Team {
         id: UUID(),
         name: "Buffalo Bills",
         shortName: "BUF",
+        logoURL: nil,
         primaryColorHex: "#00338D"
     )
 
@@ -131,6 +125,7 @@ extension Team {
         id: UUID(),
         name: "Philadelphia Eagles",
         shortName: "PHI",
+        logoURL: nil,
         primaryColorHex: "#004C54"
     )
 
@@ -138,6 +133,7 @@ extension Team {
         id: UUID(),
         name: "Dallas Cowboys",
         shortName: "DAL",
+        logoURL: nil,
         primaryColorHex: "#041E42"
     )
 }

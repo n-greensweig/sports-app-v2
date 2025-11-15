@@ -149,5 +149,41 @@ extension Item {
         xpValue: 10
     )
 
-    static let mockItems = [mockMCQ, mockBinary]
+    static let mockMultiSelect = Item(
+        id: UUID(),
+        lessonId: UUID(),
+        type: .multiSelect,
+        orderIndex: 3,
+        prompt: "Which of these are ways to score in football? Select all that apply.",
+        options: ["Touchdown", "Field Goal", "Home Run", "Safety", "Grand Slam"],
+        correctAnswer: .multiple([0, 1, 3]),
+        explanation: "Touchdown, Field Goal, and Safety are all valid ways to score in football. Home Run and Grand Slam are baseball terms.",
+        xpValue: 15
+    )
+
+    static let mockSlider = Item(
+        id: UUID(),
+        lessonId: UUID(),
+        type: .slider,
+        orderIndex: 4,
+        prompt: "How many yards is the football field (excluding end zones)?",
+        options: nil,
+        correctAnswer: .range(min: 95, max: 105),
+        explanation: "The football field is 100 yards long, not including the 10-yard end zones on each end.",
+        xpValue: 10
+    )
+
+    static let mockFreeText = Item(
+        id: UUID(),
+        lessonId: UUID(),
+        type: .freeText,
+        orderIndex: 5,
+        prompt: "What is the name of the championship game in the NFL?",
+        options: nil,
+        correctAnswer: .text("Super Bowl"),
+        explanation: "The Super Bowl is the annual championship game of the National Football League (NFL).",
+        xpValue: 10
+    )
+
+    static let mockItems = [mockMCQ, mockBinary, mockMultiSelect, mockSlider, mockFreeText]
 }

@@ -93,6 +93,38 @@ struct ProfileView: View {
                     Divider()
                         .padding(.horizontal, .spacingM)
 
+                    // Badges Section
+                    VStack(alignment: .leading, spacing: .spacingM) {
+                        HStack {
+                            Text("Badges")
+                                .font(.heading3)
+                                .foregroundStyle(Color.textPrimary)
+
+                            Spacer()
+
+                            Text("\(viewModel.earnedBadges.count)/\(Badge.mockBadges.count)")
+                                .font(.caption)
+                                .foregroundStyle(Color.textSecondary)
+                        }
+
+                        LazyVGrid(columns: [
+                            GridItem(.flexible()),
+                            GridItem(.flexible()),
+                            GridItem(.flexible())
+                        ], spacing: .spacingM) {
+                            ForEach(Badge.mockBadges) { badge in
+                                BadgeCardView(
+                                    badge: badge,
+                                    isEarned: viewModel.earnedBadges.contains(where: { $0.badge.id == badge.id })
+                                )
+                            }
+                        }
+                    }
+                    .padding(.horizontal, .spacingM)
+
+                    Divider()
+                        .padding(.horizontal, .spacingM)
+
                     // Settings/Actions
                     VStack(spacing: .spacingS) {
                         ProfileActionButton(
@@ -157,6 +189,36 @@ struct ProfileStatRow: View {
         .padding(.spacingS)
         .background(Color.backgroundSecondary)
         .cornerRadius(.radiusM)
+    }
+}
+
+// MARK: - Badge Card View
+struct BadgeCardView: View {
+    let badge: Badge
+    let isEarned: Bool
+
+    var body: some View {
+        VStack(spacing: .spacingS) {
+            ZStack {
+                Circle()
+                    .fill(isEarned ? Color(hex: badge.rarity.colorHex).opacity(0.2) : Color.backgroundSecondary)
+                    .frame(width: 64, height: 64)
+
+                Image(systemName: badge.iconName)
+                    .font(.system(size: 28))
+                    .foregroundStyle(isEarned ? Color(hex: badge.rarity.colorHex) : Color.textTertiary)
+            }
+
+            Text(badge.name)
+                .font(.small)
+                .foregroundStyle(isEarned ? Color.textPrimary : Color.textTertiary)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+        }
+        .padding(.spacingS)
+        .background(Color.backgroundSecondary)
+        .cornerRadius(.radiusM)
+        .opacity(isEarned ? 1.0 : 0.5)
     }
 }
 

@@ -8,11 +8,12 @@
 import Foundation
 
 /// Status of a live game
-enum GameStatus: String, Codable {
+public enum GameStatus: String, Codable, Hashable {
     case scheduled
     case inProgress = "in_progress"
     case halftime
     case final
+    case completed
     case postponed
     case cancelled
 }

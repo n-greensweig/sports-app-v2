@@ -27,55 +27,8 @@ struct ReviewView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else if viewModel.dueCards.isEmpty {
                     NoReviewsView()
-                } else if let currentCard = viewModel.currentCard {
-                    // Progress Bar
-                    VStack(spacing: .spacingS) {
-                        HStack {
-                            Text("\(viewModel.cardsRemaining) cards left")
-                                .font(.caption)
-                                .foregroundStyle(Color.textSecondary)
-
-                            Spacer()
-
-                            if let session = viewModel.reviewSession {
-                                Text("\(session.correctAnswers)/\(session.cardsReviewed)")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.textSecondary)
-                            }
-                        }
-
-                        ProgressBar(
-                            progress: viewModel.progress,
-                            color: Color.footballAccent,
-                            height: 6
-                        )
-                    }
-                    .padding(.horizontal, .spacingM)
-                    .padding(.top, .spacingS)
-
-                    // Card content would go here
-                    // For now, placeholder
-                    VStack {
-                        Text("Review Card #\(viewModel.currentCardIndex + 1)")
-                            .font(.heading2)
-                            .padding(.spacingXL)
-
-                        Spacer()
-
-                        // Mock buttons for demo
-                        HStack(spacing: .spacingM) {
-                            Button("Incorrect") {
-                                viewModel.submitReview(isCorrect: false)
-                            }
-                            .buttonStyle(.bordered)
-
-                            Button("Correct") {
-                                viewModel.submitReview(isCorrect: true)
-                            }
-                            .buttonStyle(.borderedProminent)
-                        }
-                        .padding(.spacingM)
-                    }
+                } else if viewModel.currentCard != nil {
+                    ReviewCardContentView(viewModel: viewModel)
                 } else {
                     ReviewCompleteView(session: viewModel.reviewSession!)
                 }
@@ -109,6 +62,71 @@ struct NoReviewsView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(.spacingXL)
+    }
+}
+
+// MARK: - Review Card Content View
+struct ReviewCardContentView: View {
+    let viewModel: ReviewViewModel
+
+    var body: some View {
+        VStack(spacing: 0) {
+            reviewProgress
+            reviewCardPlaceholder
+        }
+    }
+
+    private var reviewProgress: some View {
+        VStack(spacing: .spacingS) {
+            HStack {
+                Text("\(viewModel.cardsRemaining) cards left")
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary)
+
+                Spacer()
+
+                if let session = viewModel.reviewSession {
+                    Text("\(session.correctAnswers)/\(session.cardsReviewed)")
+                        .font(.caption)
+                        .foregroundStyle(Color.textSecondary)
+                }
+            }
+
+            ProgressBar(
+                progress: viewModel.progress,
+                color: Color.footballAccent,
+                height: 6
+            )
+        }
+        .padding(.horizontal, .spacingM)
+        .padding(.top, .spacingS)
+    }
+
+    private var reviewCardPlaceholder: some View {
+        VStack {
+            Text("Review Card #\(viewModel.currentCardIndex + 1)")
+                .font(.heading2)
+                .padding(.spacingXL)
+
+            Spacer()
+
+            reviewButtons
+        }
+    }
+
+    private var reviewButtons: some View {
+        HStack(spacing: .spacingM) {
+            Button("Incorrect") {
+                viewModel.submitReview(isCorrect: false)
+            }
+            .buttonStyle(.bordered)
+
+            Button("Correct") {
+                viewModel.submitReview(isCorrect: true)
+            }
+            .buttonStyle(.borderedProminent)
+        }
+        .padding(.spacingM)
     }
 }
 

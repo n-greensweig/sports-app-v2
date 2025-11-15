@@ -78,7 +78,7 @@ class LessonViewModel {
         case .multiSelect:
             userAnswer = .multiple(Array(selectedAnswers).sorted())
         case .slider:
-            userAnswer = .range(sliderValue)
+            userAnswer = .slider(sliderValue)
         case .freeText:
             userAnswer = .text(textAnswer.trimmingCharacters(in: .whitespacesAndNewlines))
         case .clipLabel:
@@ -118,7 +118,7 @@ class LessonViewModel {
             return (userIndex == 0 && correctBool) || (userIndex == 1 && !correctBool)
         case (.multiple(let userIndices), .multiple(let correctIndices)):
             return Set(userIndices) == Set(correctIndices)
-        case (.range(let userValue), .range(let min, let max)):
+        case (.slider(let userValue), .range(let min, let max)):
             return userValue >= min && userValue <= max
         case (.text(let userText), .text(let correctText)):
             return userText.lowercased() == correctText.lowercased()

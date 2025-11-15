@@ -57,8 +57,25 @@ struct HomeView: View {
                                     .foregroundStyle(Color.textPrimary)
 
                                 ForEach(viewModel.sports) { sport in
-                                    SportCard(sport: sport) {
-                                        // Navigate to sport
+                                    if sport.id == Sport.football.id {
+                                        NavigationLink {
+                                            LessonView(
+                                                lesson: .footballBasicsLesson1,
+                                                sport: sport,
+                                                coordinator: coordinator
+                                            )
+                                        } label: {
+                                            SportCardContent(sport: sport)
+                                        }
+                                    } else {
+                                        NavigationLink {
+                                            SportModulesView(
+                                                sport: sport,
+                                                coordinator: coordinator
+                                            )
+                                        } label: {
+                                            SportCardContent(sport: sport)
+                                        }
                                     }
                                 }
                             }
@@ -111,6 +128,40 @@ struct StatItem: View {
                 .foregroundStyle(Color.textSecondary)
         }
         .frame(maxWidth: .infinity)
+    }
+}
+
+// MARK: - Sport Card Content (for NavigationLink)
+struct SportCardContent: View {
+    let sport: Sport
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: .spacingS) {
+            HStack {
+                Image(systemName: sport.iconName)
+                    .font(.system(size: 32))
+                    .foregroundStyle(sport.accentColor)
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 16))
+                    .foregroundStyle(Color.textSecondary)
+            }
+
+            Text(sport.name)
+                .font(.heading3)
+                .foregroundStyle(Color.textPrimary)
+
+            Text(sport.description)
+                .font(.bodySmall)
+                .foregroundStyle(Color.textSecondary)
+                .lineLimit(2)
+        }
+        .padding(.spacingM)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.backgroundSecondary)
+        .cornerRadius(.radiusL)
     }
 }
 

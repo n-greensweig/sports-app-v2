@@ -29,8 +29,12 @@ struct ReviewCard: Identifiable, Codable {
     mutating func recordReview(quality: Int) {
         let q = max(0, min(5, quality)) // Clamp to 0-5
 
-        // Update ease factor
-        easeFactor = max(1.3, easeFactor + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02)))
+        // Update ease factor (SM-2 algorithm)
+        let qualityDiff = Double(5 - q)
+        let innerCalc = 0.08 + qualityDiff * 0.02
+        let adjustment = 0.1 - qualityDiff * innerCalc
+        let newEaseFactor = easeFactor + adjustment
+        easeFactor = max(1.3, newEaseFactor)
 
         // Update repetitions and interval
         if q < 3 {

@@ -49,6 +49,23 @@ struct HomeView: View {
                             currentStreak: viewModel.userProgress?.currentStreak ?? 0
                         )
 
+                        // Error Message
+                        if let errorMessage = viewModel.errorMessage {
+                            VStack(spacing: .spacingM) {
+                                Text("⚠️ Error")
+                                    .font(.heading3)
+                                    .foregroundStyle(Color.incorrect)
+
+                                Text(errorMessage)
+                                    .font(.body)
+                                    .foregroundStyle(Color.textSecondary)
+                                    .multilineTextAlignment(.center)
+                            }
+                            .padding(.spacingL)
+                            .background(Color.incorrect.opacity(0.1))
+                            .cornerRadius(.radiusL)
+                        }
+
                         // Continue Learning
                         if !viewModel.sports.isEmpty {
                             VStack(alignment: .leading, spacing: .spacingM) {
@@ -79,6 +96,25 @@ struct HomeView: View {
                                     }
                                 }
                             }
+                        } else if viewModel.errorMessage == nil {
+                            // No sports loaded but no error - show debug info
+                            VStack(spacing: .spacingM) {
+                                Text("🔍 Debug Info")
+                                    .font(.heading3)
+                                    .foregroundStyle(Color.warning)
+
+                                Text("Sports array is empty. This could mean:\n• Supabase query returned no results\n• Database has no active sports\n• Silent error occurred")
+                                    .font(.caption)
+                                    .foregroundStyle(Color.textSecondary)
+                                    .multilineTextAlignment(.center)
+
+                                Text("Check Xcode console for errors")
+                                    .font(.caption)
+                                    .foregroundStyle(Color.brandPrimary)
+                            }
+                            .padding(.spacingL)
+                            .background(Color.warning.opacity(0.1))
+                            .cornerRadius(.radiusL)
                         }
                     }
                 }

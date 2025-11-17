@@ -9,7 +9,7 @@
 ## Quick Reference
 
 **Total Tasks**: 8
-**Completed**: 4 / 8
+**Completed**: 5 / 8
 **In Progress**: 0
 **Estimated Total Time**: ~5 hours
 
@@ -21,8 +21,8 @@
 - [x] **Task 2**: Environment Configuration Files ⚡ **COMPLETED**
 - [x] **Task 3**: iOS Supabase Client Setup ⚡ **COMPLETED**
 - [x] **Task 4**: DTOs and Data Transfer Objects ⚡ **COMPLETED**
-- [ ] **Task 5**: Repository Implementation - Learning **← NEXT**
-- [ ] **Task 6**: Repository Implementation - User & Progress
+- [x] **Task 5**: Repository Implementation - Learning ⚡ **COMPLETED**
+- [ ] **Task 6**: Repository Implementation - User & Progress **← NEXT**
 - [ ] **Task 7**: Repository Implementation - Games & Live
 - [ ] **Task 8**: Authentication Integration
 
@@ -811,11 +811,12 @@ Total Execution Time: ~90 minutes (including error fixes and testing)
 
 # Task 5: Repository Implementation - Learning
 
-**Status**: [ ] Not Started | [ ] In Progress | [ ] Complete
+**Status**: [ ] Not Started | [ ] In Progress | [x] Complete ⚡
 **Prerequisites**: Task 3 (SupabaseClient), Task 4 (DTOs)
 **Can Run in Parallel With**: Tasks 6, 7
-**Agent Assigned**: ___________
+**Agent Assigned**: Codex (GPT-5) + Claude (2025-11-16)
 **Estimated Time**: 45 minutes
+**Actual Time**: ~50 minutes (including build error fixes)
 
 ## Objectives
 
@@ -828,57 +829,57 @@ Total Execution Time: ~90 minutes (including error fixes and testing)
 ## Steps
 
 ### 5.1 Create Repository File
-- [ ] Create `/ios/SportsIQ/SportsIQ/Core/Data/Repositories/SupabaseLearningRepository.swift`
+- [x] Create `/ios/SportsIQ/SportsIQ/Core/Data/Repositories/SupabaseLearningRepository.swift`
 
 ### 5.2 Implement Repository Class
-- [ ] Implement `LearningRepository` protocol
-- [ ] Inject SupabaseClient as dependency
-- [ ] Implement methods:
+- [x] Implement `LearningRepository` protocol
+- [x] Inject SupabaseClient as dependency
+- [x] Implement methods:
 
 #### `fetchSports()`
-- [ ] Query `sports` table
-- [ ] Filter by `is_active = true`
-- [ ] Order by `display_order`
-- [ ] Convert DTOs to Domain entities
+- [x] Query `sports` table
+- [x] Filter by `is_active = true`
+- [x] Order by `display_order`
+- [x] Convert DTOs to Domain entities
 
 #### `fetchModules(sportId:)`
-- [ ] Query `modules` table with foreign key
-- [ ] Include related data if needed
-- [ ] Handle locked/unlocked logic
-- [ ] Order by `order_index`
+- [x] Query `modules` table with foreign key
+- [x] Include related data if needed
+- [x] Handle locked/unlocked logic
+- [x] Order by `order_index`
 
 #### `fetchLessons(moduleId:)`
-- [ ] Query `lessons` table
-- [ ] Check if lessons are locked based on user progress
-- [ ] Order by `order_index`
+- [x] Query `lessons` table
+- [x] Check if lessons are locked based on user progress
+- [x] Order by `order_index`
 
 #### `fetchLesson(id:)`
-- [ ] Query single lesson with items
-- [ ] Join with `items` table
-- [ ] Include media URLs
-- [ ] Sort items by `order_index`
+- [x] Query single lesson with items
+- [x] Join with `items` table
+- [x] Include media URLs
+- [x] Sort items by `order_index`
 
 #### `submitAnswer(itemId:answer:userId:)`
-- [ ] Insert into `submissions` table
-- [ ] Check if answer is correct
-- [ ] Award XP if correct
-- [ ] Update user progress
-- [ ] Return result with feedback
+- [x] Insert into `submissions` table
+- [x] Check if answer is correct
+- [x] Award XP if correct
+- [x] Update user progress
+- [x] Return result with feedback
 
 ### 5.3 Add Error Handling
-- [ ] Wrap Supabase calls in try/catch
-- [ ] Map Supabase errors to NetworkError
-- [ ] Add retry logic for network failures
-- [ ] Log errors appropriately
+- [x] Wrap Supabase calls in try/catch
+- [x] Map Supabase errors to NetworkError
+- [x] Add retry logic for network failures
+- [x] Log errors appropriately
 
 ### 5.4 Add Caching (Optional)
-- [ ] Cache sports and modules locally
-- [ ] Implement cache invalidation
+- [x] Cache sports and modules locally
+- [x] Implement cache invalidation
 - [ ] Use UserDefaults or SwiftData for cache
 
 ### 5.5 Update Dependency Injection
-- [ ] Open `/ios/SportsIQ/SportsIQ/App/SportsIQApp.swift`
-- [ ] Replace MockLearningRepository with SupabaseLearningRepository
+- [x] Open `/ios/SportsIQ/SportsIQ/App/SportsIQApp.swift`
+- [x] Replace MockLearningRepository with SupabaseLearningRepository
 - [ ] OR create environment variable to toggle mock/real
 
 ### 5.6 Test Implementation
@@ -894,15 +895,28 @@ Total Execution Time: ~90 minutes (including error fixes and testing)
 - [x] All LearningRepository methods implemented
 - [x] Error handling added
 - [x] Dependency injection updated
-- [x] Integration tested with UI
+- [ ] Integration tested with UI (pending device + Supabase access)
 
 ## Notes & Issues
 
 ```
-[Agent: Add any notes, issues encountered, or deviations from plan here]
+Agent: Codex (GPT-5) + Claude (2025-11-16)
 
+- Implemented `SupabaseLearningRepository` with Postgrest queries, DTO decoding, submission writes, XP logging, and user progress updates, plus retry/error handling.
+- Added lightweight in-memory caches (sports, modules, lessons) with TTL-based invalidation; skipped UserDefaults persistence because requirements favor short-lived data.
+- Updated `SportsIQApp` dependency injection to use the Supabase-backed repository in production builds while keeping mocks for previews.
+- Unable to run simulator/UI verification from the CLI sandbox, so functional testing against the live Supabase instance still needs to be performed in Xcode.
 
+Build Errors Fixed (Claude - 2025-11-16):
+1. ✅ Line 189: compactMap closure needed explicit return type `-> Module?`
+   - Error: "'nil' is not compatible with closure result type 'Module'"
+   - Fix: Changed `{ dto in` to `{ dto -> Module? in`
 
+2. ✅ Line 195: .init() couldn't infer tuple type
+   - Error: "missing argument for parameter 'nilLiteral' in call"
+   - Fix: Changed `.init()` to explicit tuple `(totalLessons: 0, totalMinutes: 0, lockedLessons: 0)`
+
+Final Build Status: ✅ BUILD SUCCEEDED
 
 ```
 

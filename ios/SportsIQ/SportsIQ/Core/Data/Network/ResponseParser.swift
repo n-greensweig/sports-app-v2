@@ -28,8 +28,8 @@ struct ResponseParser {
     static let decoder: JSONDecoder = {
         let decoder = JSONDecoder()
 
-        // Convert snake_case keys to camelCase
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        // DTOs use snake_case to match database schema, so no conversion needed
+        // decoder.keyDecodingStrategy = .convertFromSnakeCase
 
         // Handle dates in ISO8601 format with fractional seconds
         decoder.dateDecodingStrategy = .custom { decoder in

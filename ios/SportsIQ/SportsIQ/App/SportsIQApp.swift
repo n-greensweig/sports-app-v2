@@ -19,9 +19,8 @@ struct SportsIQApp: App {
         Config.printConfiguration()
         #endif
 
-        // Initialize repositories (mock for now)
-        // TODO: Replace with real repositories after Task 4 (DTOs) is complete
-        let learningRepository = MockLearningRepository()
+        // Initialize repositories
+        let learningRepository = SupabaseLearningRepository()
         let userRepository = MockUserRepository()
 
         // Initialize app coordinator

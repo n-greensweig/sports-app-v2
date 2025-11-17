@@ -21,7 +21,7 @@ struct SportsIQApp: App {
 
         // Initialize repositories
         let learningRepository = SupabaseLearningRepository()
-        let userRepository = MockUserRepository()
+        let userRepository = SupabaseUserRepository()
 
         // Initialize app coordinator
         self._appCoordinator = State(initialValue: AppCoordinator(

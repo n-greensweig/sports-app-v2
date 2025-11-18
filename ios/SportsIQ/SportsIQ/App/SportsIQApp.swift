@@ -37,6 +37,9 @@ struct SportsIQApp: App {
         WindowGroup {
             appCoordinator.start()
                 .environment(supabaseService)
+                .onOpenURL { url in
+                    handleIncomingURL(url)
+                }
         }
     }
 }

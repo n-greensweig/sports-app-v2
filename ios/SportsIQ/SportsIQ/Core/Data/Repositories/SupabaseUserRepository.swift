@@ -44,12 +44,9 @@ final class SupabaseUserRepository: UserRepository {
     // MARK: - UserRepository
 
     func getCurrentUser() async throws -> User? {
-        // TODO: Implement when authentication is set up (Task 8)
-        // For now, return nil or a mock user
-        #if DEBUG
-        print("⚠️ SupabaseUserRepository.getCurrentUser() - Not implemented (requires auth)")
-        #endif
-        return nil
+        // Get current user from AuthService
+        let authService = AuthService.shared
+        return authService.currentUser
     }
 
     func getUser(id: UUID) async throws -> User? {

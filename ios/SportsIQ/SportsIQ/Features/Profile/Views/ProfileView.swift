@@ -10,6 +10,8 @@ import SwiftUI
 struct ProfileView: View {
     let coordinator: AppCoordinator
     @State private var viewModel: ProfileViewModel
+    @State private var showSignOutAlert = false
+    @State private var isSigningOut = false
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
@@ -147,8 +149,8 @@ struct ProfileView: View {
 
                         ProfileActionButton(
                             icon: "arrow.right.square.fill",
-                            label: "Sign Out",
-                            action: {},
+                            label: isSigningOut ? "Signing Out..." : "Sign Out",
+                            action: { showSignOutAlert = true },
                             isDestructive: true
                         )
                     }
@@ -160,7 +162,29 @@ struct ProfileView: View {
             .task {
                 await viewModel.loadUserProgress()
             }
+            .alert("Sign Out", isPresented: $showSignOutAlert) {
+                Button("Cancel", role: .cancel) { }
+                Button("Sign Out", role: .destructive) {
+                    Task {
+                        await signOut()
+                    }
+                }
+            } message: {
+                Text("Are you sure you want to sign out?")
+            }
         }
+    }
+
+    // MARK: - Methods
+
+    private func signOut() async {
+        isSigningOut = true
+        do {
+            try await coordinator.authService.signOut()
+        } catch {
+            print("❌ Sign out error: \(error.localizedDescription)")
+        }
+        isSigningOut = false
     }
 }
 

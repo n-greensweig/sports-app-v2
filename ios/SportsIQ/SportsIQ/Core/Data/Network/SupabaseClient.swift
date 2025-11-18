@@ -76,13 +76,12 @@ class SupabaseService {
         }
     }
 
-    // Authentication methods commented out until Task 8 (Authentication Integration)
-    // Uncomment these when implementing authentication
+    // MARK: - Authentication Helpers
+    // Task 8: Authentication Integration - COMPLETED
 
-    /*
     /// Get current authenticated user
     /// - Returns: Current user session, or nil if not authenticated
-    func getCurrentUser() async -> Auth.User? {
+    func getCurrentUser() async -> Supabase.User? {
         do {
             let session = try await client.auth.session
             return session.user
@@ -99,7 +98,25 @@ class SupabaseService {
     func isAuthenticated() async -> Bool {
         return await getCurrentUser() != nil
     }
-    */
+
+    /// Get current session
+    /// - Returns: Current session, or nil if not authenticated
+    func getCurrentSession() async -> Supabase.Session? {
+        do {
+            return try await client.auth.session
+        } catch {
+            return nil
+        }
+    }
+
+    /// Get access token for authenticated requests
+    /// - Returns: Access token string, or nil if not authenticated
+    func getAccessToken() async -> String? {
+        guard let session = await getCurrentSession() else {
+            return nil
+        }
+        return session.accessToken
+    }
 }
 
 // MARK: - Testing Support

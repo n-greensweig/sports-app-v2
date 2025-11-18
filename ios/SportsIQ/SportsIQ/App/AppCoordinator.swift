@@ -14,24 +14,30 @@ class AppCoordinator {
     let learningRepository: LearningRepository
     let userRepository: UserRepository
     let gameRepository: GameRepository
+    let authService: AuthService
 
     // MARK: - State
-    var currentUser: User?
-    var isAuthenticated: Bool = false
+    var currentUser: User? {
+        authService.currentUser
+    }
+
+    var isAuthenticated: Bool {
+        authService.isAuthenticated
+    }
 
     init(
         learningRepository: LearningRepository,
         userRepository: UserRepository,
-        gameRepository: GameRepository
+        gameRepository: GameRepository,
+        authService: AuthService = AuthService.shared
     ) {
         self.learningRepository = learningRepository
         self.userRepository = userRepository
         self.gameRepository = gameRepository
+        self.authService = authService
 
-        // For mock purposes, set user as authenticated
-        // In production, this would check Clerk auth state
-        self.isAuthenticated = true
-        self.currentUser = User.mock
+        // Set up auth state listener
+        authService.setupAuthStateListener()
     }
 
     @ViewBuilder
@@ -39,9 +45,7 @@ class AppCoordinator {
         if isAuthenticated {
             MainTabView(coordinator: self)
         } else {
-            // Auth flow would go here
-            Text("Authentication Screen")
-                .font(.heading1)
+            LoginView()
         }
     }
 }

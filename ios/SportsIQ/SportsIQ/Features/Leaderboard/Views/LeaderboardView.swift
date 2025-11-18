@@ -207,6 +207,7 @@ struct LeaderboardEntryRow: View {
 #Preview("Leaderboard") {
     LeaderboardView(coordinator: AppCoordinator(
         learningRepository: MockLearningRepository(),
-        userRepository: MockUserRepository()
+        userRepository: MockUserRepository(),
+        gameRepository: MockGameRepository()
     ))
 }

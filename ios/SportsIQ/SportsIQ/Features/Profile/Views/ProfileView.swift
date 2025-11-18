@@ -257,6 +257,7 @@ struct ProfileActionButton: View {
 #Preview("Profile View") {
     ProfileView(coordinator: AppCoordinator(
         learningRepository: MockLearningRepository(),
-        userRepository: MockUserRepository()
+        userRepository: MockUserRepository(),
+        gameRepository: MockGameRepository()
     ))
 }

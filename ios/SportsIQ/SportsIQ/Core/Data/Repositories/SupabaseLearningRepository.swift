@@ -470,7 +470,7 @@ final class SupabaseLearningRepository: LearningRepository {
     private func fetchLessonSummaries(for moduleIds: [UUID]) async throws -> [UUID: (totalLessons: Int, totalMinutes: Int, lockedLessons: Int)] {
         guard !moduleIds.isEmpty else { return [:] }
 
-            let response = try await self.client
+        let response = try await self.client
             .from("lessons")
             .select("module_id, est_minutes, is_locked")
             .in("module_id", values: moduleIds.map { $0.uuidString })
@@ -494,7 +494,7 @@ final class SupabaseLearningRepository: LearningRepository {
     private func fetchLessons(for moduleIds: [UUID]) async throws -> [UUID: [Lesson]] {
         guard !moduleIds.isEmpty else { return [:] }
 
-            let response = try await self.client
+        let response = try await self.client
             .from("lessons")
             .select()
             .in("module_id", values: moduleIds.map { $0.uuidString })
@@ -529,7 +529,7 @@ final class SupabaseLearningRepository: LearningRepository {
     }
 
     private func fetchLessonDetail(id: UUID) async throws -> Lesson? {
-            let response = try await self.client
+        let response = try await self.client
             .from("lessons")
             .select()
             .eq("id", value: id.uuidString)
@@ -546,7 +546,7 @@ final class SupabaseLearningRepository: LearningRepository {
     private func fetchItems(forLessonIds lessonIds: [UUID]) async throws -> [UUID: [Item]] {
         guard !lessonIds.isEmpty else { return [:] }
 
-            let response = try await self.client
+        let response = try await self.client
             .from("items")
             .select()
             .in("lesson_id", values: lessonIds.map { $0.uuidString })
@@ -584,7 +584,7 @@ final class SupabaseLearningRepository: LearningRepository {
     private func fetchActiveVariants(forItemIds itemIds: [UUID]) async throws -> [String: ItemVariantDTO] {
         guard !itemIds.isEmpty else { return [:] }
 
-            let response = try await self.client
+        let response = try await self.client
             .from("item_variants")
             .select()
             .in("item_id", values: itemIds.map { $0.uuidString })

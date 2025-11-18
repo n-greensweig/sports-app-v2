@@ -169,6 +169,7 @@ struct ReviewCompleteView: View {
 #Preview("Review View") {
     ReviewView(coordinator: AppCoordinator(
         learningRepository: MockLearningRepository(),
-        userRepository: MockUserRepository()
+        userRepository: MockUserRepository(),
+        gameRepository: MockGameRepository()
     ))
 }

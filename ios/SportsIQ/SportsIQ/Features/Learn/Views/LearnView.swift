@@ -149,6 +149,7 @@ struct ModuleCard: View {
 #Preview("Learn View") {
     LearnView(coordinator: AppCoordinator(
         learningRepository: MockLearningRepository(),
-        userRepository: MockUserRepository()
+        userRepository: MockUserRepository(),
+        gameRepository: MockGameRepository()
     ))
 }

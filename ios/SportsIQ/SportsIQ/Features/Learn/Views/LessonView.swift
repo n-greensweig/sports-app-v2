@@ -331,7 +331,8 @@ struct FeedbackCard: View {
             sport: .football,
             coordinator: AppCoordinator(
                 learningRepository: MockLearningRepository(),
-                userRepository: MockUserRepository()
+                userRepository: MockUserRepository(),
+                gameRepository: MockGameRepository()
             )
         )
     }

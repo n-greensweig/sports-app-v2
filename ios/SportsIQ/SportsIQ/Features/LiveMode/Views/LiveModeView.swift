@@ -243,6 +243,7 @@ struct NoLiveGamesCard: View {
 #Preview("Live Mode") {
     LiveModeView(coordinator: AppCoordinator(
         learningRepository: MockLearningRepository(),
-        userRepository: MockUserRepository()
+        userRepository: MockUserRepository(),
+        gameRepository: MockGameRepository()
     ))
 }

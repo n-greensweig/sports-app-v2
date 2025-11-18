@@ -13,14 +13,20 @@ class AppCoordinator {
     // MARK: - Dependencies
     let learningRepository: LearningRepository
     let userRepository: UserRepository
+    let gameRepository: GameRepository
 
     // MARK: - State
     var currentUser: User?
     var isAuthenticated: Bool = false
 
-    init(learningRepository: LearningRepository, userRepository: UserRepository) {
+    init(
+        learningRepository: LearningRepository,
+        userRepository: UserRepository,
+        gameRepository: GameRepository
+    ) {
         self.learningRepository = learningRepository
         self.userRepository = userRepository
+        self.gameRepository = gameRepository
 
         // For mock purposes, set user as authenticated
         // In production, this would check Clerk auth state

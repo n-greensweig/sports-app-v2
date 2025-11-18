@@ -204,6 +204,7 @@ struct SportCardContent: View {
 #Preview("Home View") {
     HomeView(coordinator: AppCoordinator(
         learningRepository: MockLearningRepository(),
-        userRepository: MockUserRepository()
+        userRepository: MockUserRepository(),
+        gameRepository: MockGameRepository()
     ))
 }

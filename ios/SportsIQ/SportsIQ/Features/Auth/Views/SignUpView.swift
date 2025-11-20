@@ -21,6 +21,7 @@ struct SignUpView: View {
     @State private var confirmPassword = ""
     @State private var isLoading = false
     @State private var errorMessage: String?
+    @State private var currentNonce: String?
 
     // MARK: - Body
 
@@ -197,7 +198,10 @@ struct SignUpView: View {
                         VStack(spacing: .spacingM) {
                             // Sign up with Apple
                             SignInWithAppleButton(.signUp) { request in
+                                let nonce = CryptoUtils.randomNonceString()
+                                currentNonce = nonce
                                 request.requestedScopes = [.fullName, .email]
+                                request.nonce = CryptoUtils.sha256(nonce)
                             } onCompletion: { result in
                                 Task {
                                     await handleAppleSignUp(result)
@@ -295,7 +299,11 @@ struct SignUpView: View {
                 throw AuthError.invalidAppleCredential
             }
 
-            _ = try await authService.signInWithApple(credential: credential)
+            guard let nonce = currentNonce else {
+                throw AuthError.invalidAppleCredential
+            }
+
+            _ = try await authService.signInWithApple(credential: credential, nonce: nonce)
             // AuthService will update the auth state, which will trigger navigation
             dismiss()
         } catch {

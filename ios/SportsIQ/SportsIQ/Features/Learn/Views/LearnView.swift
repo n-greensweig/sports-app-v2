@@ -40,7 +40,32 @@ struct LearnView: View {
                                         coordinator: coordinator
                                     )
                                 } label: {
-                                    SportCard(sport: sport, action: {})
+                                    VStack(alignment: .leading, spacing: .spacingS) {
+                                        HStack {
+                                            Image(systemName: sport.iconName)
+                                                .font(.system(size: 32))
+                                                .foregroundStyle(sport.accentColor)
+
+                                            Spacer()
+
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 16))
+                                                .foregroundStyle(Color.textSecondary)
+                                        }
+
+                                        Text(sport.name)
+                                            .font(.heading3)
+                                            .foregroundStyle(Color.textPrimary)
+
+                                        Text(sport.description)
+                                            .font(.bodySmall)
+                                            .foregroundStyle(Color.textSecondary)
+                                            .lineLimit(2)
+                                    }
+                                    .padding(.spacingM)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .background(Color.backgroundSecondary)
+                                    .cornerRadius(.radiusL)
                                 }
                             }
                         }
@@ -70,6 +95,17 @@ struct SportModulesView: View {
                     ProgressView()
                         .frame(maxWidth: .infinity)
                         .padding(.spacingXL)
+                } else if modules.isEmpty {
+                    VStack(spacing: .spacingM) {
+                        Text("No modules available")
+                            .font(.heading3)
+                            .foregroundStyle(Color.textPrimary)
+                        Text("Modules will appear here once they're loaded")
+                            .font(.body)
+                            .foregroundStyle(Color.textSecondary)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.spacingXL)
                 } else {
                     ForEach(modules) { module in
                         NavigationLink {
@@ -95,10 +131,12 @@ struct SportModulesView: View {
 
     private func loadModules() async {
         isLoading = true
+        print("🔍 Loading modules for sport: \(sport.name) (ID: \(sport.id))")
         do {
             modules = try await coordinator.learningRepository.getModules(sportId: sport.id)
+            print("✅ Loaded \(modules.count) modules: \(modules.map { $0.title })")
         } catch {
-            print("Error loading modules: \(error)")
+            print("❌ Error loading modules: \(error)")
         }
         isLoading = false
     }

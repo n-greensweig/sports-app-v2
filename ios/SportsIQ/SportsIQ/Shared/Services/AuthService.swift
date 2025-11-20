@@ -198,7 +198,7 @@ class AuthService {
 
     /// Sign in with Apple
     @MainActor
-    func signInWithApple(credential: ASAuthorizationAppleIDCredential) async throws -> User {
+    func signInWithApple(credential: ASAuthorizationAppleIDCredential, nonce: String) async throws -> User {
         isLoading = true
         defer { isLoading = false }
 
@@ -212,7 +212,8 @@ class AuthService {
             let session = try await supabase.auth.signInWithIdToken(
                 credentials: .init(
                     provider: .apple,
-                    idToken: tokenString
+                    idToken: tokenString,
+                    nonce: nonce
                 )
             )
 

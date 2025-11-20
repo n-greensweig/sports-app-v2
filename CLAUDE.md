@@ -1300,12 +1300,14 @@ class KeychainManager {
 - ✅ Project scope document
 - ✅ Database schema design
 - ✅ iOS Xcode project with SwiftUI
-- ✅ Supabase authentication (email/password, Apple Sign In)
+- ✅ Supabase authentication (email/password, Google Sign In, Apple Sign In)
 - ✅ Core domain models and repositories
 - ✅ Learn Mode basic implementation
 - ✅ Profile and Home views
 - ✅ Gamification UI (badges, leaderboards, XP)
 - ✅ Mock data for testing
+- ✅ Google Sign In Integration (with nonce support)
+- ✅ Apple Sign In Integration (with nonce support)
 
 **In Progress** (App Store Preparation):
 
@@ -1316,32 +1318,28 @@ class KeychainManager {
 
 2. **App Configuration**
    - Create Info.plist with required keys
-   - Create PrivacyInfo.xcprivacy
-   - Configure URL schemes for deep linking
+   - ✅ Create PrivacyInfo.xcprivacy
+   - ✅ Configure URL schemes for deep linking
    - Set up app icon
 
-3. **Google Sign In Integration**
-   - Add GoogleSignIn SDK
-   - Complete OAuth flow implementation
-
-4. **Content Creation & Seeding**
+3. **Content Creation & Seeding**
    - Generate additional Football questions (AI-assisted)
    - Seed Supabase database with content
    - Test content delivery
 
-5. **Feature Completion**
+4. **Feature Completion**
    - Learn Mode polish (audio, haptics, celebration)
    - Review/SRS system implementation
    - Live Mode implementation
    - Error handling and offline support
 
-6. **Testing & QA**
+5. **Testing & QA**
    - Unit tests for critical paths
    - UI tests for main flows
    - Accessibility audit
    - TestFlight beta
 
-7. **App Store Submission**
+6. **App Store Submission**
    - Legal pages (Privacy Policy, ToS)
    - App Store assets (screenshots, description)
    - Final testing and submission

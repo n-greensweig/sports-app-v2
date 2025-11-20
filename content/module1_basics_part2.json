@@ -1,0 +1,440 @@
+{
+    "continuation_of": "module1_basics.json",
+    "additional_lessons": [
+        {
+            "title": "Basic Positions - Offense",
+            "description": "Learn the key offensive positions and their roles",
+            "order_index": 4,
+            "est_minutes": 5,
+            "xp_award": 80,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify QB",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "Who throws most of the passes on offense?",
+                        "options_json": [
+                            "Quarterback",
+                            "Running back",
+                            "Wide receiver"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The quarterback (QB) is the leader of the offense and throws most passes. They also hand the ball off to running backs and sometimes run themselves."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify RB",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "Which position primarily carries the ball on running plays?",
+                        "options_json": [
+                            "Quarterback",
+                            "Running back",
+                            "Offensive lineman"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "Running backs (RB) are the main ball carriers on run plays. They take handoffs from the QB and try to gain yards. They can also catch passes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify WR",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "Which players line up wide and catch passes?",
+                        "options_json": [
+                            "Wide receivers",
+                            "Offensive linemen",
+                            "Running backs"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Wide receivers (WR) line up near the sidelines and run routes to catch passes from the QB. They're usually the fastest players on offense."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand O-line",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is the main job of the offensive line?",
+                        "options_json": [
+                            "Catch passes",
+                            "Protect the QB and create running lanes",
+                            "Tackle defenders"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "The offensive line (5 big players) protects the QB from being tackled and blocks defenders to create running lanes for the running back."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify center",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Which offensive lineman snaps the ball to the quarterback?",
+                        "options_json": [
+                            "Center",
+                            "Guard",
+                            "Tackle"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The center is the middle offensive lineman who snaps (hikes) the ball to the QB to start each play. They're crucial for starting plays smoothly."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify TE",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Which position can both block like a lineman and catch passes like a receiver?",
+                        "options_json": [
+                            "Tight end",
+                            "Running back",
+                            "Quarterback"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The tight end (TE) is a hybrid position - they line up next to the offensive line and can either block defenders or run routes to catch passes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Count offensive players",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "How many offensive players are on the field at once?",
+                        "options_json": [
+                            "10",
+                            "11",
+                            "12"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "There are always 11 players on offense (and 11 on defense). Having too many or too few players on the field results in a penalty."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand snap",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is it called when the center gives the ball to the QB to start a play?",
+                        "options_json": [
+                            "Snap",
+                            "Handoff",
+                            "Pass"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The snap is when the center hikes the ball between his legs to the QB. This starts every offensive play. The QB usually yells signals before the snap."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Basic Positions - Defense",
+            "description": "Learn the key defensive positions and their roles",
+            "order_index": 5,
+            "est_minutes": 5,
+            "xp_award": 80,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand defense goal",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is the main goal of the defense?",
+                        "options_json": [
+                            "Score touchdowns",
+                            "Stop the offense from scoring",
+                            "Kick field goals"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "The defense tries to stop the offense from scoring and gaining yards. They can also score by getting interceptions or fumbles and running them back."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify DL",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "Which defensive players line up right across from the offensive line?",
+                        "options_json": [
+                            "Defensive linemen",
+                            "Linebackers",
+                            "Safeties"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Defensive linemen (DL) line up on the line of scrimmage across from offensive linemen. They try to tackle the QB or running back and stop runs."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify LB",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "Which defenders play behind the defensive line and can both rush the QB and cover receivers?",
+                        "options_json": [
+                            "Linebackers",
+                            "Cornerbacks",
+                            "Safeties"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Linebackers (LB) are versatile defenders who play behind the D-line. They stop runs, rush the QB, and cover receivers - they do it all!"
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify CB",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "Which defenders primarily cover wide receivers?",
+                        "options_json": [
+                            "Cornerbacks",
+                            "Linebackers",
+                            "Defensive linemen"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Cornerbacks (CB) are fast defenders who line up across from wide receivers. Their main job is to prevent receivers from catching passes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify safety",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Which defenders play deepest in the secondary and are the 'last line of defense'?",
+                        "options_json": [
+                            "Safeties",
+                            "Cornerbacks",
+                            "Linebackers"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Safeties (S) play deep in the secondary (defensive backfield). They prevent long passes and are the last defenders who can stop a touchdown."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand tackle",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What must the defense do to stop an offensive play?",
+                        "options_json": [
+                            "Tackle the ball carrier",
+                            "Catch the ball",
+                            "Block the offensive line"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "To stop a play, the defense must tackle (bring down) the player carrying the ball. The play ends when the ball carrier is tackled or goes out of bounds."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Count defensive players",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "How many defensive players are on the field at once?",
+                        "options_json": [
+                            "10",
+                            "11",
+                            "12"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "There are always 11 defensive players on the field, matching the 11 offensive players. Both teams must have exactly 11 players."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand secondary",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is the 'secondary' in football?",
+                        "options_json": [
+                            "The offensive line",
+                            "The defensive backs (CBs and safeties)",
+                            "The backup players"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "The secondary refers to the defensive backs - cornerbacks and safeties. They're called the secondary because they're the second level of defense behind the line and linebackers."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "The Field & Yard Lines",
+            "description": "Understand the football field layout and how to read yard lines",
+            "order_index": 6,
+            "est_minutes": 4,
+            "xp_award": 80,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Field length",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "How long is a football field from end zone to end zone?",
+                        "options_json": [
+                            "100 yards",
+                            "120 yards",
+                            "50 yards"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The playing field is 100 yards long (not counting the end zones). Each end zone adds 10 yards, making the total field 120 yards."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand 50-yard line",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is special about the 50-yard line?",
+                        "options_json": [
+                            "It's where teams score",
+                            "It's the middle of the field",
+                            "It's where the game starts"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "The 50-yard line is exactly in the middle of the field, 50 yards from each end zone. It's also called midfield."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Read yard lines",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "The ball is at the 25-yard line. How far is it from the nearest end zone?",
+                        "options_json": [
+                            "25 yards",
+                            "75 yards",
+                            "50 yards"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Yard lines show the distance to the nearest end zone. At the 25-yard line, the ball is 25 yards away from scoring a touchdown."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand goal line",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is the line that separates the field from the end zone called?",
+                        "options_json": [
+                            "Goal line",
+                            "End line",
+                            "Touchdown line"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The goal line is the line at the front of each end zone. When the ball crosses this line, it's a touchdown!"
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand line of scrimmage",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is the imaginary line where the ball is placed before each play called?",
+                        "options_json": [
+                            "Line of scrimmage",
+                            "Goal line",
+                            "First down line"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The line of scrimmage is where the ball is spotted. Both teams line up on either side of it, and the play starts when the ball is snapped."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand hash marks",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What are the short lines running down the field between the yard lines?",
+                        "options_json": [
+                            "Hash marks",
+                            "Goal lines",
+                            "Sidelines"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Hash marks are the small lines that run down the field. The ball is always placed on or between the hash marks, never too close to the sidelines."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand red zone",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is the area inside the opponent's 20-yard line called?",
+                        "options_json": [
+                            "Red zone",
+                            "End zone",
+                            "Danger zone"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The red zone is the area from the 20-yard line to the goal line. It's called this because the offense is close to scoring and the defense must be on high alert!"
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand sidelines",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What happens when a player with the ball steps on or crosses the sideline?",
+                        "options_json": [
+                            "The play continues",
+                            "The play is over and the clock stops",
+                            "It's a penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "When a player goes out of bounds (crosses the sideline), the play ends immediately and the clock stops. The ball is placed where they went out."
+                    }
+                }
+            ]
+        }
+    ]
+}

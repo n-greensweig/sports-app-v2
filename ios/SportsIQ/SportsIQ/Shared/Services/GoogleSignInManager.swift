@@ -9,7 +9,7 @@ import Foundation
 import Foundation
 import GoogleSignIn
 import AuthenticationServices
-import CryptoKit
+// CryptoKit is now imported in CryptoUtils
 
 /// Manager for Google Sign-In integration
 class GoogleSignInManager: NSObject {
@@ -27,8 +27,8 @@ class GoogleSignInManager: NSObject {
         }
         
         // 1. Generate nonce
-        let rawNonce = randomNonceString()
-        let hashedNonce = sha256(rawNonce)
+        let rawNonce = CryptoUtils.randomNonceString()
+        let hashedNonce = CryptoUtils.sha256(rawNonce)
         
         // 2. Sign in with the hashed nonce
         // In Google Sign-In SDK v9+, the nonce is passed directly to the signIn method
@@ -48,33 +48,7 @@ class GoogleSignInManager: NSObject {
     
     // MARK: - Helpers
     
-    private func randomNonceString(length: Int = 32) -> String {
-        precondition(length > 0)
-        var randomBytes = [UInt8](repeating: 0, count: length)
-        let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
-        if errorCode != errSecSuccess {
-            fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
-        }
-        
-        let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-        
-        let nonce = randomBytes.map { byte in
-            // Pick a random character from the set, wrapping around if needed.
-            charset[Int(byte) % charset.count]
-        }
-        
-        return String(nonce)
-    }
-    
-    private func sha256(_ input: String) -> String {
-        let inputData = Data(input.utf8)
-        let hashedData = SHA256.hash(data: inputData)
-        let hashString = hashedData.compactMap {
-            return String(format: "%02x", $0)
-        }.joined()
-        
-        return hashString
-    }
+
 }
 
 enum GoogleSignInError: LocalizedError {

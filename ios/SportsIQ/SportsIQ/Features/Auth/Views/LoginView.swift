@@ -21,6 +21,7 @@ struct LoginView: View {
     @State private var errorMessage: String?
     @State private var showSignUp = false
     @State private var showForgotPassword = false
+    @State private var currentNonce: String?
 
     // MARK: - Body
 
@@ -157,7 +158,10 @@ struct LoginView: View {
                         VStack(spacing: .spacingM) {
                             // Sign in with Apple
                             SignInWithAppleButton(.signIn) { request in
+                                let nonce = CryptoUtils.randomNonceString()
+                                currentNonce = nonce
                                 request.requestedScopes = [.fullName, .email]
+                                request.nonce = CryptoUtils.sha256(nonce)
                             } onCompletion: { result in
                                 Task {
                                     await handleAppleSignIn(result)
@@ -243,7 +247,11 @@ struct LoginView: View {
                 throw AuthError.invalidAppleCredential
             }
 
-            _ = try await authService.signInWithApple(credential: credential)
+            guard let nonce = currentNonce else {
+                throw AuthError.invalidAppleCredential
+            }
+
+            _ = try await authService.signInWithApple(credential: credential, nonce: nonce)
             // AuthService will update the auth state, which will trigger navigation
         } catch {
             errorMessage = error.localizedDescription

@@ -1,0 +1,585 @@
+{
+    "continuation_of": "module1_basics_part2.json",
+    "final_lessons": [
+        {
+            "title": "Game Clock & Quarters",
+            "description": "Learn how time works in football games",
+            "order_index": 7,
+            "est_minutes": 4,
+            "xp_award": 80,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Number of quarters",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "How many quarters are in a football game?",
+                        "options_json": [
+                            "2",
+                            "3",
+                            "4"
+                        ],
+                        "correct_answer_json": {
+                            "index": 2
+                        },
+                        "explanation_richtext": "A football game has 4 quarters. Each quarter is 15 minutes long, making a total of 60 minutes of game time."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Quarter length",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "How long is each quarter in an NFL game?",
+                        "options_json": [
+                            "10 minutes",
+                            "12 minutes",
+                            "15 minutes"
+                        ],
+                        "correct_answer_json": {
+                            "index": 2
+                        },
+                        "explanation_richtext": "Each quarter is 15 minutes long in the NFL. College and high school games may have different quarter lengths."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand halftime",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What happens between the 2nd and 3rd quarters?",
+                        "options_json": [
+                            "The game ends",
+                            "Halftime break",
+                            "Overtime"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "Halftime is a break between the 2nd and 3rd quarters. Teams go to their locker rooms to rest and adjust their game plans."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Clock stops",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "When does the game clock stop?",
+                        "options_json": [
+                            "After every play",
+                            "When a player goes out of bounds or a pass is incomplete",
+                            "Never"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "The clock stops when a player goes out of bounds, a pass is incomplete, there's a penalty, or a timeout is called. It keeps running on most tackles in bounds."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand timeout",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What can teams call to stop the clock and discuss strategy?",
+                        "options_json": [
+                            "Timeout",
+                            "Halftime",
+                            "Quarter break"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Teams can call timeouts to stop the clock and discuss plays. Each team gets 3 timeouts per half."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand two-minute warning",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is the 'two-minute warning'?",
+                        "options_json": [
+                            "A penalty",
+                            "An automatic timeout when 2 minutes remain in each half",
+                            "A warning about bad weather"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "The two-minute warning is an automatic timeout that occurs when 2 minutes remain in the 2nd and 4th quarters. It gives teams a chance to plan their final plays."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand overtime",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What happens if the score is tied at the end of the 4th quarter?",
+                        "options_json": [
+                            "The game ends in a tie",
+                            "Overtime period",
+                            "They replay the 4th quarter"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "If the score is tied, the game goes to overtime. In the NFL, overtime is sudden death (first team to score wins) with some special rules."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Play clock",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "How long does the offense have to snap the ball after the previous play ends?",
+                        "options_json": [
+                            "25 seconds",
+                            "40 seconds",
+                            "60 seconds"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "The play clock gives the offense 40 seconds (sometimes 25) to snap the ball. If they don't snap in time, it's a delay of game penalty."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Common Penalties",
+            "description": "Learn the most common penalties and what they mean",
+            "order_index": 8,
+            "est_minutes": 5,
+            "xp_award": 80,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand penalty",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What happens when a team commits a penalty?",
+                        "options_json": [
+                            "They lose points",
+                            "They lose yards",
+                            "The game ends"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "When a team commits a penalty, they usually lose yards. Offensive penalties move them back, defensive penalties give the offense yards."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "False start",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is it called when an offensive player moves before the snap?",
+                        "options_json": [
+                            "Offsides",
+                            "False start",
+                            "Holding"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "A false start is when an offensive player (except the QB) moves before the snap. It's a 5-yard penalty and the play doesn't count."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Offsides",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is it called when a defensive player crosses the line of scrimmage before the snap?",
+                        "options_json": [
+                            "False start",
+                            "Offsides",
+                            "Holding"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "Offsides is when a defensive player is on the wrong side of the line of scrimmage when the ball is snapped. It's a 5-yard penalty for the defense."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Holding penalty",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is holding?",
+                        "options_json": [
+                            "Catching the ball",
+                            "Illegally grabbing or restraining an opponent",
+                            "Keeping possession of the ball"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "Holding is when a player illegally grabs, hooks, or tackles an opponent who doesn't have the ball. It's a 10-yard penalty."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Pass interference",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is it called when a defender illegally prevents a receiver from catching a pass?",
+                        "options_json": [
+                            "Holding",
+                            "Pass interference",
+                            "Offsides"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "Pass interference is when a defender makes illegal contact with a receiver trying to catch a pass. It's a major penalty that gives the offense the ball at the spot of the foul."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand yellow flag",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What does it mean when a referee throws a yellow flag?",
+                        "options_json": [
+                            "Touchdown",
+                            "Penalty",
+                            "Timeout"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "A yellow flag thrown by a referee indicates a penalty. The referee will announce what the penalty is and which team committed it."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Delay of game",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What penalty occurs when the offense doesn't snap the ball before the play clock expires?",
+                        "options_json": [
+                            "False start",
+                            "Delay of game",
+                            "Offsides"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "Delay of game is a 5-yard penalty when the offense doesn't snap the ball in time. The play clock shows how much time they have."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Penalty acceptance",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "After a penalty, who decides whether to accept or decline it?",
+                        "options_json": [
+                            "The referees",
+                            "The team that didn't commit the penalty",
+                            "Both teams vote"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "The team that didn't commit the penalty can choose to accept it (take the yards) or decline it (let the play stand). They choose whichever helps them more."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Kickoffs & Returns",
+            "description": "Learn how games and halves start with kickoffs",
+            "order_index": 9,
+            "est_minutes": 4,
+            "xp_award": 80,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand kickoff",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "How does a football game start?",
+                        "options_json": [
+                            "With a kickoff",
+                            "With a coin toss",
+                            "With a touchdown"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The game starts with a kickoff. One team kicks the ball to the other team, who tries to catch it and run it back up the field."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Coin toss",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What determines which team kicks off first?",
+                        "options_json": [
+                            "Coin toss",
+                            "The home team always kicks",
+                            "The visiting team always kicks"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Before the game, there's a coin toss. The team that wins can choose to kick off, receive the kickoff, or pick which end zone to defend."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Kickoff return",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What should the receiving team do after catching a kickoff?",
+                        "options_json": [
+                            "Run it back toward the opponent's end zone",
+                            "Kick it back",
+                            "Throw it"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "After catching a kickoff, the receiving team's returner runs toward the opponent's end zone to gain as many yards as possible before being tackled."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Touchback",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a touchback on a kickoff?",
+                        "options_json": [
+                            "When the ball goes into the end zone and isn't returned",
+                            "When the kicker scores",
+                            "When there's a penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A touchback occurs when the kickoff goes into the end zone and the returner kneels or doesn't return it. The ball is placed at the 25-yard line."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "When kickoffs happen",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "When do kickoffs occur during a game?",
+                        "options_json": [
+                            "Only at the start",
+                            "At the start of each half and after scores",
+                            "After every play"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "Kickoffs happen at the start of each half and after every scoring play (touchdown or field goal). The scoring team kicks off to the other team."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Onside kick",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is an onside kick?",
+                        "options_json": [
+                            "A very long kick",
+                            "A short kick where the kicking team tries to recover the ball",
+                            "A kick that goes out of bounds"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "An onside kick is a short, intentional kick where the kicking team tries to recover the ball themselves. It's risky but used when a team is losing and needs the ball back quickly."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Fair catch",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What does it mean when a returner waves their arm before catching a kickoff or punt?",
+                        "options_json": [
+                            "They're calling for a timeout",
+                            "They're signaling a fair catch - they can't be tackled",
+                            "They're waving to the crowd"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "A fair catch signal (waving arm) means the returner won't be tackled, but they also can't run with the ball. The play starts where they catch it."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Kickoff out of bounds",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What happens if a kickoff goes out of bounds without being touched?",
+                        "options_json": [
+                            "The kicking team gets a penalty",
+                            "The receiving team gets the ball at the 40-yard line",
+                            "Both A and B"
+                        ],
+                        "correct_answer_json": {
+                            "index": 2
+                        },
+                        "explanation_richtext": "If a kickoff goes out of bounds untouched, it's a penalty. The receiving team usually gets the ball at their own 40-yard line, giving them good field position."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Fumbles & Turnovers",
+            "description": "Learn how possession can change during a play",
+            "order_index": 10,
+            "est_minutes": 4,
+            "xp_award": 80,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand fumble",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is a fumble?",
+                        "options_json": [
+                            "A bad pass",
+                            "When a player drops or loses the ball",
+                            "A type of penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "A fumble is when a player who has possession of the ball drops it or has it knocked out before being tackled. The ball is live and either team can recover it."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Fumble recovery",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What happens if the defense recovers a fumble?",
+                        "options_json": [
+                            "The play is over",
+                            "The defense gets possession",
+                            "It's a penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "If the defense recovers a fumble, they get possession of the ball! They can even run it back for a touchdown. This is called a turnover."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand turnover",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is a turnover?",
+                        "options_json": [
+                            "When possession changes from one team to the other",
+                            "When a player turns around",
+                            "A type of penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A turnover is when possession changes from one team to the other during a play. Fumbles and interceptions are the two main types of turnovers."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Interception return",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Can a defensive player who intercepts a pass run with the ball?",
+                        "options_json": [
+                            "No, the play is immediately over",
+                            "Yes, they can run it back for a touchdown",
+                            "Only if they're a linebacker"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "Yes! After an interception, the defensive player can run with the ball toward the opponent's end zone. If they score, it's called a 'pick-six' (6 points)."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Fumble out of bounds",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What happens if a fumbled ball goes out of bounds?",
+                        "options_json": [
+                            "The defense gets it",
+                            "The team that last touched it keeps possession",
+                            "It's a penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "If a fumble goes out of bounds, the team that last had possession before it went out keeps the ball. It's spotted where it went out of bounds."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Forced fumble",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is it called when a defensive player causes an offensive player to fumble?",
+                        "options_json": [
+                            "Forced fumble",
+                            "Strip sack",
+                            "Tackle"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A forced fumble is when a defender knocks or strips the ball out of an offensive player's hands. It's a great defensive play that can lead to a turnover."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Fumble vs incomplete pass",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "If a QB drops the ball while trying to throw, is it a fumble or incomplete pass?",
+                        "options_json": [
+                            "Always a fumble",
+                            "Always incomplete",
+                            "It depends on if his arm was moving forward"
+                        ],
+                        "correct_answer_json": {
+                            "index": 2
+                        },
+                        "explanation_richtext": "If the QB's arm was moving forward when he lost the ball, it's an incomplete pass. If his arm wasn't moving forward, it's a fumble. This is called the 'tuck rule' situation."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Turnover importance",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "Why are turnovers important in football?",
+                        "options_json": [
+                            "They're worth extra points",
+                            "They give the other team possession and momentum",
+                            "They stop the clock"
+                        ],
+                        "correct_answer_json": {
+                            "index": 1
+                        },
+                        "explanation_richtext": "Turnovers are huge because they give possession to the other team, often in good field position. They can completely change the momentum of a game!"
+                    }
+                }
+            ]
+        }
+    ]
+}

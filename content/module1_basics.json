@@ -1,0 +1,303 @@
+{
+  "module": {
+    "title": "Football Basics",
+    "description": "Master the fundamentals of football - from basic rules to understanding game flow",
+    "order_index": 1,
+    "min_level": 1,
+    "max_level": 2,
+    "xp_reward": 0,
+    "lessons": [
+      {
+        "title": "Runs vs Passes",
+        "description": "Learn to identify the two main types of offensive plays",
+        "order_index": 1,
+        "est_minutes": 4,
+        "xp_award": 80,
+        "items": [
+          {
+            "type": "mcq",
+            "base_prompt": "Identify play type",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "The quarterback hands the ball to a running back who runs forward. What type of play is this?",
+              "options_json": ["Run", "Pass"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "This is a run play. When the ball is handed off or the QB runs with it, it's a running play. A pass is when the QB throws the ball through the air."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify play type",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "The quarterback throws the ball to a receiver downfield. What type of play is this?",
+              "options_json": ["Run", "Pass"],
+              "correct_answer_json": {"index": 1},
+              "explanation_richtext": "This is a pass play. When the QB throws the ball through the air to a teammate, it's a passing play."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify play type",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "The quarterback keeps the ball and runs forward himself. What type of play is this?",
+              "options_json": ["Run", "Pass", "Kick"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "This is a run play. Even though the QB is running (not a running back), any play where someone carries the ball is a run."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify incomplete pass",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "The quarterback throws the ball but no one catches it. What happens next?",
+              "options_json": ["The other team gets the ball", "The play is over and they try again", "Automatic touchdown"],
+              "correct_answer_json": {"index": 1},
+              "explanation_richtext": "When a pass isn't caught (incomplete pass), the play is over and the offense tries again from the same spot. The down count increases by one."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand handoff",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "What is it called when the QB gives the ball to a running back?",
+              "options_json": ["Handoff", "Pass", "Snap", "Tackle"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A handoff is when the QB hands the ball directly to another player, usually a running back. This starts most running plays."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify receiver",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "Who catches passes from the quarterback?",
+              "options_json": ["Receivers", "Offensive linemen", "Referees"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Receivers (also called wide receivers or tight ends) are the players who catch passes. They run routes to get open for the QB to throw to them."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand interception",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "A defensive player catches a pass intended for the offense. What is this called?",
+              "options_json": ["Interception", "Fumble", "Sack", "Touchdown"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "An interception occurs when a defensive player catches a pass meant for an offensive player. This gives possession to the defense, who becomes the offense."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand sack",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "The defense tackles the quarterback before he can throw the ball. What is this called?",
+              "options_json": ["Sack", "Interception", "Fumble", "Incomplete pass"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A sack is when the QB is tackled behind the line of scrimmage before throwing the ball. This results in a loss of yards for the offense."
+            }
+          }
+        ]
+      },
+      {
+        "title": "Understanding Downs",
+        "description": "Learn how the down system works and why it matters",
+        "order_index": 2,
+        "est_minutes": 5,
+        "xp_award": 80,
+        "items": [
+          {
+            "type": "mcq",
+            "base_prompt": "Understand downs",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "How many chances (downs) does the offense get to move 10 yards?",
+              "options_json": ["2", "3", "4", "5"],
+              "correct_answer_json": {"index": 2},
+              "explanation_richtext": "The offense gets 4 downs (chances) to move the ball 10 yards. If they succeed, they get a new set of 4 downs (called a 'first down')."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand first down",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "What happens when the offense gains 10 or more yards?",
+              "options_json": ["They score points", "They get 4 new downs", "The other team gets the ball"],
+              "correct_answer_json": {"index": 1},
+              "explanation_richtext": "When the offense gains 10+ yards, they earn a 'first down' - a new set of 4 downs to try to gain another 10 yards."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand 4th down",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "It's 4th down and the offense hasn't gained 10 yards yet. What do teams usually do?",
+              "options_json": ["Punt the ball", "Go for it", "Both A and B are common"],
+              "correct_answer_json": {"index": 2},
+              "explanation_richtext": "On 4th down, teams usually punt (kick the ball away) to give the other team worse field position. Sometimes they 'go for it' and try to get the first down, especially if they only need a short distance."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Read down and distance",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "You see '2nd & 7' on the screen. What does this mean?",
+              "options_json": ["It's the 2nd down and they need 7 yards for a first down", "It's the 7th down and they need 2 yards", "The score is 2-7"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "'2nd & 7' means it's 2nd down and the offense needs 7 more yards to get a first down. The first number is the down, the second is yards needed."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand 3rd down importance",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "Why is 3rd down considered the most important down?",
+              "options_json": ["It's worth more points", "It's the last chance to get a first down before likely punting", "The QB must throw on 3rd down"],
+              "correct_answer_json": {"index": 1},
+              "explanation_richtext": "3rd down is crucial because it's usually the last chance to get a first down. If they don't make it, they'll likely punt on 4th down and give the ball to the other team."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand punt",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "What is a punt?",
+              "options_json": ["A type of pass", "Kicking the ball to the other team", "A running play"],
+              "correct_answer_json": {"index": 1},
+              "explanation_richtext": "A punt is when a team kicks the ball to the other team, usually on 4th down. The goal is to make the opponent start far from the end zone."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand turnover on downs",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "The offense tries to get a first down on 4th down but fails. What happens?",
+              "options_json": ["They punt", "The other team gets the ball at that spot", "They get one more chance"],
+              "correct_answer_json": {"index": 1},
+              "explanation_richtext": "If the offense fails to get a first down on 4th down, it's called a 'turnover on downs' and the other team gets the ball right there. This is risky!"
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand 1st & 10",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "What does '1st & 10' mean?",
+              "options_json": ["1st down, need 10 yards", "10th down, need 1 yard", "Score is 1-10"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "'1st & 10' means it's 1st down and the offense needs to gain 10 yards for a new first down. This is the most common down and distance."
+            }
+          }
+        ]
+      },
+      {
+        "title": "Scoring Points",
+        "description": "Learn all the ways teams can score in football",
+        "order_index": 3,
+        "est_minutes": 4,
+        "xp_award": 80,
+        "items": [
+          {
+            "type": "mcq",
+            "base_prompt": "Touchdown value",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "How many points is a touchdown worth?",
+              "options_json": ["3", "6", "7"],
+              "correct_answer_json": {"index": 1},
+              "explanation_richtext": "A touchdown is worth 6 points. After scoring a touchdown, the team can try for an extra point (1 point) or a 2-point conversion."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Field goal value",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "How many points is a field goal worth?",
+              "options_json": ["1", "2", "3", "6"],
+              "correct_answer_json": {"index": 2},
+              "explanation_richtext": "A field goal is worth 3 points. It's kicked through the uprights (goal posts) and is often attempted when a team can't score a touchdown."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Extra point value",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "After a touchdown, how many points is a successful extra point kick worth?",
+              "options_json": ["1", "2", "3"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "An extra point (also called PAT - Point After Touchdown) is worth 1 point. It's a short kick through the uprights after a touchdown."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "2-point conversion",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "Instead of kicking an extra point, what can a team do for 2 points?",
+              "options_json": ["Kick a longer field goal", "Run or pass the ball into the end zone", "Nothing - you can't get 2 points"],
+              "correct_answer_json": {"index": 1},
+              "explanation_richtext": "After a touchdown, a team can attempt a 2-point conversion by running or passing the ball into the end zone from the 2-yard line. It's riskier but worth 2 points instead of 1."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Safety value",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "How many points does the defense score for a safety?",
+              "options_json": ["1", "2", "3", "6"],
+              "correct_answer_json": {"index": 1},
+              "explanation_richtext": "A safety is worth 2 points for the defense. It happens when the offense is tackled in their own end zone. The defense also gets the ball back!"
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand touchdown",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "What must happen for a touchdown to be scored?",
+              "options_json": ["The ball must cross the goal line", "The player must be tackled", "The ball must be kicked"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "For a touchdown, the ball must cross the plane of the goal line while in possession of a player. Even if just the tip of the ball crosses, it's a touchdown!"
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Most common score",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "What's the most common way teams score points?",
+              "options_json": ["Touchdowns", "Field goals", "Safeties"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Touchdowns (6 points + extra point = 7 total) are the most common and valuable way to score. Teams always try to score touchdowns first."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand end zone",
+            "difficulty": 1,
+            "variant": {
+              "prompt_richtext": "What is the area at each end of the field where touchdowns are scored called?",
+              "options_json": ["End zone", "Goal line", "Touchdown zone"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "The end zone is the 10-yard area at each end of the field. Getting the ball into the opponent's end zone scores a touchdown."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

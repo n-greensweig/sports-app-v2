@@ -44,7 +44,7 @@ struct Sport: Identifiable, Codable, Hashable {
 // MARK: - Mock Data
 extension Sport {
     static let football = Sport(
-        id: UUID(),
+        id: UUID(uuidString: "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA")!,
         name: "Football",
         slug: "football",
         description: "Learn the ins and outs of American Football",
@@ -54,7 +54,7 @@ extension Sport {
     )
 
     static let basketball = Sport(
-        id: UUID(),
+        id: UUID(uuidString: "BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB")!,
         name: "Basketball",
         slug: "basketball",
         description: "Master the fundamentals of Basketball",
@@ -64,7 +64,7 @@ extension Sport {
     )
 
     static let baseball = Sport(
-        id: UUID(),
+        id: UUID(uuidString: "CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC")!,
         name: "Baseball",
         slug: "baseball",
         description: "Discover America's favorite pastime",

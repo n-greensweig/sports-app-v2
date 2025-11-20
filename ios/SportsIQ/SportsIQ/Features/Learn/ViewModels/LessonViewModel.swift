@@ -142,10 +142,20 @@ class LessonViewModel {
         }
     }
 
+    var showCompletionScreen = false
+    
+    var totalXPEarned: Int {
+        // Base XP + Bonus for correct answers
+        let baseXP = 10
+        return baseXP + (correctAnswersCount * 10)
+    }
+
     func nextItem() {
         if isLastItem {
             audioManager.playLessonCompleteSound()
             hapticManager.playLevelUpPattern()
+            showCompletionScreen = true
+            return
         }
 
         currentItemIndex += 1

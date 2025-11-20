@@ -2,212 +2,118 @@
 //  LessonCompleteView.swift
 //  SportsIQ
 //
-//  Created on 2025-11-15.
+//  Created on 2025-11-20.
 //
 
 import SwiftUI
 
 struct LessonCompleteView: View {
     let lesson: Lesson
-    let sport: Sport
     let correctAnswers: Int
     let totalQuestions: Int
     let xpEarned: Int
-    let onContinue: () -> Void
-
-    @State private var showConfetti = false
-    @State private var xpAnimationValue: Double = 0
-    @State private var scaleEffect: CGFloat = 0.5
-
-    private var accuracy: Double {
+    let onDismiss: () -> Void
+    
+    @State private var showContent = false
+    
+    var accuracy: Int {
         guard totalQuestions > 0 else { return 0 }
-        return Double(correctAnswers) / Double(totalQuestions)
+        return Int((Double(correctAnswers) / Double(totalQuestions)) * 100)
     }
-
-    private var isPerfectScore: Bool {
-        correctAnswers == totalQuestions
-    }
-
+    
     var body: some View {
-        ScrollView {
+        ZStack {
+            Color.backgroundPrimary.ignoresSafeArea()
+            
+            // Confetti Background
+            CelebrationView()
+                .ignoresSafeArea()
+            
             VStack(spacing: .spacingXL) {
                 Spacer()
-                    .frame(height: .spacingL)
-
-                // Trophy/Success Icon
+                
+                // Success Icon
                 ZStack {
                     Circle()
-                        .fill(sport.accentColor.opacity(0.1))
+                        .fill(Color.brandPrimary.opacity(0.1))
                         .frame(width: 120, height: 120)
-
-                    Image(systemName: isPerfectScore ? "trophy.fill" : "checkmark.circle.fill")
+                    
+                    Image(systemName: "trophy.fill")
                         .font(.system(size: 60))
-                        .foregroundStyle(sport.accentColor)
-                        .scaleEffect(scaleEffect)
+                        .foregroundStyle(Color.brandPrimary)
                 }
-
-                // Title
+                .scaleEffect(showContent ? 1 : 0.5)
+                .opacity(showContent ? 1 : 0)
+                .animation(.spring(response: 0.5, dampingFraction: 0.6), value: showContent)
+                
                 VStack(spacing: .spacingS) {
-                    Text(isPerfectScore ? "Perfect!" : "Lesson Complete!")
+                    Text("Lesson Complete!")
                         .font(.heading1)
                         .foregroundStyle(Color.textPrimary)
-
+                    
                     Text(lesson.title)
                         .font(.heading3)
                         .foregroundStyle(Color.textSecondary)
                 }
-
-                // Stats Card
-                VStack(spacing: .spacingM) {
-                    // Score
-                    HStack {
-                        Text("Score")
-                            .font(.body)
-                            .foregroundStyle(Color.textSecondary)
-
-                        Spacer()
-
-                        Text("\(correctAnswers)/\(totalQuestions)")
-                            .font(.heading3)
-                            .foregroundStyle(Color.textPrimary)
-                    }
-
-                    Divider()
-
-                    // Accuracy
-                    HStack {
-                        Text("Accuracy")
-                            .font(.body)
-                            .foregroundStyle(Color.textSecondary)
-
-                        Spacer()
-
-                        Text("\(Int(accuracy * 100))%")
-                            .font(.heading3)
-                            .foregroundStyle(accuracy >= 0.8 ? Color.correct : Color.warning)
-                    }
-
-                    Divider()
-
-                    // XP Earned
-                    HStack {
-                        HStack(spacing: .spacingS) {
-                            Image(systemName: "star.fill")
-                                .foregroundStyle(Color.warning)
-                            Text("XP Earned")
-                                .font(.body)
-                                .foregroundStyle(Color.textSecondary)
-                        }
-
-                        Spacer()
-
-                        Text("+\(Int(xpAnimationValue))")
-                            .font(.heading2)
-                            .foregroundStyle(Color.warning)
-                            .fontWeight(.bold)
-                    }
+                .opacity(showContent ? 1 : 0)
+                .offset(y: showContent ? 0 : 20)
+                .animation(.easeOut.delay(0.2), value: showContent)
+                
+                // Stats Grid
+                HStack(spacing: .spacingL) {
+                    StatBox(title: "Accuracy", value: "\(accuracy)%", icon: "target")
+                    StatBox(title: "XP Earned", value: "+\(xpEarned)", icon: "star.fill")
                 }
-                .padding(.spacingL)
-                .background(Color.backgroundSecondary)
-                .cornerRadius(.radiusL)
-
-                // Encouragement Message
-                VStack(spacing: .spacingS) {
-                    if isPerfectScore {
-                        Text("Outstanding work!")
-                            .font(.bodyLarge)
-                            .foregroundStyle(sport.accentColor)
-                            .fontWeight(.semibold)
-                        Text("You've mastered this lesson!")
-                            .font(.body)
-                            .foregroundStyle(Color.textSecondary)
-                    } else if accuracy >= 0.8 {
-                        Text("Great job!")
-                            .font(.bodyLarge)
-                            .foregroundStyle(sport.accentColor)
-                            .fontWeight(.semibold)
-                        Text("You're making excellent progress")
-                            .font(.body)
-                            .foregroundStyle(Color.textSecondary)
-                    } else if accuracy >= 0.6 {
-                        Text("Good effort!")
-                            .font(.bodyLarge)
-                            .foregroundStyle(sport.accentColor)
-                            .fontWeight(.semibold)
-                        Text("Keep practicing to improve your score")
-                            .font(.body)
-                            .foregroundStyle(Color.textSecondary)
-                    } else {
-                        Text("Keep learning!")
-                            .font(.bodyLarge)
-                            .foregroundStyle(sport.accentColor)
-                            .fontWeight(.semibold)
-                        Text("Review the lesson to boost your understanding")
-                            .font(.body)
-                            .foregroundStyle(Color.textSecondary)
-                    }
-                }
-                .multilineTextAlignment(.center)
-
+                .opacity(showContent ? 1 : 0)
+                .offset(y: showContent ? 0 : 20)
+                .animation(.easeOut.delay(0.4), value: showContent)
+                
                 Spacer()
-
-                // Continue Button
-                PrimaryButton(
-                    title: "Continue",
-                    action: onContinue,
-                    color: sport.accentColor
-                )
+                
+                PrimaryButton(title: "Continue", action: onDismiss)
+                    .padding(.horizontal, .spacingL)
+                    .padding(.bottom, .spacingXL)
+                    .opacity(showContent ? 1 : 0)
+                    .animation(.easeOut.delay(0.6), value: showContent)
             }
-            .padding(.spacingM)
         }
-        .navigationBarBackButtonHidden(true)
         .onAppear {
-            animateCompletion()
-        }
-    }
-
-    private func animateCompletion() {
-        // Scale animation for trophy
-        withAnimation(.spring(response: 0.6, dampingFraction: 0.5)) {
-            scaleEffect = 1.0
-        }
-
-        // XP counter animation
-        withAnimation(.easeOut(duration: 1.5)) {
-            xpAnimationValue = Double(xpEarned)
-        }
-
-        // Confetti for perfect score
-        if isPerfectScore {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                showConfetti = true
-            }
+            showContent = true
         }
     }
 }
 
-#Preview("Perfect Score") {
-    NavigationStack {
-        LessonCompleteView(
-            lesson: .footballBasicsLesson1,
-            sport: .football,
-            correctAnswers: 8,
-            totalQuestions: 8,
-            xpEarned: 120,
-            onContinue: {}
-        )
+struct StatBox: View {
+    let title: String
+    let value: String
+    let icon: String
+    
+    var body: some View {
+        VStack(spacing: .spacingXS) {
+            Image(systemName: icon)
+                .font(.title3)
+                .foregroundStyle(Color.brandPrimary)
+            
+            Text(value)
+                .font(.heading2)
+                .foregroundStyle(Color.textPrimary)
+            
+            Text(title)
+                .font(.label)
+                .foregroundStyle(Color.textSecondary)
+        }
+        .frame(width: 120, height: 100)
+        .background(Color.backgroundSecondary)
+        .cornerRadius(.radiusL)
     }
 }
 
-#Preview("Good Score") {
-    NavigationStack {
-        LessonCompleteView(
-            lesson: .footballBasicsLesson1,
-            sport: .football,
-            correctAnswers: 6,
-            totalQuestions: 8,
-            xpEarned: 80,
-            onContinue: {}
-        )
-    }
+#Preview {
+    LessonCompleteView(
+        lesson: .footballBasicsLesson1,
+        correctAnswers: 8,
+        totalQuestions: 10,
+        xpEarned: 150,
+        onDismiss: {}
+    )
 }

@@ -63,11 +63,14 @@ final class SupabaseLearningRepository: LearningRepository {
 
     private struct SubmissionJudgmentInsertPayload: Encodable {
         let submission_id: String
+        let submission_submitted_at: String
         let is_correct: Bool
         let judged_by: String
         let explanation: String?
         let confidence: Double?
     }
+
+
 
     private struct XPEventInsertPayload: Encodable {
         let user_id: String
@@ -316,6 +319,7 @@ final class SupabaseLearningRepository: LearningRepository {
         try await executeWithRetry {
             let judgmentPayload = SubmissionJudgmentInsertPayload(
                 submission_id: submissionDTO.id,
+                submission_submitted_at: submissionDTO.submitted_at,
                 is_correct: isCorrect,
                 judged_by: "rules",
                 explanation: nil,

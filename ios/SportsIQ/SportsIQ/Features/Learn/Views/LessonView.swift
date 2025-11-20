@@ -144,11 +144,7 @@ struct LessonView: View {
                         PrimaryButton(
                             title: viewModel.isLastItem ? "Complete Lesson" : "Continue",
                             action: {
-                                if viewModel.isLastItem {
-                                    dismiss()
-                                } else {
-                                    viewModel.nextItem()
-                                }
+                                viewModel.nextItem()
                             },
                             color: sport.accentColor
                         )
@@ -171,6 +167,18 @@ struct LessonView: View {
         }
         .navigationTitle(lesson.title)
         .navigationBarTitleDisplayMode(.inline)
+        .fullScreenCover(isPresented: $viewModel.showCompletionScreen) {
+            LessonCompleteView(
+                lesson: lesson,
+                correctAnswers: viewModel.correctAnswersCount,
+                totalQuestions: lesson.items.count,
+                xpEarned: viewModel.totalXPEarned,
+                onDismiss: {
+                    viewModel.showCompletionScreen = false
+                    dismiss()
+                }
+            )
+        }
     }
 
     private func getMultiSelectCorrectness(index: Int, correctAnswer: ItemAnswer) -> Bool? {

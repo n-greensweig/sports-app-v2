@@ -33,9 +33,9 @@ SportsIQ is a mobile-first sports education platform that makes learning about s
 
 ## Project Status
 
-**Current Phase**: Planning & Architecture
-**Version**: Pre-MVP
-**Next Milestone**: Phase 1 - Foundation (Weeks 1-4)
+**Current Phase**: Active Development - App Store Preparation
+**Version**: MVP (Learn Mode + Gamification implemented)
+**Next Milestone**: Full MVP with Review/Live Mode (12-16 weeks to App Store)
 
 See [PROJECT_SCOPE.md](./docs/PROJECT_SCOPE.md) for complete roadmap.
 
@@ -65,11 +65,11 @@ See [PROJECT_SCOPE.md](./docs/PROJECT_SCOPE.md) for complete roadmap.
 - iOS 17+ minimum
 - Clean Architecture + MVVM
 
-**Backend** (TBD):
-- Language: Node.js, Python, or Go
-- Database: PostgreSQL 15+
-- Caching: Redis
-- Auth: Clerk
+**Backend**:
+- Platform: Supabase (PostgreSQL + Auth + Realtime)
+- Database: PostgreSQL 15+ (hosted on Supabase)
+- Auth: Supabase Auth (email/password, Apple Sign In, Google Sign In)
+- Realtime: Supabase Realtime (for Live Mode features)
 
 **Live Data**:
 - Sportradar API (or ESPN free tier for MVP)
@@ -95,8 +95,9 @@ See [PROJECT_SCOPE.md](./docs/PROJECT_SCOPE.md) for complete roadmap.
 
 - Xcode 15+
 - Swift 5.9+
-- PostgreSQL 15+ (for backend development)
-- Clerk account (authentication)
+- Supabase account (backend + authentication)
+- Apple Developer account (for Sign in with Apple)
+- Google Cloud Console project (for Google Sign In)
 
 ### Installation
 
@@ -132,42 +133,73 @@ cp .env.example .env
 
 ```
 sports-app-v2/
-├── docs/                   # Documentation
-│   ├── PROJECT_SCOPE.md    # Complete project scope
-│   ├── DATABASE_SCHEMA.md  # Database schema
-│   ├── ARCHITECTURE.md     # Technical architecture (coming soon)
-│   └── API_SPEC.md         # API specification (coming soon)
-├── ios/                    # iOS app (coming soon)
-│   ├── SportsIQ/
-│   ├── SportsIQTests/
-│   └── SportsIQUITests/
-├── backend/                # Backend services (coming soon)
+├── docs/                       # Documentation
+│   ├── PROJECT_SCOPE.md        # Complete project scope
+│   ├── DATABASE_SCHEMA.md      # Database schema
+│   └── ARCHITECTURE.md         # Technical architecture (coming soon)
+├── ios/                        # iOS app
+│   └── SportsIQ/
+│       ├── App/                # App entry point & coordinator
+│       ├── Core/
+│       │   ├── Domain/         # Entities, Use Cases, Repository protocols
+│       │   └── Data/           # DTOs, Repositories, Network layer
+│       ├── Features/           # Feature modules
+│       │   ├── Auth/           # Login, Sign Up, Forgot Password
+│       │   ├── Home/           # Home dashboard
+│       │   ├── Learn/          # Lessons & learning flow
+│       │   ├── Profile/        # User profile & badges
+│       │   ├── Review/         # Spaced repetition (in progress)
+│       │   └── LiveMode/       # Live game mode (in progress)
+│       ├── Shared/             # Shared UI components & services
+│       └── Resources/          # Assets, sounds, etc.
+├── supabase/                   # Supabase configuration
+│   └── migrations/             # Database migrations
+├── CLAUDE.md                   # Claude AI context & development guide
 └── README.md
 ```
+
+### Current Implementation
+
+**Completed Features**:
+- ✅ Supabase authentication (email/password, Apple Sign In)
+- ✅ Learn Mode with multiple question types
+- ✅ Gamification UI (XP, ratings, badges, leaderboards)
+- ✅ User profiles and progress tracking
+- ✅ Repository pattern with mock data support
+- ✅ Clean Architecture with MVVM
+
+**In Progress** (for App Store):
+- 🚧 Google Sign In integration
+- 🚧 Content creation (need 30+ more Football questions)
+- 🚧 Audio & haptic feedback integration
+- 🚧 Review/SRS system
+- 🚧 Live Mode implementation
+- 🚧 App Store configuration (Info.plist, Privacy manifest)
+- 🚧 Legal pages (Privacy Policy, Terms of Service)
 
 ---
 
 ## Development Roadmap
 
 ### Phase 1: Foundation (Weeks 1-4)
-- [ ] Project setup (Xcode, backend)
-- [ ] Database schema implementation
-- [ ] Clerk authentication integration
-- [ ] Basic navigation structure
-- [ ] Landing page UI
+- [x] Project setup (Xcode, Supabase)
+- [x] Database schema implementation
+- [x] Supabase authentication integration (email/password, Apple Sign In)
+- [x] Basic navigation structure
+- [x] Landing page UI
 
 ### Phase 2: Learn Mode (Weeks 5-8)
-- [ ] Lesson playback UI
-- [ ] Question type renderers
-- [ ] Answer validation & feedback
-- [ ] Sound & haptic feedback
-- [ ] 50+ football items
+- [x] Lesson playback UI
+- [x] Question type renderers (MCQ, multi-select, slider, true/false, free text)
+- [x] Answer validation & feedback
+- [ ] Sound & haptic feedback (managers exist, not connected)
+- [ ] 50+ football items (currently ~20 items in mock data)
 
 ### Phase 3: Gamification (Weeks 9-10)
-- [ ] Badge system
-- [ ] Leaderboards
-- [ ] Streak tracking
-- [ ] XP event feed
+- [x] Badge system (UI complete, logic partial)
+- [x] Leaderboards (UI complete, data fetching partial)
+- [x] Streak tracking (UI complete)
+- [x] XP event feed (structure in place)
 
 ### Phase 4: Spaced Repetition (Weeks 11-12)
 - [ ] SRS scheduler (SM-2)

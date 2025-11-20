@@ -529,6 +529,26 @@ class AuthService {
 
         return session.accessToken
     }
+
+    // MARK: - Deep Link Handling
+
+    /// Handle authentication callback from deep link
+    /// Used for email verification, password reset, etc.
+    @MainActor
+    func handleAuthCallback(from url: URL) async throws {
+        do {
+            // Let Supabase handle the session from the URL
+            try await supabase.auth.session(from: url)
+
+            // Reload the current session to update our state
+            await loadCurrentSession()
+
+            print("✅ Email confirmed and session created!")
+        } catch {
+            print("❌ Failed to handle auth callback: \(error.localizedDescription)")
+            throw AuthError.signInFailed
+        }
+    }
 }
 
 // MARK: - Auth Errors

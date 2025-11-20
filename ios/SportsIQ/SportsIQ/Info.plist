@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- App Identity -->
+	<key>CFBundleDisplayName</key>
+	<string>SportsIQ</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+
+	<!-- Supported Device Capabilities -->
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+
+	<!-- Supported Interface Orientations -->
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+
+	<!-- Launch Screen -->
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIImageName</key>
+		<string>LaunchImage</string>
+		<key>UIColorName</key>
+		<string>LaunchBackgroundColor</string>
+	</dict>
+
+	<!-- Status Bar -->
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDefault</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+
+	<!-- App Scene Configuration -->
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict/>
+	</dict>
+
+	<!-- URL Schemes for Deep Linking (Supabase Auth) -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.sportsiq.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.sportsiq.app</string>
+				<string>sportsiq</string>
+			</array>
+		</dict>
+	</array>
+
+	<!-- App Transport Security -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<!-- Allow Supabase domains -->
+			<key>supabase.co</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+
+	<!-- Privacy Descriptions -->
+	<key>NSUserTrackingUsageDescription</key>
+	<string>We use tracking to provide personalized learning experiences and improve our app. Your privacy is important to us.</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>SportsIQ needs access to your camera to scan QR codes and capture sports moments for interactive lessons.</string>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>SportsIQ needs access to your photo library to save your achievements and share your learning progress.</string>
+
+	<key>NSMicrophoneUsageDescription</key>
+	<string>SportsIQ needs access to your microphone for audio-based quiz questions and pronunciation practice.</string>
+
+	<!-- Apple Sign In Configuration -->
+	<key>CFBundleAllowMixedLocalizations</key>
+	<true/>
+
+	<!-- Background Modes (for Live Mode push notifications) -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+
+	<!-- Supported Localizations -->
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+	</array>
+
+	<!-- File Sharing (disabled for security) -->
+	<key>UIFileSharingEnabled</key>
+	<false/>
+	<key>UISupportsDocumentBrowser</key>
+	<false/>
+
+	<!-- Minimum OS Version -->
+	<key>MinimumOSVersion</key>
+	<string>17.0</string>
+
+	<!-- iTunes File Sharing -->
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<false/>
+
+	<!-- App Category -->
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.education</string>
+</dict>
+</plist>

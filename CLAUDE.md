@@ -1,7 +1,7 @@
 # Claude Context - SportsIQ Project
 
-**Last Updated**: 2025-11-15
-**Project Phase**: Planning & Architecture (Pre-MVP)
+**Last Updated**: 2025-11-19
+**Project Phase**: Active Development (Phase 1 - App Store Preparation)
 **Primary Language**: Swift (iOS first)
 **Future Languages**: Kotlin (Android), potentially TypeScript (Web)
 
@@ -613,9 +613,10 @@ class LessonFlowUITests: XCTestCase {
 
 When backend is implemented, expect these endpoints:
 
-**Authentication** (via Clerk):
-- POST `/auth/verify` - Verify Clerk token
-- GET `/auth/me` - Get current user
+**Authentication** (via Supabase Auth):
+- Supabase handles authentication directly (email/password, Apple Sign In, Google Sign In)
+- Auth state managed via SupabaseClient session
+- GET `/auth/me` - Get current user (via Supabase Auth)
 
 **Learning**:
 - GET `/sports` - List all sports
@@ -664,6 +665,211 @@ enum Endpoint {
         case .sports: return "/sports"
         case .sportModules(let id): return "/sports/\(id)/modules"
         // ...
+        }
+    }
+}
+```
+
+---
+
+## Supabase Configuration & Setup
+
+### Current Implementation
+
+The app uses **Supabase** for backend services, including:
+- Authentication (email/password, Apple Sign In, Google Sign In)
+- PostgreSQL database
+- Real-time subscriptions (for live features)
+- Row Level Security (RLS) for data protection
+
+### Architecture
+
+```
+SupabaseService (Singleton)
+├── Supabase Client (supabase-swift SDK)
+├── Auth Service (AuthService.swift)
+│   ├── Email/Password auth
+│   ├── Apple Sign In
+│   └── Google Sign In (in progress)
+└── Repositories
+    ├── SupabaseLearningRepository
+    ├── SupabaseUserRepository
+    └── SupabaseGameRepository
+```
+
+### Configuration Files
+
+**Secrets.swift** (gitignored):
+```swift
+struct SupabaseConfig {
+    static let url = "https://your-project.supabase.co"
+    static let anonKey = "your-anon-public-key"
+}
+```
+
+**Config.swift** (wrapper for safe access):
+```swift
+enum Config {
+    static var supabaseURL: String {
+        SupabaseConfig.url
+    }
+
+    static var supabaseAnonKey: String {
+        SupabaseConfig.anonKey
+    }
+}
+```
+
+### Authentication Flow
+
+**AuthService.swift** handles all authentication:
+
+```swift
+class AuthService: ObservableObject {
+    @Published var isAuthenticated = false
+    @Published var currentUser: User?
+
+    // Email/Password
+    func signUp(email: String, password: String) async throws
+    func signIn(email: String, password: String) async throws
+
+    // Apple Sign In
+    func signInWithApple(credential: ASAuthorizationAppleIDCredential) async throws
+
+    // Google Sign In
+    func signInWithGoogle() async throws
+
+    // Session management
+    func signOut() async throws
+    func resetPassword(email: String) async throws
+}
+```
+
+**User Profile Creation**:
+After successful authentication, `AuthService` automatically:
+1. Creates a user profile in `users` table
+2. Creates `user_progress` records for all sports
+3. Initializes starting stats (0 XP, rating, etc.)
+
+### Database Access
+
+**Direct Supabase Queries** (current approach):
+```swift
+// SupabaseLearningRepository.swift
+func fetchSports() async throws -> [Sport] {
+    let response: [SportDTO] = try await supabase
+        .from("sports")
+        .select()
+        .execute()
+        .value
+
+    return response.map { $0.toDomain() }
+}
+
+func submitAnswer(submission: SubmissionCreate) async throws {
+    try await supabase
+        .from("submissions")
+        .insert(submission)
+        .execute()
+}
+```
+
+**Row Level Security (RLS)**:
+Supabase RLS policies ensure users can only access their own data:
+- Users can only read/write their own `user_progress`
+- Users can only read/write their own `submissions`
+- Public tables: `sports`, `modules`, `lessons`, `items`
+
+### Deep Linking Setup
+
+**URL Schemes** (configured in Info.plist):
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+    <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>com.sportsiq.app</string>
+        </array>
+    </dict>
+</array>
+```
+
+**Supabase Auth Callbacks**:
+- Email verification: `com.sportsiq.app://auth/verify`
+- Password reset: `com.sportsiq.app://auth/reset`
+
+Configure these in Supabase Dashboard → Authentication → URL Configuration
+
+### Environment Setup
+
+1. **Create Supabase Project**:
+   - Go to [supabase.com](https://supabase.com)
+   - Create new project
+   - Note Project URL and anon/public key
+
+2. **Run Database Migration**:
+   ```bash
+   # In Supabase SQL Editor, run:
+   # supabase/migrations/20240101000000_initial_schema.sql
+   ```
+
+3. **Configure Auth Providers**:
+   - **Email/Password**: Enabled by default
+   - **Apple Sign In**:
+     - Add Apple OAuth provider in Supabase Dashboard
+     - Configure Service ID, Team ID, Key ID
+     - Upload .p8 key file
+   - **Google Sign In**:
+     - Add Google OAuth provider
+     - Configure Client ID and Client Secret from Google Cloud Console
+
+4. **Set Up RLS Policies**:
+   - RLS policies are included in migration file
+   - Verify in Supabase Dashboard → Authentication → Policies
+
+5. **Configure Email Templates**:
+   - Customize email templates in Supabase Dashboard
+   - Update redirect URLs to use app URL scheme
+
+### Testing Supabase Locally
+
+```swift
+// Use mock repositories for testing
+let mockRepo = MockLearningRepository()
+let viewModel = LessonViewModel(repository: mockRepo)
+
+// Or test against Supabase staging project
+// Update Secrets.swift to point to staging URL
+```
+
+### Common Supabase Tasks
+
+**Check Auth Status**:
+```swift
+let session = try await supabase.auth.session
+print("User ID: \(session.user.id)")
+```
+
+**Manual Database Query** (debugging):
+```swift
+let result = try await supabase
+    .from("users")
+    .select("*")
+    .eq("id", userId)
+    .single()
+    .execute()
+```
+
+**Listen to Auth Changes**:
+```swift
+Task {
+    for await state in await supabase.auth.authStateChanges {
+        switch state {
+        case .signedIn(let session):
+            print("User signed in: \(session.user.id)")
+        case .signedOut:
+            print("User signed out")
         }
     }
 }
@@ -903,13 +1109,19 @@ class LessonViewModel {
 
 ```swift
 // NEVER commit API keys to git
-// Use .xcconfig files (add to .gitignore)
+// Use separate Secrets.swift file (add to .gitignore)
 
-// Config.xcconfig
-CLERK_PUBLISHABLE_KEY = pk_test_...
-SPORTRADAR_API_KEY = your_api_key_here
+// Secrets.swift (gitignored)
+struct SupabaseConfig {
+    static let url = "https://your-project.supabase.co"
+    static let anonKey = "your-anon-key-here"
+}
 
-// Access in code via Info.plist
+struct ExternalAPIConfig {
+    static let sportRadarAPIKey = "your_api_key_here"
+}
+
+// For other APIs, use Info.plist method:
 guard let apiKey = Bundle.main.infoDictionary?["SPORTRADAR_API_KEY"] as? String else {
     fatalError("API key not found")
 }
@@ -1070,10 +1282,11 @@ class KeychainManager {
 - [Swift Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
 - [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
 
-**Third-Party Libraries** (Consider for Phase 1):
-- **Clerk** (Auth): [clerk.com/docs/quickstarts/ios](https://clerk.com/docs/quickstarts/ios)
-- **Starscream** (WebSockets): [github.com/daltoniam/Starscream](https://github.com/daltoniam/Starscream)
-- **Sentry** (Crash Reporting): [docs.sentry.io/platforms/apple/](https://docs.sentry.io/platforms/apple/)
+**Third-Party Libraries** (Currently Used):
+- **Supabase Swift** (Auth & Backend): [github.com/supabase/supabase-swift](https://github.com/supabase/supabase-swift)
+- **GoogleSignIn** (OAuth): [github.com/google/GoogleSignIn-iOS](https://github.com/google/GoogleSignIn-iOS)
+- **Starscream** (WebSockets - for Live Mode): [github.com/daltoniam/Starscream](https://github.com/daltoniam/Starscream)
+- **Sentry** (Crash Reporting - recommended): [docs.sentry.io/platforms/apple/](https://docs.sentry.io/platforms/apple/)
 
 **Design Tools**:
 - Figma (for UI mockups)
@@ -1086,34 +1299,52 @@ class KeychainManager {
 **Completed**:
 - ✅ Project scope document
 - ✅ Database schema design
-- ✅ README and documentation
-- ✅ CLAUDE.md (this file)
+- ✅ iOS Xcode project with SwiftUI
+- ✅ Supabase authentication (email/password, Apple Sign In)
+- ✅ Core domain models and repositories
+- ✅ Learn Mode basic implementation
+- ✅ Profile and Home views
+- ✅ Gamification UI (badges, leaderboards, XP)
+- ✅ Mock data for testing
 
-**Next Steps** (In Priority Order):
+**In Progress** (App Store Preparation):
 
-1. **Set Up iOS Project**
-   - Create Xcode project with SwiftUI
-   - Set up folder structure (see File Structure Convention above)
-   - Configure build settings, signing, etc.
+1. **Documentation Updates**
+   - Update all Clerk references to Supabase
+   - Add Supabase configuration guide
+   - Document current architecture
 
-2. **Set Up Backend**
-   - Choose language (Node.js recommended for quick start)
-   - Implement database schema (PostgreSQL)
-   - Set up basic API endpoints
+2. **App Configuration**
+   - Create Info.plist with required keys
+   - Create PrivacyInfo.xcprivacy
+   - Configure URL schemes for deep linking
+   - Set up app icon
 
-3. **Implement Authentication**
-   - Integrate Clerk SDK (iOS)
-   - Backend: Verify Clerk tokens
-   - Create login/signup flow
+3. **Google Sign In Integration**
+   - Add GoogleSignIn SDK
+   - Complete OAuth flow implementation
 
-4. **Build Core Domain Models**
-   - Create entity definitions
-   - Set up repository protocols
-   - Implement DTOs
+4. **Content Creation & Seeding**
+   - Generate additional Football questions (AI-assisted)
+   - Seed Supabase database with content
+   - Test content delivery
 
-5. **Start Phase 1 Development**
-   - Follow MVP Roadmap in PROJECT_SCOPE.md
-   - Begin with Learn Mode (most critical feature)
+5. **Feature Completion**
+   - Learn Mode polish (audio, haptics, celebration)
+   - Review/SRS system implementation
+   - Live Mode implementation
+   - Error handling and offline support
+
+6. **Testing & QA**
+   - Unit tests for critical paths
+   - UI tests for main flows
+   - Accessibility audit
+   - TestFlight beta
+
+7. **App Store Submission**
+   - Legal pages (Privacy Policy, ToS)
+   - App Store assets (screenshots, description)
+   - Final testing and submission
 
 ---
 

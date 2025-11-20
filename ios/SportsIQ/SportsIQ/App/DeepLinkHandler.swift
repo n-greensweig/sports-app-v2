@@ -22,9 +22,8 @@ extension SportsIQApp {
         // Handle the auth callback
         Task {
             do {
-                // Supabase will automatically handle the session from the URL
-                try await AuthService.shared.supabase.auth.session(from: url)
-                print("✅ Email confirmed and session created!")
+                // Use AuthService's public method to handle the callback
+                try await AuthService.shared.handleAuthCallback(from: url)
             } catch {
                 print("❌ Failed to handle auth callback: \(error)")
             }

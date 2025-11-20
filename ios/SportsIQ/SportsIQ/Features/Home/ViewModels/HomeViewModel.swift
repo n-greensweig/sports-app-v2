@@ -36,14 +36,18 @@ class HomeViewModel {
         errorMessage = nil
 
         do {
-            async let sportsTask = learningRepository.getSports()
-            async let progressTask = userRepository.getUserProgress(
-                userId: userId,
-                sportId: Sport.football.id // TODO: Make this dynamic
-            )
-
-            sports = try await sportsTask
-            userProgress = try await progressTask
+            // Fetch sports first to get the real Football ID
+            sports = try await learningRepository.getSports()
+            
+            // Find Football sport (should be first, but search by slug to be safe)
+            if let footballSport = sports.first(where: { $0.slug == "football" }) {
+                userProgress = try await userRepository.getUserProgress(
+                    userId: userId,
+                    sportId: footballSport.id
+                )
+            } else {
+                print("⚠️ Football sport not found in database")
+            }
         } catch {
             errorMessage = "Failed to load data: \(error.localizedDescription)"
         }

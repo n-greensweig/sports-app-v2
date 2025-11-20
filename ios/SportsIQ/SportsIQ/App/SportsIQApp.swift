@@ -21,8 +21,8 @@ struct SportsIQApp: App {
         #endif
 
         // Initialize repositories
-        let learningRepository = SupabaseLearningRepository()
         let userRepository = SupabaseUserRepository()
+        let learningRepository = SupabaseLearningRepository(userRepository: userRepository)
         let gameRepository = SupabaseGameRepository()
 
         // Initialize app coordinator

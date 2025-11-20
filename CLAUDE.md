@@ -1307,7 +1307,7 @@ class KeychainManager {
 - ✅ Gamification UI (badges, leaderboards, XP)
 - ✅ Mock data for testing
 - ✅ Google Sign In Integration (with nonce support)
-- ✅ Apple Sign In Integration (with nonce support)
+- ✅ Learn Mode polish (audio, haptics, celebration)
 
 **In Progress** (App Store Preparation):
 
@@ -1330,7 +1330,6 @@ class KeychainManager {
    - Test content delivery
 
 4. **Feature Completion**
-   - Learn Mode polish (audio, haptics, celebration)
    - Review/SRS system implementation
    - Live Mode implementation
    - Error handling and offline support

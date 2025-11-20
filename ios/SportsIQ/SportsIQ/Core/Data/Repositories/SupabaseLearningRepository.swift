@@ -117,13 +117,15 @@ final class SupabaseLearningRepository: LearningRepository {
     private var lessonSportLookup: [UUID: UUID] = [:]
     private var itemLessonLookup: [UUID: UUID] = [:]
     private var itemVariantLookup: [UUID: UUID] = [:]
+    private let userRepository: UserRepository?
 
     private let cacheLock = NSLock()
 
     // MARK: - Initialization
 
-    init(client: SupabaseClient = SupabaseService.shared.client) {
+    init(client: SupabaseClient = SupabaseService.shared.client, userRepository: UserRepository? = nil) {
         self.client = client
+        self.userRepository = userRepository
     }
 
     // MARK: - LearningRepository
@@ -309,10 +311,16 @@ final class SupabaseLearningRepository: LearningRepository {
                 .limit(1)
                 .execute()
 
+            print("📦 Submission response data size: \(response.data.count) bytes")
+            if let jsonString = String(data: response.data, encoding: .utf8) {
+                print("📄 Raw submission response: \(jsonString)")
+            }
+
             let dtos: [SubmissionDTO] = try self.decode(response.data, as: [SubmissionDTO].self)
             guard let dto = dtos.first else {
                 throw NetworkError.noData
             }
+            print("✅ Decoded SubmissionDTO - ID: \(dto.id), submitted_at: \(dto.submitted_at)")
             return dto
         }
 
@@ -350,9 +358,20 @@ final class SupabaseLearningRepository: LearningRepository {
             incrementLessons: false
         )
 
-        guard let submissionId = UUID(uuidString: submissionDTO.id),
-              let submittedAt = ISO8601DateFormatter().date(from: submissionDTO.submitted_at) else {
-            throw NetworkError.decodingError(NSError(domain: "Supabase", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid submission response"]))
+        print("🔍 Parsing submission - ID: \(submissionDTO.id), submitted_at: \(submissionDTO.submitted_at)")
+        guard let submissionId = UUID(uuidString: submissionDTO.id) else {
+            print("❌ Failed to parse submission ID: \(submissionDTO.id)")
+            throw NetworkError.decodingError(NSError(domain: "Supabase", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid submission ID: \(submissionDTO.id)"]))
+        }
+        
+        // Supabase returns timestamps with microseconds: "2025-11-20T21:43:54.938366+00:00"
+        // We need a formatter that handles fractional seconds
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        
+        guard let submittedAt = dateFormatter.date(from: submissionDTO.submitted_at) else {
+            print("❌ Failed to parse submitted_at: \(submissionDTO.submitted_at)")
+            throw NetworkError.decodingError(NSError(domain: "Supabase", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid submission timestamp: \(submissionDTO.submitted_at)"]))
         }
 
         return Submission(
@@ -718,8 +737,13 @@ final class SupabaseLearningRepository: LearningRepository {
     // MARK: - Persistence Helpers
 
     private func logXPEvent(userId: UUID, sportId: UUID, amount: Int, source: String) async throws {
-        guard amount > 0 else { return }
+        guard amount > 0 else { 
+            print("⚠️ Skipping XP event - amount is 0")
+            return 
+        }
 
+        print("💰 Logging XP event - userId: \(userId), sportId: \(sportId), amount: \(amount), source: \(source)")
+        
         try await executeWithRetry {
             let payload = XPEventInsertPayload(
                 user_id: userId.uuidString,
@@ -733,6 +757,8 @@ final class SupabaseLearningRepository: LearningRepository {
                 .from("user_xp_events")
                 .insert([payload])
                 .execute()
+            
+            print("✅ XP event logged successfully")
         }
     }
 
@@ -744,12 +770,17 @@ final class SupabaseLearningRepository: LearningRepository {
         xpDelta: Int,
         incrementLessons: Bool
     ) async throws {
+        print("🔄 Upserting user progress - userId: \(userId), sportId: \(sportId), xpDelta: \(xpDelta), incrementLessons: \(incrementLessons)")
+        
         let progressDTO = try await fetchUserProgressDTO(userId: userId, sportId: sportId)
         let nowString = ISO8601DateFormatter().string(from: Date())
 
         if let progressDTO {
+            print("📊 Found existing progress - current XP: \(progressDTO.total_xp), lessons: \(progressDTO.lessons_completed)")
             let updatedXP = progressDTO.total_xp + xpDelta
             let updatedLessons = progressDTO.lessons_completed + (incrementLessons ? 1 : 0)
+            print("📈 Updating to - new XP: \(updatedXP), new lessons: \(updatedLessons)")
+            
             let payload = UserProgressUpdatePayload(
                 total_xp: updatedXP,
                 lessons_completed: updatedLessons,
@@ -763,7 +794,10 @@ final class SupabaseLearningRepository: LearningRepository {
                 .update(payload)
                 .eq("id", value: progressDTO.id)
                 .execute()
+            
+            print("✅ User progress updated successfully")
         } else {
+            print("📝 No existing progress found, creating new record")
             let payload = UserProgressInsertPayload(
                 user_id: userId.uuidString,
                 sport_id: sportId.uuidString,
@@ -782,6 +816,13 @@ final class SupabaseLearningRepository: LearningRepository {
                 .from("user_progress")
                 .insert([payload])
                 .execute()
+            
+            print("✅ User progress created successfully with XP: \(max(xpDelta, 0))")
+        }
+        
+        // Invalidate cache so UI shows updated progress
+        if let userRepo = userRepository as? SupabaseUserRepository {
+            userRepo.invalidateProgressCache(userId: userId, sportId: sportId)
         }
     }
 

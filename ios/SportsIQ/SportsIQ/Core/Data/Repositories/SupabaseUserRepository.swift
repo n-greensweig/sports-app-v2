@@ -242,6 +242,13 @@ final class SupabaseUserRepository: UserRepository {
         cacheLock.lock(); defer { cacheLock.unlock() }
         progressCache[key] = CacheEntry(value: progress, expiration: Date().addingTimeInterval(cacheTTL))
     }
+    
+    func invalidateProgressCache(userId: UUID, sportId: UUID) {
+        let cacheKey = "\(userId.uuidString)_\(sportId.uuidString)"
+        cacheLock.lock(); defer { cacheLock.unlock() }
+        progressCache.removeValue(forKey: cacheKey)
+        print("🗑️ Invalidated progress cache for user: \(userId), sport: \(sportId)")
+    }
 
     // MARK: - Networking Helpers
 

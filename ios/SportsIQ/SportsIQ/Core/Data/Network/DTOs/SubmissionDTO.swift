@@ -45,7 +45,12 @@ struct SubmissionDTO: Codable {
             throw DTOConversionError.missingRequiredField(field: "item_variant_id or live_prompt_id")
         }
 
-        guard let submittedDate = ISO8601DateFormatter().date(from: submitted_at) else {
+
+        guard let submittedDate = {
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            return formatter.date(from: submitted_at)
+        }() else {
             throw DTOConversionError.invalidDate(field: "submitted_at", value: submitted_at)
         }
 
@@ -118,7 +123,12 @@ struct SubmissionJudgmentDTO: Codable {
             throw DTOConversionError.invalidUUID(field: "submission_id", value: submission_id)
         }
 
-        guard let createdDate = ISO8601DateFormatter().date(from: created_at) else {
+
+        guard let createdDate = {
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            return formatter.date(from: created_at)
+        }() else {
             throw DTOConversionError.invalidDate(field: "created_at", value: created_at)
         }
 

@@ -167,10 +167,11 @@ struct LoginView: View {
                             .frame(height: 50)
                             .cornerRadius(12)
 
-                            // Sign in with Google (placeholder - requires Google SDK)
+                            // Sign in with Google
                             Button {
-                                // TODO: Implement Google Sign In
-                                errorMessage = "Google Sign In coming soon!"
+                                Task {
+                                    await handleGoogleSignIn()
+                                }
                             } label: {
                                 HStack {
                                     Image(systemName: "g.circle.fill")
@@ -246,6 +247,27 @@ struct LoginView: View {
             // AuthService will update the auth state, which will trigger navigation
         } catch {
             errorMessage = error.localizedDescription
+        }
+
+        isLoading = false
+    }
+
+    private func handleGoogleSignIn() async {
+        errorMessage = nil
+        isLoading = true
+
+        do {
+            // 1. Sign in with Google SDK
+            let (idToken, nonce) = try await GoogleSignInManager.shared.signIn()
+
+            // 2. Sign in with Supabase using the ID token and nonce
+            _ = try await authService.signInWithGoogle(idToken: idToken, nonce: nonce)
+            
+            // AuthService will update the auth state, which will trigger navigation
+        } catch {
+            errorMessage = error.localizedDescription
+            // Also print to console for debugging
+            print("DEBUG: Google Sign In Error: \(error)")
         }
 
         isLoading = false

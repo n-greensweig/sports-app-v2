@@ -21,7 +21,9 @@ struct LessonView: View {
         self._viewModel = State(initialValue: LessonViewModel(
             lesson: lesson,
             userId: coordinator.currentUser?.id ?? UUID(),
-            learningRepository: coordinator.learningRepository
+            learningRepository: coordinator.learningRepository,
+            audioManager: coordinator.audioManager,
+            hapticManager: coordinator.hapticManager
         ))
     }
 

@@ -256,7 +256,7 @@ class AuthService {
     /// Sign in with Google
     /// Note: Requires Google Sign-In SDK integration
     @MainActor
-    func signInWithGoogle(idToken: String) async throws -> User {
+    func signInWithGoogle(idToken: String, nonce: String) async throws -> User {
         isLoading = true
         defer { isLoading = false }
 
@@ -265,7 +265,8 @@ class AuthService {
             let session = try await supabase.auth.signInWithIdToken(
                 credentials: .init(
                     provider: .google,
-                    idToken: idToken
+                    idToken: idToken,
+                    nonce: nonce
                 )
             )
 
@@ -277,17 +278,34 @@ class AuthService {
             await fetchUserProfile(userId: userId)
 
             if currentUser == nil {
-                // Create user profile for new Google sign-in
+                // Check if user already exists in database by email to avoid duplicate key error
+                // This can happen if Auth created the user but our local profile fetch failed previously
                 let email = session.user.email ?? ""
-                let username = email.components(separatedBy: "@").first ?? "User\(userId.uuidString.prefix(8))"
-
-                let newUser = try await createUserProfile(
-                    id: userId,
-                    email: email,
-                    username: username
-                )
-
-                self.currentUser = newUser
+                
+                let existingUser: UserDTO? = try? await supabase
+                    .from("users")
+                    .select()
+                    .eq("email", value: email)
+                    .single()
+                    .execute()
+                    .value
+                
+                if let existing = existingUser {
+                    // User exists, just link it
+                    print("ℹ️ User already exists in database, linking profile...")
+                    await fetchUserProfile(userId: UUID(uuidString: existing.id)!)
+                } else {
+                    // Create user profile for new Google sign-in
+                    let username = email.components(separatedBy: "@").first ?? "User\(userId.uuidString.prefix(8))"
+    
+                    let newUser = try await createUserProfile(
+                        id: userId,
+                        email: email,
+                        username: username
+                    )
+    
+                    self.currentUser = newUser
+                }
             }
 
             guard let user = currentUser else {
@@ -302,7 +320,8 @@ class AuthService {
             throw error
         } catch {
             print("❌ Google sign in failed: \(error.localizedDescription)")
-            throw AuthError.googleSignInFailed
+            // Throw the original error to see details in UI
+            throw error
         }
     }
 
@@ -372,7 +391,9 @@ class AuthService {
         // Create user record
         let newUserDTO = UserDTO(
             id: id.uuidString,
-            clerk_user_id: "", // Empty since we're using Supabase Auth, not Clerk
+            // The database has NOT NULL and UNIQUE constraints on this legacy column.
+            // We generate a unique dummy value to satisfy both.
+            clerk_user_id: "google_\(id.uuidString)",
             email: email,
             role: "user",
             status: "active",

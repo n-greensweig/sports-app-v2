@@ -15,6 +15,8 @@ class AppCoordinator {
     let userRepository: UserRepository
     let gameRepository: GameRepository
     let authService: AuthService
+    let audioManager: AudioManager
+    let hapticManager: HapticManager
 
     // MARK: - State
     var currentUser: User? {
@@ -29,12 +31,16 @@ class AppCoordinator {
         learningRepository: LearningRepository,
         userRepository: UserRepository,
         gameRepository: GameRepository,
-        authService: AuthService = AuthService.shared
+        authService: AuthService = AuthService.shared,
+        audioManager: AudioManager = AudioManager.shared,
+        hapticManager: HapticManager = HapticManager.shared
     ) {
         self.learningRepository = learningRepository
         self.userRepository = userRepository
         self.gameRepository = gameRepository
         self.authService = authService
+        self.audioManager = audioManager
+        self.hapticManager = hapticManager
 
         // Set up auth state listener
         authService.setupAuthStateListener()

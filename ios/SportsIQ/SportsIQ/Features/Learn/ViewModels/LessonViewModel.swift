@@ -13,6 +13,8 @@ class LessonViewModel {
     private let lesson: Lesson
     private let userId: UUID
     private let learningRepository: LearningRepository
+    private let audioManager: AudioManager
+    private let hapticManager: HapticManager
 
     // MARK: - State
     var currentItemIndex = 0
@@ -39,10 +41,18 @@ class LessonViewModel {
         currentItemIndex == lesson.items.count - 1
     }
 
-    init(lesson: Lesson, userId: UUID, learningRepository: LearningRepository) {
+    init(
+        lesson: Lesson,
+        userId: UUID,
+        learningRepository: LearningRepository,
+        audioManager: AudioManager,
+        hapticManager: HapticManager
+    ) {
         self.lesson = lesson
         self.userId = userId
         self.learningRepository = learningRepository
+        self.audioManager = audioManager
+        self.hapticManager = hapticManager
     }
 
     func selectAnswer(_ index: Int) {
@@ -91,6 +101,11 @@ class LessonViewModel {
 
         if isCurrentAnswerCorrect {
             correctAnswersCount += 1
+            audioManager.playCorrectSound()
+            hapticManager.playCorrectFeedback()
+        } else {
+            audioManager.playIncorrectSound()
+            hapticManager.playIncorrectFeedback()
         }
 
         // Submit to repository
@@ -128,6 +143,11 @@ class LessonViewModel {
     }
 
     func nextItem() {
+        if isLastItem {
+            audioManager.playLessonCompleteSound()
+            hapticManager.playLevelUpPattern()
+        }
+
         currentItemIndex += 1
         selectedAnswer = nil
         selectedAnswers = []

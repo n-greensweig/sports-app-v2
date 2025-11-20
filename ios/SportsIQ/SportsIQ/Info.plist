@@ -79,7 +79,17 @@
 				<string>sportsiq</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.549607005674-3bltmdl7egeuporuca0hh4ish4qogfd8</string>
+			</array>
+		</dict>
 	</array>
+    <key>GIDClientID</key>
+    <string>549607005674-3bltmdl7egeuporuca0hh4ish4qogfd8.apps.googleusercontent.com</string>
 
 	<!-- App Transport Security -->
 	<key>NSAppTransportSecurity</key>

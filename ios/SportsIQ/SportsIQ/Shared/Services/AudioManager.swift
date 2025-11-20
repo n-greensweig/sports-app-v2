@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import AudioToolbox
 
 /// Manager for audio feedback throughout the app
 class AudioManager {
@@ -29,69 +30,53 @@ class AudioManager {
     // MARK: - Sound Effects
 
     func playCorrectSound() {
-        // In a real app, play actual sound file
-        // playSound(named: "correct_answer.mp3")
-        print("🔊 Playing correct answer sound")
+        playSound(named: "correct_answer.mp3", fallbackSystemSoundID: 1057) // Pin drop / nice tone
     }
 
     func playIncorrectSound() {
-        // In a real app, play actual sound file
-        // playSound(named: "incorrect_answer.mp3")
-        print("🔊 Playing incorrect answer sound")
+        playSound(named: "incorrect_answer.mp3", fallbackSystemSoundID: 1053) // System sound for error/alert
     }
 
     func playLessonCompleteSound() {
-        // In a real app, play actual sound file
-        // playSound(named: "lesson_complete.mp3")
-        print("🔊 Playing lesson complete sound")
+        playSound(named: "lesson_complete.mp3", fallbackSystemSoundID: 1022) // Fanfare-ish
     }
 
     func playXPGainSound() {
-        // In a real app, play actual sound file
-        // playSound(named: "xp_gain.mp3")
-        print("🔊 Playing XP gain sound")
+        playSound(named: "xp_gain.mp3", fallbackSystemSoundID: 1103) // Tink
     }
 
     func playLevelUpSound() {
-        // In a real app, play actual sound file
-        // playSound(named: "level_up.mp3")
-        print("🔊 Playing level up sound")
+        playSound(named: "level_up.mp3", fallbackSystemSoundID: 1023) // Fanfare
     }
 
     func playBadgeEarnedSound() {
-        // In a real app, play actual sound file
-        // playSound(named: "badge_earned.mp3")
-        print("🔊 Playing badge earned sound")
+        playSound(named: "badge_earned.mp3", fallbackSystemSoundID: 1025) // Fanfare
     }
 
     func playStreakSound() {
-        // In a real app, play actual sound file
-        // playSound(named: "streak.mp3")
-        print("🔊 Playing streak sound")
+        playSound(named: "streak.mp3", fallbackSystemSoundID: 1104) // Tink
     }
 
     // MARK: - Football Specific Sounds
 
     func playWhistleSound() {
-        // In a real app, play actual sound file
-        // playSound(named: "whistle.mp3")
-        print("🔊 Playing whistle sound")
+        playSound(named: "whistle.mp3", fallbackSystemSoundID: 1000) // Generic
     }
 
     func playCrowdCheerSound() {
-        // In a real app, play actual sound file
-        // playSound(named: "crowd_cheer.mp3")
-        print("🔊 Playing crowd cheer sound")
+        playSound(named: "crowd_cheer.mp3", fallbackSystemSoundID: 1022) // Fanfare
     }
 
     // MARK: - Private Methods
 
-    private func playSound(named filename: String) {
-        // Implementation for loading and playing sound files
-        // This would load MP3/WAV files from the bundle
-        /*
+    private func playSound(named filename: String, fallbackSystemSoundID: SystemSoundID? = nil) {
         guard let url = Bundle.main.url(forResource: filename, withExtension: nil) else {
-            print("Sound file not found: \(filename)")
+            // Fallback to system sound if file not found
+            if let systemSoundID = fallbackSystemSoundID {
+                AudioServicesPlaySystemSound(systemSoundID)
+            } else {
+                print("Sound file not found: \(filename)")
+            }
             return
         }
 
@@ -103,7 +88,6 @@ class AudioManager {
         } catch {
             print("Failed to play sound: \(error)")
         }
-        */
     }
 
     func stopAllSounds() {

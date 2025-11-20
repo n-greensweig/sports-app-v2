@@ -690,7 +690,7 @@ SupabaseService (Singleton)
 ├── Auth Service (AuthService.swift)
 │   ├── Email/Password auth
 │   ├── Apple Sign In
-│   └── Google Sign In (in progress)
+│   └── Google Sign In
 └── Repositories
     ├── SupabaseLearningRepository
     ├── SupabaseUserRepository

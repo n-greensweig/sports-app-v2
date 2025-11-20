@@ -10,7 +10,7 @@ import Foundation
 /// Data Transfer Object for User from Supabase
 struct UserDTO: Codable {
     let id: String
-    let clerk_user_id: String
+    let clerk_user_id: String?
     let email: String
     let role: String
     let status: String
@@ -34,7 +34,7 @@ struct UserDTO: Codable {
 
         return User(
             id: uuid,
-            clerkId: clerk_user_id,
+            clerkId: clerk_user_id ?? "",
             username: profile?.username ?? email.components(separatedBy: "@").first ?? "user",
             email: email,
             displayName: profile?.display_name,
@@ -118,7 +118,7 @@ extension User {
     func toDTO(role: String = "user", status: String = "active") -> UserDTO {
         UserDTO(
             id: id.uuidString,
-            clerk_user_id: clerkId,
+            clerk_user_id: clerkId.isEmpty ? nil : clerkId,
             email: email,
             role: role,
             status: status,

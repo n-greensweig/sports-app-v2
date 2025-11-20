@@ -1,0 +1,1138 @@
+{
+    "additional_lessons": [
+        {
+            "title": "Play Action Passing",
+            "description": "Learn how play-action fakes manipulate defenses",
+            "order_index": 7,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand play action",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is play-action?",
+                        "options_json": [
+                            "QB fakes a handoff then throws",
+                            "QB hands off the ball",
+                            "QB runs the ball",
+                            "QB punts"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Play-action is when the QB fakes a handoff to freeze the defense, then throws a pass. It works best when the run game is effective."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand play action purpose",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why does play-action work?",
+                        "options_json": [
+                            "Defenders bite on the fake and lose coverage",
+                            "It's faster than regular passing",
+                            "It's required on 1st down",
+                            "It confuses the offense"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "When defenders see the run fake, they step forward to stop the run. This creates space behind them for receivers to get open."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify bootleg",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'bootleg' play?",
+                        "options_json": [
+                            "QB fakes handoff then rolls opposite direction",
+                            "QB throws deep",
+                            "QB hands off the ball",
+                            "An illegal play"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A bootleg has the QB fake a handoff one way, then roll out the opposite direction. This often leaves the QB with open field and running options."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand naked bootleg",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What makes a bootleg 'naked'?",
+                        "options_json": [
+                            "QB has no blockers protecting him",
+                            "QB doesn't wear pads",
+                            "It's an illegal play",
+                            "QB doesn't fake the handoff"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A naked bootleg leaves the QB without blocking protection. All linemen block away from the QB's rollout direction, making it risky but effective."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify play action effectiveness",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "When is play-action most effective?",
+                        "options_json": [
+                            "When the run game is working well",
+                            "On 3rd and long",
+                            "When losing badly",
+                            "In the 4th quarter only"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Play-action works best when the defense respects your run game. If they're worried about the run, they'll bite harder on the fake."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand play action timing",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What's a disadvantage of play-action?",
+                        "options_json": [
+                            "Takes longer to develop than quick passes",
+                            "It's illegal",
+                            "Can't gain yards",
+                            "Only works once per game"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The fake handoff takes extra time, so the QB has their back to the defense longer. This makes play-action vulnerable to blitzes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify play action formation",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What formation makes play-action most believable?",
+                        "options_json": [
+                            "Under center with running backs",
+                            "Empty backfield",
+                            "5-wide receiver set",
+                            "Punt formation"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Play-action looks most like a real run from under center with backs in the backfield. The defense sees a run formation and reacts accordingly."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand waggle",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'waggle' play?",
+                        "options_json": [
+                            "Bootleg with a pulling guard for protection",
+                            "QB runs straight ahead",
+                            "A type of punt",
+                            "An illegal formation"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A waggle is a bootleg where an offensive lineman (usually a guard) pulls to provide protection for the rolling QB. It's safer than a naked bootleg."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify play action read",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "On play-action, what does the QB typically look for?",
+                        "options_json": [
+                            "Receivers running deep behind frozen defenders",
+                            "Short underneath routes",
+                            "Running lanes",
+                            "The referee"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Play-action is designed to get receivers deep. When linebackers and safeties bite on the fake, receivers get behind them for big plays."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand play action vs shotgun",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Can you run play-action from shotgun?",
+                        "options_json": [
+                            "Yes, but it's less effective",
+                            "No, it's illegal",
+                            "Yes, it's more effective",
+                            "Only on 4th down"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "You can fake handoffs from shotgun, but it's less believable since the QB is farther from the RB. Under center fakes look more realistic."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Screen Passes",
+            "description": "Learn how screen passes work and when to use them",
+            "order_index": 8,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand screen pass",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a screen pass?",
+                        "options_json": [
+                            "Short pass with blockers in front of the receiver",
+                            "Deep pass downfield",
+                            "Pass to the sideline",
+                            "Illegal forward pass"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A screen pass is a short pass where offensive linemen or other blockers get in front of the receiver to create a 'screen' of blockers."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify RB screen",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "In a running back screen, what do the offensive linemen do?",
+                        "options_json": [
+                            "Let defenders through, then block downfield",
+                            "Block normally",
+                            "Run routes",
+                            "Stay at the line"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "On RB screens, linemen intentionally let pass rushers through, then release downfield to block. This tricks the defense into thinking they have a free rush."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand screen timing",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "When is the best time to call a screen pass?",
+                        "options_json": [
+                            "When the defense is blitzing aggressively",
+                            "On 1st down only",
+                            "When winning by a lot",
+                            "Never"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Screens work best against blitzes. When defenders rush hard, they run past the screen and can't recover. The blockers have numbers advantage."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify bubble screen",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a 'bubble screen'?",
+                        "options_json": [
+                            "Quick pass to a receiver in the flat with blockers",
+                            "Deep pass",
+                            "Screen to the running back",
+                            "A type of run play"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A bubble screen is a quick pass to a receiver in the flat (near the sideline) with other receivers blocking. It's almost like a run play."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand WR screen",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "How does a WR screen differ from a bubble screen?",
+                        "options_json": [
+                            "WR screens often have linemen pulling to block",
+                            "They're the same thing",
+                            "WR screens are illegal",
+                            "WR screens go deep"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "WR screens often involve offensive linemen releasing downfield to block, while bubble screens use other receivers as blockers. Both are quick passes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify middle screen",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'middle screen' or 'jailbreak screen'?",
+                        "options_json": [
+                            "Screen up the middle with pulling linemen",
+                            "Screen to the sideline",
+                            "Deep pass",
+                            "A running play"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A middle screen goes up the middle of the field with offensive linemen pulling to create a wall of blockers. It's effective when the defense spreads out."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand screen blocking",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why do offensive linemen release downfield on screens?",
+                        "options_json": [
+                            "To block defenders and create running lanes",
+                            "To catch the ball",
+                            "To confuse officials",
+                            "It's a penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Linemen release downfield to block linebackers and defensive backs, creating running lanes for the receiver. This turns a pass into a run play."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify screen weakness",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What can defeat a screen pass?",
+                        "options_json": [
+                            "Disciplined defenders who don't rush hard",
+                            "Aggressive blitzing",
+                            "Zone coverage",
+                            "Man coverage"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Screens rely on defenders rushing past the play. If defenders stay disciplined and don't rush hard, they can tackle the receiver before blockers arrive."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand slip screen",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'slip screen'?",
+                        "options_json": [
+                            "RB pretends to block then slips out for a pass",
+                            "QB slips and falls",
+                            "Receiver slips on the field",
+                            "An illegal play"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A slip screen has the RB fake blocking a rusher, then 'slip' out to the flat for a quick pass. It's very effective against aggressive pass rushers."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand screen as constraint",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Why are screens called 'constraint plays'?",
+                        "options_json": [
+                            "They punish defenses for being too aggressive",
+                            "They're only used in emergencies",
+                            "They're illegal in some situations",
+                            "They're very difficult to execute"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Screens 'constrain' or limit defensive aggression. If a defense blitzes too much, screens make them pay. This forces defenses to be more balanced."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Offensive Line Basics",
+            "description": "Learn offensive line positions and responsibilities",
+            "order_index": 9,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify center position",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is the center's primary job?",
+                        "options_json": [
+                            "Snap the ball to the QB",
+                            "Catch passes",
+                            "Run with the ball",
+                            "Call penalties"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The center snaps (hikes) the ball to the QB to start every play. The center also makes blocking calls and identifies defensive alignments."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify guard positions",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Where do the guards line up?",
+                        "options_json": [
+                            "On either side of the center",
+                            "At the ends of the line",
+                            "In the backfield",
+                            "Behind the tackles"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The two guards line up on either side of the center. They're typically the most athletic linemen and often 'pull' to lead block on running plays."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify tackle positions",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Where do offensive tackles line up?",
+                        "options_json": [
+                            "Outside the guards, at the ends of the line",
+                            "Next to the center",
+                            "In the backfield",
+                            "They don't line up on the line"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Offensive tackles line up outside the guards at the ends of the offensive line. They typically block defensive ends and outside linebackers."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand left tackle importance",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why is the left tackle often the highest-paid offensive lineman?",
+                        "options_json": [
+                            "Protects the QB's blind side (for right-handed QBs)",
+                            "They're the team captain",
+                            "They snap the ball",
+                            "They're the biggest player"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "For right-handed QBs, the left tackle protects the 'blind side' - the side the QB can't see while looking downfield. This is the most critical pass protection position."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify gaps",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What are 'gaps' in offensive line terminology?",
+                        "options_json": [
+                            "Spaces between offensive linemen",
+                            "Holes in the defense",
+                            "Mistakes by the offense",
+                            "Time between plays"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Gaps are the spaces between offensive linemen, labeled A (next to center), B (guard-tackle), C (tackle-TE), etc. Running plays target specific gaps."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand pulling guard",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What does it mean when a guard 'pulls'?",
+                        "options_json": [
+                            "Leaves their position to lead block elsewhere",
+                            "Pulls the defender down",
+                            "Pulls the QB back",
+                            "It's a penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "When a guard pulls, they leave their position and run laterally to lead block for a running play. This creates power and numbers advantage at the point of attack."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify offensive line count",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "How many offensive linemen are on the field for most plays?",
+                        "options_json": [
+                            "5",
+                            "7",
+                            "3",
+                            "11"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "There are always 5 offensive linemen: center, 2 guards, and 2 tackles. They're the only players who can't catch forward passes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand double team",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a 'double team' block?",
+                        "options_json": [
+                            "Two blockers blocking one defender",
+                            "Blocking two defenders",
+                            "Two plays in a row",
+                            "A penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A double team has two offensive linemen blocking one defensive player. This is used against strong defenders or to create movement at the point of attack."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify combo block",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'combo block'?",
+                        "options_json": [
+                            "Two linemen double team, then one peels off to block a linebacker",
+                            "Blocking two defenders at once",
+                            "A type of run play",
+                            "An illegal block"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A combo block starts as a double team on a defensive lineman, then one blocker 'peels off' to block a linebacker at the second level. It's fundamental to zone blocking."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand line splits",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What are 'line splits'?",
+                        "options_json": [
+                            "The distance between offensive linemen",
+                            "When the line breaks apart",
+                            "A type of formation",
+                            "A penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Line splits are the spacing between offensive linemen. Wider splits create bigger running lanes but make pass protection harder. Splits vary by play type."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Run Blocking Schemes",
+            "description": "Learn the two main run blocking philosophies",
+            "order_index": 10,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify zone blocking",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "In zone blocking, what do offensive linemen block?",
+                        "options_json": [
+                            "Areas/zones rather than specific players",
+                            "Specific assigned defenders",
+                            "Nobody - they run routes",
+                            "The referee"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Zone blocking has linemen block areas (zones) rather than specific defenders. They work together to create running lanes wherever the defense is weakest."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify gap blocking",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "In gap (or man) blocking, what do offensive linemen do?",
+                        "options_json": [
+                            "Block specific assigned defenders",
+                            "Block zones",
+                            "Pull to the outside",
+                            "Don't block anyone"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Gap or man blocking assigns each lineman a specific defender to block. The play is designed to go to a specific gap regardless of defensive alignment."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand zone blocking advantage",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is the main advantage of zone blocking?",
+                        "options_json": [
+                            "Adapts to defensive movement, RB finds the best hole",
+                            "More powerful",
+                            "Easier to learn",
+                            "Works against any defense"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Zone blocking is flexible - linemen work together to block areas, and the RB reads the defense to find the best hole. It adapts to what the defense does."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand gap blocking advantage",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is the main advantage of gap blocking?",
+                        "options_json": [
+                            "More physical and powerful at the point of attack",
+                            "More flexible",
+                            "Easier to execute",
+                            "Better for passing"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Gap blocking is more physical - linemen drive specific defenders backward. It's less flexible but more powerful when you want to impose your will."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify outside zone",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is 'outside zone' or 'stretch' play?",
+                        "options_json": [
+                            "Linemen block laterally, RB runs to the edge",
+                            "Linemen block straight ahead",
+                            "A passing play",
+                            "A trick play"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Outside zone has linemen block laterally toward the sideline, creating running lanes on the edge. The RB reads blocks and can cut inside or bounce outside."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify inside zone",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is 'inside zone'?",
+                        "options_json": [
+                            "Zone blocking up the middle between the tackles",
+                            "Zone blocking to the outside",
+                            "A passing play",
+                            "A defensive scheme"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Inside zone is zone blocking aimed at the interior gaps (A, B gaps). Linemen work laterally but the play targets inside running lanes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify power run",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a 'power' run play?",
+                        "options_json": [
+                            "Gap blocking with a pulling guard leading",
+                            "Zone blocking",
+                            "A passing play",
+                            "A trick play"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Power is a gap blocking scheme where a guard pulls to lead block through a specific gap. It's a physical, downhill running play."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify counter run",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'counter' run?",
+                        "options_json": [
+                            "RB fakes one direction, then runs the opposite way",
+                            "Running straight ahead",
+                            "A passing play",
+                            "Running backward"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A counter has the RB take a step one direction (to freeze the defense), then run the opposite way with pulling blockers. It's effective against aggressive defenses."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand reach block",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'reach block' in zone blocking?",
+                        "options_json": [
+                            "Blocker tries to get outside shoulder of defender",
+                            "Blocker reaches for the ball",
+                            "Blocker reaches for the QB",
+                            "An illegal block"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A reach block has the blocker try to get to the outside shoulder of the defender, sealing them inside. This creates running lanes on the edge."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify trap block",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'trap' block?",
+                        "options_json": [
+                            "Let a defender through, then block them from the side",
+                            "Block the defender straight on",
+                            "A passing play",
+                            "An illegal block"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A trap intentionally lets a defensive lineman through unblocked, then a pulling guard 'traps' them from the side. The RB runs through the created gap."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Pass Protection",
+            "description": "Learn how offensive lines protect the quarterback",
+            "order_index": 11,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand pass protection goal",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is the offensive line's job on passing plays?",
+                        "options_json": [
+                            "Protect the QB from pass rushers",
+                            "Run downfield",
+                            "Catch the ball",
+                            "Block for running backs"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "On passing plays, the offensive line must protect the QB from defensive pass rushers, giving the QB time to find open receivers and throw."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify man protection",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is 'man protection'?",
+                        "options_json": [
+                            "Each blocker is assigned a specific rusher",
+                            "Blocking zones",
+                            "Only one blocker protects the QB",
+                            "No protection"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Man protection assigns each blocker a specific pass rusher to block. If the defense brings more rushers than blockers, someone comes free."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify zone protection",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is 'zone protection'?",
+                        "options_json": [
+                            "Blockers protect areas and pass off rushers",
+                            "Each blocker has a specific assignment",
+                            "No blocking",
+                            "Only for running plays"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Zone protection has blockers protect areas and pass off rushers to each other. It's more flexible against stunts and twists but requires communication."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand slide protection",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is 'slide protection'?",
+                        "options_json": [
+                            "Line slides together in one direction to pick up rushers",
+                            "Linemen slide on the ground",
+                            "A type of run blocking",
+                            "An illegal technique"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Slide protection has the entire line slide together (usually toward the RB) to pick up rushers. The RB protects the opposite side. It's a zone protection concept."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify pocket",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is the 'pocket' in pass protection?",
+                        "options_json": [
+                            "Protected area around the QB created by blockers",
+                            "QB's pants pocket",
+                            "A type of formation",
+                            "A running lane"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The pocket is the protected area around the QB formed by offensive linemen. A good pocket gives the QB space to step up and throw."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand hot route",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'hot route' in pass protection?",
+                        "options_json": [
+                            "Quick route when the defense blitzes",
+                            "A deep route",
+                            "A running play",
+                            "An illegal route"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "When the defense brings more rushers than blockers, the QB throws a 'hot route' - a quick pass to where the blitzer came from. It neutralizes the blitz."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify chip block",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'chip block'?",
+                        "options_json": [
+                            "RB or TE briefly blocks then releases into route",
+                            "Blocking with your shoulder pads",
+                            "An illegal block",
+                            "A type of run block"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A chip block has a RB or TE give a quick block to slow down a rusher, then release into their pass route. It helps the tackle and gets the player into the pattern."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand max protection",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is 'max protection'?",
+                        "options_json": [
+                            "Using RBs and TEs to help block, fewer receivers",
+                            "Maximum number of receivers",
+                            "A type of run play",
+                            "Illegal formation"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Max protection keeps RBs and TEs in to block, giving maximum protection (7-8 blockers) but fewer receivers. It's used for deep passes or against heavy blitzes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify pass rush lane",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What are 'pass rush lanes'?",
+                        "options_json": [
+                            "Paths rushers take to get to the QB",
+                            "Lanes for the QB to run",
+                            "Passing routes",
+                            "Running lanes"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Pass rush lanes are the paths defenders take to rush the QB - typically inside, outside, or up the middle. Blockers must control these lanes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand protection breakdown",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What causes most sacks?",
+                        "options_json": [
+                            "Protection breakdowns or QB holding ball too long",
+                            "Receivers not getting open",
+                            "Bad play calls",
+                            "Weather conditions"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Sacks usually result from protection breakdowns (missed blocks, wrong assignments) or the QB holding the ball too long. Good protection requires all 11 players executing."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Pre-Snap Reads",
+            "description": "Learn how offenses adjust before the snap",
+            "order_index": 12,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand pre-snap read",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a 'pre-snap read'?",
+                        "options_json": [
+                            "QB analyzes the defense before the snap",
+                            "QB reads a book",
+                            "Reading the scoreboard",
+                            "Checking the play clock"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Pre-snap reads are when the QB analyzes the defensive alignment before the snap to identify coverage, potential blitzes, and favorable matchups."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify audible",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is an 'audible'?",
+                        "options_json": [
+                            "QB changes the play at the line of scrimmage",
+                            "A loud noise",
+                            "A penalty",
+                            "A timeout"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "An audible is when the QB changes the play call at the line of scrimmage based on what they see in the defense. It's also called 'checking out' of a play."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand motion",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why do offenses use pre-snap motion?",
+                        "options_json": [
+                            "To identify man vs zone coverage",
+                            "To confuse their own team",
+                            "Because it's required",
+                            "To waste time"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Pre-snap motion helps identify coverage. If a defender follows the motion, it's likely man coverage. If defenders pass off, it's zone coverage."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify Mike linebacker",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Why does the QB identify the 'Mike' linebacker?",
+                        "options_json": [
+                            "Sets the protection scheme for the offensive line",
+                            "Because his name is Mike",
+                            "To throw to him",
+                            "It's a penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Identifying the 'Mike' (middle linebacker) sets the protection scheme. Blockers count from the Mike to know their assignments. The Mike isn't always the actual MLB."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand shift",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a pre-snap 'shift'?",
+                        "options_json": [
+                            "Multiple players change positions before the snap",
+                            "QB changes the play",
+                            "A penalty",
+                            "A timeout"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A shift has multiple offensive players change positions before the snap. They must set for one second before the snap. Shifts can confuse defensive alignments."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify hard count",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a 'hard count'?",
+                        "options_json": [
+                            "QB uses voice inflection to draw defense offsides",
+                            "Counting to 10",
+                            "A math problem",
+                            "A penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A hard count uses voice inflection and cadence changes to try to make the defense jump offsides. The QB makes it sound like the snap is coming."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand kill call",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'kill' call?",
+                        "options_json": [
+                            "QB cancels the play, goes to backup play",
+                            "QB ends the game",
+                            "A violent play",
+                            "A penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A kill call cancels the original play and activates a pre-determined backup play. It's used when the original play won't work against the defensive look."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify box count",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is 'counting the box'?",
+                        "options_json": [
+                            "Counting defenders near the line of scrimmage",
+                            "Counting receivers",
+                            "Counting timeouts",
+                            "Counting yards"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Counting the box means counting how many defenders are near the line (in the 'box'). If there are more defenders than blockers, the QB might audible to a pass."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand dummy call",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'dummy' or 'decoy' call?",
+                        "options_json": [
+                            "Fake audible to confuse the defense",
+                            "Calling the defense dumb",
+                            "A bad play call",
+                            "A penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A dummy call is a fake audible - the QB yells signals but doesn't actually change the play. It's used to keep the defense guessing about real audibles."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify snap count",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is the 'snap count'?",
+                        "options_json": [
+                            "The signal that tells the center when to snap the ball",
+                            "Number of snaps in the game",
+                            "Counting players",
+                            "A penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The snap count is the predetermined signal (like 'hut' or a number) that tells the center when to snap the ball. Varying the count can draw the defense offsides."
+                    }
+                }
+            ]
+        }
+    ]
+}

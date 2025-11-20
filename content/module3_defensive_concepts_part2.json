@@ -1,0 +1,949 @@
+{
+    "additional_lessons": [
+        {
+            "title": "Blitz Concepts",
+            "description": "Learn different types of blitzes and when to use them",
+            "order_index": 6,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a blitz?",
+                        "options_json": [
+                            "Sending extra defenders to rush the QB",
+                            "A type of coverage",
+                            "A running play",
+                            "A penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A blitz sends more than the standard 4 pass rushers at the QB. Typically linebackers or defensive backs join the rush to create pressure."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify A-gap blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is an A-gap blitz?",
+                        "options_json": [
+                            "Blitz through the gaps next to the center",
+                            "Blitz from the outside",
+                            "Blitz from the secondary",
+                            "A grading system"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "An A-gap blitz sends defenders through the A gaps (spaces on either side of the center). It's a quick, inside blitz that's hard to block."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify B-gap blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Where is the B-gap?",
+                        "options_json": [
+                            "Between guard and tackle",
+                            "Next to the center",
+                            "Outside the tackle",
+                            "In the secondary"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The B-gap is between the guard and tackle. B-gap blitzes are common and effective, targeting this natural seam in pass protection."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify C-gap blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Where is the C-gap?",
+                        "options_json": [
+                            "Between tackle and tight end",
+                            "Next to the center",
+                            "Between guards",
+                            "In the backfield"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The C-gap is between the offensive tackle and tight end (or outside the tackle if no TE). C-gap blitzes come from the edge."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify zone blitz",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is a zone blitz?",
+                        "options_json": [
+                            "Blitz while playing zone coverage behind it",
+                            "Blitzing from a zone",
+                            "Blitzing the end zone",
+                            "An illegal blitz"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A zone blitz sends 5+ rushers while the remaining defenders play zone coverage. Often a DL drops into coverage while a LB/DB blitzes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify fire zone",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is a 'fire zone' blitz?",
+                        "options_json": [
+                            "5-man rush with 3-deep, 3-under zone coverage",
+                            "Blitzing in hot weather",
+                            "Same as any blitz",
+                            "An illegal defense"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Fire zone is a specific zone blitz package: 5 rushers with 6 defenders in coverage (3 deep, 3 underneath zones). It's very common in modern defenses."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify corner blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a corner blitz?",
+                        "options_json": [
+                            "Cornerback rushes from the edge",
+                            "Blitzing from the corner of the field",
+                            "Blitzing the corner route",
+                            "An illegal blitz"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A corner blitz sends the cornerback on a pass rush from the edge. It's surprising because corners usually cover receivers, not rush the QB."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify safety blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a safety blitz?",
+                        "options_json": [
+                            "Safety rushes the QB, usually up the middle",
+                            "A safe blitz",
+                            "Blitzing for safety",
+                            "An illegal blitz"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A safety blitz sends a safety (usually from depth) to rush the QB. They often come up the middle with a running start, making them hard to block."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand blitz risk",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is the main risk of blitzing?",
+                        "options_json": [
+                            "Fewer defenders in coverage, vulnerable to big plays",
+                            "It's illegal",
+                            "It tires out the defense",
+                            "It helps the offense"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "When you blitz, you have fewer defenders in coverage. If the QB reads it and throws quickly, receivers can get behind the defense for big gains."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify delayed blitz",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is a delayed blitz?",
+                        "options_json": [
+                            "Blitzer waits a moment before rushing",
+                            "Blitz that arrives late",
+                            "A slow blitz",
+                            "An illegal blitz"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A delayed blitz has the rusher wait a moment (showing coverage) before blitzing. This can confuse the QB and offensive line, creating free rushers."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Defensive Line Play",
+            "description": "Learn defensive line techniques and responsibilities",
+            "order_index": 7,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand gap responsibility",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a defensive lineman's 'gap responsibility'?",
+                        "options_json": [
+                            "The specific gap they must control",
+                            "The space between their teeth",
+                            "Their coverage assignment",
+                            "Their blitz assignment"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Each defensive lineman is responsible for controlling a specific gap (A, B, or C). They must prevent runs through their gap and maintain gap integrity."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify stunt",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a defensive line 'stunt' or 'twist'?",
+                        "options_json": [
+                            "Two linemen cross paths to confuse blockers",
+                            "A trick play",
+                            "An illegal move",
+                            "A celebration"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A stunt (or twist) has two defensive linemen cross paths - one loops around the other. This creates confusion and can free up a rusher."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify T-E stunt",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is a 'T-E stunt'?",
+                        "options_json": [
+                            "Tackle loops outside, end crashes inside",
+                            "Tight end blocks",
+                            "A type of coverage",
+                            "An offensive play"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A T-E (Tackle-End) stunt has the defensive tackle loop outside while the end crashes inside. It's designed to create one-on-one matchups for the tackle."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand penetration",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What does 'penetration' mean for defensive linemen?",
+                        "options_json": [
+                            "Getting into the offensive backfield",
+                            "Blocking the offensive line",
+                            "Covering receivers",
+                            "Tackling the QB"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Penetration means getting past the line of scrimmage into the backfield. It disrupts running plays and puts pressure on the QB."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify two-gap technique",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is 'two-gap' technique?",
+                        "options_json": [
+                            "Lineman controls two gaps on either side",
+                            "Covering two receivers",
+                            "Blitzing two gaps",
+                            "An illegal technique"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Two-gap technique has a lineman (usually nose tackle) control both gaps on either side of them. They read the play and fill whichever gap the run goes to."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify one-gap technique",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is 'one-gap' technique?",
+                        "options_json": [
+                            "Lineman attacks one specific gap",
+                            "Covering one receiver",
+                            "Blitzing one gap",
+                            "A penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "One-gap technique has each lineman attack a specific gap. It's more aggressive and penetrating than two-gap, but requires more discipline."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand contain",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What does 'contain' mean for defensive ends?",
+                        "options_json": [
+                            "Keep the play inside, don't let it bounce outside",
+                            "Tackle the QB",
+                            "Cover receivers",
+                            "Blitz"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Contain responsibility means the defensive end must keep the play from bouncing outside. They 'set the edge' and force runs back inside to the pursuit."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify bull rush",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a 'bull rush'?",
+                        "options_json": [
+                            "Power rush straight through the blocker",
+                            "Running around the blocker",
+                            "A trick move",
+                            "An illegal technique"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A bull rush is a power move where the rusher drives straight through the blocker using strength and leverage. It's the most basic pass rush move."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify speed rush",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a 'speed rush'?",
+                        "options_json": [
+                            "Using speed to run around the blocker",
+                            "Rushing very fast",
+                            "A blitz",
+                            "An illegal move"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A speed rush uses quickness and agility to run around the edge of the blocker. It's effective for fast defensive ends against slower tackles."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify swim move",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'swim move'?",
+                        "options_json": [
+                            "Rusher swims their arm over the blocker's shoulder",
+                            "Swimming in water",
+                            "A coverage technique",
+                            "An illegal move"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The swim move has the rusher use their arm in a swimming motion to go over the blocker's shoulder and get past them. It's a finesse pass rush move."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Linebacker Responsibilities",
+            "description": "Learn what linebackers do in different situations",
+            "order_index": 8,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand MLB role",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is the middle linebacker's primary role?",
+                        "options_json": [
+                            "Stop inside runs and cover the middle",
+                            "Rush the QB",
+                            "Cover deep passes",
+                            "Block offensive linemen"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The middle linebacker (MLB) is the defensive quarterback. They stop inside runs, cover tight ends and running backs, and make defensive calls."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify run fit",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a linebacker's 'run fit'?",
+                        "options_json": [
+                            "Their assigned gap to fill on running plays",
+                            "How well they fit in their uniform",
+                            "Their coverage assignment",
+                            "Their blitz assignment"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Run fit is the specific gap a linebacker is responsible for filling on run plays. Each defender has a gap to ensure all running lanes are covered."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand scrape",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is a 'scrape' by a linebacker?",
+                        "options_json": [
+                            "Flowing laterally behind the line to fill a gap",
+                            "Getting injured",
+                            "A coverage technique",
+                            "A blitz"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Scraping is when a linebacker flows laterally (parallel to the line) to fill a gap. It's used against outside runs and when linemen pull."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify hook zone",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is the 'hook zone' in coverage?",
+                        "options_json": [
+                            "Intermediate middle area, 10-15 yards deep",
+                            "Deep middle",
+                            "The flat",
+                            "Behind the line"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The hook zone (or hook/curl zone) is the intermediate middle area 10-15 yards deep. Linebackers typically drop here to defend curl and hook routes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand curl/flat defender",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is a 'curl/flat' defender?",
+                        "options_json": [
+                            "Defender reads #2 receiver to determine coverage",
+                            "Covering curls only",
+                            "Covering flats only",
+                            "A blitzer"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A curl/flat defender (usually a LB) reads the #2 receiver. If #2 goes vertical, they cover the flat. If #2 stays short, they cover the curl zone."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify Mike linebacker",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is the 'Mike' linebacker?",
+                        "options_json": [
+                            "The middle linebacker or the one the offense identifies",
+                            "A linebacker named Mike",
+                            "The best linebacker",
+                            "The weakest linebacker"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The 'Mike' is typically the middle linebacker, but the offense identifies who they consider the Mike for protection purposes. It's a key pre-snap read."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify Sam linebacker",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is the 'Sam' linebacker?",
+                        "options_json": [
+                            "Strong-side outside linebacker",
+                            "Middle linebacker",
+                            "Weak-side linebacker",
+                            "A linebacker named Sam"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The Sam linebacker is the strong-side outside linebacker (usually to the tight end side). They often have to cover tight ends and set the edge on runs."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify Will linebacker",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is the 'Will' linebacker?",
+                        "options_json": [
+                            "Weak-side outside linebacker",
+                            "Middle linebacker",
+                            "Strong-side linebacker",
+                            "A linebacker named Will"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The Will linebacker is the weak-side outside linebacker (away from the tight end). They're often the fastest LB and good in coverage."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand spy",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'spy' assignment for a linebacker?",
+                        "options_json": [
+                            "Shadow the QB to prevent scrambles",
+                            "Cover a specific receiver",
+                            "Blitz on every play",
+                            "Play deep safety"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A spy assignment has a linebacker (or sometimes a safety) shadow the QB to prevent scrambles. They don't rush but stay ready to tackle if the QB runs."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify stack alignment",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a 'stack' alignment for linebackers?",
+                        "options_json": [
+                            "LB lines up directly behind a defensive lineman",
+                            "LBs stand on each other",
+                            "LBs all blitz",
+                            "LBs in coverage only"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Stack alignment has the linebacker line up directly behind a defensive lineman. This hides the LB from the offense and makes it harder to read the defense."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Secondary Coverage",
+            "description": "Learn defensive back techniques and responsibilities",
+            "order_index": 9,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify press coverage",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is press coverage?",
+                        "options_json": [
+                            "DB lines up close and jams receiver at the line",
+                            "DB plays 10 yards off",
+                            "DB blitzes",
+                            "DB plays deep safety"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Press coverage has the defensive back line up within 5 yards and physically jam the receiver at the line to disrupt their route. It's aggressive man coverage."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify off coverage",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is off coverage?",
+                        "options_json": [
+                            "DB gives 5-10 yard cushion to the receiver",
+                            "DB is off the field",
+                            "DB blitzes",
+                            "DB plays press"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Off coverage has the DB give a cushion (5-10 yards) to the receiver. This prevents getting beat deep but allows short completions underneath."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand bail technique",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is 'bail' technique?",
+                        "options_json": [
+                            "DB turns and runs with receiver at the snap",
+                            "DB gives up on the play",
+                            "DB blitzes",
+                            "DB plays press"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Bail technique has the DB turn and run with the receiver at the snap. It's used in zone coverage to get depth quickly and protect against deep routes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify backpedal",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a backpedal?",
+                        "options_json": [
+                            "DB runs backward to maintain vision on receiver",
+                            "DB pedals a bike",
+                            "DB blitzes",
+                            "DB tackles"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Backpedaling is running backward while maintaining vision on the receiver and QB. It allows the DB to react to routes while keeping depth."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand leverage",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is 'leverage' in DB coverage?",
+                        "options_json": [
+                            "DB's position relative to receiver and sideline",
+                            "Using a lever",
+                            "Tackling technique",
+                            "Blitz assignment"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Leverage is the DB's position relative to the receiver and sideline. Inside leverage means positioned toward the middle; outside leverage toward the sideline."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify trail technique",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is 'trail' technique in man coverage?",
+                        "options_json": [
+                            "DB runs behind receiver, playing the ball",
+                            "DB leads the receiver",
+                            "DB blitzes",
+                            "DB plays zone"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Trail technique has the DB run behind the receiver in man coverage, focusing on the ball and receiver's hands. It's used when you have inside help."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand high-low",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What does 'high-low' mean in coverage?",
+                        "options_json": [
+                            "Two defenders cover one receiver at different depths",
+                            "Covering high and low routes",
+                            "A type of blitz",
+                            "An illegal technique"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "High-low coverage has two defenders bracket one receiver - one underneath (low) and one deep (high). It's used to take away a team's best receiver."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify eyes",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "In zone coverage, what should a DB's 'eyes' be on?",
+                        "options_json": [
+                            "The quarterback",
+                            "Their assigned receiver",
+                            "The ground",
+                            "The sideline"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "In zone coverage, DBs should have their eyes on the QB to read where the pass is going, while using peripheral vision to track receivers in their zone."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand break point",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is a 'break point' in coverage?",
+                        "options_json": [
+                            "When the receiver makes their cut",
+                            "When coverage breaks down",
+                            "When the DB gets tired",
+                            "When the play ends"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The break point is when the receiver makes their cut or breaks on their route. DBs must recognize this and drive on the ball to make a play."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify man match",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is 'man match' coverage?",
+                        "options_json": [
+                            "Hybrid of man and zone based on route patterns",
+                            "Pure man coverage",
+                            "Pure zone coverage",
+                            "A blitz package"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Man match (or pattern match) coverage starts as zone but has defenders match receivers man-to-man based on their routes. It combines benefits of both coverages."
+                    }
+                }
+            ]
+        },
+        {
+            "title": "Tackling Fundamentals",
+            "description": "Learn proper tackling techniques and pursuit angles",
+            "order_index": 10,
+            "est_minutes": 5,
+            "xp_award": 100,
+            "items": [
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand form tackle",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a 'form tackle'?",
+                        "options_json": [
+                            "Head up, wrap arms, drive through the ball carrier",
+                            "Diving at legs",
+                            "Shoulder tackle",
+                            "Arm tackle"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A form tackle uses proper technique: head up, eyes on target, wrap arms around the ball carrier, and drive through. It's the safest and most effective tackling method."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify pursuit angle",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is a pursuit angle?",
+                        "options_json": [
+                            "Path defender takes to intercept the ball carrier",
+                            "The angle of the field",
+                            "A type of coverage",
+                            "A blitz path"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Pursuit angle is the path a defender takes to intercept the ball carrier. Good angles cut off the runner; bad angles let them escape."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand leverage tackle",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What does 'leverage' mean in tackling?",
+                        "options_json": [
+                            "Getting lower than the ball carrier",
+                            "Using a lever",
+                            "Tackling from behind",
+                            "Arm tackling"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Leverage in tackling means getting your pad level lower than the ball carrier's. The lower player usually wins the collision and makes the tackle."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify gang tackling",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is gang tackling?",
+                        "options_json": [
+                            "Multiple defenders tackling the ball carrier together",
+                            "Illegal tackling",
+                            "Tackling in groups",
+                            "A penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Gang tackling is when multiple defenders swarm to the ball carrier and tackle together. It prevents yards after contact and can cause fumbles."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand wrap up",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why is 'wrapping up' important in tackling?",
+                        "options_json": [
+                            "Secures the tackle and prevents the runner from escaping",
+                            "Keeps you warm",
+                            "It's a penalty",
+                            "It's not important"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Wrapping up means securing your arms around the ball carrier. Without wrapping, runners can break tackles and gain extra yards."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify open field tackle",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What makes open field tackles difficult?",
+                        "options_json": [
+                            "Ball carrier has space to make moves",
+                            "Too many defenders",
+                            "The field is open",
+                            "It's illegal"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Open field tackles are one-on-one in space. The ball carrier can use speed and moves to avoid the tackle. Defenders must break down and maintain leverage."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand breakdown",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What does 'breaking down' mean in tackling?",
+                        "options_json": [
+                            "Slowing down, getting in athletic stance, preparing to tackle",
+                            "Tackle breaks apart",
+                            "Getting tired",
+                            "A penalty"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Breaking down means slowing from a sprint to a controlled position - feet chopping, knees bent, ready to react. It prevents overrunning the ball carrier."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify strip",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is 'stripping the ball'?",
+                        "options_json": [
+                            "Punching the ball out while tackling",
+                            "Removing the ball carrier's jersey",
+                            "A type of tackle",
+                            "An illegal move"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Stripping the ball means punching or raking at the ball while tackling to cause a fumble. The first defender wraps up while the second strips."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand fit",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What does 'fitting up' mean in run defense?",
+                        "options_json": [
+                            "Filling your assigned gap correctly",
+                            "Fitting into your uniform",
+                            "Tackling technique",
+                            "A coverage assignment"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Fitting up means each defender fills their assigned gap with proper leverage. When all 11 defenders fit correctly, there are no running lanes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Identify shoulder tackle",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a shoulder tackle?",
+                        "options_json": [
+                            "Leading with shoulder pad into ball carrier",
+                            "Tackling someone's shoulder",
+                            "Illegal tackle",
+                            "Arm tackle"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A shoulder tackle drives the shoulder pad into the ball carrier while wrapping up. It's powerful but must be done with head up to avoid injury."
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,957 @@
+{
+    "module": {
+        "title": "Defensive Concepts",
+        "description": "Master defensive formations, coverages, and strategies",
+        "order_index": 3,
+        "min_level": 3,
+        "max_level": 4,
+        "xp_reward": 0,
+        "lessons": [
+            {
+                "title": "Defensive Fronts",
+                "description": "Learn the main defensive line formations and personnel packages",
+                "order_index": 1,
+                "est_minutes": 5,
+                "xp_award": 100,
+                "items": [
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify 4-3 defense",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What does '4-3 defense' mean?",
+                            "options_json": [
+                                "4 defensive linemen, 3 linebackers",
+                                "4 linebackers, 3 linemen",
+                                "4 safeties, 3 corners",
+                                "Score is 4-3"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "4-3 defense has 4 defensive linemen (2 ends, 2 tackles) and 3 linebackers. It's a traditional, balanced defense good against both run and pass."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify 3-4 defense",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What does '3-4 defense' mean?",
+                            "options_json": [
+                                "3 defensive linemen, 4 linebackers",
+                                "3 linebackers, 4 linemen",
+                                "3 safeties, 4 corners",
+                                "Score is 3-4"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "3-4 defense has 3 defensive linemen (2 ends, 1 nose tackle) and 4 linebackers. It's versatile for blitzing and disguising pressure."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify nickel defense",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is nickel defense?",
+                            "options_json": [
+                                "5 defensive backs on the field",
+                                "5 linebackers",
+                                "5 defensive linemen",
+                                "Worth 5 cents"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Nickel defense has 5 DBs (the 5th DB is the 'nickel back'). It's used against 3+ WR sets, replacing a linebacker with an extra defensive back."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify dime defense",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is dime defense?",
+                            "options_json": [
+                                "6 defensive backs on the field",
+                                "6 linebackers",
+                                "6 defensive linemen",
+                                "Worth 10 cents"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Dime defense has 6 DBs (dime = 10 cents = 2 nickels). It's used in obvious passing situations, typically with only 3 or 4 down linemen."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand defensive tackle role",
+                        "difficulty": 2,
+                        "variant": {
+                            "prompt_richtext": "What is the primary job of defensive tackles in a 4-3?",
+                            "options_json": [
+                                "Stop the run up the middle",
+                                "Cover receivers",
+                                "Blitz the QB",
+                                "Kick field goals"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Defensive tackles line up over the guards and are primarily run-stoppers. They clog the middle and prevent inside running plays."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand defensive end role",
+                        "difficulty": 2,
+                        "variant": {
+                            "prompt_richtext": "What is the primary job of defensive ends?",
+                            "options_json": [
+                                "Rush the passer and set the edge on runs",
+                                "Cover the middle",
+                                "Play deep safety",
+                                "Snap the ball"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Defensive ends rush the QB on passes and 'set the edge' on runs (prevent outside runs). They're typically the best pass rushers on the defense."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify nose tackle",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "In a 3-4 defense, where does the nose tackle line up?",
+                            "options_json": [
+                                "Directly over the center",
+                                "Over the guard",
+                                "On the outside",
+                                "In the secondary"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "The nose tackle lines up directly over the center (on their 'nose'). They're usually the biggest player on defense and anchor the middle."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand 4-3 vs 3-4",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What's a key difference between 4-3 and 3-4 defenses?",
+                            "options_json": [
+                                "3-4 has more versatile blitz options",
+                                "4-3 is better against the pass",
+                                "3-4 is illegal in the NFL",
+                                "There's no difference"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "3-4 defenses have 4 linebackers, creating more blitz options and disguise. The offense doesn't know which LBs will rush. 4-3 is more straightforward."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify base defense",
+                        "difficulty": 2,
+                        "variant": {
+                            "prompt_richtext": "What is a team's 'base defense'?",
+                            "options_json": [
+                                "Their standard formation (4-3 or 3-4)",
+                                "Their best defense",
+                                "Defense used on 1st down only",
+                                "Defense at home stadium"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Base defense is a team's standard formation - either 4-3 or 3-4. Teams build their entire defensive system around their base front."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand sub packages",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "Why do defenses use nickel and dime packages?",
+                            "options_json": [
+                                "To match speed when offense uses multiple WRs",
+                                "To confuse the offense",
+                                "Because it's required",
+                                "To rest players"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "When offenses use 3+ WRs, defenses need more DBs to match speed. Nickel and dime packages replace slower LBs with faster defensive backs."
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Cover 1 Defense",
+                "description": "Learn man-free coverage and its strengths and weaknesses",
+                "order_index": 2,
+                "est_minutes": 5,
+                "xp_award": 100,
+                "items": [
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 1",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is Cover 1 defense?",
+                            "options_json": [
+                                "Man coverage with 1 deep safety",
+                                "Zone coverage",
+                                "1 defender on the field",
+                                "1 point allowed"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 1 (or 'man-free') has defenders play man-to-man coverage on receivers with 1 deep safety providing help over the top."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand free safety role",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "In Cover 1, what is the free safety's job?",
+                            "options_json": [
+                                "Provide deep help and prevent big plays",
+                                "Blitz the QB",
+                                "Cover a specific receiver",
+                                "Play near the line"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "The free safety in Cover 1 plays deep middle and helps on any deep routes. They're the last line of defense and prevent touchdowns."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 1 strength",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is a strength of Cover 1?",
+                            "options_json": [
+                                "Can bring extra pass rushers (blitz)",
+                                "Great against the run",
+                                "Prevents all passes",
+                                "Easy to play"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Since only 1 safety plays deep, Cover 1 allows 6+ defenders to rush or play near the line. This creates pressure and stops the run."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 1 weakness",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is a weakness of Cover 1?",
+                            "options_json": [
+                                "Vulnerable to pick routes and rub concepts",
+                                "Can't stop the run",
+                                "Too many deep safeties",
+                                "Illegal in some situations"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Man coverage struggles against pick/rub routes where receivers cross and create natural interference. The free safety can't help everywhere."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand man coverage technique",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "In man coverage, what should a defender focus on?",
+                            "options_json": [
+                                "The receiver's hips and movements",
+                                "The quarterback",
+                                "The ball",
+                                "The sideline"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "In man coverage, defenders watch the receiver's hips (which don't lie) and mirror their movements. Looking at the QB or ball causes you to lose position."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify press coverage",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is 'press' coverage in Cover 1?",
+                            "options_json": [
+                                "Defender lines up close and jams receiver at the line",
+                                "Defender plays 10 yards off",
+                                "Defender blitzes",
+                                "Defender covers a zone"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Press coverage has the defender line up close to the receiver and 'jam' them at the line to disrupt their route. It's aggressive man coverage."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand off coverage",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is 'off' coverage?",
+                            "options_json": [
+                                "Defender plays 5-10 yards off the receiver",
+                                "Defender is off the field",
+                                "Defender is turned around",
+                                "Defender blitzes"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Off coverage has the defender give a cushion (5-10 yards) to the receiver. This prevents getting beat deep but allows short completions."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 1 robber",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is 'Cover 1 Robber'?",
+                            "options_json": [
+                                "Free safety plays shallow to rob crossing routes",
+                                "A player steals the ball",
+                                "An illegal defense",
+                                "Same as regular Cover 1"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 1 Robber has the free safety play shallow to 'rob' crossing routes and underneath passes instead of playing deep. A linebacker may play deep instead."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand man coverage matchups",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "Why do offenses love mismatches in man coverage?",
+                            "options_json": [
+                                "Fast WR vs slow LB creates easy completions",
+                                "It's illegal",
+                                "It helps the defense",
+                                "It doesn't matter"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "In man coverage, if a fast receiver is matched against a slower linebacker, the receiver has a huge advantage. Offenses exploit these mismatches."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 1 blitz",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "Why is Cover 1 often paired with blitzes?",
+                            "options_json": [
+                                "Only need 1 deep safety, freeing up rushers",
+                                "It's required by rules",
+                                "Blitzes don't work with zone",
+                                "To confuse the offense"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 1 only requires 1 deep safety, so more defenders can blitz or play near the line. This creates pressure while maintaining deep coverage."
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Cover 2 Defense",
+                "description": "Learn two-deep zone coverage and its variations",
+                "order_index": 3,
+                "est_minutes": 5,
+                "xp_award": 100,
+                "items": [
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 2",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is Cover 2 defense?",
+                            "options_json": [
+                                "2 deep safeties split the field in half",
+                                "2 defenders on the field",
+                                "2 points allowed",
+                                "2 linebackers"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 2 has two safeties each responsible for half the deep field. Underneath defenders play zone coverage. It's a balanced zone defense."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand Cover 2 safeties",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "In Cover 2, what area do the safeties cover?",
+                            "options_json": [
+                                "Deep halves of the field",
+                                "Underneath zones",
+                                "The line of scrimmage",
+                                "They blitz"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Each safety covers a deep half (left or right). They prevent deep passes down the sidelines and over the top. Everything underneath is zone coverage."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 2 strength",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is a strength of Cover 2?",
+                            "options_json": [
+                                "Good against deep sideline routes",
+                                "Stops all passes",
+                                "Great against the run",
+                                "Easy to play"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 2 safeties take away deep sideline routes (9 routes, corners). The defense can also get 8 defenders near the line to stop the run."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 2 weakness",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is a weakness of Cover 2?",
+                            "options_json": [
+                                "Vulnerable to deep middle passes (seam routes)",
+                                "Can't stop outside runs",
+                                "Too many deep defenders",
+                                "Illegal formation"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "The seam between the two safeties (deep middle) is vulnerable in Cover 2. Tight ends and slot receivers can exploit this area with seam routes."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand flat defenders",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "In Cover 2, who covers the 'flats' (near the sideline)?",
+                            "options_json": [
+                                "Cornerbacks",
+                                "Safeties",
+                                "Defensive linemen",
+                                "No one"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "In Cover 2, corners play the flats (short areas near the sideline) instead of deep coverage. They must stop quick outs and screens."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Tampa 2",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is 'Tampa 2' coverage?",
+                            "options_json": [
+                                "Cover 2 with MLB dropping deep to cover the seam",
+                                "Cover 2 used only in Tampa",
+                                "2 defenders blitz",
+                                "Same as regular Cover 2"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Tampa 2 is Cover 2 where the middle linebacker drops deep to cover the seam between safeties. This fixes Cover 2's main weakness but requires athletic LBs."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand Cover 2 zones",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "How many zones are there in Cover 2?",
+                            "options_json": [
+                                "5 underneath, 2 deep (7 total)",
+                                "2 total",
+                                "11 total",
+                                "4 total"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 2 typically has 5 underneath zones (2 flats, 2 hooks/curls, 1 middle) and 2 deep zones. Seven defenders drop into coverage."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 2 beater",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What route concept beats Cover 2?",
+                            "options_json": [
+                                "4 verticals (stretches the 2 safeties)",
+                                "All short routes",
+                                "Running plays only",
+                                "Screen passes"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Four vertical routes stretch the 2 safeties horizontally. They can't cover 4 deep routes, creating holes in coverage. This is a classic Cover 2 beater."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand Cover 2 vs run",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "Is Cover 2 good against the run?",
+                            "options_json": [
+                                "Yes, can get 8 defenders in the box",
+                                "No, too many deep defenders",
+                                "Only on 3rd down",
+                                "It's only for passing downs"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 2 can be excellent against the run. With only 2 deep safeties, you can have 9 defenders near the line (4 DL, 3 LB, 2 CB). This stops runs."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 2 sink",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is 'Cover 2 Sink'?",
+                            "options_json": [
+                                "Corners sink deeper to help with intermediate routes",
+                                "Defense is sinking/failing",
+                                "Safeties play shallow",
+                                "A running defense"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 2 Sink has corners play deeper (8-12 yards) to help with intermediate routes and take away the seam. It's a variation that trades flats for better middle coverage."
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Cover 3 Defense",
+                "description": "Learn three-deep zone coverage and its applications",
+                "order_index": 4,
+                "est_minutes": 5,
+                "xp_award": 100,
+                "items": [
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 3",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is Cover 3 defense?",
+                            "options_json": [
+                                "3 deep defenders each cover 1/3 of the field",
+                                "3 defenders on the field",
+                                "3 points allowed",
+                                "3 linebackers"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 3 has three defenders (2 corners and 1 safety) each covering a deep third of the field. It's a zone coverage that's strong against deep passes."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand Cover 3 alignment",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "In Cover 3, which defenders play deep?",
+                            "options_json": [
+                                "Both corners and the free safety",
+                                "Both safeties and one corner",
+                                "All three linebackers",
+                                "The defensive line"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "In Cover 3, both corners drop deep to cover the outside thirds while the free safety covers the middle third. The strong safety plays underneath."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 3 strength",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is a strength of Cover 3?",
+                            "options_json": [
+                                "Strong against deep passes and vertical routes",
+                                "Stops all running plays",
+                                "Great against short passes",
+                                "Easy to play"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 3 has three deep defenders, making it very strong against deep passes. Vertical routes are well-covered with defenders in each third."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 3 weakness",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is a weakness of Cover 3?",
+                            "options_json": [
+                                "Vulnerable to flat routes and quick outs",
+                                "Can't stop deep passes",
+                                "Too many deep defenders",
+                                "Illegal in some situations"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "With corners playing deep, the flats (short sideline areas) are vulnerable in Cover 3. Quick outs, screens, and flat routes can exploit this."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand Cover 3 buzz",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is 'Cover 3 Buzz'?",
+                            "options_json": [
+                                "Strong safety replaces corner in the flat",
+                                "A loud defense",
+                                "Same as regular Cover 3",
+                                "An illegal coverage"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 3 Buzz has the strong safety 'buzz' to the flat to replace the corner, allowing the corner to play deeper. This helps defend both deep and flat routes."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 3 cloud",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is 'Cover 3 Cloud'?",
+                            "options_json": [
+                                "Corner plays flat, safety rotates to deep third",
+                                "Coverage in bad weather",
+                                "Same as regular Cover 3",
+                                "A blitz package"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 3 Cloud has the corner play the flat while the safety rotates over to cover the deep third. This is better against quick passes but can be vulnerable deep."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand Cover 3 zones",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "How many zones are in Cover 3?",
+                            "options_json": [
+                                "4 underneath, 3 deep (7 total)",
+                                "3 total",
+                                "11 total",
+                                "6 total"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 3 has 3 deep zones (thirds) and typically 4 underneath zones (2 flats, 2 hooks). Seven defenders drop into coverage."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 3 beater",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What route concept beats Cover 3?",
+                            "options_json": [
+                                "Flood concept (3 receivers to one side)",
+                                "All deep routes",
+                                "Running plays only",
+                                "No routes beat it"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Flood concepts (3 receivers at different depths on one side) overload Cover 3. The corner has to choose between deep, intermediate, or flat - someone gets open."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand Cover 3 vs run",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "How does Cover 3 defend the run?",
+                            "options_json": [
+                                "Strong safety and linebackers fill gaps",
+                                "It doesn't - it's pass only",
+                                "All 11 defenders play the run",
+                                "Corners tackle the RB"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "In Cover 3, the strong safety plays near the line and fills run gaps with linebackers. With corners deep, you have 8 defenders for the run."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify sky coverage",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is 'Sky' coverage in Cover 3?",
+                            "options_json": [
+                                "Safety takes deep outside third, corner plays flat",
+                                "Looking at the sky",
+                                "Same as regular Cover 3",
+                                "A blitz"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Sky coverage (opposite of Cloud) has the safety take the deep outside third while the corner plays the flat. This is used to the strong side of formations."
+                        }
+                    }
+                ]
+            },
+            {
+                "title": "Cover 4 Defense",
+                "description": "Learn quarters coverage and pattern matching concepts",
+                "order_index": 5,
+                "est_minutes": 5,
+                "xp_award": 100,
+                "items": [
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 4",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is Cover 4 defense?",
+                            "options_json": [
+                                "4 deep defenders each cover 1/4 of the field",
+                                "4 defenders on the field",
+                                "4 points allowed",
+                                "4 linebackers"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 4 (or 'Quarters') has 4 deep defenders - 2 corners and 2 safeties - each responsible for a quarter of the deep field."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand Cover 4 alignment",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "In Cover 4, which defenders play deep?",
+                            "options_json": [
+                                "Both corners and both safeties",
+                                "All four linebackers",
+                                "The defensive line",
+                                "Only the safeties"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 4 has both corners and both safeties playing deep, each covering a quarter. This creates maximum deep coverage with 4 deep defenders."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 4 strength",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is a strength of Cover 4?",
+                            "options_json": [
+                                "Excellent against deep passes and 4 verticals",
+                                "Stops all runs",
+                                "Great against short passes",
+                                "Easy to play"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 4 is the best coverage against 4 vertical routes because you have 4 deep defenders. Each can match a vertical receiver man-to-man."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 4 weakness",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What is a weakness of Cover 4?",
+                            "options_json": [
+                                "Vulnerable to intermediate crossing routes",
+                                "Can't stop deep passes",
+                                "Too many deep defenders",
+                                "Illegal coverage"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "With 4 defenders deep, only 3 linebackers cover underneath. Crossing routes and intermediate passes can find holes between the levels."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand pattern matching",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is 'pattern matching' in Cover 4?",
+                            "options_json": [
+                                "Defenders match receivers based on route patterns",
+                                "Matching uniforms",
+                                "Same as zone coverage",
+                                "An illegal technique"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Pattern matching has defenders start in zone but match receivers man-to-man based on their routes. If a receiver goes vertical, the defender matches them."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify 2-read coverage",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is the '2-read' in Cover 4?",
+                            "options_json": [
+                                "Defender reads #2 receiver to determine coverage",
+                                "Reading 2 books",
+                                "Covering 2 receivers",
+                                "A blitz package"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "In Cover 4, defenders read the #2 receiver (slot/TE). If #2 goes vertical, the safety matches them. If #2 stays short, the safety helps on #1 deep."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand Cover 4 vs 2x2",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "Why is Cover 4 good against 2x2 formations?",
+                            "options_json": [
+                                "4 deep defenders match 4 receivers perfectly",
+                                "It's not good against 2x2",
+                                "It confuses the offense",
+                                "It's illegal"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Against 2x2 (2 receivers each side), Cover 4 has perfect balance - 2 deep defenders on each side. Each side can play 2-man coverage on the receivers."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify Cover 4 palms",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is 'Cover 4 Palms'?",
+                            "options_json": [
+                                "Specific pattern-match rules for Cover 4",
+                                "Covering with your palms",
+                                "Same as regular Cover 4",
+                                "A blitz"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 4 Palms is a specific pattern-matching scheme with detailed rules for how defenders match routes. It's a hybrid of man and zone coverage."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Understand Cover 4 vs trips",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "How does Cover 4 defend trips (3 receivers to one side)?",
+                            "options_json": [
+                                "Rotates coverage to get 3 defenders to that side",
+                                "It can't defend trips",
+                                "Plays normal quarters",
+                                "Blitzes"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Against trips, Cover 4 typically rotates to get 3 defenders (corner, safety, and a linebacker) to the trips side. The backside plays Cover 3 or man."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Identify quarters vs halves",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "What's the main difference between Cover 4 and Cover 2?",
+                            "options_json": [
+                                "Cover 4 has 4 deep, Cover 2 has 2 deep",
+                                "They're the same",
+                                "Cover 4 is illegal",
+                                "Cover 2 is better"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "Cover 4 splits the deep field into quarters (4 defenders), while Cover 2 splits it into halves (2 defenders). Cover 4 is better against deep passes."
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,726 @@
+{
+  "module": {
+    "title": "Offensive Concepts",
+    "description": "Master offensive formations, play types, and route concepts",
+    "order_index": 2,
+    "min_level": 2,
+    "max_level": 3,
+    "xp_reward": 0,
+    "lessons": [
+      {
+        "title": "Common Offensive Formations",
+        "description": "Learn to identify the most popular offensive formations in football",
+        "order_index": 1,
+        "est_minutes": 5,
+        "xp_award": 100,
+        "items": [
+          {
+            "type": "mcq",
+            "base_prompt": "Identify formation",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "The quarterback is 5 yards behind the center with no running back beside him. What formation is this?",
+              "options_json": ["Shotgun", "I-Formation", "Pistol", "Under Center"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Shotgun formation has the QB standing 5-7 yards behind center. This gives the QB more time to read the defense and is commonly used for passing plays."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify formation",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "The QB is under center with a fullback and tailback lined up directly behind him in a straight line. What formation is this?",
+              "options_json": ["I-Formation", "Shotgun", "Spread", "Singleback"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "The I-Formation gets its name because the QB, fullback, and tailback form the shape of an 'I'. It's a classic power running formation."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify formation",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "The QB is in shotgun with the running back lined up beside him at about 4 yards deep. What formation is this?",
+              "options_json": ["Pistol", "I-Formation", "Shotgun", "Wildcat"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "The Pistol formation combines elements of shotgun and under center. The QB is in shotgun but the RB is directly behind him, allowing for better running angles."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand formation purpose",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "Why do teams use the shotgun formation?",
+              "options_json": ["Better for passing plays", "Better for running plays", "Confuses the defense", "Required on 3rd down"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Shotgun gives the QB more time to scan the defense and throw. The QB doesn't need to drop back after the snap, making it ideal for passing situations."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify formation",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "The offense has 4 or 5 wide receivers spread across the field with no running back. What formation is this?",
+              "options_json": ["Empty Set", "I-Formation", "Goal Line", "Wildcat"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "An Empty Set (or Empty Backfield) has no running backs, forcing the defense to cover more space. It's a pure passing formation."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand singleback",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "In a Singleback formation, how many running backs are in the backfield?",
+              "options_json": ["1", "2", "0", "3"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Singleback has one running back in the backfield. It's a balanced formation that can run or pass effectively."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify formation advantage",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is the main advantage of the I-Formation for running plays?",
+              "options_json": ["The fullback can lead block for the tailback", "It spreads out the defense", "The QB has more time to throw", "It's unpredictable"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "In the I-Formation, the fullback leads through the hole and blocks defenders, creating a path for the tailback. This is classic power running football."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand formation terminology",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What does 'under center' mean?",
+              "options_json": ["QB takes snap directly from center", "QB is in shotgun", "Center is the team captain", "QB calls the play"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "'Under center' means the QB is directly behind the center and takes the snap by placing hands under the center's legs. This is the traditional QB position."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify wildcat formation",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "In the Wildcat formation, who typically receives the snap?",
+              "options_json": ["A running back or receiver", "The quarterback", "The fullback", "The tight end"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "The Wildcat is a trick formation where a RB or WR takes the direct snap instead of the QB. It's designed to create confusion and running opportunities."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Formation recognition",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "The offense lines up with the QB under center and one RB offset to the left or right. What formation is this likely?",
+              "options_json": ["Singleback", "I-Formation", "Shotgun", "Empty"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "This describes a Singleback formation with an offset back. The RB can go either direction, making it versatile for runs and passes."
+            }
+          }
+        ]
+      },
+      {
+        "title": "Spread Formations",
+        "description": "Understand spread offense concepts and receiver alignments",
+        "order_index": 2,
+        "est_minutes": 5,
+        "xp_award": 100,
+        "items": [
+          {
+            "type": "mcq",
+            "base_prompt": "Understand spread offense",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What is the main goal of a spread formation?",
+              "options_json": ["Force the defense to cover more space", "Pack more blockers near the line", "Confuse the officials", "Run the ball more effectively"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Spread formations spread receivers across the field, forcing defenders to cover more ground. This creates space for both passing and running plays."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Count receivers",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "In a '4-wide' formation, how many wide receivers are on the field?",
+              "options_json": ["4", "3", "5", "2"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "4-wide means four wide receivers are on the field, typically with one running back. This spreads the defense horizontally."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify trips formation",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What does 'Trips' mean in formation terminology?",
+              "options_json": ["Three receivers on one side", "Three running backs", "Three tight ends", "Three offensive linemen pull"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Trips (short for 'triple') means three receivers lined up on the same side of the field. This creates natural route combinations and overloads one side."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand empty backfield",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "In an empty backfield, where does the running back typically line up?",
+              "options_json": ["Split out as a receiver", "Behind the QB", "Next to the QB", "There is no RB on the field"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "In empty formations, the RB usually splits out wide as a receiver, creating 5 eligible receivers. This is a pure passing formation."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify bunch formation",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is a 'bunch' formation?",
+              "options_json": ["Multiple receivers lined up close together", "All receivers on one side", "No receivers on the field", "Receivers in the backfield"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A bunch formation has 2-3 receivers lined up within a few yards of each other. This creates natural picks and makes it hard for defenders to cover man-to-man."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand spread advantage",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "How does spread offense help the running game?",
+              "options_json": ["Defenders must spread out, creating running lanes", "It doesn't help running", "More blockers at the line", "Confuses the defense"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "When defenders spread out to cover receivers, there are fewer defenders in the box. This creates more space for running backs to find holes."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify slot receiver",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "Where does a slot receiver line up?",
+              "options_json": ["Between the outside receiver and offensive line", "On the outside", "In the backfield", "Next to the QB"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "The slot receiver lines up in the 'slot' - the space between the outside WR and the offensive tackle. Slot receivers often run quick, precise routes."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand 5-wide formation",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "In a 5-wide formation, what is the biggest risk?",
+              "options_json": ["No blockers to protect the QB", "Too many receivers", "Illegal formation", "Can't run the ball"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "With 5 receivers, only the 5 offensive linemen are left to block. If the defense blitzes 6+ players, the QB will likely be under immediate pressure."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify formation balance",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What does '2x2' mean in formation terminology?",
+              "options_json": ["Two receivers on each side", "Two running backs", "Two tight ends", "Second down and 2 yards"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "2x2 (or 'deuce') means two receivers on each side of the formation. It's a balanced spread look that doesn't tip off the play direction."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand spread tempo",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "Why do spread offenses often use hurry-up/no-huddle?",
+              "options_json": ["Prevents defense from substituting", "Saves time on the clock", "Confuses the offense", "Required by rules"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Hurry-up prevents the defense from substituting bigger/smaller players. If the offense has speed players, they can exploit mismatches before the defense adjusts."
+            }
+          }
+        ]
+      },
+      {
+        "title": "Power Running Formations",
+        "description": "Learn formations designed for physical, downhill running",
+        "order_index": 3,
+        "est_minutes": 5,
+        "xp_award": 100,
+        "items": [
+          {
+            "type": "mcq",
+            "base_prompt": "Identify power formation",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "Which formation is best for short-yardage power running?",
+              "options_json": ["I-Formation", "Empty Set", "5-Wide", "Wildcat"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "The I-Formation is ideal for power running because the fullback can lead block and the tailback has a running start to hit the hole with momentum."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand fullback role",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What is the primary job of a fullback in power formations?",
+              "options_json": ["Lead blocking for the running back", "Catching passes", "Blocking the defensive line", "Calling plays"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "The fullback is a blocking specialist who leads through the hole and blocks linebackers or safeties, clearing the path for the tailback."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify goal line formation",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "On the goal line, teams often bring in extra offensive linemen. What is this package called?",
+              "options_json": ["Goal Line or Jumbo package", "Spread package", "Empty package", "Wildcat package"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Goal Line or Jumbo packages replace receivers with extra offensive linemen and tight ends. This creates maximum blocking power for short-yardage situations."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand strong formation",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What makes a formation 'strong' vs 'weak'?",
+              "options_json": ["The side with more blockers (usually the TE)", "The side the QB looks at", "The side with the best receiver", "The side facing the sideline"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "The 'strong side' is the side with more blockers, typically where the tight end lines up. The 'weak side' has fewer blockers. This affects defensive alignment."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify full house formation",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is a 'Full House' backfield?",
+              "options_json": ["Three running backs behind the QB", "Five wide receivers", "Two tight ends", "No running backs"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Full House has three backs in the backfield - typically a fullback and two halfbacks. It's an old-school power formation rarely seen in modern football."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand tight end role",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "In power running formations, what is the tight end's primary role?",
+              "options_json": ["Blocking defensive ends and linebackers", "Running routes", "Protecting the QB", "Snapping the ball"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "In power formations, tight ends are extra blockers on the line of scrimmage. They block defensive ends and seal the edge for running plays."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify two-back formation",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What is an advantage of using two running backs in the backfield?",
+              "options_json": ["More blocking and run options", "Better for passing", "Confuses officials", "Required on 1st down"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Two backs provide an extra blocker and create multiple run options. The defense doesn't know which back will get the ball or if one will block."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand offset I-formation",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "In an offset I-formation, why is the tailback positioned slightly left or right?",
+              "options_json": ["To give a better angle to the intended hole", "To confuse the defense", "It's a penalty", "To catch passes"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Offsetting the tailback gives them a better running angle to the intended gap. It also helps disguise which direction the play is going."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify heavy formation",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "When would a team use a 'heavy' formation with multiple tight ends?",
+              "options_json": ["Short yardage or goal line situations", "3rd and long", "When losing badly", "Only in the 4th quarter"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Heavy formations with 2-3 tight ends are used when you need to gain just a few yards. The extra blockers overpower the defense in tight spaces."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand power vs finesse",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What's the main difference between power and finesse running?",
+              "options_json": ["Power uses blockers to create holes, finesse uses speed and misdirection", "Power is faster", "Finesse uses more blockers", "They're the same thing"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Power running uses multiple blockers to physically move defenders and create holes. Finesse running uses speed, cuts, and misdirection to find openings."
+            }
+          }
+        ]
+      },
+      {
+        "title": "Personnel Packages",
+        "description": "Learn how teams use different player combinations",
+        "order_index": 4,
+        "est_minutes": 5,
+        "xp_award": 100,
+        "items": [
+          {
+            "type": "mcq",
+            "base_prompt": "Understand personnel notation",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What does '11 personnel' mean?",
+              "options_json": ["1 RB, 1 TE, 3 WR", "11 players on field", "1 QB, 1 RB", "11 offensive linemen"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Personnel packages use two digits: first is number of RBs, second is number of TEs. So '11' = 1 RB, 1 TE (and 3 WRs to make 5 skill players)."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify 12 personnel",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "In '12 personnel', how many tight ends are on the field?",
+              "options_json": ["2", "1", "12", "0"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "12 personnel = 1 RB, 2 TEs (and 2 WRs). This is a balanced package that can run or pass effectively."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify 10 personnel",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What does '10 personnel' tell you about the formation?",
+              "options_json": ["1 RB, 0 TE, 4 WR", "10 players on field", "0 RB, 1 TE", "10 offensive linemen"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "10 personnel = 1 RB, 0 TEs, which means 4 WRs. This is a spread passing package with maximum receiving threats."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand 21 personnel",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "When would a team use '21 personnel'?",
+              "options_json": ["Balanced run/pass situations", "Only passing downs", "Only running downs", "Goal line only"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "21 personnel (2 RB, 1 TE) is versatile. The extra RB can block, run, or catch passes. It doesn't tip off run or pass."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify heavy personnel",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is '13 personnel' best used for?",
+              "options_json": ["Short yardage and power running", "Deep passing", "Spread offense", "Trick plays"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "13 personnel (1 RB, 3 TEs) is a heavy package with lots of blockers. It's ideal for power running in short-yardage situations."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand 00 personnel",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What does '00 personnel' (or 'empty') mean?",
+              "options_json": ["0 RB, 0 TE, 5 WR", "No players on field", "0 points scored", "0 yards gained"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "00 or 'empty' personnel has no RBs or TEs - just 5 wide receivers. This is maximum spread for obvious passing situations."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify nickel defense response",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "When the offense uses 11 personnel (3 WR), what does the defense typically do?",
+              "options_json": ["Go to nickel defense (5 DBs)", "Add more linebackers", "Use goal line defense", "Nothing changes"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Against 3+ WRs, defenses typically use nickel (5 DBs) to match speed. They replace a linebacker with an extra defensive back."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand personnel advantage",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "Why do offenses substitute personnel packages?",
+              "options_json": ["To create favorable matchups", "Because it's required", "To rest players", "To waste time"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Different personnel creates different matchups. For example, 4 WRs forces the defense to use smaller, faster players - which can help the running game."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify 22 personnel",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What type of plays is '22 personnel' (2 RB, 2 TE) typically used for?",
+              "options_json": ["Power running", "Deep passing", "Trick plays", "Field goals"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "22 personnel is a heavy, run-oriented package. With 2 RBs and 2 TEs, you have multiple blockers and power running options."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand substitution strategy",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "Why might an offense hurry to the line after substituting personnel?",
+              "options_json": ["To prevent the defense from substituting", "To save time", "Because they're losing", "It's required by rules"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "If the offense substitutes and hurries to the line, the defense doesn't have time to substitute. This can create mismatches (e.g., LBs covering WRs)."
+            }
+          }
+        ]
+      },
+      {
+        "title": "Basic Route Concepts",
+        "description": "Learn the fundamental passing routes receivers run",
+        "order_index": 5,
+        "est_minutes": 5,
+        "xp_award": 100,
+        "items": [
+          {
+            "type": "mcq",
+            "base_prompt": "Identify go route",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What is a 'Go' or 'Fly' route?",
+              "options_json": ["Receiver runs straight downfield", "Receiver runs across the field", "Receiver runs backward", "Receiver stays at the line"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A Go route (also called Fly, Streak, or 9 route) is when the receiver runs straight downfield as fast as possible. It's used to attack deep coverage."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify slant route",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "In a slant route, which direction does the receiver cut?",
+              "options_json": ["Diagonally toward the middle of the field", "Straight downfield", "Toward the sideline", "Backward"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A slant route has the receiver take 2-3 steps forward then cut sharply toward the middle. It's a quick, timing-based route."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify out route",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What is an 'Out' route?",
+              "options_json": ["Receiver runs downfield then cuts toward sideline", "Receiver runs out of bounds", "Receiver leaves the game", "Receiver runs straight"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "An Out route (or Out-breaking route) has the receiver run 5-15 yards downfield then make a sharp 90-degree cut toward the sideline."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify curl route",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "In a curl route, what does the receiver do after running downfield?",
+              "options_json": ["Turn back toward the QB", "Keep running straight", "Run to the sideline", "Block a defender"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A curl (or comeback) route has the receiver run 10-15 yards downfield, then turn back toward the QB. It's effective against off coverage."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify post route",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What is a 'Post' route?",
+              "options_json": ["Receiver runs downfield then cuts toward the goal post", "Receiver runs to the sideline", "Receiver blocks", "Receiver runs backward"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A Post route has the receiver run 10-15 yards then cut at a 45-degree angle toward the middle (toward the goal post). It attacks deep middle coverage."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify corner route",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "How does a corner route differ from a post route?",
+              "options_json": ["Cuts toward the corner of the end zone instead of middle", "It's shorter", "It's faster", "There is no difference"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A corner route cuts toward the corner of the end zone (outside) while a post cuts toward the middle. Both are deep routes but attack different areas."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify hitch route",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What is a 'Hitch' or 'Stop' route?",
+              "options_json": ["Receiver runs 5-7 yards and stops", "Receiver runs full speed downfield", "Receiver runs across the field", "Receiver blocks"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A hitch route is a quick route where the receiver runs 5-7 yards, plants, and turns back to the QB. It's used to get the ball out quickly."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify drag route",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is a 'Drag' or 'In' route?",
+              "options_json": ["Receiver runs across the field horizontally", "Receiver runs straight downfield", "Receiver runs to sideline", "Receiver blocks"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A drag route has the receiver run parallel to the line of scrimmage across the middle of the field. It's effective against zone coverage."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand route depth",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What does 'route depth' refer to?",
+              "options_json": ["How many yards downfield the receiver runs", "How fast the receiver runs", "How many receivers run routes", "The QB's arm strength"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Route depth is how far downfield the receiver runs before making their cut or catching the ball. Different routes have different depths."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify route tree",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is a 'route tree'?",
+              "options_json": ["A numbered system for all possible routes", "A diagram of the field", "A type of formation", "A blocking scheme"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "The route tree is a numbering system (0-9) that represents different routes. For example, 9 is a Go route, 5 is an Out route. It helps QBs and receivers communicate."
+            }
+          }
+        ]
+      },
+      {
+        "title": "Route Combinations",
+        "description": "Learn how routes work together to attack defenses",
+        "order_index": 6,
+        "est_minutes": 5,
+        "xp_award": 100,
+        "items": [
+          {
+            "type": "mcq",
+            "base_prompt": "Understand route concepts",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is a 'route concept'?",
+              "options_json": ["Multiple routes designed to work together", "A single receiver's route", "A running play", "A defensive scheme"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "A route concept is a combination of routes designed to attack specific defensive coverages. Receivers run complementary routes that create natural throwing windows."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify mesh concept",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is the 'Mesh' concept?",
+              "options_json": ["Two receivers cross paths underneath", "All receivers run deep", "Receivers run to the sideline", "A running play"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Mesh has two receivers run crossing routes at the same depth, creating a natural 'pick' that makes man coverage difficult. It's very effective against man-to-man."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify stick concept",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "In the 'Stick' concept, what routes are typically run?",
+              "options_json": ["Stick route, flat route, and vertical route", "All deep routes", "All short routes", "No routes - it's a run"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Stick concept has a receiver run a 5-yard stick (hitch), a flat route underneath, and a vertical route to clear out. It creates a high-low read for the QB."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify levels concept",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is the 'Levels' or 'Hi-Lo' concept?",
+              "options_json": ["Routes at different depths to stress zone coverage", "All routes at the same depth", "Only deep routes", "A running play"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Levels has receivers run routes at different depths (high, medium, low) in the same area. This forces zone defenders to choose which level to cover."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify flood concept",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is a 'Flood' concept?",
+              "options_json": ["Three receivers attack one side at different depths", "All receivers go deep", "Receivers run to the middle", "A trick play"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Flood sends three receivers to one side at different depths (flat, intermediate, deep). It overloads zone coverage by putting more receivers than defenders."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify smash concept",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is the 'Smash' concept?",
+              "options_json": ["Corner route over a hitch/curl", "All receivers run deep", "A running play", "Receivers block"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Smash has an outside receiver run a corner route while an inside receiver runs a hitch underneath. It creates a high-low read against Cover 2."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand spacing concept",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "Why do route concepts use different depths and spacing?",
+              "options_json": ["To create throwing windows and stress coverage", "To confuse the offense", "It's random", "To tire out receivers"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Different depths and spacing force defenders to make choices. If they cover the deep route, the short route is open, and vice versa."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify switch concept",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "What is a 'Switch' or 'Rub' route?",
+              "options_json": ["Two receivers cross paths to create picks", "Receivers switch positions", "A running play", "Receivers block each other"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Switch routes have two receivers cross paths at different depths, creating natural 'picks' that make man coverage very difficult to execute."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Identify four verticals",
+            "difficulty": 2,
+            "variant": {
+              "prompt_richtext": "What is 'Four Verticals'?",
+              "options_json": ["Four receivers run straight downfield", "Four running backs", "Four tight ends", "Four offensive linemen pull"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Four Verticals has four receivers run deep routes, stretching the defense vertically. It's designed to find holes in deep zone coverage."
+            }
+          },
+          {
+            "type": "mcq",
+            "base_prompt": "Understand concept vs coverage",
+            "difficulty": 3,
+            "variant": {
+              "prompt_richtext": "Why do offenses have multiple route concepts?",
+              "options_json": ["Different concepts beat different coverages", "To confuse their own players", "It's required by rules", "To waste time"],
+              "correct_answer_json": {"index": 0},
+              "explanation_richtext": "Each route concept is designed to attack specific defensive coverages. Mesh beats man coverage, Levels beats zone, etc. Offenses need variety to adapt."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

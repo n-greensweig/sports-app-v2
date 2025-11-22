@@ -1346,8 +1346,8 @@ class KeychainManager {
    - ✅ App Store marketing copy written (description, keywords, what's new)
    - ✅ Screenshot plan created (8 detailed concepts)
    - ✅ Hosting setup guide created (GitHub Pages)
-   - Deploy legal pages to GitHub Pages
-   - Replace placeholder text in legal documents
+   - ✅ Deploy legal pages to GitHub Pages
+   - ✅ Replace placeholder text in legal documents
    - Create actual screenshots from app
    - Final testing and submission
 

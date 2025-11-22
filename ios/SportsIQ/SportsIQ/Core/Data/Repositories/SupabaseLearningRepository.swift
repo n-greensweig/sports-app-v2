@@ -411,6 +411,31 @@ final class SupabaseLearningRepository: LearningRepository {
             xpDelta: score,
             incrementLessons: true
         )
+        
+        // Unlock the next lesson in the module
+        try await unlockNextLesson(moduleId: lesson.moduleId, currentOrderIndex: lesson.orderIndex)
+    }
+    
+    private func unlockNextLesson(moduleId: UUID, currentOrderIndex: Int) async throws {
+        // Find the next lesson in order
+        let nextOrderIndex = currentOrderIndex + 1
+        
+        // Update the next lesson to be unlocked
+        _ = try await executeWithRetry {
+            try await self.client
+                .from("lessons")
+                .update(["is_locked": false])
+                .eq("module_id", value: moduleId.uuidString)
+                .eq("order_index", value: nextOrderIndex)
+                .execute()
+        }
+        
+        print("✅ Unlocked next lesson (order: \(nextOrderIndex)) in module \(moduleId)")
+        
+        // Clear the lessons cache for this module so it reloads with updated lock status
+        cacheLock.withLock {
+            lessonsByModule.removeValue(forKey: moduleId)
+        }
     }
 
     // MARK: - Sports Cache Helpers

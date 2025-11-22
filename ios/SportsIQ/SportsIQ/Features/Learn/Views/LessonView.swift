@@ -28,140 +28,146 @@ struct LessonView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Progress Bar
-            ProgressBar(
-                progress: viewModel.progress,
-                color: sport.accentColor,
-                height: 6
-            )
-            .padding(.horizontal, .spacingM)
-            .padding(.top, .spacingS)
+        ZStack {
+            Color.backgroundPrimary.ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                // Progress Bar
+                ProgressBar(
+                    progress: viewModel.progress,
+                    color: sport.accentColor,
+                    height: 6
+                )
+                .padding(.horizontal, .spacingM)
+                .padding(.top, .spacingS)
 
-            // Content
-            if let currentItem = viewModel.currentItem {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: .spacingL) {
-                        // Question
-                        Text(currentItem.prompt)
-                            .font(.heading3)
-                            .foregroundStyle(Color.textPrimary)
-                            .padding(.top, .spacingL)
+                // Content
+                if let currentItem = viewModel.currentItem {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: .spacingL) {
+                            // Question
+                            Text(currentItem.prompt)
+                                .font(.heading3)
+                                .foregroundStyle(Color.textPrimary)
+                                .padding(.top, .spacingL)
 
-                        // Answer Input (based on item type)
-                        switch currentItem.type {
-                        case .mcq, .binary:
-                            if let options = currentItem.options {
-                                VStack(spacing: .spacingM) {
-                                    ForEach(Array(options.enumerated()), id: \.offset) { index, option in
-                                        AnswerOptionButton(
-                                            text: option,
-                                            isSelected: viewModel.selectedAnswer == index,
-                                            isCorrect: viewModel.showFeedback ? (viewModel.selectedAnswer == index ? viewModel.isCurrentAnswerCorrect : nil) : nil,
-                                            action: {
-                                                viewModel.selectAnswer(index)
-                                            }
-                                        )
-                                        .disabled(viewModel.showFeedback)
+                            // Answer Input (based on item type)
+                            switch currentItem.type {
+                            case .mcq, .binary:
+                                if let options = currentItem.options {
+                                    VStack(spacing: .spacingM) {
+                                        ForEach(Array(options.enumerated()), id: \.offset) { index, option in
+                                            AnswerOptionButton(
+                                                text: option,
+                                                isSelected: viewModel.selectedAnswer == index,
+                                                isCorrect: viewModel.showFeedback ? (viewModel.selectedAnswer == index ? viewModel.isCurrentAnswerCorrect : nil) : nil,
+                                                action: {
+                                                    viewModel.selectAnswer(index)
+                                                }
+                                            )
+                                            .disabled(viewModel.showFeedback)
+                                        }
                                     }
                                 }
-                            }
 
-                        case .multiSelect:
-                            if let options = currentItem.options {
-                                VStack(spacing: .spacingM) {
-                                    ForEach(Array(options.enumerated()), id: \.offset) { index, option in
-                                        MultiSelectOptionButton(
-                                            text: option,
-                                            isSelected: viewModel.selectedAnswers.contains(index),
-                                            isCorrect: viewModel.showFeedback ? getMultiSelectCorrectness(index: index, correctAnswer: currentItem.correctAnswer) : nil,
-                                            action: {
-                                                viewModel.toggleMultiSelectAnswer(index)
-                                            }
-                                        )
-                                        .disabled(viewModel.showFeedback)
+                            case .multiSelect:
+                                if let options = currentItem.options {
+                                    VStack(spacing: .spacingM) {
+                                        ForEach(Array(options.enumerated()), id: \.offset) { index, option in
+                                            MultiSelectOptionButton(
+                                                text: option,
+                                                isSelected: viewModel.selectedAnswers.contains(index),
+                                                isCorrect: viewModel.showFeedback ? getMultiSelectCorrectness(index: index, correctAnswer: currentItem.correctAnswer) : nil,
+                                                action: {
+                                                    viewModel.toggleMultiSelectAnswer(index)
+                                                }
+                                            )
+                                            .disabled(viewModel.showFeedback)
+                                        }
                                     }
                                 }
-                            }
 
-                        case .slider:
-                            VStack(alignment: .leading, spacing: .spacingM) {
-                                HStack {
-                                    Text("Your answer:")
+                            case .slider:
+                                VStack(alignment: .leading, spacing: .spacingM) {
+                                    HStack {
+                                        Text("Your answer:")
+                                            .font(.label)
+                                            .foregroundStyle(Color.textSecondary)
+                                        Spacer()
+                                        Text("\(Int(viewModel.sliderValue))")
+                                            .font(.heading3)
+                                            .foregroundStyle(sport.accentColor)
+                                    }
+
+                                    Slider(value: $viewModel.sliderValue, in: 0...200, step: 1)
+                                        .tint(sport.accentColor)
+                                        .disabled(viewModel.showFeedback)
+                                }
+                                .padding(.vertical, .spacingS)
+
+                            case .freeText:
+                                VStack(alignment: .leading, spacing: .spacingS) {
+                                    Text("Type your answer:")
                                         .font(.label)
                                         .foregroundStyle(Color.textSecondary)
-                                    Spacer()
-                                    Text("\(Int(viewModel.sliderValue))")
-                                        .font(.heading3)
-                                        .foregroundStyle(sport.accentColor)
+
+                                    TextField("Your answer", text: $viewModel.textAnswer)
+                                        .textFieldStyle(.roundedBorder)
+                                        .font(.body)
+                                        .disabled(viewModel.showFeedback)
+                                        .autocorrectionDisabled()
                                 }
 
-                                Slider(value: $viewModel.sliderValue, in: 0...200, step: 1)
-                                    .tint(sport.accentColor)
-                                    .disabled(viewModel.showFeedback)
-                            }
-                            .padding(.vertical, .spacingS)
-
-                        case .freeText:
-                            VStack(alignment: .leading, spacing: .spacingS) {
-                                Text("Type your answer:")
-                                    .font(.label)
-                                    .foregroundStyle(Color.textSecondary)
-
-                                TextField("Your answer", text: $viewModel.textAnswer)
-                                    .textFieldStyle(.roundedBorder)
+                            case .clipLabel:
+                                // TODO: Implement clip labeling
+                                Text("Clip labeling coming soon...")
                                     .font(.body)
-                                    .disabled(viewModel.showFeedback)
-                                    .autocorrectionDisabled()
+                                    .foregroundStyle(Color.textSecondary)
+                                    .padding(.spacingL)
                             }
 
-                        case .clipLabel:
-                            // TODO: Implement clip labeling
-                            Text("Clip labeling coming soon...")
-                                .font(.body)
-                                .foregroundStyle(Color.textSecondary)
-                                .padding(.spacingL)
-                        }
+                            // Feedback
+                            if viewModel.showFeedback, let explanation = currentItem.explanation {
+                                FeedbackCard(
+                                    isCorrect: viewModel.isCurrentAnswerCorrect,
+                                    explanation: explanation
+                                )
+                            }
 
-                        // Feedback
-                        if viewModel.showFeedback, let explanation = currentItem.explanation {
-                            FeedbackCard(
-                                isCorrect: viewModel.isCurrentAnswerCorrect,
-                                explanation: explanation
+                            Spacer()
+                        }
+                        .padding(.spacingM)
+                    }
+
+                    // Bottom Action Button
+                    VStack {
+                        Divider()
+
+                        if viewModel.showFeedback {
+                            PrimaryButton(
+                                title: "Continue",
+                                action: {
+                                    viewModel.nextItem()
+                                },
+                                color: sport.accentColor
                             )
+                            .padding(.spacingM)
+                        } else {
+                            PrimaryButton(
+                                title: "Check Answer",
+                                action: {
+                                    Task {
+                                        await viewModel.submitAnswer()
+                                    }
+                                },
+                                color: sport.accentColor,
+                                isEnabled: viewModel.hasAnswer
+                            )
+                            .padding(.spacingM)
                         }
-
-                        Spacer()
                     }
-                    .padding(.spacingM)
-                }
-
-                // Bottom Action Button
-                VStack {
-                    Divider()
-
-                    if viewModel.showFeedback {
-                        PrimaryButton(
-                            title: viewModel.isLastItem ? "Complete Lesson" : "Continue",
-                            action: {
-                                viewModel.nextItem()
-                            },
-                            color: sport.accentColor
-                        )
-                        .padding(.spacingM)
-                    } else {
-                        PrimaryButton(
-                            title: "Check Answer",
-                            action: {
-                                Task {
-                                    await viewModel.submitAnswer()
-                                }
-                            },
-                            color: sport.accentColor,
-                            isEnabled: viewModel.hasAnswer
-                        )
-                        .padding(.spacingM)
-                    }
+                } else {
+                    Spacer()
                 }
             }
         }
@@ -174,8 +180,11 @@ struct LessonView: View {
                 totalQuestions: lesson.items.count,
                 xpEarned: viewModel.totalXPEarned,
                 onDismiss: {
-                    viewModel.showCompletionScreen = false
-                    dismiss()
+                    Task {
+                        await viewModel.completeLesson()
+                        viewModel.showCompletionScreen = false
+                        dismiss()
+                    }
                 }
             )
         }

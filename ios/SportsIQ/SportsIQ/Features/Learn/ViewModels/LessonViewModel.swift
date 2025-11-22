@@ -38,6 +38,11 @@ class LessonViewModel {
     }
 
     var currentItem: Item? {
+        // If completion screen is showing, return the last item to keep the view stable
+        if showCompletionScreen {
+            return lesson.items.last
+        }
+        
         if isInReviewMode {
             guard reviewIndex < reviewQueue.count else { return nil }
             return reviewQueue[reviewIndex]
@@ -129,6 +134,13 @@ class LessonViewModel {
             // If this was in review queue, remove it
             if isInReviewMode {
                 reviewQueue.remove(at: reviewIndex)
+                
+                // Check if we just completed the lesson
+                if reviewQueue.isEmpty {
+                    audioManager.playLessonCompleteSound()
+                    hapticManager.playLevelUpPattern()
+                    showCompletionScreen = true
+                }
             }
         } else {
             audioManager.playIncorrectSound()
@@ -184,8 +196,25 @@ class LessonViewModel {
         let baseXP = 10
         return baseXP + (correctAnswersCount * 10)
     }
+    
+    @MainActor
+    func completeLesson() async {
+        do {
+            try await learningRepository.completeLesson(
+                userId: userId,
+                lessonId: lesson.id,
+                score: totalXPEarned
+            )
+            print("✅ Lesson completed successfully")
+        } catch {
+            print("❌ Error completing lesson: \(error)")
+        }
+    }
 
     func nextItem() {
+        // Store the current answer correctness before resetting
+        let wasCorrect = isCurrentAnswerCorrect
+        
         // Reset answer state
         selectedAnswer = nil
         selectedAnswers = []
@@ -196,7 +225,7 @@ class LessonViewModel {
         
         if isInReviewMode {
             // In review mode
-            if isCurrentAnswerCorrect {
+            if wasCorrect {
                 // Item was removed from queue, don't increment index
                 // Just check if we're done
             } else {
@@ -207,9 +236,12 @@ class LessonViewModel {
             // Check if review is complete
             if reviewQueue.isEmpty {
                 // All items answered correctly!
-                audioManager.playLessonCompleteSound()
-                hapticManager.playLevelUpPattern()
-                showCompletionScreen = true
+                // Only trigger completion if not already showing completion screen
+                if !showCompletionScreen {
+                    audioManager.playLessonCompleteSound()
+                    hapticManager.playLevelUpPattern()
+                    showCompletionScreen = true
+                }
                 return
             } else if reviewIndex >= reviewQueue.count {
                 // Reached end of review queue, but still have items

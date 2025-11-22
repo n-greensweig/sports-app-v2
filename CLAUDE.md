@@ -1332,7 +1332,11 @@ class KeychainManager {
    - ✅ Test content delivery (SQL seed verified)
 
 4. **Feature Completion**
-   - Review/SRS system implementation
+   - ✅ SRS (Spaced Repetition System) implementation in lessons
+     - Progress bar only advances on correct answers
+     - Wrong answers tracked and re-presented at end
+     - Lesson completion requires all questions correct
+     - Lesson locking/unlocking based on completion
    - Error handling and offline support
 
 5. **Testing & QA**

@@ -69,7 +69,8 @@ def generate_sql():
         
         print(f"-- Lesson {i}: {lesson['title']}")
         print(f"INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, created_at, updated_at)")
-        print(f"VALUES ('{lesson_id}', '{MODULE_ID}', {title}, {desc}, {i}, {minutes}, {xp}, false, now(), now())")
+        is_locked = "false" if i == 1 else "true"
+        print(f"VALUES ('{lesson_id}', '{MODULE_ID}', {title}, {desc}, {i}, {minutes}, {xp}, {is_locked}, now(), now())")
         print(f"ON CONFLICT (id) DO UPDATE SET title = EXCLUDED.title, description = EXCLUDED.description, est_minutes = EXCLUDED.est_minutes;")
         
         # Items

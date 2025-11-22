@@ -75,17 +75,11 @@ struct MainTabView: View {
                 }
                 .tag(1)
 
-            ReviewView(coordinator: coordinator)
-                .tabItem {
-                    Label("Review", systemImage: "arrow.clockwise")
-                }
-                .tag(2)
-
             ProfileView(coordinator: coordinator)
                 .tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }
-                .tag(3)
+                .tag(2)
         }
         .tint(.brandPrimary)
     }

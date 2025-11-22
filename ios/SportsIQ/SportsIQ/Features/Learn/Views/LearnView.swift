@@ -157,6 +157,7 @@ struct ModuleCard: View {
                 Text(module.description)
                     .font(.bodySmall)
                     .foregroundStyle(Color.textSecondary)
+                    .multilineTextAlignment(.leading)
                     .lineLimit(2)
 
                 HStack(spacing: .spacingM) {

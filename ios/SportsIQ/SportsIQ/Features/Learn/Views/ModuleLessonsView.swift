@@ -110,6 +110,7 @@ struct LessonCard: View {
                 Text(lesson.description)
                     .font(.bodySmall)
                     .foregroundStyle(Color.textSecondary)
+                    .multilineTextAlignment(.leading)
                     .lineLimit(2)
 
                 HStack(spacing: .spacingM) {

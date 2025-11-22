@@ -214,7 +214,7 @@ An app that meets users at their level with:
 - **Networking**: URLSession with async/await
 - **Database**: SwiftData or Core Data (local caching)
 - **Backend Communication**: REST/GraphQL
-- **Authentication**: Clerk SDK (iOS)
+- **Authentication**: Supabase Auth
 - **Analytics**: Custom + third-party integration
 - **Video**: AVKit for clip playback
 - **Haptics**: Core Haptics
@@ -227,7 +227,7 @@ An app that meets users at their level with:
 - **Real-time**: WebSockets for live game updates
 - **Caching**: Redis for play data and session state
 - **Sports Data**: Sportradar API (or alternative)
-- **Auth**: Clerk (backend integration)
+- **Auth**: Supabase Auth
 - **Hosting**: AWS, GCP, or Vercel
 
 **Future Multi-platform (Phase 2)**
@@ -405,7 +405,7 @@ See [DATABASE_SCHEMA.md](./DATABASE_SCHEMA.md) for complete DDL and detailed sch
 ```
 
 **Features**:
-- Clerk-powered OAuth
+- Supabase-powered OAuth
 - Persistent sessions
 - Optional onboarding flow for new users
 
@@ -1026,7 +1026,7 @@ def grade_answer(prompt, user_answer, play_features):
 - ✅ Project setup (Xcode, SwiftUI, package dependencies)
 - ✅ Backend repo setup (language TBD)
 - ✅ Database schema implementation
-- ✅ Clerk authentication integration
+- ✅ Supabase authentication integration
 - ✅ Basic navigation structure (tabs, routing)
 - ✅ Landing page UI
 - ✅ Profile page skeleton

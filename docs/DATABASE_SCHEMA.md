@@ -105,7 +105,7 @@ CREATE INDEX idx_users_clerk_id ON users(clerk_user_id);
 CREATE INDEX idx_users_email ON users(email);
 CREATE INDEX idx_users_created_at ON users(created_at DESC);
 
-COMMENT ON TABLE users IS 'Core user identity linked to Clerk authentication';
+COMMENT ON TABLE users IS 'Core user identity linked to Supabase authentication (legacy column)';
 COMMENT ON COLUMN users.role IS 'user, admin, content_creator, moderator';
 COMMENT ON COLUMN users.status IS 'active, suspended, deleted';
 ```

@@ -26,19 +26,38 @@ class LessonViewModel {
     var isCurrentAnswerCorrect = false
     var correctAnswersCount = 0
     var submissions: [Submission] = []
+    
+    // MARK: - SRS State
+    var reviewQueue: [Item] = [] // Items that were answered incorrectly
+    var answeredCorrectly: Set<UUID> = [] // IDs of items answered correctly
+    private var isInReviewMode = false // Track if we're presenting review items
+    private var reviewIndex = 0 // Current index in review queue
+    
+    var totalUniqueItems: Int {
+        lesson.items.count
+    }
 
     var currentItem: Item? {
-        guard currentItemIndex < lesson.items.count else { return nil }
-        return lesson.items[currentItemIndex]
+        if isInReviewMode {
+            guard reviewIndex < reviewQueue.count else { return nil }
+            return reviewQueue[reviewIndex]
+        } else {
+            guard currentItemIndex < lesson.items.count else { return nil }
+            return lesson.items[currentItemIndex]
+        }
     }
 
     var progress: Double {
-        guard !lesson.items.isEmpty else { return 0 }
-        return Double(currentItemIndex) / Double(lesson.items.count)
+        guard totalUniqueItems > 0 else { return 0 }
+        return Double(answeredCorrectly.count) / Double(totalUniqueItems)
     }
 
     var isLastItem: Bool {
-        currentItemIndex == lesson.items.count - 1
+        if isInReviewMode {
+            return reviewIndex == reviewQueue.count - 1
+        } else {
+            return currentItemIndex == lesson.items.count - 1
+        }
     }
 
     init(
@@ -103,9 +122,25 @@ class LessonViewModel {
             correctAnswersCount += 1
             audioManager.playCorrectSound()
             hapticManager.playCorrectFeedback()
+            
+            // Track this item as answered correctly
+            answeredCorrectly.insert(currentItem.id)
+            
+            // If this was in review queue, remove it
+            if isInReviewMode {
+                reviewQueue.remove(at: reviewIndex)
+            }
         } else {
             audioManager.playIncorrectSound()
             hapticManager.playIncorrectFeedback()
+            
+            // Add to review queue if not already there and not in review mode
+            if !isInReviewMode && !reviewQueue.contains(where: { $0.id == currentItem.id }) {
+                reviewQueue.append(currentItem)
+            } else if isInReviewMode {
+                // If wrong again during review, keep it in the queue (don't remove)
+                // We'll just move to the next review item
+            }
         }
 
         // Submit to repository
@@ -151,20 +186,56 @@ class LessonViewModel {
     }
 
     func nextItem() {
-        if isLastItem {
-            audioManager.playLessonCompleteSound()
-            hapticManager.playLevelUpPattern()
-            showCompletionScreen = true
-            return
-        }
-
-        currentItemIndex += 1
+        // Reset answer state
         selectedAnswer = nil
         selectedAnswers = []
         sliderValue = 50
         textAnswer = ""
         showFeedback = false
         isCurrentAnswerCorrect = false
+        
+        if isInReviewMode {
+            // In review mode
+            if isCurrentAnswerCorrect {
+                // Item was removed from queue, don't increment index
+                // Just check if we're done
+            } else {
+                // Item is still in queue, move to next
+                reviewIndex += 1
+            }
+            
+            // Check if review is complete
+            if reviewQueue.isEmpty {
+                // All items answered correctly!
+                audioManager.playLessonCompleteSound()
+                hapticManager.playLevelUpPattern()
+                showCompletionScreen = true
+                return
+            } else if reviewIndex >= reviewQueue.count {
+                // Reached end of review queue, but still have items
+                // Loop back to start of review queue
+                reviewIndex = 0
+            }
+        } else {
+            // In normal mode
+            if isLastItem {
+                // Finished all original items
+                if reviewQueue.isEmpty {
+                    // No wrong answers, lesson complete!
+                    audioManager.playLessonCompleteSound()
+                    hapticManager.playLevelUpPattern()
+                    showCompletionScreen = true
+                    return
+                } else {
+                    // Switch to review mode
+                    isInReviewMode = true
+                    reviewIndex = 0
+                }
+            } else {
+                // Move to next item
+                currentItemIndex += 1
+            }
+        }
     }
 
     var hasAnswer: Bool {

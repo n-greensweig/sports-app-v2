@@ -10,7 +10,7 @@ import Foundation
 /// Represents a user of the app
 struct User: Identifiable, Codable, Hashable {
     let id: UUID
-    let clerkId: String             // External auth ID from Clerk
+    let externalId: String          // Legacy external auth ID (e.g. Clerk)
     let username: String
     let email: String
     let displayName: String?
@@ -20,7 +20,7 @@ struct User: Identifiable, Codable, Hashable {
 
     init(
         id: UUID,
-        clerkId: String,
+        externalId: String,
         username: String,
         email: String,
         displayName: String? = nil,
@@ -29,7 +29,7 @@ struct User: Identifiable, Codable, Hashable {
         lastActiveAt: Date = Date()
     ) {
         self.id = id
-        self.clerkId = clerkId
+        self.externalId = externalId
         self.username = username
         self.email = email
         self.displayName = displayName
@@ -43,7 +43,7 @@ struct User: Identifiable, Codable, Hashable {
 extension User {
     static let mock = User(
         id: UUID(),
-        clerkId: "clerk_mock_123",
+        externalId: "mock_external_123",
         username: "sports_fan_42",
         email: "fan@example.com",
         displayName: "Sports Fan"

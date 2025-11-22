@@ -1312,9 +1312,10 @@ class KeychainManager {
 **In Progress** (App Store Preparation):
 
 1. **Documentation Updates**
-   - Update all Clerk references to Supabase
-   - Add Supabase configuration guide
-   - Document current architecture
+   - ✅ Update all Clerk references to Supabase
+   - ✅ Rename clerkId to externalId in User entity
+   - ✅ Add Supabase configuration guide
+   - ✅ Document current architecture
 
 2. **App Configuration**
    - Create Info.plist with required keys
@@ -1332,12 +1333,19 @@ class KeychainManager {
 
 4. **Feature Completion**
    - Review/SRS system implementation
-   - Live Mode implementation
    - Error handling and offline support
 
 5. **Testing & QA**
-   - Unit tests for critical paths
-   - UI tests for main flows
+   - ✅ Created unit test structure (SportsIQTests directory)
+   - ✅ Unit tests for User entity
+   - ✅ Unit tests for UserDTO conversion
+   - ✅ Unit tests for Lesson entity
+   - ✅ Unit tests for LessonDTO conversion
+   - ✅ Created UI test structure (SportsIQUITests directory)
+   - ✅ Basic UI test for app launch
+   - Unit tests for ViewModels (in progress)
+   - Unit tests for Repositories (in progress)
+   - UI tests for main flows (in progress)
    - Accessibility audit
    - TestFlight beta
 

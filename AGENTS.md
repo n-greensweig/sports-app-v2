@@ -613,8 +613,8 @@ class LessonFlowUITests: XCTestCase {
 
 When backend is implemented, expect these endpoints:
 
-**Authentication** (via Clerk):
-- POST `/auth/verify` - Verify Clerk token
+**Authentication** (via Supabase Auth):
+- POST `/auth/verify` - Verify Supabase token
 - GET `/auth/me` - Get current user
 
 **Learning**:
@@ -1071,7 +1071,7 @@ class KeychainManager {
 - [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
 
 **Third-Party Libraries** (Consider for Phase 1):
-- **Clerk** (Auth): [clerk.com/docs/quickstarts/ios](https://clerk.com/docs/quickstarts/ios)
+- **Supabase** (Auth & Backend): [supabase.com/docs/guides/getting-started/quickstarts/swift](https://supabase.com/docs/guides/getting-started/quickstarts/swift)
 - **Starscream** (WebSockets): [github.com/daltoniam/Starscream](https://github.com/daltoniam/Starscream)
 - **Sentry** (Crash Reporting): [docs.sentry.io/platforms/apple/](https://docs.sentry.io/platforms/apple/)
 
@@ -1102,8 +1102,8 @@ class KeychainManager {
    - Set up basic API endpoints
 
 3. **Implement Authentication**
-   - Integrate Clerk SDK (iOS)
-   - Backend: Verify Clerk tokens
+   - Integrate Supabase Swift SDK (iOS)
+   - Backend: Verify Supabase Auth tokens
    - Create login/signup flow
 
 4. **Build Core Domain Models**

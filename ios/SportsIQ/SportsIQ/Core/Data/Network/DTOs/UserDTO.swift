@@ -34,7 +34,7 @@ struct UserDTO: Codable {
 
         return User(
             id: uuid,
-            clerkId: clerk_user_id ?? "",
+            externalId: clerk_user_id ?? "",
             username: profile?.username ?? email.components(separatedBy: "@").first ?? "user",
             email: email,
             displayName: profile?.display_name,
@@ -118,7 +118,7 @@ extension User {
     func toDTO(role: String = "user", status: String = "active") -> UserDTO {
         UserDTO(
             id: id.uuidString,
-            clerk_user_id: clerkId.isEmpty ? nil : clerkId,
+            clerk_user_id: externalId.isEmpty ? nil : externalId,
             email: email,
             role: role,
             status: status,

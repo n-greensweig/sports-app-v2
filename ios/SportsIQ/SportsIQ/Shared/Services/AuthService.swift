@@ -392,7 +392,7 @@ class AuthService {
         // Create user record
         let newUserDTO = UserDTO(
             id: id.uuidString,
-            // The database has NOT NULL and UNIQUE constraints on this legacy column.
+            // The database has NOT NULL and UNIQUE constraints on this legacy column (formerly for Clerk).
             // We generate a unique dummy value to satisfy both.
             clerk_user_id: "google_\(id.uuidString)",
             email: email,

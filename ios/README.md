@@ -104,21 +104,19 @@ All UI components use the centralized design system:
 ## Current Features
 
 ### Implemented
+- ✅ Authentication with Supabase (Email, Apple, Google)
 - ✅ Home screen with user stats
 - ✅ Sport selection
 - ✅ Module and lesson navigation
 - ✅ Interactive lesson flow with Q&A
 - ✅ Progress tracking
-- ✅ Profile view with stats
-- ✅ Mock data for development
+- ✅ Profile view with stats, badges, and leaderboards
+- ✅ Audio feedback and haptics
+- ✅ Backend integration (Supabase)
 
 ### Coming Soon
 - ⏳ Spaced Repetition (Review feature)
-- ⏳ Live Mode (real-time game prompts)
-- ⏳ Authentication with Clerk
-- ⏳ Backend integration
-- ⏳ Audio feedback and haptics
-- ⏳ Badges and achievements
+- ⏳ Live Mode (Post-MVP)
 
 ## Development
 

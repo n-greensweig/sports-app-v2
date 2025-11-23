@@ -26,7 +26,7 @@ VALUES (
 -- ============================================================================
 -- Lesson 1: Common Phrases
 -- ============================================================================
-INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
+INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, created_at, updated_at)
 VALUES (
   '00000004-0000-0000-0000-000000000001',
   '00000000-0000-0000-0000-000000000004',
@@ -35,6 +35,7 @@ VALUES (
   1,
   5,
   100,
+  false,
   NOW(),
   NOW()
 ) ON CONFLICT (id) DO UPDATE SET
@@ -43,6 +44,7 @@ VALUES (
   order_index = EXCLUDED.order_index,
   est_minutes = EXCLUDED.est_minutes,
   xp_award = EXCLUDED.xp_award,
+  is_locked = EXCLUDED.is_locked,
   updated_at = NOW();
 
 -- Item 1: Go for two
@@ -294,7 +296,7 @@ VALUES (
 -- ============================================================================
 -- Lesson 2: Field Lingo
 -- ============================================================================
-INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
+INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, created_at, updated_at)
 VALUES (
   '00000004-0000-0000-0000-000000000002',
   '00000000-0000-0000-0000-000000000004',
@@ -303,6 +305,7 @@ VALUES (
   2,
   5,
   100,
+  true,
   NOW(),
   NOW()
 ) ON CONFLICT (id) DO UPDATE SET
@@ -311,6 +314,7 @@ VALUES (
   order_index = EXCLUDED.order_index,
   est_minutes = EXCLUDED.est_minutes,
   xp_award = EXCLUDED.xp_award,
+  is_locked = EXCLUDED.is_locked,
   updated_at = NOW();
 
 -- Item 1: Juggle
@@ -603,7 +607,7 @@ VALUES (
 -- ============================================================================
 -- Lesson 3: The Details
 -- ============================================================================
-INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
+INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, created_at, updated_at)
 VALUES (
   '00000004-0000-0000-0000-000000000003',
   '00000000-0000-0000-0000-000000000004',
@@ -612,6 +616,7 @@ VALUES (
   3,
   5,
   100,
+  true,
   NOW(),
   NOW()
 ) ON CONFLICT (id) DO UPDATE SET
@@ -620,6 +625,7 @@ VALUES (
   order_index = EXCLUDED.order_index,
   est_minutes = EXCLUDED.est_minutes,
   xp_award = EXCLUDED.xp_award,
+  is_locked = EXCLUDED.is_locked,
   updated_at = NOW();
 
 -- Item 1: Long Snapper

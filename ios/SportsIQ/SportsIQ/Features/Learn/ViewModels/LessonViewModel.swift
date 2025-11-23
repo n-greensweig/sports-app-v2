@@ -15,6 +15,9 @@ class LessonViewModel {
     private let learningRepository: LearningRepository
     private let audioManager: AudioManager
     private let hapticManager: HapticManager
+    
+    // MARK: - Internal State
+    private var lessonItems: [Item]
 
     // MARK: - State
     var currentItemIndex = 0
@@ -38,21 +41,21 @@ class LessonViewModel {
     private var reviewIndex = 0 // Current index in review queue
     
     var totalUniqueItems: Int {
-        lesson.items.count
+        lessonItems.count
     }
 
     var currentItem: Item? {
         // If completion screen is showing, return the last item to keep the view stable
         if showCompletionScreen {
-            return lesson.items.last
+            return lessonItems.last
         }
         
         if isInReviewMode {
             guard reviewIndex < reviewQueue.count else { return nil }
             return reviewQueue[reviewIndex]
         } else {
-            guard currentItemIndex < lesson.items.count else { return nil }
-            return lesson.items[currentItemIndex]
+            guard currentItemIndex < lessonItems.count else { return nil }
+            return lessonItems[currentItemIndex]
         }
     }
 
@@ -65,7 +68,7 @@ class LessonViewModel {
         if isInReviewMode {
             return reviewIndex == reviewQueue.count - 1
         } else {
-            return currentItemIndex == lesson.items.count - 1
+            return currentItemIndex == lessonItems.count - 1
         }
     }
 
@@ -81,6 +84,9 @@ class LessonViewModel {
         self.learningRepository = learningRepository
         self.audioManager = audioManager
         self.hapticManager = hapticManager
+        
+        // Shuffle items for random order
+        self.lessonItems = lesson.items.shuffled()
         
         // Prepare first item
         prepareCurrentItem()

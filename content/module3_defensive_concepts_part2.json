@@ -3,7 +3,7 @@
         {
             "title": "Blitz Concepts",
             "description": "Learn different types of blitzes and when to use them",
-            "order_index": 6,
+            "order_index": 7,
             "est_minutes": 5,
             "xp_award": 100,
             "items": [
@@ -184,7 +184,133 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "A delayed blitz has the rusher wait a moment (showing coverage) before blitzing. This can confuse the QB and offensive line, creating free rushers."
+                        "explanation_richtext": "A delayed blitz has the rusher wait a moment (showing coverage) before blitzing. This can confuse the offensive line and create open rush lanes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Goal of blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is the primary goal of a blitz?",
+                        "options_json": [
+                            "To create pressure and force a quick throw/sack",
+                            "To stop the run",
+                            "To cover receivers",
+                            "To save time"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Blitzing overwhelms the offensive line, forcing the QB to throw before they are ready or taking a sack."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why A-gap blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Why are A-gap blitzes difficult to block?",
+                        "options_json": [
+                            "It's the shortest path to the QB",
+                            "They are slow",
+                            "They come from the outside",
+                            "They are illegal"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The A-gap is the most direct line to the QB. Pressure up the middle prevents the QB from stepping up in the pocket."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why B-gap blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Why do defenses target the B-gap?",
+                        "options_json": [
+                            "It's a natural seam in protection",
+                            "It's the widest gap",
+                            "It's never blocked",
+                            "It's closest to the sideline"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The B-gap (between guard and tackle) is a natural seam. Guards look inside, tackles look outside, leaving the B-gap vulnerable."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why Fire Zone",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "Why is the Fire Zone blitz so common?",
+                        "options_json": [
+                            "It's safe (3 deep defenders) while still bringing pressure",
+                            "It brings 8 rushers",
+                            "It leaves no one deep",
+                            "It's easy to block"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Fire Zone is a 'safe' blitz because it keeps 3 defenders deep (Cover 3) to prevent big plays while overloading the protection."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why Corner Blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What makes a corner blitz effective?",
+                        "options_json": [
+                            "Surprise and speed from the edge",
+                            "Power",
+                            "Size",
+                            "Coverage ability"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Offenses don't expect the corner to rush. Their speed off the edge can get to the QB before the tackle can react."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why Safety Blitz",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Why are safety blitzes difficult to pick up?",
+                        "options_json": [
+                            "They come from depth with a running start",
+                            "They are slow",
+                            "They are obvious",
+                            "They are illegal"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Safeties blitz from depth, timing their run to hit the line at full speed just as the ball is snapped."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Goal of delayed blitz",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is the strategic purpose of a delayed blitz?",
+                        "options_json": [
+                            "To let the offensive line engage, then attack open lanes",
+                            "To be late",
+                            "To rest",
+                            "To cover"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "By waiting, the blitzer lets the O-line commit to other blocks. Then they attack the opening that appears."
                     }
                 }
             ]
@@ -192,7 +318,7 @@
         {
             "title": "Defensive Line Play",
             "description": "Learn defensive line techniques and responsibilities",
-            "order_index": 7,
+            "order_index": 8,
             "est_minutes": 5,
             "xp_award": 100,
             "items": [
@@ -373,7 +499,133 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "The swim move has the rusher use their arm in a swimming motion to go over the blocker's shoulder and get past them. It's a finesse pass rush move."
+                        "explanation_richtext": "The swim move has the rusher use their arm in a swimming motion to go over the blocker's shoulder and get past them."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Goal of stunt",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is the goal of a defensive line stunt?",
+                        "options_json": [
+                            "To confuse blocking assignments and free a rusher",
+                            "To look cool",
+                            "To switch positions permanently",
+                            "To stop the clock"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Stunts force offensive linemen to pass off defenders. If they miscommunicate or are too slow, a defender comes free."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Goal of T-E stunt",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What does a T-E stunt try to achieve?",
+                        "options_json": [
+                            "Isolate the tackle on the looping defensive tackle",
+                            "Block the tight end",
+                            "Stop the run",
+                            "Intercept a pass"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The end crashing inside occupies the guard, leaving the offensive tackle to deal with the looping defensive tackle in space."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why penetration",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Why is defensive line penetration disruptive?",
+                        "options_json": [
+                            "It forces the RB to change path or the QB to move",
+                            "It's a penalty",
+                            "It helps the offense",
+                            "It stops the clock"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Penetration destroys the timing of plays. A RB has to cut back early, or a QB can't step into a throw."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Two-gap responsibility",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is the primary responsibility in two-gap technique?",
+                        "options_json": [
+                            "Read the blocker and shed them to the ball side",
+                            "Just rush upfield",
+                            "Guess a gap",
+                            "Drop into coverage"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The defender must control the blocker first, read where the ball is going, and then shed the block to fill the correct gap."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "One-gap vs Two-gap",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "How does one-gap technique differ from two-gap?",
+                        "options_json": [
+                            "One-gap is aggressive/penetrating; Two-gap is reading/reacting",
+                            "One-gap is slower",
+                            "Two-gap is for linebackers",
+                            "There is no difference"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "One-gap is about shooting a gap and getting upfield fast. Two-gap is about controlling a blocker and waiting to see the play develop."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why contain",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Why is 'containing' the edge critical?",
+                        "options_json": [
+                            "To force the ball carrier back inside to help",
+                            "To get a sack",
+                            "To look good",
+                            "To avoid blocking"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "If the edge is lost, the runner has open field to the sideline. Contain forces them back into the middle where the other defenders are."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "When to speed rush",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "When is a speed rush most effective?",
+                        "options_json": [
+                            "Against a slow or heavy-footed tackle",
+                            "Against a fast tackle",
+                            "On a run play",
+                            "On the goal line"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "If the offensive tackle has slow feet, they can't kick slide fast enough to stop a speed rusher from turning the corner."
                     }
                 }
             ]
@@ -381,7 +633,7 @@
         {
             "title": "Linebacker Responsibilities",
             "description": "Learn what linebackers do in different situations",
-            "order_index": 8,
+            "order_index": 9,
             "est_minutes": 5,
             "xp_award": 100,
             "items": [
@@ -562,7 +814,79 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "Stack alignment has the linebacker line up directly behind a defensive lineman. This hides the LB from the offense and makes it harder to read the defense."
+                        "explanation_richtext": "Stack alignment has the linebacker line up directly behind a defensive lineman."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why MLB is QB",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why is the MLB known as the 'defensive quarterback'?",
+                        "options_json": [
+                            "They receive the play call and align the defense",
+                            "They throw the ball",
+                            "They are the most important",
+                            "They are the captain"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Like the QB on offense, the MLB communicates the play call, makes adjustments, and ensures everyone is in position."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why run fits",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Why is maintaining run fits important?",
+                        "options_json": [
+                            "To prevent gaps in the defensive front",
+                            "To look uniform",
+                            "To tackle high",
+                            "To blitz"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "If one player abandons their gap (fit), it creates a hole in the defense that a running back can exploit for a big gain."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "When to scrape",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "When should a linebacker 'scrape'?",
+                        "options_json": [
+                            "When the play flows outside or a lineman pulls",
+                            "On every play",
+                            "When blitzing",
+                            "When tired"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Scraping allows the LB to get over the top of traffic to meet the ball carrier on the outside."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Advantage of stack",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is the advantage of stacking linebackers?",
+                        "options_json": [
+                            "It protects the LB from blockers",
+                            "It looks intimidating",
+                            "It's required",
+                            "It helps the lineman"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The lineman in front occupies the blocker, keeping the linebacker 'clean' (unblocked) to flow to the ball and make the tackle."
                     }
                 }
             ]
@@ -570,7 +894,7 @@
         {
             "title": "Secondary Coverage",
             "description": "Learn defensive back techniques and responsibilities",
-            "order_index": 9,
+            "order_index": 10,
             "est_minutes": 5,
             "xp_award": 100,
             "items": [
@@ -751,7 +1075,151 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "Man match (or pattern match) coverage starts as zone but has defenders match receivers man-to-man based on their routes. It combines benefits of both coverages."
+                        "explanation_richtext": "Man match (or pattern match) coverage starts as zone but has defenders match receivers man-to-man based on their routes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Goal of press",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What is the strategic goal of press coverage?",
+                        "options_json": [
+                            "To disrupt timing and reroute receivers",
+                            "To get a penalty",
+                            "To rest",
+                            "To play zone"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "By jamming the receiver, the DB ruins the timing of the route, throwing off the QB's rhythm."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why off coverage",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Why would a corner play off coverage?",
+                        "options_json": [
+                            "To prevent deep passes and keep everything in front",
+                            "Because they are slow",
+                            "To blitz",
+                            "To talk to the coach"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Off coverage gives the DB a head start to react to deep routes, ensuring they don't get beaten over the top."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "When to bail",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "When is bail technique typically used?",
+                        "options_json": [
+                            "In deep zone coverage (Cover 3)",
+                            "In man coverage",
+                            "When blitzing",
+                            "On run plays"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Bail technique allows a corner to appear to be in press/shallow coverage but quickly retreat to a deep zone at the snap."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why backpedal",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why is backpedaling essential for DBs?",
+                        "options_json": [
+                            "To keep eyes on the QB/receiver while retreating",
+                            "To run faster",
+                            "To look cool",
+                            "To avoid tripping"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "You can't see the play if you turn your back. Backpedaling lets you retreat while reading the play."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "When to trail",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "When is trail technique most effective?",
+                        "options_json": [
+                            "When you have safety help over the top",
+                            "When you are alone",
+                            "In zone coverage",
+                            "Against the run"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "If you have deep help, you can aggressively undercut the route (trail) to defend short/intermediate throws without fear of getting beat deep."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Purpose of high-low",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is the purpose of high-low coverage?",
+                        "options_json": [
+                            "To double team a key receiver",
+                            "To cover two people",
+                            "To blitz",
+                            "To stop the run"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "It forces the QB to throw into a tight window between two defenders, effectively neutralizing a star receiver."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Why eyes on QB",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "Why do zone defenders keep their eyes on the QB?",
+                        "options_json": [
+                            "To anticipate where the ball will be thrown",
+                            "To see the score",
+                            "To watch the line",
+                            "To avoid the receiver"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The QB's eyes often give away the target. Reading the QB allows defenders to break on the ball faster."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Advantage of man match",
+                    "difficulty": 4,
+                    "variant": {
+                        "prompt_richtext": "What is the main advantage of man-match coverage?",
+                        "options_json": [
+                            "Combines tight man coverage with zone safety",
+                            "It's easy",
+                            "It's old school",
+                            "It's illegal"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "It prevents defenders from covering empty grass (zone) while avoiding the mismatches of pure man coverage."
                     }
                 }
             ]
@@ -759,7 +1227,7 @@
         {
             "title": "Tackling Fundamentals",
             "description": "Learn proper tackling techniques and pursuit angles",
-            "order_index": 10,
+            "order_index": 11,
             "est_minutes": 5,
             "xp_award": 100,
             "items": [
@@ -796,7 +1264,7 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "Pursuit angle is the path a defender takes to intercept the ball carrier. Good angles cut off the runner; bad angles let them escape."
+                        "explanation_richtext": "Pursuit angle is the path a defender takes to intercept the ball carrier."
                     }
                 },
                 {

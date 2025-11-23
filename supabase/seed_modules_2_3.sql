@@ -14,7 +14,14 @@ VALUES (
   0,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  min_level = EXCLUDED.min_level,
+  max_level = EXCLUDED.max_level,
+  xp_reward = EXCLUDED.xp_reward,
+  updated_at = NOW();
 
 -- Insert Module 3: Defensive Concepts
 INSERT INTO modules (id, sport_id, title, description, order_index, min_level, max_level, xp_reward, created_at, updated_at)
@@ -29,7 +36,14 @@ VALUES (
   0,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  min_level = EXCLUDED.min_level,
+  max_level = EXCLUDED.max_level,
+  xp_reward = EXCLUDED.xp_reward,
+  updated_at = NOW();
 
 -- Module 2, Lesson 1: Common Offensive Formations
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -43,7 +57,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -57,7 +77,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -71,7 +97,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -85,7 +117,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -99,7 +137,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -113,7 +157,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -127,7 +177,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -141,7 +197,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -155,7 +217,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -169,7 +237,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -183,7 +257,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -197,7 +277,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -211,7 +297,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -225,7 +317,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -239,7 +337,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -253,7 +357,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -267,7 +377,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -281,7 +397,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -295,7 +417,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -309,7 +437,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -323,7 +457,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 2: Spread Formations
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -337,7 +477,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -351,7 +497,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -365,7 +517,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -379,7 +537,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -393,7 +557,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -407,7 +577,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -421,7 +597,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -435,7 +617,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -449,7 +637,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -463,7 +657,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -477,7 +677,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -491,7 +697,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -505,7 +717,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -519,7 +737,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -533,7 +757,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -547,7 +777,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -561,7 +797,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -575,7 +817,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -589,7 +837,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -603,7 +857,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -617,7 +877,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 3: Power Running Formations
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -631,7 +897,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -645,7 +917,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -659,7 +937,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -673,7 +957,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -687,7 +977,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -701,7 +997,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -715,7 +1017,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -729,7 +1037,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -743,7 +1057,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -757,7 +1077,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -771,7 +1097,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -785,7 +1117,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -799,7 +1137,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -813,7 +1157,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -827,7 +1177,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -841,7 +1197,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -855,7 +1217,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -869,7 +1237,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -883,7 +1257,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -897,7 +1277,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -911,7 +1297,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 4: Personnel Packages
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -925,7 +1317,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -939,7 +1337,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -953,7 +1357,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -967,7 +1377,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -981,7 +1397,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -995,7 +1417,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1009,7 +1437,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1023,7 +1457,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1037,7 +1477,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1051,7 +1497,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1065,7 +1517,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1079,7 +1537,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1093,7 +1557,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1107,7 +1577,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1121,7 +1597,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1135,7 +1617,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1149,7 +1637,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1163,7 +1657,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1177,7 +1677,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1191,7 +1697,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1205,7 +1717,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 5: Basic Route Concepts
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -1219,7 +1737,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1233,7 +1757,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1247,7 +1777,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1261,7 +1797,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1275,7 +1817,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1289,7 +1837,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1303,7 +1857,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1317,7 +1877,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1331,7 +1897,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1345,7 +1917,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1359,7 +1937,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1373,7 +1957,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1387,7 +1977,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1401,7 +1997,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1415,7 +2017,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1429,7 +2037,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1443,7 +2057,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1457,7 +2077,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1471,7 +2097,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1485,7 +2117,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1499,7 +2137,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 6: Route Combinations
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -1513,7 +2157,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1527,7 +2177,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1541,7 +2197,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1555,7 +2217,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1569,7 +2237,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1583,7 +2257,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1597,7 +2277,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1611,7 +2297,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1625,7 +2317,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1639,7 +2337,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1653,7 +2357,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1667,7 +2377,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1681,7 +2397,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1695,7 +2417,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1709,7 +2437,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1723,7 +2457,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1737,7 +2477,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1751,7 +2497,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1765,7 +2517,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1779,7 +2537,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1793,7 +2557,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 7: Play Action Passing
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -1807,7 +2577,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1821,7 +2597,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1835,7 +2617,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1849,7 +2637,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1863,7 +2657,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1877,7 +2677,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1891,7 +2697,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1905,7 +2717,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1919,7 +2737,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1933,7 +2757,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1947,7 +2777,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1961,7 +2797,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -1975,7 +2817,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -1989,7 +2837,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2003,7 +2857,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2017,7 +2877,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2031,7 +2897,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2045,7 +2917,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2059,7 +2937,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2073,7 +2957,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2087,7 +2977,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 8: Screen Passes
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -2101,7 +2997,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2115,7 +3017,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2129,7 +3037,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2143,7 +3057,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2157,7 +3077,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2171,7 +3097,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2185,7 +3117,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2199,7 +3137,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2213,7 +3157,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2227,7 +3177,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2241,7 +3197,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2255,7 +3217,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2269,7 +3237,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2283,7 +3257,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2297,7 +3277,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2311,7 +3297,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2325,7 +3317,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2339,7 +3337,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2353,7 +3357,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2367,7 +3377,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2381,7 +3397,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 9: Offensive Line Basics
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -2395,7 +3417,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2409,7 +3437,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2423,7 +3457,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2437,7 +3477,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2451,7 +3497,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2465,7 +3517,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2479,7 +3537,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2493,7 +3557,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2507,7 +3577,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2521,7 +3597,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2535,7 +3617,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2549,7 +3637,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2563,7 +3657,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2577,7 +3677,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2591,7 +3697,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2605,7 +3717,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2619,7 +3737,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2633,7 +3757,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2647,7 +3777,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2661,7 +3797,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2675,7 +3817,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 10: Run Blocking Schemes
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -2689,7 +3837,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2703,7 +3857,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2717,7 +3877,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2731,7 +3897,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2745,7 +3917,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2759,7 +3937,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2773,7 +3957,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2787,7 +3977,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2801,7 +3997,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2815,7 +4017,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2829,7 +4037,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2843,7 +4057,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2857,7 +4077,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2871,7 +4097,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2885,7 +4117,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2899,7 +4137,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2913,7 +4157,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2927,7 +4177,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2941,7 +4197,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2955,7 +4217,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -2969,7 +4237,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 11: Pass Protection
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -2983,7 +4257,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -2997,7 +4277,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3011,7 +4297,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3025,7 +4317,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3039,7 +4337,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3053,7 +4357,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3067,7 +4377,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3081,7 +4397,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3095,7 +4417,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3109,7 +4437,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3123,7 +4457,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3137,7 +4477,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3151,7 +4497,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3165,7 +4517,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3179,7 +4537,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3193,7 +4557,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3207,7 +4577,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3221,7 +4597,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3235,7 +4617,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3249,7 +4637,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3263,7 +4657,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 2, Lesson 12: Pre-Snap Reads
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -3277,7 +4677,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3291,7 +4697,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3305,7 +4717,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3319,7 +4737,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3333,7 +4757,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3347,7 +4777,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3361,7 +4797,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3375,7 +4817,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3389,7 +4837,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3403,7 +4857,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3417,7 +4877,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3431,7 +4897,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3445,7 +4917,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3459,7 +4937,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3473,7 +4957,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3487,7 +4977,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3501,7 +4997,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3515,7 +5017,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3529,7 +5037,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3543,7 +5057,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3557,7 +5077,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 -- Module 3, Lesson 1: Defensive Fronts
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
@@ -3571,7 +5097,13 @@ VALUES (
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3585,7 +5117,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3595,11 +5133,17 @@ VALUES (
   'What does ''4-3 defense'' mean?',
   '["4 defensive linemen, 3 linebackers", "4 linebackers, 3 linemen", "4 safeties, 3 corners", "Score is 4-3"]',
   '{"index": 0}',
-  '4-3 defense has 4 defensive linemen (2 ends, 2 tackles) and 3 linebackers. It''s a traditional, balanced defense good against both run and pass.',
+  '4-3 defense has 4 defensive linemen (2 ends, 2 tackles) and 3 linebackers.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3613,7 +5157,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3623,11 +5173,17 @@ VALUES (
   'What does ''3-4 defense'' mean?',
   '["3 defensive linemen, 4 linebackers", "3 linebackers, 4 linemen", "3 safeties, 4 corners", "Score is 3-4"]',
   '{"index": 0}',
-  '3-4 defense has 3 defensive linemen (2 ends, 1 nose tackle) and 4 linebackers. It''s versatile for blitzing and disguising pressure.',
+  '3-4 defense has 3 defensive linemen (2 ends, 1 nose tackle) and 4 linebackers.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3641,7 +5197,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3651,11 +5213,17 @@ VALUES (
   'What is nickel defense?',
   '["5 defensive backs on the field", "5 linebackers", "5 defensive linemen", "Worth 5 cents"]',
   '{"index": 0}',
-  'Nickel defense has 5 DBs (the 5th DB is the ''nickel back''). It''s used against 3+ WR sets, replacing a linebacker with an extra defensive back.',
+  'Nickel defense has 5 DBs (the 5th DB is the ''nickel back'').',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3669,7 +5237,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3679,11 +5253,17 @@ VALUES (
   'What is dime defense?',
   '["6 defensive backs on the field", "6 linebackers", "6 defensive linemen", "Worth 10 cents"]',
   '{"index": 0}',
-  'Dime defense has 6 DBs (dime = 10 cents = 2 nickels). It''s used in obvious passing situations, typically with only 3 or 4 down linemen.',
+  'Dime defense has 6 DBs (dime = 10 cents = 2 nickels).',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3697,7 +5277,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3711,7 +5297,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3725,7 +5317,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3739,7 +5337,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3753,7 +5357,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3767,7 +5377,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3781,7 +5397,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3795,7 +5417,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3809,7 +5437,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3823,7 +5457,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
@@ -3837,7 +5477,13 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
@@ -3851,26 +5497,218 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
--- Module 3, Lesson 2: Cover 1 Defense
+-- Module 3, Lesson 2: Defensive Strategy
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
 VALUES (
   '00000003-0000-0000-0000-000000000002',
   '00000000-0000-0000-0000-000000000003',
-  'Cover 1 Defense',
-  'Learn man-free coverage and its strengths and weaknesses',
+  'Defensive Strategy',
+  'Learn when and why to use different defensive packages',
   2,
   5,
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000003-0002-0000-0000-000000000001',
   '00000003-0000-0000-0000-000000000002',
+  'mcq',
+  'When to use 3-4',
+  '{"type": "mcq", "options": ["To disguise pressure/blitz", "To stop the run", "To prevent deep passes", "To save energy"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0002-0001-0000-000000000001',
+  '00000003-0002-0000-0000-000000000001',
+  1,
+  'When do teams traditionally deploy a 3-4 defense?',
+  '["To disguise pressure/blitz", "To stop the run", "To prevent deep passes", "To save energy"]',
+  '{"index": 0}',
+  '3-4 defenses have 4 linebackers, creating more blitz options and disguise. The offense doesn''t know which LBs will rush.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0002-0000-0000-000000000002',
+  '00000003-0000-0000-0000-000000000002',
+  'mcq',
+  'Why use 4-3',
+  '{"type": "mcq", "options": ["Balanced against run and pass", "To blitz more", "To play zone only", "It''s cheaper"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0002-0002-0000-000000000001',
+  '00000003-0002-0000-0000-000000000002',
+  1,
+  'Why do teams use a 4-3 defense?',
+  '["Balanced against run and pass", "To blitz more", "To play zone only", "It''s cheaper"]',
+  '{"index": 0}',
+  '4-3 is a traditional, balanced defense good against both run and pass with defined gaps.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0002-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000002',
+  'mcq',
+  'When to use Nickel',
+  '{"type": "mcq", "options": ["Against 3+ WR sets", "On 1st down", "On the goal line", "In the rain"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0002-0003-0000-000000000001',
+  '00000003-0002-0000-0000-000000000003',
+  1,
+  'When is a Nickel defense typically used?',
+  '["Against 3+ WR sets", "On 1st down", "On the goal line", "In the rain"]',
+  '{"index": 0}',
+  'It''s used against 3+ WR sets, replacing a linebacker with an extra defensive back to match speed.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0002-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000002',
+  'mcq',
+  'When to use Dime',
+  '{"type": "mcq", "options": ["In obvious passing situations", "On 1st down", "Against the run", "In overtime"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0002-0004-0000-000000000001',
+  '00000003-0002-0000-0000-000000000004',
+  1,
+  'When is a Dime defense typically used?',
+  '["In obvious passing situations", "On 1st down", "Against the run", "In overtime"]',
+  '{"index": 0}',
+  'It''s used in obvious passing situations (like 3rd & long), typically with only 3 or 4 down linemen to maximize coverage.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+-- Module 3, Lesson 3: Cover 1 Defense
+INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
+VALUES (
+  '00000003-0000-0000-0000-000000000003',
+  '00000000-0000-0000-0000-000000000003',
+  'Cover 1 Defense',
+  'Learn man-free coverage and its strengths and weaknesses',
+  3,
+  5,
+  100,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0003-0000-0000-000000000001',
+  '00000003-0000-0000-0000-000000000003',
   'mcq',
   'Identify Cover 1',
   '{"type": "mcq", "options": ["Man coverage with 1 deep safety", "Zone coverage", "1 defender on the field", "1 point allowed"], "correct": 0}'::jsonb,
@@ -3879,12 +5717,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0002-0001-0000-000000000001',
-  '00000003-0002-0000-0000-000000000001',
+  '00000003-0003-0001-0000-000000000001',
+  '00000003-0003-0000-0000-000000000001',
   1,
   'What is Cover 1 defense?',
   '["Man coverage with 1 deep safety", "Zone coverage", "1 defender on the field", "1 point allowed"]',
@@ -3893,12 +5737,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0002-0000-0000-000000000002',
-  '00000003-0000-0000-0000-000000000002',
+  '00000003-0003-0000-0000-000000000002',
+  '00000003-0000-0000-0000-000000000003',
   'mcq',
   'Understand free safety role',
   '{"type": "mcq", "options": ["Provide deep help and prevent big plays", "Blitz the QB", "Cover a specific receiver", "Play near the line"], "correct": 0}'::jsonb,
@@ -3907,12 +5757,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0002-0002-0000-000000000001',
-  '00000003-0002-0000-0000-000000000002',
+  '00000003-0003-0002-0000-000000000001',
+  '00000003-0003-0000-0000-000000000002',
   1,
   'In Cover 1, what is the free safety''s job?',
   '["Provide deep help and prevent big plays", "Blitz the QB", "Cover a specific receiver", "Play near the line"]',
@@ -3921,12 +5777,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0002-0000-0000-000000000003',
-  '00000003-0000-0000-0000-000000000002',
+  '00000003-0003-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000003',
   'mcq',
   'Identify Cover 1 strength',
   '{"type": "mcq", "options": ["Can bring extra pass rushers (blitz)", "Great against the run", "Prevents all passes", "Easy to play"], "correct": 0}'::jsonb,
@@ -3935,12 +5797,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0002-0003-0000-000000000001',
-  '00000003-0002-0000-0000-000000000003',
+  '00000003-0003-0003-0000-000000000001',
+  '00000003-0003-0000-0000-000000000003',
   1,
   'What is a strength of Cover 1?',
   '["Can bring extra pass rushers (blitz)", "Great against the run", "Prevents all passes", "Easy to play"]',
@@ -3949,12 +5817,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0002-0000-0000-000000000004',
-  '00000003-0000-0000-0000-000000000002',
+  '00000003-0003-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000003',
   'mcq',
   'Identify Cover 1 weakness',
   '{"type": "mcq", "options": ["Vulnerable to pick routes and rub concepts", "Can''t stop the run", "Too many deep safeties", "Illegal in some situations"], "correct": 0}'::jsonb,
@@ -3963,12 +5837,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0002-0004-0000-000000000001',
-  '00000003-0002-0000-0000-000000000004',
+  '00000003-0003-0004-0000-000000000001',
+  '00000003-0003-0000-0000-000000000004',
   1,
   'What is a weakness of Cover 1?',
   '["Vulnerable to pick routes and rub concepts", "Can''t stop the run", "Too many deep safeties", "Illegal in some situations"]',
@@ -3977,12 +5857,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0002-0000-0000-000000000005',
-  '00000003-0000-0000-0000-000000000002',
+  '00000003-0003-0000-0000-000000000005',
+  '00000003-0000-0000-0000-000000000003',
   'mcq',
   'Understand man coverage technique',
   '{"type": "mcq", "options": ["The receiver''s hips and movements", "The quarterback", "The ball", "The sideline"], "correct": 0}'::jsonb,
@@ -3991,12 +5877,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0002-0005-0000-000000000001',
-  '00000003-0002-0000-0000-000000000005',
+  '00000003-0003-0005-0000-000000000001',
+  '00000003-0003-0000-0000-000000000005',
   1,
   'In man coverage, what should a defender focus on?',
   '["The receiver''s hips and movements", "The quarterback", "The ball", "The sideline"]',
@@ -4005,12 +5897,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0002-0000-0000-000000000006',
-  '00000003-0000-0000-0000-000000000002',
+  '00000003-0003-0000-0000-000000000006',
+  '00000003-0000-0000-0000-000000000003',
   'mcq',
   'Identify press coverage',
   '{"type": "mcq", "options": ["Defender lines up close and jams receiver at the line", "Defender plays 10 yards off", "Defender blitzes", "Defender covers a zone"], "correct": 0}'::jsonb,
@@ -4019,12 +5917,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0002-0006-0000-000000000001',
-  '00000003-0002-0000-0000-000000000006',
+  '00000003-0003-0006-0000-000000000001',
+  '00000003-0003-0000-0000-000000000006',
   1,
   'What is ''press'' coverage in Cover 1?',
   '["Defender lines up close and jams receiver at the line", "Defender plays 10 yards off", "Defender blitzes", "Defender covers a zone"]',
@@ -4033,12 +5937,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0002-0000-0000-000000000007',
-  '00000003-0000-0000-0000-000000000002',
+  '00000003-0003-0000-0000-000000000007',
+  '00000003-0000-0000-0000-000000000003',
   'mcq',
   'Understand off coverage',
   '{"type": "mcq", "options": ["Defender plays 5-10 yards off the receiver", "Defender is off the field", "Defender is turned around", "Defender blitzes"], "correct": 0}'::jsonb,
@@ -4047,12 +5957,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0002-0007-0000-000000000001',
-  '00000003-0002-0000-0000-000000000007',
+  '00000003-0003-0007-0000-000000000001',
+  '00000003-0003-0000-0000-000000000007',
   1,
   'What is ''off'' coverage?',
   '["Defender plays 5-10 yards off the receiver", "Defender is off the field", "Defender is turned around", "Defender blitzes"]',
@@ -4061,12 +5977,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0002-0000-0000-000000000008',
-  '00000003-0000-0000-0000-000000000002',
+  '00000003-0003-0000-0000-000000000008',
+  '00000003-0000-0000-0000-000000000003',
   'mcq',
   'Identify Cover 1 robber',
   '{"type": "mcq", "options": ["Free safety plays shallow to rob crossing routes", "A player steals the ball", "An illegal defense", "Same as regular Cover 1"], "correct": 0}'::jsonb,
@@ -4075,12 +5997,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0002-0008-0000-000000000001',
-  '00000003-0002-0000-0000-000000000008',
+  '00000003-0003-0008-0000-000000000001',
+  '00000003-0003-0000-0000-000000000008',
   1,
   'What is ''Cover 1 Robber''?',
   '["Free safety plays shallow to rob crossing routes", "A player steals the ball", "An illegal defense", "Same as regular Cover 1"]',
@@ -4089,12 +6017,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0002-0000-0000-000000000009',
-  '00000003-0000-0000-0000-000000000002',
+  '00000003-0003-0000-0000-000000000009',
+  '00000003-0000-0000-0000-000000000003',
   'mcq',
   'Understand man coverage matchups',
   '{"type": "mcq", "options": ["Fast WR vs slow LB creates easy completions", "It''s illegal", "It helps the defense", "It doesn''t matter"], "correct": 0}'::jsonb,
@@ -4103,12 +6037,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0002-0009-0000-000000000001',
-  '00000003-0002-0000-0000-000000000009',
+  '00000003-0003-0009-0000-000000000001',
+  '00000003-0003-0000-0000-000000000009',
   1,
   'Why do offenses love mismatches in man coverage?',
   '["Fast WR vs slow LB creates easy completions", "It''s illegal", "It helps the defense", "It doesn''t matter"]',
@@ -4117,12 +6057,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0002-0000-0000-000000000010',
-  '00000003-0000-0000-0000-000000000002',
+  '00000003-0003-0000-0000-000000000010',
+  '00000003-0000-0000-0000-000000000003',
   'mcq',
   'Identify Cover 1 blitz',
   '{"type": "mcq", "options": ["Only need 1 deep safety, freeing up rushers", "It''s required by rules", "Blitzes don''t work with zone", "To confuse the offense"], "correct": 0}'::jsonb,
@@ -4131,12 +6077,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0002-0010-0000-000000000001',
-  '00000003-0002-0000-0000-000000000010',
+  '00000003-0003-0010-0000-000000000001',
+  '00000003-0003-0000-0000-000000000010',
   1,
   'Why is Cover 1 often paired with blitzes?',
   '["Only need 1 deep safety, freeing up rushers", "It''s required by rules", "Blitzes don''t work with zone", "To confuse the offense"]',
@@ -4145,26 +6097,38 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
--- Module 3, Lesson 3: Cover 2 Defense
+-- Module 3, Lesson 4: Cover 2 Defense
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
 VALUES (
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000004',
   '00000000-0000-0000-0000-000000000003',
   'Cover 2 Defense',
   'Learn two-deep zone coverage and its variations',
-  3,
+  4,
   5,
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0003-0000-0000-000000000001',
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0004-0000-0000-000000000001',
+  '00000003-0000-0000-0000-000000000004',
   'mcq',
   'Identify Cover 2',
   '{"type": "mcq", "options": ["2 deep safeties split the field in half", "2 defenders on the field", "2 points allowed", "2 linebackers"], "correct": 0}'::jsonb,
@@ -4173,12 +6137,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0003-0001-0000-000000000001',
-  '00000003-0003-0000-0000-000000000001',
+  '00000003-0004-0001-0000-000000000001',
+  '00000003-0004-0000-0000-000000000001',
   1,
   'What is Cover 2 defense?',
   '["2 deep safeties split the field in half", "2 defenders on the field", "2 points allowed", "2 linebackers"]',
@@ -4187,12 +6157,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0003-0000-0000-000000000002',
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0004-0000-0000-000000000002',
+  '00000003-0000-0000-0000-000000000004',
   'mcq',
   'Understand Cover 2 safeties',
   '{"type": "mcq", "options": ["Deep halves of the field", "Underneath zones", "The line of scrimmage", "They blitz"], "correct": 0}'::jsonb,
@@ -4201,12 +6177,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0003-0002-0000-000000000001',
-  '00000003-0003-0000-0000-000000000002',
+  '00000003-0004-0002-0000-000000000001',
+  '00000003-0004-0000-0000-000000000002',
   1,
   'In Cover 2, what area do the safeties cover?',
   '["Deep halves of the field", "Underneath zones", "The line of scrimmage", "They blitz"]',
@@ -4215,12 +6197,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0003-0000-0000-000000000003',
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0004-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000004',
   'mcq',
   'Identify Cover 2 strength',
   '{"type": "mcq", "options": ["Good against deep sideline routes", "Stops all passes", "Great against the run", "Easy to play"], "correct": 0}'::jsonb,
@@ -4229,12 +6217,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0003-0003-0000-000000000001',
-  '00000003-0003-0000-0000-000000000003',
+  '00000003-0004-0003-0000-000000000001',
+  '00000003-0004-0000-0000-000000000003',
   1,
   'What is a strength of Cover 2?',
   '["Good against deep sideline routes", "Stops all passes", "Great against the run", "Easy to play"]',
@@ -4243,12 +6237,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0003-0000-0000-000000000004',
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0004-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000004',
   'mcq',
   'Identify Cover 2 weakness',
   '{"type": "mcq", "options": ["Vulnerable to deep middle passes (seam routes)", "Can''t stop outside runs", "Too many deep defenders", "Illegal formation"], "correct": 0}'::jsonb,
@@ -4257,12 +6257,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0003-0004-0000-000000000001',
-  '00000003-0003-0000-0000-000000000004',
+  '00000003-0004-0004-0000-000000000001',
+  '00000003-0004-0000-0000-000000000004',
   1,
   'What is a weakness of Cover 2?',
   '["Vulnerable to deep middle passes (seam routes)", "Can''t stop outside runs", "Too many deep defenders", "Illegal formation"]',
@@ -4271,12 +6277,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0003-0000-0000-000000000005',
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0004-0000-0000-000000000005',
+  '00000003-0000-0000-0000-000000000004',
   'mcq',
   'Understand flat defenders',
   '{"type": "mcq", "options": ["Cornerbacks", "Safeties", "Defensive linemen", "No one"], "correct": 0}'::jsonb,
@@ -4285,12 +6297,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0003-0005-0000-000000000001',
-  '00000003-0003-0000-0000-000000000005',
+  '00000003-0004-0005-0000-000000000001',
+  '00000003-0004-0000-0000-000000000005',
   1,
   'In Cover 2, who covers the ''flats'' (near the sideline)?',
   '["Cornerbacks", "Safeties", "Defensive linemen", "No one"]',
@@ -4299,12 +6317,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0003-0000-0000-000000000006',
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0004-0000-0000-000000000006',
+  '00000003-0000-0000-0000-000000000004',
   'mcq',
   'Identify Tampa 2',
   '{"type": "mcq", "options": ["Cover 2 with MLB dropping deep to cover the seam", "Cover 2 used only in Tampa", "2 defenders blitz", "Same as regular Cover 2"], "correct": 0}'::jsonb,
@@ -4313,26 +6337,78 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0003-0006-0000-000000000001',
-  '00000003-0003-0000-0000-000000000006',
+  '00000003-0004-0006-0000-000000000001',
+  '00000003-0004-0000-0000-000000000006',
   1,
   'What is ''Tampa 2'' coverage?',
   '["Cover 2 with MLB dropping deep to cover the seam", "Cover 2 used only in Tampa", "2 defenders blitz", "Same as regular Cover 2"]',
   '{"index": 0}',
-  'Tampa 2 is Cover 2 where the middle linebacker drops deep to cover the seam between safeties. This fixes Cover 2''s main weakness but requires athletic LBs.',
+  'Tampa 2 is Cover 2 where the middle linebacker drops deep to cover the seam between safeties.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0003-0000-0000-000000000007',
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0004-0000-0000-000000000007',
+  '00000003-0000-0000-0000-000000000004',
+  'mcq',
+  'Why Tampa 2',
+  '{"type": "mcq", "options": ["To fix Cover 2''s deep middle weakness", "To stop the run", "To blitz more", "To confuse the QB"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0004-0007-0000-000000000001',
+  '00000003-0004-0000-0000-000000000007',
+  1,
+  'Why was the Tampa 2 defense developed?',
+  '["To fix Cover 2''s deep middle weakness", "To stop the run", "To blitz more", "To confuse the QB"]',
+  '{"index": 0}',
+  'It fixes Cover 2''s main weakness (the deep middle seam) by having the MLB drop deep, but requires an athletic LB.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0004-0000-0000-000000000008',
+  '00000003-0000-0000-0000-000000000004',
   'mcq',
   'Understand Cover 2 zones',
   '{"type": "mcq", "options": ["5 underneath, 2 deep (7 total)", "2 total", "11 total", "4 total"], "correct": 0}'::jsonb,
@@ -4341,12 +6417,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0003-0007-0000-000000000001',
-  '00000003-0003-0000-0000-000000000007',
+  '00000003-0004-0008-0000-000000000001',
+  '00000003-0004-0000-0000-000000000008',
   1,
   'How many zones are there in Cover 2?',
   '["5 underneath, 2 deep (7 total)", "2 total", "11 total", "4 total"]',
@@ -4355,12 +6437,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0003-0000-0000-000000000008',
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0004-0000-0000-000000000009',
+  '00000003-0000-0000-0000-000000000004',
   'mcq',
   'Identify Cover 2 beater',
   '{"type": "mcq", "options": ["4 verticals (stretches the 2 safeties)", "All short routes", "Running plays only", "Screen passes"], "correct": 0}'::jsonb,
@@ -4369,12 +6457,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0003-0008-0000-000000000001',
-  '00000003-0003-0000-0000-000000000008',
+  '00000003-0004-0009-0000-000000000001',
+  '00000003-0004-0000-0000-000000000009',
   1,
   'What route concept beats Cover 2?',
   '["4 verticals (stretches the 2 safeties)", "All short routes", "Running plays only", "Screen passes"]',
@@ -4383,12 +6477,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0003-0000-0000-000000000009',
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0004-0000-0000-000000000010',
+  '00000003-0000-0000-0000-000000000004',
   'mcq',
   'Understand Cover 2 vs run',
   '{"type": "mcq", "options": ["Yes, can get 8 defenders in the box", "No, too many deep defenders", "Only on 3rd down", "It''s only for passing downs"], "correct": 0}'::jsonb,
@@ -4397,12 +6497,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0003-0009-0000-000000000001',
-  '00000003-0003-0000-0000-000000000009',
+  '00000003-0004-0010-0000-000000000001',
+  '00000003-0004-0000-0000-000000000010',
   1,
   'Is Cover 2 good against the run?',
   '["Yes, can get 8 defenders in the box", "No, too many deep defenders", "Only on 3rd down", "It''s only for passing downs"]',
@@ -4411,12 +6517,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0003-0000-0000-000000000010',
-  '00000003-0000-0000-0000-000000000003',
+  '00000003-0004-0000-0000-000000000011',
+  '00000003-0000-0000-0000-000000000004',
   'mcq',
   'Identify Cover 2 sink',
   '{"type": "mcq", "options": ["Corners sink deeper to help with intermediate routes", "Defense is sinking/failing", "Safeties play shallow", "A running defense"], "correct": 0}'::jsonb,
@@ -4425,40 +6537,98 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0003-0010-0000-000000000001',
-  '00000003-0003-0000-0000-000000000010',
+  '00000003-0004-0011-0000-000000000001',
+  '00000003-0004-0000-0000-000000000011',
   1,
   'What is ''Cover 2 Sink''?',
   '["Corners sink deeper to help with intermediate routes", "Defense is sinking/failing", "Safeties play shallow", "A running defense"]',
   '{"index": 0}',
-  'Cover 2 Sink has corners play deeper (8-12 yards) to help with intermediate routes and take away the seam. It''s a variation that trades flats for better middle coverage.',
+  'Cover 2 Sink has corners play deeper (8-12 yards) to help with intermediate routes and take away the seam.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
--- Module 3, Lesson 4: Cover 3 Defense
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0004-0000-0000-000000000012',
+  '00000003-0000-0000-0000-000000000004',
+  'mcq',
+  'Goal of Cover 2 Sink',
+  '{"type": "mcq", "options": ["To take away the seam/intermediate routes", "To stop the run", "To blitz", "To play man coverage"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0004-0012-0000-000000000001',
+  '00000003-0004-0000-0000-000000000012',
+  1,
+  'What is the strategic goal of Cover 2 Sink?',
+  '["To take away the seam/intermediate routes", "To stop the run", "To blitz", "To play man coverage"]',
+  '{"index": 0}',
+  'It trades flat coverage for better middle/seam coverage by sinking the corners deeper.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+-- Module 3, Lesson 5: Cover 3 Defense
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
 VALUES (
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000005',
   '00000000-0000-0000-0000-000000000003',
   'Cover 3 Defense',
   'Learn three-deep zone coverage and its applications',
-  4,
+  5,
   5,
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0004-0000-0000-000000000001',
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0005-0000-0000-000000000001',
+  '00000003-0000-0000-0000-000000000005',
   'mcq',
   'Identify Cover 3',
   '{"type": "mcq", "options": ["3 deep defenders each cover 1/3 of the field", "3 defenders on the field", "3 points allowed", "3 linebackers"], "correct": 0}'::jsonb,
@@ -4467,12 +6637,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0004-0001-0000-000000000001',
-  '00000003-0004-0000-0000-000000000001',
+  '00000003-0005-0001-0000-000000000001',
+  '00000003-0005-0000-0000-000000000001',
   1,
   'What is Cover 3 defense?',
   '["3 deep defenders each cover 1/3 of the field", "3 defenders on the field", "3 points allowed", "3 linebackers"]',
@@ -4481,12 +6657,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0004-0000-0000-000000000002',
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0005-0000-0000-000000000002',
+  '00000003-0000-0000-0000-000000000005',
   'mcq',
   'Understand Cover 3 alignment',
   '{"type": "mcq", "options": ["Both corners and the free safety", "Both safeties and one corner", "All three linebackers", "The defensive line"], "correct": 0}'::jsonb,
@@ -4495,12 +6677,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0004-0002-0000-000000000001',
-  '00000003-0004-0000-0000-000000000002',
+  '00000003-0005-0002-0000-000000000001',
+  '00000003-0005-0000-0000-000000000002',
   1,
   'In Cover 3, which defenders play deep?',
   '["Both corners and the free safety", "Both safeties and one corner", "All three linebackers", "The defensive line"]',
@@ -4509,12 +6697,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0004-0000-0000-000000000003',
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0005-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000005',
   'mcq',
   'Identify Cover 3 strength',
   '{"type": "mcq", "options": ["Strong against deep passes and vertical routes", "Stops all running plays", "Great against short passes", "Easy to play"], "correct": 0}'::jsonb,
@@ -4523,12 +6717,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0004-0003-0000-000000000001',
-  '00000003-0004-0000-0000-000000000003',
+  '00000003-0005-0003-0000-000000000001',
+  '00000003-0005-0000-0000-000000000003',
   1,
   'What is a strength of Cover 3?',
   '["Strong against deep passes and vertical routes", "Stops all running plays", "Great against short passes", "Easy to play"]',
@@ -4537,12 +6737,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0004-0000-0000-000000000004',
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0005-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000005',
   'mcq',
   'Identify Cover 3 weakness',
   '{"type": "mcq", "options": ["Vulnerable to flat routes and quick outs", "Can''t stop deep passes", "Too many deep defenders", "Illegal in some situations"], "correct": 0}'::jsonb,
@@ -4551,12 +6757,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0004-0004-0000-000000000001',
-  '00000003-0004-0000-0000-000000000004',
+  '00000003-0005-0004-0000-000000000001',
+  '00000003-0005-0000-0000-000000000004',
   1,
   'What is a weakness of Cover 3?',
   '["Vulnerable to flat routes and quick outs", "Can''t stop deep passes", "Too many deep defenders", "Illegal in some situations"]',
@@ -4565,12 +6777,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0004-0000-0000-000000000005',
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0005-0000-0000-000000000005',
+  '00000003-0000-0000-0000-000000000005',
   'mcq',
   'Understand Cover 3 buzz',
   '{"type": "mcq", "options": ["Strong safety replaces corner in the flat", "A loud defense", "Same as regular Cover 3", "An illegal coverage"], "correct": 0}'::jsonb,
@@ -4579,26 +6797,78 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0004-0005-0000-000000000001',
-  '00000003-0004-0000-0000-000000000005',
+  '00000003-0005-0005-0000-000000000001',
+  '00000003-0005-0000-0000-000000000005',
   1,
   'What is ''Cover 3 Buzz''?',
   '["Strong safety replaces corner in the flat", "A loud defense", "Same as regular Cover 3", "An illegal coverage"]',
   '{"index": 0}',
-  'Cover 3 Buzz has the strong safety ''buzz'' to the flat to replace the corner, allowing the corner to play deeper. This helps defend both deep and flat routes.',
+  'Cover 3 Buzz has the strong safety ''buzz'' to the flat to replace the corner.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0004-0000-0000-000000000006',
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0005-0000-0000-000000000006',
+  '00000003-0000-0000-0000-000000000005',
+  'mcq',
+  'Advantage of Cover 3 Buzz',
+  '{"type": "mcq", "options": ["Disguises coverage and helps in flats", "Stops the run better", "Blitzes the QB", "It''s easier"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0005-0006-0000-000000000001',
+  '00000003-0005-0000-0000-000000000006',
+  1,
+  'What is the advantage of Cover 3 Buzz?',
+  '["Disguises coverage and helps in flats", "Stops the run better", "Blitzes the QB", "It''s easier"]',
+  '{"index": 0}',
+  'It disguises the coverage (looking like Cover 3 or 1) and puts a safety in the flat to help with intermediate routes.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0005-0000-0000-000000000007',
+  '00000003-0000-0000-0000-000000000005',
   'mcq',
   'Identify Cover 3 cloud',
   '{"type": "mcq", "options": ["Corner plays flat, safety rotates to deep third", "Coverage in bad weather", "Same as regular Cover 3", "A blitz package"], "correct": 0}'::jsonb,
@@ -4607,26 +6877,78 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0004-0006-0000-000000000001',
-  '00000003-0004-0000-0000-000000000006',
+  '00000003-0005-0007-0000-000000000001',
+  '00000003-0005-0000-0000-000000000007',
   1,
   'What is ''Cover 3 Cloud''?',
   '["Corner plays flat, safety rotates to deep third", "Coverage in bad weather", "Same as regular Cover 3", "A blitz package"]',
   '{"index": 0}',
-  'Cover 3 Cloud has the corner play the flat while the safety rotates over to cover the deep third. This is better against quick passes but can be vulnerable deep.',
+  'Cover 3 Cloud has the corner play the flat while the safety rotates over to cover the deep third.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0004-0000-0000-000000000007',
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0005-0000-0000-000000000008',
+  '00000003-0000-0000-0000-000000000005',
+  'mcq',
+  'When to use Cover 3 Cloud',
+  '{"type": "mcq", "options": ["Against quick passing teams", "Against the run", "On Hail Marys", "Never"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0005-0008-0000-000000000001',
+  '00000003-0005-0000-0000-000000000008',
+  1,
+  'When is Cover 3 Cloud typically used?',
+  '["Against quick passing teams", "Against the run", "On Hail Marys", "Never"]',
+  '{"index": 0}',
+  'It''s better against quick passes to the flat, as the corner is already there to disrupt them.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0005-0000-0000-000000000009',
+  '00000003-0000-0000-0000-000000000005',
   'mcq',
   'Understand Cover 3 zones',
   '{"type": "mcq", "options": ["4 underneath, 3 deep (7 total)", "3 total", "11 total", "6 total"], "correct": 0}'::jsonb,
@@ -4635,12 +6957,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0004-0007-0000-000000000001',
-  '00000003-0004-0000-0000-000000000007',
+  '00000003-0005-0009-0000-000000000001',
+  '00000003-0005-0000-0000-000000000009',
   1,
   'How many zones are in Cover 3?',
   '["4 underneath, 3 deep (7 total)", "3 total", "11 total", "6 total"]',
@@ -4649,12 +6977,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0004-0000-0000-000000000008',
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0005-0000-0000-000000000010',
+  '00000003-0000-0000-0000-000000000005',
   'mcq',
   'Identify Cover 3 beater',
   '{"type": "mcq", "options": ["Flood concept (3 receivers to one side)", "All deep routes", "Running plays only", "No routes beat it"], "correct": 0}'::jsonb,
@@ -4663,12 +6997,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0004-0008-0000-000000000001',
-  '00000003-0004-0000-0000-000000000008',
+  '00000003-0005-0010-0000-000000000001',
+  '00000003-0005-0000-0000-000000000010',
   1,
   'What route concept beats Cover 3?',
   '["Flood concept (3 receivers to one side)", "All deep routes", "Running plays only", "No routes beat it"]',
@@ -4677,12 +7017,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0004-0000-0000-000000000009',
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0005-0000-0000-000000000011',
+  '00000003-0000-0000-0000-000000000005',
   'mcq',
   'Understand Cover 3 vs run',
   '{"type": "mcq", "options": ["Strong safety and linebackers fill gaps", "It doesn''t - it''s pass only", "All 11 defenders play the run", "Corners tackle the RB"], "correct": 0}'::jsonb,
@@ -4691,12 +7037,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0004-0009-0000-000000000001',
-  '00000003-0004-0000-0000-000000000009',
+  '00000003-0005-0011-0000-000000000001',
+  '00000003-0005-0000-0000-000000000011',
   1,
   'How does Cover 3 defend the run?',
   '["Strong safety and linebackers fill gaps", "It doesn''t - it''s pass only", "All 11 defenders play the run", "Corners tackle the RB"]',
@@ -4705,12 +7057,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0004-0000-0000-000000000010',
-  '00000003-0000-0000-0000-000000000004',
+  '00000003-0005-0000-0000-000000000012',
+  '00000003-0000-0000-0000-000000000005',
   'mcq',
   'Identify sky coverage',
   '{"type": "mcq", "options": ["Safety takes deep outside third, corner plays flat", "Looking at the sky", "Same as regular Cover 3", "A blitz"], "correct": 0}'::jsonb,
@@ -4719,40 +7077,98 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0004-0010-0000-000000000001',
-  '00000003-0004-0000-0000-000000000010',
+  '00000003-0005-0012-0000-000000000001',
+  '00000003-0005-0000-0000-000000000012',
   1,
   'What is ''Sky'' coverage in Cover 3?',
   '["Safety takes deep outside third, corner plays flat", "Looking at the sky", "Same as regular Cover 3", "A blitz"]',
   '{"index": 0}',
-  'Sky coverage (opposite of Cloud) has the safety take the deep outside third while the corner plays the flat. This is used to the strong side of formations.',
+  'Sky coverage (opposite of Cloud) has the safety take the deep outside third while the corner plays the flat.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
--- Module 3, Lesson 5: Cover 4 Defense
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0005-0000-0000-000000000013',
+  '00000003-0000-0000-0000-000000000005',
+  'mcq',
+  'When to use Sky coverage',
+  '{"type": "mcq", "options": ["To the strong side of formations", "To the weak side", "In the red zone", "On punts"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0005-0013-0000-000000000001',
+  '00000003-0005-0000-0000-000000000013',
+  1,
+  'When is Sky coverage typically used?',
+  '["To the strong side of formations", "To the weak side", "In the red zone", "On punts"]',
+  '{"index": 0}',
+  'It''s often used to the strong side, allowing the safety to support the run or cover the flat while the corner bails deep.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+-- Module 3, Lesson 6: Cover 4 Defense
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
 VALUES (
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0000-0000-0000-000000000006',
   '00000000-0000-0000-0000-000000000003',
   'Cover 4 Defense',
   'Learn quarters coverage and pattern matching concepts',
-  5,
+  6,
   5,
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0005-0000-0000-000000000001',
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0006-0000-0000-000000000001',
+  '00000003-0000-0000-0000-000000000006',
   'mcq',
   'Identify Cover 4',
   '{"type": "mcq", "options": ["4 deep defenders each cover 1/4 of the field", "4 defenders on the field", "4 points allowed", "4 linebackers"], "correct": 0}'::jsonb,
@@ -4761,12 +7177,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0005-0001-0000-000000000001',
-  '00000003-0005-0000-0000-000000000001',
+  '00000003-0006-0001-0000-000000000001',
+  '00000003-0006-0000-0000-000000000001',
   1,
   'What is Cover 4 defense?',
   '["4 deep defenders each cover 1/4 of the field", "4 defenders on the field", "4 points allowed", "4 linebackers"]',
@@ -4775,12 +7197,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0005-0000-0000-000000000002',
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0006-0000-0000-000000000002',
+  '00000003-0000-0000-0000-000000000006',
   'mcq',
   'Understand Cover 4 alignment',
   '{"type": "mcq", "options": ["Both corners and both safeties", "All four linebackers", "The defensive line", "Only the safeties"], "correct": 0}'::jsonb,
@@ -4789,12 +7217,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0005-0002-0000-000000000001',
-  '00000003-0005-0000-0000-000000000002',
+  '00000003-0006-0002-0000-000000000001',
+  '00000003-0006-0000-0000-000000000002',
   1,
   'In Cover 4, which defenders play deep?',
   '["Both corners and both safeties", "All four linebackers", "The defensive line", "Only the safeties"]',
@@ -4803,12 +7237,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0005-0000-0000-000000000003',
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0006-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000006',
   'mcq',
   'Identify Cover 4 strength',
   '{"type": "mcq", "options": ["Excellent against deep passes and 4 verticals", "Stops all runs", "Great against short passes", "Easy to play"], "correct": 0}'::jsonb,
@@ -4817,12 +7257,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0005-0003-0000-000000000001',
-  '00000003-0005-0000-0000-000000000003',
+  '00000003-0006-0003-0000-000000000001',
+  '00000003-0006-0000-0000-000000000003',
   1,
   'What is a strength of Cover 4?',
   '["Excellent against deep passes and 4 verticals", "Stops all runs", "Great against short passes", "Easy to play"]',
@@ -4831,12 +7277,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0005-0000-0000-000000000004',
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0006-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000006',
   'mcq',
   'Identify Cover 4 weakness',
   '{"type": "mcq", "options": ["Vulnerable to intermediate crossing routes", "Can''t stop deep passes", "Too many deep defenders", "Illegal coverage"], "correct": 0}'::jsonb,
@@ -4845,12 +7297,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0005-0004-0000-000000000001',
-  '00000003-0005-0000-0000-000000000004',
+  '00000003-0006-0004-0000-000000000001',
+  '00000003-0006-0000-0000-000000000004',
   1,
   'What is a weakness of Cover 4?',
   '["Vulnerable to intermediate crossing routes", "Can''t stop deep passes", "Too many deep defenders", "Illegal coverage"]',
@@ -4859,12 +7317,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0005-0000-0000-000000000005',
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0006-0000-0000-000000000005',
+  '00000003-0000-0000-0000-000000000006',
   'mcq',
   'Understand pattern matching',
   '{"type": "mcq", "options": ["Defenders match receivers based on route patterns", "Matching uniforms", "Same as zone coverage", "An illegal technique"], "correct": 0}'::jsonb,
@@ -4873,12 +7337,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0005-0005-0000-000000000001',
-  '00000003-0005-0000-0000-000000000005',
+  '00000003-0006-0005-0000-000000000001',
+  '00000003-0006-0000-0000-000000000005',
   1,
   'What is ''pattern matching'' in Cover 4?',
   '["Defenders match receivers based on route patterns", "Matching uniforms", "Same as zone coverage", "An illegal technique"]',
@@ -4887,12 +7357,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0005-0000-0000-000000000006',
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0006-0000-0000-000000000006',
+  '00000003-0000-0000-0000-000000000006',
   'mcq',
   'Identify 2-read coverage',
   '{"type": "mcq", "options": ["Defender reads #2 receiver to determine coverage", "Reading 2 books", "Covering 2 receivers", "A blitz package"], "correct": 0}'::jsonb,
@@ -4901,12 +7377,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0005-0006-0000-000000000001',
-  '00000003-0005-0000-0000-000000000006',
+  '00000003-0006-0006-0000-000000000001',
+  '00000003-0006-0000-0000-000000000006',
   1,
   'What is the ''2-read'' in Cover 4?',
   '["Defender reads #2 receiver to determine coverage", "Reading 2 books", "Covering 2 receivers", "A blitz package"]',
@@ -4915,12 +7397,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0005-0000-0000-000000000007',
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0006-0000-0000-000000000007',
+  '00000003-0000-0000-0000-000000000006',
   'mcq',
   'Understand Cover 4 vs 2x2',
   '{"type": "mcq", "options": ["4 deep defenders match 4 receivers perfectly", "It''s not good against 2x2", "It confuses the offense", "It''s illegal"], "correct": 0}'::jsonb,
@@ -4929,12 +7417,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0005-0007-0000-000000000001',
-  '00000003-0005-0000-0000-000000000007',
+  '00000003-0006-0007-0000-000000000001',
+  '00000003-0006-0000-0000-000000000007',
   1,
   'Why is Cover 4 good against 2x2 formations?',
   '["4 deep defenders match 4 receivers perfectly", "It''s not good against 2x2", "It confuses the offense", "It''s illegal"]',
@@ -4943,12 +7437,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0005-0000-0000-000000000008',
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0006-0000-0000-000000000008',
+  '00000003-0000-0000-0000-000000000006',
   'mcq',
   'Identify Cover 4 palms',
   '{"type": "mcq", "options": ["Specific pattern-match rules for Cover 4", "Covering with your palms", "Same as regular Cover 4", "A blitz"], "correct": 0}'::jsonb,
@@ -4957,12 +7457,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0005-0008-0000-000000000001',
-  '00000003-0005-0000-0000-000000000008',
+  '00000003-0006-0008-0000-000000000001',
+  '00000003-0006-0000-0000-000000000008',
   1,
   'What is ''Cover 4 Palms''?',
   '["Specific pattern-match rules for Cover 4", "Covering with your palms", "Same as regular Cover 4", "A blitz"]',
@@ -4971,12 +7477,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0005-0000-0000-000000000009',
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0006-0000-0000-000000000009',
+  '00000003-0000-0000-0000-000000000006',
   'mcq',
   'Understand Cover 4 vs trips',
   '{"type": "mcq", "options": ["Rotates coverage to get 3 defenders to that side", "It can''t defend trips", "Plays normal quarters", "Blitzes"], "correct": 0}'::jsonb,
@@ -4985,12 +7497,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0005-0009-0000-000000000001',
-  '00000003-0005-0000-0000-000000000009',
+  '00000003-0006-0009-0000-000000000001',
+  '00000003-0006-0000-0000-000000000009',
   1,
   'How does Cover 4 defend trips (3 receivers to one side)?',
   '["Rotates coverage to get 3 defenders to that side", "It can''t defend trips", "Plays normal quarters", "Blitzes"]',
@@ -4999,12 +7517,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0005-0000-0000-000000000010',
-  '00000003-0000-0000-0000-000000000005',
+  '00000003-0006-0000-0000-000000000010',
+  '00000003-0000-0000-0000-000000000006',
   'mcq',
   'Identify quarters vs halves',
   '{"type": "mcq", "options": ["Cover 4 has 4 deep, Cover 2 has 2 deep", "They''re the same", "Cover 4 is illegal", "Cover 2 is better"], "correct": 0}'::jsonb,
@@ -5013,12 +7537,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0005-0010-0000-000000000001',
-  '00000003-0005-0000-0000-000000000010',
+  '00000003-0006-0010-0000-000000000001',
+  '00000003-0006-0000-0000-000000000010',
   1,
   'What''s the main difference between Cover 4 and Cover 2?',
   '["Cover 4 has 4 deep, Cover 2 has 2 deep", "They''re the same", "Cover 4 is illegal", "Cover 2 is better"]',
@@ -5027,26 +7557,38 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
--- Module 3, Lesson 6: Blitz Concepts
+-- Module 3, Lesson 7: Blitz Concepts
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
 VALUES (
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0000-0000-0000-000000000007',
   '00000000-0000-0000-0000-000000000003',
   'Blitz Concepts',
   'Learn different types of blitzes and when to use them',
-  6,
+  7,
   5,
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0006-0000-0000-000000000001',
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0007-0000-0000-000000000001',
+  '00000003-0000-0000-0000-000000000007',
   'mcq',
   'Understand blitz',
   '{"type": "mcq", "options": ["Sending extra defenders to rush the QB", "A type of coverage", "A running play", "A penalty"], "correct": 0}'::jsonb,
@@ -5055,12 +7597,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0006-0001-0000-000000000001',
-  '00000003-0006-0000-0000-000000000001',
+  '00000003-0007-0001-0000-000000000001',
+  '00000003-0007-0000-0000-000000000001',
   1,
   'What is a blitz?',
   '["Sending extra defenders to rush the QB", "A type of coverage", "A running play", "A penalty"]',
@@ -5069,12 +7617,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0006-0000-0000-000000000002',
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0007-0000-0000-000000000002',
+  '00000003-0000-0000-0000-000000000007',
   'mcq',
   'Identify A-gap blitz',
   '{"type": "mcq", "options": ["Blitz through the gaps next to the center", "Blitz from the outside", "Blitz from the secondary", "A grading system"], "correct": 0}'::jsonb,
@@ -5083,12 +7637,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0006-0002-0000-000000000001',
-  '00000003-0006-0000-0000-000000000002',
+  '00000003-0007-0002-0000-000000000001',
+  '00000003-0007-0000-0000-000000000002',
   1,
   'What is an A-gap blitz?',
   '["Blitz through the gaps next to the center", "Blitz from the outside", "Blitz from the secondary", "A grading system"]',
@@ -5097,12 +7657,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0006-0000-0000-000000000003',
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0007-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000007',
   'mcq',
   'Identify B-gap blitz',
   '{"type": "mcq", "options": ["Between guard and tackle", "Next to the center", "Outside the tackle", "In the secondary"], "correct": 0}'::jsonb,
@@ -5111,12 +7677,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0006-0003-0000-000000000001',
-  '00000003-0006-0000-0000-000000000003',
+  '00000003-0007-0003-0000-000000000001',
+  '00000003-0007-0000-0000-000000000003',
   1,
   'Where is the B-gap?',
   '["Between guard and tackle", "Next to the center", "Outside the tackle", "In the secondary"]',
@@ -5125,12 +7697,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0006-0000-0000-000000000004',
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0007-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000007',
   'mcq',
   'Identify C-gap blitz',
   '{"type": "mcq", "options": ["Between tackle and tight end", "Next to the center", "Between guards", "In the backfield"], "correct": 0}'::jsonb,
@@ -5139,12 +7717,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0006-0004-0000-000000000001',
-  '00000003-0006-0000-0000-000000000004',
+  '00000003-0007-0004-0000-000000000001',
+  '00000003-0007-0000-0000-000000000004',
   1,
   'Where is the C-gap?',
   '["Between tackle and tight end", "Next to the center", "Between guards", "In the backfield"]',
@@ -5153,12 +7737,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0006-0000-0000-000000000005',
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0007-0000-0000-000000000005',
+  '00000003-0000-0000-0000-000000000007',
   'mcq',
   'Identify zone blitz',
   '{"type": "mcq", "options": ["Blitz while playing zone coverage behind it", "Blitzing from a zone", "Blitzing the end zone", "An illegal blitz"], "correct": 0}'::jsonb,
@@ -5167,12 +7757,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0006-0005-0000-000000000001',
-  '00000003-0006-0000-0000-000000000005',
+  '00000003-0007-0005-0000-000000000001',
+  '00000003-0007-0000-0000-000000000005',
   1,
   'What is a zone blitz?',
   '["Blitz while playing zone coverage behind it", "Blitzing from a zone", "Blitzing the end zone", "An illegal blitz"]',
@@ -5181,12 +7777,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0006-0000-0000-000000000006',
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0007-0000-0000-000000000006',
+  '00000003-0000-0000-0000-000000000007',
   'mcq',
   'Identify fire zone',
   '{"type": "mcq", "options": ["5-man rush with 3-deep, 3-under zone coverage", "Blitzing in hot weather", "Same as any blitz", "An illegal defense"], "correct": 0}'::jsonb,
@@ -5195,12 +7797,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0006-0006-0000-000000000001',
-  '00000003-0006-0000-0000-000000000006',
+  '00000003-0007-0006-0000-000000000001',
+  '00000003-0007-0000-0000-000000000006',
   1,
   'What is a ''fire zone'' blitz?',
   '["5-man rush with 3-deep, 3-under zone coverage", "Blitzing in hot weather", "Same as any blitz", "An illegal defense"]',
@@ -5209,12 +7817,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0006-0000-0000-000000000007',
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0007-0000-0000-000000000007',
+  '00000003-0000-0000-0000-000000000007',
   'mcq',
   'Identify corner blitz',
   '{"type": "mcq", "options": ["Cornerback rushes from the edge", "Blitzing from the corner of the field", "Blitzing the corner route", "An illegal blitz"], "correct": 0}'::jsonb,
@@ -5223,12 +7837,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0006-0007-0000-000000000001',
-  '00000003-0006-0000-0000-000000000007',
+  '00000003-0007-0007-0000-000000000001',
+  '00000003-0007-0000-0000-000000000007',
   1,
   'What is a corner blitz?',
   '["Cornerback rushes from the edge", "Blitzing from the corner of the field", "Blitzing the corner route", "An illegal blitz"]',
@@ -5237,12 +7857,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0006-0000-0000-000000000008',
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0007-0000-0000-000000000008',
+  '00000003-0000-0000-0000-000000000007',
   'mcq',
   'Identify safety blitz',
   '{"type": "mcq", "options": ["Safety rushes the QB, usually up the middle", "A safe blitz", "Blitzing for safety", "An illegal blitz"], "correct": 0}'::jsonb,
@@ -5251,12 +7877,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0006-0008-0000-000000000001',
-  '00000003-0006-0000-0000-000000000008',
+  '00000003-0007-0008-0000-000000000001',
+  '00000003-0007-0000-0000-000000000008',
   1,
   'What is a safety blitz?',
   '["Safety rushes the QB, usually up the middle", "A safe blitz", "Blitzing for safety", "An illegal blitz"]',
@@ -5265,12 +7897,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0006-0000-0000-000000000009',
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0007-0000-0000-000000000009',
+  '00000003-0000-0000-0000-000000000007',
   'mcq',
   'Understand blitz risk',
   '{"type": "mcq", "options": ["Fewer defenders in coverage, vulnerable to big plays", "It''s illegal", "It tires out the defense", "It helps the offense"], "correct": 0}'::jsonb,
@@ -5279,12 +7917,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0006-0009-0000-000000000001',
-  '00000003-0006-0000-0000-000000000009',
+  '00000003-0007-0009-0000-000000000001',
+  '00000003-0007-0000-0000-000000000009',
   1,
   'What is the main risk of blitzing?',
   '["Fewer defenders in coverage, vulnerable to big plays", "It''s illegal", "It tires out the defense", "It helps the offense"]',
@@ -5293,12 +7937,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0006-0000-0000-000000000010',
-  '00000003-0000-0000-0000-000000000006',
+  '00000003-0007-0000-0000-000000000010',
+  '00000003-0000-0000-0000-000000000007',
   'mcq',
   'Identify delayed blitz',
   '{"type": "mcq", "options": ["Blitzer waits a moment before rushing", "Blitz that arrives late", "A slow blitz", "An illegal blitz"], "correct": 0}'::jsonb,
@@ -5307,40 +7957,338 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0006-0010-0000-000000000001',
-  '00000003-0006-0000-0000-000000000010',
+  '00000003-0007-0010-0000-000000000001',
+  '00000003-0007-0000-0000-000000000010',
   1,
   'What is a delayed blitz?',
   '["Blitzer waits a moment before rushing", "Blitz that arrives late", "A slow blitz", "An illegal blitz"]',
   '{"index": 0}',
-  'A delayed blitz has the rusher wait a moment (showing coverage) before blitzing. This can confuse the QB and offensive line, creating free rushers.',
+  'A delayed blitz has the rusher wait a moment (showing coverage) before blitzing. This can confuse the offensive line and create open rush lanes.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
--- Module 3, Lesson 7: Defensive Line Play
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0007-0000-0000-000000000011',
+  '00000003-0000-0000-0000-000000000007',
+  'mcq',
+  'Goal of blitz',
+  '{"type": "mcq", "options": ["To create pressure and force a quick throw/sack", "To stop the run", "To cover receivers", "To save time"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0007-0011-0000-000000000001',
+  '00000003-0007-0000-0000-000000000011',
+  1,
+  'What is the primary goal of a blitz?',
+  '["To create pressure and force a quick throw/sack", "To stop the run", "To cover receivers", "To save time"]',
+  '{"index": 0}',
+  'Blitzing overwhelms the offensive line, forcing the QB to throw before they are ready or taking a sack.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0007-0000-0000-000000000012',
+  '00000003-0000-0000-0000-000000000007',
+  'mcq',
+  'Why A-gap blitz',
+  '{"type": "mcq", "options": ["It''s the shortest path to the QB", "They are slow", "They come from the outside", "They are illegal"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0007-0012-0000-000000000001',
+  '00000003-0007-0000-0000-000000000012',
+  1,
+  'Why are A-gap blitzes difficult to block?',
+  '["It''s the shortest path to the QB", "They are slow", "They come from the outside", "They are illegal"]',
+  '{"index": 0}',
+  'The A-gap is the most direct line to the QB. Pressure up the middle prevents the QB from stepping up in the pocket.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0007-0000-0000-000000000013',
+  '00000003-0000-0000-0000-000000000007',
+  'mcq',
+  'Why B-gap blitz',
+  '{"type": "mcq", "options": ["It''s a natural seam in protection", "It''s the widest gap", "It''s never blocked", "It''s closest to the sideline"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0007-0013-0000-000000000001',
+  '00000003-0007-0000-0000-000000000013',
+  1,
+  'Why do defenses target the B-gap?',
+  '["It''s a natural seam in protection", "It''s the widest gap", "It''s never blocked", "It''s closest to the sideline"]',
+  '{"index": 0}',
+  'The B-gap (between guard and tackle) is a natural seam. Guards look inside, tackles look outside, leaving the B-gap vulnerable.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0007-0000-0000-000000000014',
+  '00000003-0000-0000-0000-000000000007',
+  'mcq',
+  'Why Fire Zone',
+  '{"type": "mcq", "options": ["It''s safe (3 deep defenders) while still bringing pressure", "It brings 8 rushers", "It leaves no one deep", "It''s easy to block"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0007-0014-0000-000000000001',
+  '00000003-0007-0000-0000-000000000014',
+  1,
+  'Why is the Fire Zone blitz so common?',
+  '["It''s safe (3 deep defenders) while still bringing pressure", "It brings 8 rushers", "It leaves no one deep", "It''s easy to block"]',
+  '{"index": 0}',
+  'Fire Zone is a ''safe'' blitz because it keeps 3 defenders deep (Cover 3) to prevent big plays while overloading the protection.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0007-0000-0000-000000000015',
+  '00000003-0000-0000-0000-000000000007',
+  'mcq',
+  'Why Corner Blitz',
+  '{"type": "mcq", "options": ["Surprise and speed from the edge", "Power", "Size", "Coverage ability"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0007-0015-0000-000000000001',
+  '00000003-0007-0000-0000-000000000015',
+  1,
+  'What makes a corner blitz effective?',
+  '["Surprise and speed from the edge", "Power", "Size", "Coverage ability"]',
+  '{"index": 0}',
+  'Offenses don''t expect the corner to rush. Their speed off the edge can get to the QB before the tackle can react.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0007-0000-0000-000000000016',
+  '00000003-0000-0000-0000-000000000007',
+  'mcq',
+  'Why Safety Blitz',
+  '{"type": "mcq", "options": ["They come from depth with a running start", "They are slow", "They are obvious", "They are illegal"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0007-0016-0000-000000000001',
+  '00000003-0007-0000-0000-000000000016',
+  1,
+  'Why are safety blitzes difficult to pick up?',
+  '["They come from depth with a running start", "They are slow", "They are obvious", "They are illegal"]',
+  '{"index": 0}',
+  'Safeties blitz from depth, timing their run to hit the line at full speed just as the ball is snapped.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0007-0000-0000-000000000017',
+  '00000003-0000-0000-0000-000000000007',
+  'mcq',
+  'Goal of delayed blitz',
+  '{"type": "mcq", "options": ["To let the offensive line engage, then attack open lanes", "To be late", "To rest", "To cover"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0007-0017-0000-000000000001',
+  '00000003-0007-0000-0000-000000000017',
+  1,
+  'What is the strategic purpose of a delayed blitz?',
+  '["To let the offensive line engage, then attack open lanes", "To be late", "To rest", "To cover"]',
+  '{"index": 0}',
+  'By waiting, the blitzer lets the O-line commit to other blocks. Then they attack the opening that appears.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+-- Module 3, Lesson 8: Defensive Line Play
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
 VALUES (
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0000-0000-0000-000000000008',
   '00000000-0000-0000-0000-000000000003',
   'Defensive Line Play',
   'Learn defensive line techniques and responsibilities',
-  7,
+  8,
   5,
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0007-0000-0000-000000000001',
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0008-0000-0000-000000000001',
+  '00000003-0000-0000-0000-000000000008',
   'mcq',
   'Understand gap responsibility',
   '{"type": "mcq", "options": ["The specific gap they must control", "The space between their teeth", "Their coverage assignment", "Their blitz assignment"], "correct": 0}'::jsonb,
@@ -5349,12 +8297,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0007-0001-0000-000000000001',
-  '00000003-0007-0000-0000-000000000001',
+  '00000003-0008-0001-0000-000000000001',
+  '00000003-0008-0000-0000-000000000001',
   1,
   'What is a defensive lineman''s ''gap responsibility''?',
   '["The specific gap they must control", "The space between their teeth", "Their coverage assignment", "Their blitz assignment"]',
@@ -5363,12 +8317,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0007-0000-0000-000000000002',
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0008-0000-0000-000000000002',
+  '00000003-0000-0000-0000-000000000008',
   'mcq',
   'Identify stunt',
   '{"type": "mcq", "options": ["Two linemen cross paths to confuse blockers", "A trick play", "An illegal move", "A celebration"], "correct": 0}'::jsonb,
@@ -5377,12 +8337,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0007-0002-0000-000000000001',
-  '00000003-0007-0000-0000-000000000002',
+  '00000003-0008-0002-0000-000000000001',
+  '00000003-0008-0000-0000-000000000002',
   1,
   'What is a defensive line ''stunt'' or ''twist''?',
   '["Two linemen cross paths to confuse blockers", "A trick play", "An illegal move", "A celebration"]',
@@ -5391,12 +8357,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0007-0000-0000-000000000003',
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0008-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000008',
   'mcq',
   'Identify T-E stunt',
   '{"type": "mcq", "options": ["Tackle loops outside, end crashes inside", "Tight end blocks", "A type of coverage", "An offensive play"], "correct": 0}'::jsonb,
@@ -5405,12 +8377,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0007-0003-0000-000000000001',
-  '00000003-0007-0000-0000-000000000003',
+  '00000003-0008-0003-0000-000000000001',
+  '00000003-0008-0000-0000-000000000003',
   1,
   'What is a ''T-E stunt''?',
   '["Tackle loops outside, end crashes inside", "Tight end blocks", "A type of coverage", "An offensive play"]',
@@ -5419,12 +8397,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0007-0000-0000-000000000004',
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0008-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000008',
   'mcq',
   'Understand penetration',
   '{"type": "mcq", "options": ["Getting into the offensive backfield", "Blocking the offensive line", "Covering receivers", "Tackling the QB"], "correct": 0}'::jsonb,
@@ -5433,12 +8417,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0007-0004-0000-000000000001',
-  '00000003-0007-0000-0000-000000000004',
+  '00000003-0008-0004-0000-000000000001',
+  '00000003-0008-0000-0000-000000000004',
   1,
   'What does ''penetration'' mean for defensive linemen?',
   '["Getting into the offensive backfield", "Blocking the offensive line", "Covering receivers", "Tackling the QB"]',
@@ -5447,12 +8437,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0007-0000-0000-000000000005',
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0008-0000-0000-000000000005',
+  '00000003-0000-0000-0000-000000000008',
   'mcq',
   'Identify two-gap technique',
   '{"type": "mcq", "options": ["Lineman controls two gaps on either side", "Covering two receivers", "Blitzing two gaps", "An illegal technique"], "correct": 0}'::jsonb,
@@ -5461,12 +8457,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0007-0005-0000-000000000001',
-  '00000003-0007-0000-0000-000000000005',
+  '00000003-0008-0005-0000-000000000001',
+  '00000003-0008-0000-0000-000000000005',
   1,
   'What is ''two-gap'' technique?',
   '["Lineman controls two gaps on either side", "Covering two receivers", "Blitzing two gaps", "An illegal technique"]',
@@ -5475,12 +8477,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0007-0000-0000-000000000006',
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0008-0000-0000-000000000006',
+  '00000003-0000-0000-0000-000000000008',
   'mcq',
   'Identify one-gap technique',
   '{"type": "mcq", "options": ["Lineman attacks one specific gap", "Covering one receiver", "Blitzing one gap", "A penalty"], "correct": 0}'::jsonb,
@@ -5489,12 +8497,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0007-0006-0000-000000000001',
-  '00000003-0007-0000-0000-000000000006',
+  '00000003-0008-0006-0000-000000000001',
+  '00000003-0008-0000-0000-000000000006',
   1,
   'What is ''one-gap'' technique?',
   '["Lineman attacks one specific gap", "Covering one receiver", "Blitzing one gap", "A penalty"]',
@@ -5503,12 +8517,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0007-0000-0000-000000000007',
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0008-0000-0000-000000000007',
+  '00000003-0000-0000-0000-000000000008',
   'mcq',
   'Understand contain',
   '{"type": "mcq", "options": ["Keep the play inside, don''t let it bounce outside", "Tackle the QB", "Cover receivers", "Blitz"], "correct": 0}'::jsonb,
@@ -5517,12 +8537,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0007-0007-0000-000000000001',
-  '00000003-0007-0000-0000-000000000007',
+  '00000003-0008-0007-0000-000000000001',
+  '00000003-0008-0000-0000-000000000007',
   1,
   'What does ''contain'' mean for defensive ends?',
   '["Keep the play inside, don''t let it bounce outside", "Tackle the QB", "Cover receivers", "Blitz"]',
@@ -5531,12 +8557,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0007-0000-0000-000000000008',
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0008-0000-0000-000000000008',
+  '00000003-0000-0000-0000-000000000008',
   'mcq',
   'Identify bull rush',
   '{"type": "mcq", "options": ["Power rush straight through the blocker", "Running around the blocker", "A trick move", "An illegal technique"], "correct": 0}'::jsonb,
@@ -5545,12 +8577,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0007-0008-0000-000000000001',
-  '00000003-0007-0000-0000-000000000008',
+  '00000003-0008-0008-0000-000000000001',
+  '00000003-0008-0000-0000-000000000008',
   1,
   'What is a ''bull rush''?',
   '["Power rush straight through the blocker", "Running around the blocker", "A trick move", "An illegal technique"]',
@@ -5559,12 +8597,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0007-0000-0000-000000000009',
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0008-0000-0000-000000000009',
+  '00000003-0000-0000-0000-000000000008',
   'mcq',
   'Identify speed rush',
   '{"type": "mcq", "options": ["Using speed to run around the blocker", "Rushing very fast", "A blitz", "An illegal move"], "correct": 0}'::jsonb,
@@ -5573,12 +8617,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0007-0009-0000-000000000001',
-  '00000003-0007-0000-0000-000000000009',
+  '00000003-0008-0009-0000-000000000001',
+  '00000003-0008-0000-0000-000000000009',
   1,
   'What is a ''speed rush''?',
   '["Using speed to run around the blocker", "Rushing very fast", "A blitz", "An illegal move"]',
@@ -5587,12 +8637,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0007-0000-0000-000000000010',
-  '00000003-0000-0000-0000-000000000007',
+  '00000003-0008-0000-0000-000000000010',
+  '00000003-0000-0000-0000-000000000008',
   'mcq',
   'Identify swim move',
   '{"type": "mcq", "options": ["Rusher swims their arm over the blocker''s shoulder", "Swimming in water", "A coverage technique", "An illegal move"], "correct": 0}'::jsonb,
@@ -5601,40 +8657,338 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0007-0010-0000-000000000001',
-  '00000003-0007-0000-0000-000000000010',
+  '00000003-0008-0010-0000-000000000001',
+  '00000003-0008-0000-0000-000000000010',
   1,
   'What is a ''swim move''?',
   '["Rusher swims their arm over the blocker''s shoulder", "Swimming in water", "A coverage technique", "An illegal move"]',
   '{"index": 0}',
-  'The swim move has the rusher use their arm in a swimming motion to go over the blocker''s shoulder and get past them. It''s a finesse pass rush move.',
+  'The swim move has the rusher use their arm in a swimming motion to go over the blocker''s shoulder and get past them.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
--- Module 3, Lesson 8: Linebacker Responsibilities
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0008-0000-0000-000000000011',
+  '00000003-0000-0000-0000-000000000008',
+  'mcq',
+  'Goal of stunt',
+  '{"type": "mcq", "options": ["To confuse blocking assignments and free a rusher", "To look cool", "To switch positions permanently", "To stop the clock"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0008-0011-0000-000000000001',
+  '00000003-0008-0000-0000-000000000011',
+  1,
+  'What is the goal of a defensive line stunt?',
+  '["To confuse blocking assignments and free a rusher", "To look cool", "To switch positions permanently", "To stop the clock"]',
+  '{"index": 0}',
+  'Stunts force offensive linemen to pass off defenders. If they miscommunicate or are too slow, a defender comes free.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0008-0000-0000-000000000012',
+  '00000003-0000-0000-0000-000000000008',
+  'mcq',
+  'Goal of T-E stunt',
+  '{"type": "mcq", "options": ["Isolate the tackle on the looping defensive tackle", "Block the tight end", "Stop the run", "Intercept a pass"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0008-0012-0000-000000000001',
+  '00000003-0008-0000-0000-000000000012',
+  1,
+  'What does a T-E stunt try to achieve?',
+  '["Isolate the tackle on the looping defensive tackle", "Block the tight end", "Stop the run", "Intercept a pass"]',
+  '{"index": 0}',
+  'The end crashing inside occupies the guard, leaving the offensive tackle to deal with the looping defensive tackle in space.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0008-0000-0000-000000000013',
+  '00000003-0000-0000-0000-000000000008',
+  'mcq',
+  'Why penetration',
+  '{"type": "mcq", "options": ["It forces the RB to change path or the QB to move", "It''s a penalty", "It helps the offense", "It stops the clock"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0008-0013-0000-000000000001',
+  '00000003-0008-0000-0000-000000000013',
+  1,
+  'Why is defensive line penetration disruptive?',
+  '["It forces the RB to change path or the QB to move", "It''s a penalty", "It helps the offense", "It stops the clock"]',
+  '{"index": 0}',
+  'Penetration destroys the timing of plays. A RB has to cut back early, or a QB can''t step into a throw.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0008-0000-0000-000000000014',
+  '00000003-0000-0000-0000-000000000008',
+  'mcq',
+  'Two-gap responsibility',
+  '{"type": "mcq", "options": ["Read the blocker and shed them to the ball side", "Just rush upfield", "Guess a gap", "Drop into coverage"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0008-0014-0000-000000000001',
+  '00000003-0008-0000-0000-000000000014',
+  1,
+  'What is the primary responsibility in two-gap technique?',
+  '["Read the blocker and shed them to the ball side", "Just rush upfield", "Guess a gap", "Drop into coverage"]',
+  '{"index": 0}',
+  'The defender must control the blocker first, read where the ball is going, and then shed the block to fill the correct gap.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0008-0000-0000-000000000015',
+  '00000003-0000-0000-0000-000000000008',
+  'mcq',
+  'One-gap vs Two-gap',
+  '{"type": "mcq", "options": ["One-gap is aggressive/penetrating; Two-gap is reading/reacting", "One-gap is slower", "Two-gap is for linebackers", "There is no difference"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0008-0015-0000-000000000001',
+  '00000003-0008-0000-0000-000000000015',
+  1,
+  'How does one-gap technique differ from two-gap?',
+  '["One-gap is aggressive/penetrating; Two-gap is reading/reacting", "One-gap is slower", "Two-gap is for linebackers", "There is no difference"]',
+  '{"index": 0}',
+  'One-gap is about shooting a gap and getting upfield fast. Two-gap is about controlling a blocker and waiting to see the play develop.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0008-0000-0000-000000000016',
+  '00000003-0000-0000-0000-000000000008',
+  'mcq',
+  'Why contain',
+  '{"type": "mcq", "options": ["To force the ball carrier back inside to help", "To get a sack", "To look good", "To avoid blocking"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0008-0016-0000-000000000001',
+  '00000003-0008-0000-0000-000000000016',
+  1,
+  'Why is ''containing'' the edge critical?',
+  '["To force the ball carrier back inside to help", "To get a sack", "To look good", "To avoid blocking"]',
+  '{"index": 0}',
+  'If the edge is lost, the runner has open field to the sideline. Contain forces them back into the middle where the other defenders are.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0008-0000-0000-000000000017',
+  '00000003-0000-0000-0000-000000000008',
+  'mcq',
+  'When to speed rush',
+  '{"type": "mcq", "options": ["Against a slow or heavy-footed tackle", "Against a fast tackle", "On a run play", "On the goal line"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0008-0017-0000-000000000001',
+  '00000003-0008-0000-0000-000000000017',
+  1,
+  'When is a speed rush most effective?',
+  '["Against a slow or heavy-footed tackle", "Against a fast tackle", "On a run play", "On the goal line"]',
+  '{"index": 0}',
+  'If the offensive tackle has slow feet, they can''t kick slide fast enough to stop a speed rusher from turning the corner.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+-- Module 3, Lesson 9: Linebacker Responsibilities
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
 VALUES (
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0000-0000-0000-000000000009',
   '00000000-0000-0000-0000-000000000003',
   'Linebacker Responsibilities',
   'Learn what linebackers do in different situations',
-  8,
+  9,
   5,
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0008-0000-0000-000000000001',
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0009-0000-0000-000000000001',
+  '00000003-0000-0000-0000-000000000009',
   'mcq',
   'Understand MLB role',
   '{"type": "mcq", "options": ["Stop inside runs and cover the middle", "Rush the QB", "Cover deep passes", "Block offensive linemen"], "correct": 0}'::jsonb,
@@ -5643,12 +8997,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0008-0001-0000-000000000001',
-  '00000003-0008-0000-0000-000000000001',
+  '00000003-0009-0001-0000-000000000001',
+  '00000003-0009-0000-0000-000000000001',
   1,
   'What is the middle linebacker''s primary role?',
   '["Stop inside runs and cover the middle", "Rush the QB", "Cover deep passes", "Block offensive linemen"]',
@@ -5657,12 +9017,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0008-0000-0000-000000000002',
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0009-0000-0000-000000000002',
+  '00000003-0000-0000-0000-000000000009',
   'mcq',
   'Identify run fit',
   '{"type": "mcq", "options": ["Their assigned gap to fill on running plays", "How well they fit in their uniform", "Their coverage assignment", "Their blitz assignment"], "correct": 0}'::jsonb,
@@ -5671,12 +9037,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0008-0002-0000-000000000001',
-  '00000003-0008-0000-0000-000000000002',
+  '00000003-0009-0002-0000-000000000001',
+  '00000003-0009-0000-0000-000000000002',
   1,
   'What is a linebacker''s ''run fit''?',
   '["Their assigned gap to fill on running plays", "How well they fit in their uniform", "Their coverage assignment", "Their blitz assignment"]',
@@ -5685,12 +9057,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0008-0000-0000-000000000003',
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0009-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000009',
   'mcq',
   'Understand scrape',
   '{"type": "mcq", "options": ["Flowing laterally behind the line to fill a gap", "Getting injured", "A coverage technique", "A blitz"], "correct": 0}'::jsonb,
@@ -5699,12 +9077,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0008-0003-0000-000000000001',
-  '00000003-0008-0000-0000-000000000003',
+  '00000003-0009-0003-0000-000000000001',
+  '00000003-0009-0000-0000-000000000003',
   1,
   'What is a ''scrape'' by a linebacker?',
   '["Flowing laterally behind the line to fill a gap", "Getting injured", "A coverage technique", "A blitz"]',
@@ -5713,12 +9097,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0008-0000-0000-000000000004',
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0009-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000009',
   'mcq',
   'Identify hook zone',
   '{"type": "mcq", "options": ["Intermediate middle area, 10-15 yards deep", "Deep middle", "The flat", "Behind the line"], "correct": 0}'::jsonb,
@@ -5727,12 +9117,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0008-0004-0000-000000000001',
-  '00000003-0008-0000-0000-000000000004',
+  '00000003-0009-0004-0000-000000000001',
+  '00000003-0009-0000-0000-000000000004',
   1,
   'What is the ''hook zone'' in coverage?',
   '["Intermediate middle area, 10-15 yards deep", "Deep middle", "The flat", "Behind the line"]',
@@ -5741,12 +9137,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0008-0000-0000-000000000005',
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0009-0000-0000-000000000005',
+  '00000003-0000-0000-0000-000000000009',
   'mcq',
   'Understand curl/flat defender',
   '{"type": "mcq", "options": ["Defender reads #2 receiver to determine coverage", "Covering curls only", "Covering flats only", "A blitzer"], "correct": 0}'::jsonb,
@@ -5755,12 +9157,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0008-0005-0000-000000000001',
-  '00000003-0008-0000-0000-000000000005',
+  '00000003-0009-0005-0000-000000000001',
+  '00000003-0009-0000-0000-000000000005',
   1,
   'What is a ''curl/flat'' defender?',
   '["Defender reads #2 receiver to determine coverage", "Covering curls only", "Covering flats only", "A blitzer"]',
@@ -5769,12 +9177,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0008-0000-0000-000000000006',
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0009-0000-0000-000000000006',
+  '00000003-0000-0000-0000-000000000009',
   'mcq',
   'Identify Mike linebacker',
   '{"type": "mcq", "options": ["The middle linebacker or the one the offense identifies", "A linebacker named Mike", "The best linebacker", "The weakest linebacker"], "correct": 0}'::jsonb,
@@ -5783,12 +9197,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0008-0006-0000-000000000001',
-  '00000003-0008-0000-0000-000000000006',
+  '00000003-0009-0006-0000-000000000001',
+  '00000003-0009-0000-0000-000000000006',
   1,
   'What is the ''Mike'' linebacker?',
   '["The middle linebacker or the one the offense identifies", "A linebacker named Mike", "The best linebacker", "The weakest linebacker"]',
@@ -5797,12 +9217,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0008-0000-0000-000000000007',
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0009-0000-0000-000000000007',
+  '00000003-0000-0000-0000-000000000009',
   'mcq',
   'Identify Sam linebacker',
   '{"type": "mcq", "options": ["Strong-side outside linebacker", "Middle linebacker", "Weak-side linebacker", "A linebacker named Sam"], "correct": 0}'::jsonb,
@@ -5811,12 +9237,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0008-0007-0000-000000000001',
-  '00000003-0008-0000-0000-000000000007',
+  '00000003-0009-0007-0000-000000000001',
+  '00000003-0009-0000-0000-000000000007',
   1,
   'What is the ''Sam'' linebacker?',
   '["Strong-side outside linebacker", "Middle linebacker", "Weak-side linebacker", "A linebacker named Sam"]',
@@ -5825,12 +9257,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0008-0000-0000-000000000008',
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0009-0000-0000-000000000008',
+  '00000003-0000-0000-0000-000000000009',
   'mcq',
   'Identify Will linebacker',
   '{"type": "mcq", "options": ["Weak-side outside linebacker", "Middle linebacker", "Strong-side linebacker", "A linebacker named Will"], "correct": 0}'::jsonb,
@@ -5839,12 +9277,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0008-0008-0000-000000000001',
-  '00000003-0008-0000-0000-000000000008',
+  '00000003-0009-0008-0000-000000000001',
+  '00000003-0009-0000-0000-000000000008',
   1,
   'What is the ''Will'' linebacker?',
   '["Weak-side outside linebacker", "Middle linebacker", "Strong-side linebacker", "A linebacker named Will"]',
@@ -5853,12 +9297,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0008-0000-0000-000000000009',
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0009-0000-0000-000000000009',
+  '00000003-0000-0000-0000-000000000009',
   'mcq',
   'Understand spy',
   '{"type": "mcq", "options": ["Shadow the QB to prevent scrambles", "Cover a specific receiver", "Blitz on every play", "Play deep safety"], "correct": 0}'::jsonb,
@@ -5867,12 +9317,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0008-0009-0000-000000000001',
-  '00000003-0008-0000-0000-000000000009',
+  '00000003-0009-0009-0000-000000000001',
+  '00000003-0009-0000-0000-000000000009',
   1,
   'What is a ''spy'' assignment for a linebacker?',
   '["Shadow the QB to prevent scrambles", "Cover a specific receiver", "Blitz on every play", "Play deep safety"]',
@@ -5881,12 +9337,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0008-0000-0000-000000000010',
-  '00000003-0000-0000-0000-000000000008',
+  '00000003-0009-0000-0000-000000000010',
+  '00000003-0000-0000-0000-000000000009',
   'mcq',
   'Identify stack alignment',
   '{"type": "mcq", "options": ["LB lines up directly behind a defensive lineman", "LBs stand on each other", "LBs all blitz", "LBs in coverage only"], "correct": 0}'::jsonb,
@@ -5895,40 +9357,218 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0008-0010-0000-000000000001',
-  '00000003-0008-0000-0000-000000000010',
+  '00000003-0009-0010-0000-000000000001',
+  '00000003-0009-0000-0000-000000000010',
   1,
   'What is a ''stack'' alignment for linebackers?',
   '["LB lines up directly behind a defensive lineman", "LBs stand on each other", "LBs all blitz", "LBs in coverage only"]',
   '{"index": 0}',
-  'Stack alignment has the linebacker line up directly behind a defensive lineman. This hides the LB from the offense and makes it harder to read the defense.',
+  'Stack alignment has the linebacker line up directly behind a defensive lineman.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
--- Module 3, Lesson 9: Secondary Coverage
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0009-0000-0000-000000000011',
+  '00000003-0000-0000-0000-000000000009',
+  'mcq',
+  'Why MLB is QB',
+  '{"type": "mcq", "options": ["They receive the play call and align the defense", "They throw the ball", "They are the most important", "They are the captain"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0009-0011-0000-000000000001',
+  '00000003-0009-0000-0000-000000000011',
+  1,
+  'Why is the MLB known as the ''defensive quarterback''?',
+  '["They receive the play call and align the defense", "They throw the ball", "They are the most important", "They are the captain"]',
+  '{"index": 0}',
+  'Like the QB on offense, the MLB communicates the play call, makes adjustments, and ensures everyone is in position.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0009-0000-0000-000000000012',
+  '00000003-0000-0000-0000-000000000009',
+  'mcq',
+  'Why run fits',
+  '{"type": "mcq", "options": ["To prevent gaps in the defensive front", "To look uniform", "To tackle high", "To blitz"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0009-0012-0000-000000000001',
+  '00000003-0009-0000-0000-000000000012',
+  1,
+  'Why is maintaining run fits important?',
+  '["To prevent gaps in the defensive front", "To look uniform", "To tackle high", "To blitz"]',
+  '{"index": 0}',
+  'If one player abandons their gap (fit), it creates a hole in the defense that a running back can exploit for a big gain.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0009-0000-0000-000000000013',
+  '00000003-0000-0000-0000-000000000009',
+  'mcq',
+  'When to scrape',
+  '{"type": "mcq", "options": ["When the play flows outside or a lineman pulls", "On every play", "When blitzing", "When tired"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0009-0013-0000-000000000001',
+  '00000003-0009-0000-0000-000000000013',
+  1,
+  'When should a linebacker ''scrape''?',
+  '["When the play flows outside or a lineman pulls", "On every play", "When blitzing", "When tired"]',
+  '{"index": 0}',
+  'Scraping allows the LB to get over the top of traffic to meet the ball carrier on the outside.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0009-0000-0000-000000000014',
+  '00000003-0000-0000-0000-000000000009',
+  'mcq',
+  'Advantage of stack',
+  '{"type": "mcq", "options": ["It protects the LB from blockers", "It looks intimidating", "It''s required", "It helps the lineman"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0009-0014-0000-000000000001',
+  '00000003-0009-0000-0000-000000000014',
+  1,
+  'What is the advantage of stacking linebackers?',
+  '["It protects the LB from blockers", "It looks intimidating", "It''s required", "It helps the lineman"]',
+  '{"index": 0}',
+  'The lineman in front occupies the blocker, keeping the linebacker ''clean'' (unblocked) to flow to the ball and make the tackle.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+-- Module 3, Lesson 10: Secondary Coverage
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
 VALUES (
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0000-0000-0000-000000000010',
   '00000000-0000-0000-0000-000000000003',
   'Secondary Coverage',
   'Learn defensive back techniques and responsibilities',
-  9,
+  10,
   5,
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0009-0000-0000-000000000001',
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0010-0000-0000-000000000001',
+  '00000003-0000-0000-0000-000000000010',
   'mcq',
   'Identify press coverage',
   '{"type": "mcq", "options": ["DB lines up close and jams receiver at the line", "DB plays 10 yards off", "DB blitzes", "DB plays deep safety"], "correct": 0}'::jsonb,
@@ -5937,12 +9577,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0009-0001-0000-000000000001',
-  '00000003-0009-0000-0000-000000000001',
+  '00000003-0010-0001-0000-000000000001',
+  '00000003-0010-0000-0000-000000000001',
   1,
   'What is press coverage?',
   '["DB lines up close and jams receiver at the line", "DB plays 10 yards off", "DB blitzes", "DB plays deep safety"]',
@@ -5951,12 +9597,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0009-0000-0000-000000000002',
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0010-0000-0000-000000000002',
+  '00000003-0000-0000-0000-000000000010',
   'mcq',
   'Identify off coverage',
   '{"type": "mcq", "options": ["DB gives 5-10 yard cushion to the receiver", "DB is off the field", "DB blitzes", "DB plays press"], "correct": 0}'::jsonb,
@@ -5965,12 +9617,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0009-0002-0000-000000000001',
-  '00000003-0009-0000-0000-000000000002',
+  '00000003-0010-0002-0000-000000000001',
+  '00000003-0010-0000-0000-000000000002',
   1,
   'What is off coverage?',
   '["DB gives 5-10 yard cushion to the receiver", "DB is off the field", "DB blitzes", "DB plays press"]',
@@ -5979,12 +9637,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0009-0000-0000-000000000003',
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0010-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000010',
   'mcq',
   'Understand bail technique',
   '{"type": "mcq", "options": ["DB turns and runs with receiver at the snap", "DB gives up on the play", "DB blitzes", "DB plays press"], "correct": 0}'::jsonb,
@@ -5993,12 +9657,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0009-0003-0000-000000000001',
-  '00000003-0009-0000-0000-000000000003',
+  '00000003-0010-0003-0000-000000000001',
+  '00000003-0010-0000-0000-000000000003',
   1,
   'What is ''bail'' technique?',
   '["DB turns and runs with receiver at the snap", "DB gives up on the play", "DB blitzes", "DB plays press"]',
@@ -6007,12 +9677,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0009-0000-0000-000000000004',
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0010-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000010',
   'mcq',
   'Identify backpedal',
   '{"type": "mcq", "options": ["DB runs backward to maintain vision on receiver", "DB pedals a bike", "DB blitzes", "DB tackles"], "correct": 0}'::jsonb,
@@ -6021,12 +9697,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0009-0004-0000-000000000001',
-  '00000003-0009-0000-0000-000000000004',
+  '00000003-0010-0004-0000-000000000001',
+  '00000003-0010-0000-0000-000000000004',
   1,
   'What is a backpedal?',
   '["DB runs backward to maintain vision on receiver", "DB pedals a bike", "DB blitzes", "DB tackles"]',
@@ -6035,12 +9717,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0009-0000-0000-000000000005',
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0010-0000-0000-000000000005',
+  '00000003-0000-0000-0000-000000000010',
   'mcq',
   'Understand leverage',
   '{"type": "mcq", "options": ["DB''s position relative to receiver and sideline", "Using a lever", "Tackling technique", "Blitz assignment"], "correct": 0}'::jsonb,
@@ -6049,12 +9737,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0009-0005-0000-000000000001',
-  '00000003-0009-0000-0000-000000000005',
+  '00000003-0010-0005-0000-000000000001',
+  '00000003-0010-0000-0000-000000000005',
   1,
   'What is ''leverage'' in DB coverage?',
   '["DB''s position relative to receiver and sideline", "Using a lever", "Tackling technique", "Blitz assignment"]',
@@ -6063,12 +9757,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0009-0000-0000-000000000006',
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0010-0000-0000-000000000006',
+  '00000003-0000-0000-0000-000000000010',
   'mcq',
   'Identify trail technique',
   '{"type": "mcq", "options": ["DB runs behind receiver, playing the ball", "DB leads the receiver", "DB blitzes", "DB plays zone"], "correct": 0}'::jsonb,
@@ -6077,12 +9777,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0009-0006-0000-000000000001',
-  '00000003-0009-0000-0000-000000000006',
+  '00000003-0010-0006-0000-000000000001',
+  '00000003-0010-0000-0000-000000000006',
   1,
   'What is ''trail'' technique in man coverage?',
   '["DB runs behind receiver, playing the ball", "DB leads the receiver", "DB blitzes", "DB plays zone"]',
@@ -6091,12 +9797,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0009-0000-0000-000000000007',
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0010-0000-0000-000000000007',
+  '00000003-0000-0000-0000-000000000010',
   'mcq',
   'Understand high-low',
   '{"type": "mcq", "options": ["Two defenders cover one receiver at different depths", "Covering high and low routes", "A type of blitz", "An illegal technique"], "correct": 0}'::jsonb,
@@ -6105,12 +9817,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0009-0007-0000-000000000001',
-  '00000003-0009-0000-0000-000000000007',
+  '00000003-0010-0007-0000-000000000001',
+  '00000003-0010-0000-0000-000000000007',
   1,
   'What does ''high-low'' mean in coverage?',
   '["Two defenders cover one receiver at different depths", "Covering high and low routes", "A type of blitz", "An illegal technique"]',
@@ -6119,12 +9837,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0009-0000-0000-000000000008',
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0010-0000-0000-000000000008',
+  '00000003-0000-0000-0000-000000000010',
   'mcq',
   'Identify eyes',
   '{"type": "mcq", "options": ["The quarterback", "Their assigned receiver", "The ground", "The sideline"], "correct": 0}'::jsonb,
@@ -6133,12 +9857,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0009-0008-0000-000000000001',
-  '00000003-0009-0000-0000-000000000008',
+  '00000003-0010-0008-0000-000000000001',
+  '00000003-0010-0000-0000-000000000008',
   1,
   'In zone coverage, what should a DB''s ''eyes'' be on?',
   '["The quarterback", "Their assigned receiver", "The ground", "The sideline"]',
@@ -6147,12 +9877,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0009-0000-0000-000000000009',
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0010-0000-0000-000000000009',
+  '00000003-0000-0000-0000-000000000010',
   'mcq',
   'Understand break point',
   '{"type": "mcq", "options": ["When the receiver makes their cut", "When coverage breaks down", "When the DB gets tired", "When the play ends"], "correct": 0}'::jsonb,
@@ -6161,12 +9897,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0009-0009-0000-000000000001',
-  '00000003-0009-0000-0000-000000000009',
+  '00000003-0010-0009-0000-000000000001',
+  '00000003-0010-0000-0000-000000000009',
   1,
   'What is a ''break point'' in coverage?',
   '["When the receiver makes their cut", "When coverage breaks down", "When the DB gets tired", "When the play ends"]',
@@ -6175,12 +9917,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0009-0000-0000-000000000010',
-  '00000003-0000-0000-0000-000000000009',
+  '00000003-0010-0000-0000-000000000010',
+  '00000003-0000-0000-0000-000000000010',
   'mcq',
   'Identify man match',
   '{"type": "mcq", "options": ["Hybrid of man and zone based on route patterns", "Pure man coverage", "Pure zone coverage", "A blitz package"], "correct": 0}'::jsonb,
@@ -6189,40 +9937,378 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0009-0010-0000-000000000001',
-  '00000003-0009-0000-0000-000000000010',
+  '00000003-0010-0010-0000-000000000001',
+  '00000003-0010-0000-0000-000000000010',
   1,
   'What is ''man match'' coverage?',
   '["Hybrid of man and zone based on route patterns", "Pure man coverage", "Pure zone coverage", "A blitz package"]',
   '{"index": 0}',
-  'Man match (or pattern match) coverage starts as zone but has defenders match receivers man-to-man based on their routes. It combines benefits of both coverages.',
+  'Man match (or pattern match) coverage starts as zone but has defenders match receivers man-to-man based on their routes.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
--- Module 3, Lesson 10: Tackling Fundamentals
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0010-0000-0000-000000000011',
+  '00000003-0000-0000-0000-000000000010',
+  'mcq',
+  'Goal of press',
+  '{"type": "mcq", "options": ["To disrupt timing and reroute receivers", "To get a penalty", "To rest", "To play zone"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0010-0011-0000-000000000001',
+  '00000003-0010-0000-0000-000000000011',
+  1,
+  'What is the strategic goal of press coverage?',
+  '["To disrupt timing and reroute receivers", "To get a penalty", "To rest", "To play zone"]',
+  '{"index": 0}',
+  'By jamming the receiver, the DB ruins the timing of the route, throwing off the QB''s rhythm.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0010-0000-0000-000000000012',
+  '00000003-0000-0000-0000-000000000010',
+  'mcq',
+  'Why off coverage',
+  '{"type": "mcq", "options": ["To prevent deep passes and keep everything in front", "Because they are slow", "To blitz", "To talk to the coach"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0010-0012-0000-000000000001',
+  '00000003-0010-0000-0000-000000000012',
+  1,
+  'Why would a corner play off coverage?',
+  '["To prevent deep passes and keep everything in front", "Because they are slow", "To blitz", "To talk to the coach"]',
+  '{"index": 0}',
+  'Off coverage gives the DB a head start to react to deep routes, ensuring they don''t get beaten over the top.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0010-0000-0000-000000000013',
+  '00000003-0000-0000-0000-000000000010',
+  'mcq',
+  'When to bail',
+  '{"type": "mcq", "options": ["In deep zone coverage (Cover 3)", "In man coverage", "When blitzing", "On run plays"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0010-0013-0000-000000000001',
+  '00000003-0010-0000-0000-000000000013',
+  1,
+  'When is bail technique typically used?',
+  '["In deep zone coverage (Cover 3)", "In man coverage", "When blitzing", "On run plays"]',
+  '{"index": 0}',
+  'Bail technique allows a corner to appear to be in press/shallow coverage but quickly retreat to a deep zone at the snap.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0010-0000-0000-000000000014',
+  '00000003-0000-0000-0000-000000000010',
+  'mcq',
+  'Why backpedal',
+  '{"type": "mcq", "options": ["To keep eyes on the QB/receiver while retreating", "To run faster", "To look cool", "To avoid tripping"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0010-0014-0000-000000000001',
+  '00000003-0010-0000-0000-000000000014',
+  1,
+  'Why is backpedaling essential for DBs?',
+  '["To keep eyes on the QB/receiver while retreating", "To run faster", "To look cool", "To avoid tripping"]',
+  '{"index": 0}',
+  'You can''t see the play if you turn your back. Backpedaling lets you retreat while reading the play.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0010-0000-0000-000000000015',
+  '00000003-0000-0000-0000-000000000010',
+  'mcq',
+  'When to trail',
+  '{"type": "mcq", "options": ["When you have safety help over the top", "When you are alone", "In zone coverage", "Against the run"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0010-0015-0000-000000000001',
+  '00000003-0010-0000-0000-000000000015',
+  1,
+  'When is trail technique most effective?',
+  '["When you have safety help over the top", "When you are alone", "In zone coverage", "Against the run"]',
+  '{"index": 0}',
+  'If you have deep help, you can aggressively undercut the route (trail) to defend short/intermediate throws without fear of getting beat deep.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0010-0000-0000-000000000016',
+  '00000003-0000-0000-0000-000000000010',
+  'mcq',
+  'Purpose of high-low',
+  '{"type": "mcq", "options": ["To double team a key receiver", "To cover two people", "To blitz", "To stop the run"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0010-0016-0000-000000000001',
+  '00000003-0010-0000-0000-000000000016',
+  1,
+  'What is the purpose of high-low coverage?',
+  '["To double team a key receiver", "To cover two people", "To blitz", "To stop the run"]',
+  '{"index": 0}',
+  'It forces the QB to throw into a tight window between two defenders, effectively neutralizing a star receiver.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0010-0000-0000-000000000017',
+  '00000003-0000-0000-0000-000000000010',
+  'mcq',
+  'Why eyes on QB',
+  '{"type": "mcq", "options": ["To anticipate where the ball will be thrown", "To see the score", "To watch the line", "To avoid the receiver"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0010-0017-0000-000000000001',
+  '00000003-0010-0000-0000-000000000017',
+  1,
+  'Why do zone defenders keep their eyes on the QB?',
+  '["To anticipate where the ball will be thrown", "To see the score", "To watch the line", "To avoid the receiver"]',
+  '{"index": 0}',
+  'The QB''s eyes often give away the target. Reading the QB allows defenders to break on the ball faster.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000003-0010-0000-0000-000000000018',
+  '00000003-0000-0000-0000-000000000010',
+  'mcq',
+  'Advantage of man match',
+  '{"type": "mcq", "options": ["Combines tight man coverage with zone safety", "It''s easy", "It''s old school", "It''s illegal"], "correct": 0}'::jsonb,
+  4,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000003-0010-0018-0000-000000000001',
+  '00000003-0010-0000-0000-000000000018',
+  1,
+  'What is the main advantage of man-match coverage?',
+  '["Combines tight man coverage with zone safety", "It''s easy", "It''s old school", "It''s illegal"]',
+  '{"index": 0}',
+  'It prevents defenders from covering empty grass (zone) while avoiding the mismatches of pure man coverage.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+-- Module 3, Lesson 11: Tackling Fundamentals
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, created_at, updated_at)
 VALUES (
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0000-0000-0000-000000000011',
   '00000000-0000-0000-0000-000000000003',
   'Tackling Fundamentals',
   'Learn proper tackling techniques and pursuit angles',
-  10,
+  11,
   5,
   100,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0010-0000-0000-000000000001',
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0011-0000-0000-000000000001',
+  '00000003-0000-0000-0000-000000000011',
   'mcq',
   'Understand form tackle',
   '{"type": "mcq", "options": ["Head up, wrap arms, drive through the ball carrier", "Diving at legs", "Shoulder tackle", "Arm tackle"], "correct": 0}'::jsonb,
@@ -6231,12 +10317,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0010-0001-0000-000000000001',
-  '00000003-0010-0000-0000-000000000001',
+  '00000003-0011-0001-0000-000000000001',
+  '00000003-0011-0000-0000-000000000001',
   1,
   'What is a ''form tackle''?',
   '["Head up, wrap arms, drive through the ball carrier", "Diving at legs", "Shoulder tackle", "Arm tackle"]',
@@ -6245,12 +10337,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0010-0000-0000-000000000002',
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0011-0000-0000-000000000002',
+  '00000003-0000-0000-0000-000000000011',
   'mcq',
   'Identify pursuit angle',
   '{"type": "mcq", "options": ["Path defender takes to intercept the ball carrier", "The angle of the field", "A type of coverage", "A blitz path"], "correct": 0}'::jsonb,
@@ -6259,26 +10357,38 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0010-0002-0000-000000000001',
-  '00000003-0010-0000-0000-000000000002',
+  '00000003-0011-0002-0000-000000000001',
+  '00000003-0011-0000-0000-000000000002',
   1,
   'What is a pursuit angle?',
   '["Path defender takes to intercept the ball carrier", "The angle of the field", "A type of coverage", "A blitz path"]',
   '{"index": 0}',
-  'Pursuit angle is the path a defender takes to intercept the ball carrier. Good angles cut off the runner; bad angles let them escape.',
+  'Pursuit angle is the path a defender takes to intercept the ball carrier.',
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0010-0000-0000-000000000003',
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0011-0000-0000-000000000003',
+  '00000003-0000-0000-0000-000000000011',
   'mcq',
   'Understand leverage tackle',
   '{"type": "mcq", "options": ["Getting lower than the ball carrier", "Using a lever", "Tackling from behind", "Arm tackling"], "correct": 0}'::jsonb,
@@ -6287,12 +10397,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0010-0003-0000-000000000001',
-  '00000003-0010-0000-0000-000000000003',
+  '00000003-0011-0003-0000-000000000001',
+  '00000003-0011-0000-0000-000000000003',
   1,
   'What does ''leverage'' mean in tackling?',
   '["Getting lower than the ball carrier", "Using a lever", "Tackling from behind", "Arm tackling"]',
@@ -6301,12 +10417,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0010-0000-0000-000000000004',
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0011-0000-0000-000000000004',
+  '00000003-0000-0000-0000-000000000011',
   'mcq',
   'Identify gang tackling',
   '{"type": "mcq", "options": ["Multiple defenders tackling the ball carrier together", "Illegal tackling", "Tackling in groups", "A penalty"], "correct": 0}'::jsonb,
@@ -6315,12 +10437,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0010-0004-0000-000000000001',
-  '00000003-0010-0000-0000-000000000004',
+  '00000003-0011-0004-0000-000000000001',
+  '00000003-0011-0000-0000-000000000004',
   1,
   'What is gang tackling?',
   '["Multiple defenders tackling the ball carrier together", "Illegal tackling", "Tackling in groups", "A penalty"]',
@@ -6329,12 +10457,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0010-0000-0000-000000000005',
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0011-0000-0000-000000000005',
+  '00000003-0000-0000-0000-000000000011',
   'mcq',
   'Understand wrap up',
   '{"type": "mcq", "options": ["Secures the tackle and prevents the runner from escaping", "Keeps you warm", "It''s a penalty", "It''s not important"], "correct": 0}'::jsonb,
@@ -6343,12 +10477,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0010-0005-0000-000000000001',
-  '00000003-0010-0000-0000-000000000005',
+  '00000003-0011-0005-0000-000000000001',
+  '00000003-0011-0000-0000-000000000005',
   1,
   'Why is ''wrapping up'' important in tackling?',
   '["Secures the tackle and prevents the runner from escaping", "Keeps you warm", "It''s a penalty", "It''s not important"]',
@@ -6357,12 +10497,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0010-0000-0000-000000000006',
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0011-0000-0000-000000000006',
+  '00000003-0000-0000-0000-000000000011',
   'mcq',
   'Identify open field tackle',
   '{"type": "mcq", "options": ["Ball carrier has space to make moves", "Too many defenders", "The field is open", "It''s illegal"], "correct": 0}'::jsonb,
@@ -6371,12 +10517,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0010-0006-0000-000000000001',
-  '00000003-0010-0000-0000-000000000006',
+  '00000003-0011-0006-0000-000000000001',
+  '00000003-0011-0000-0000-000000000006',
   1,
   'What makes open field tackles difficult?',
   '["Ball carrier has space to make moves", "Too many defenders", "The field is open", "It''s illegal"]',
@@ -6385,12 +10537,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0010-0000-0000-000000000007',
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0011-0000-0000-000000000007',
+  '00000003-0000-0000-0000-000000000011',
   'mcq',
   'Understand breakdown',
   '{"type": "mcq", "options": ["Slowing down, getting in athletic stance, preparing to tackle", "Tackle breaks apart", "Getting tired", "A penalty"], "correct": 0}'::jsonb,
@@ -6399,12 +10557,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0010-0007-0000-000000000001',
-  '00000003-0010-0000-0000-000000000007',
+  '00000003-0011-0007-0000-000000000001',
+  '00000003-0011-0000-0000-000000000007',
   1,
   'What does ''breaking down'' mean in tackling?',
   '["Slowing down, getting in athletic stance, preparing to tackle", "Tackle breaks apart", "Getting tired", "A penalty"]',
@@ -6413,12 +10577,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0010-0000-0000-000000000008',
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0011-0000-0000-000000000008',
+  '00000003-0000-0000-0000-000000000011',
   'mcq',
   'Identify strip',
   '{"type": "mcq", "options": ["Punching the ball out while tackling", "Removing the ball carrier''s jersey", "A type of tackle", "An illegal move"], "correct": 0}'::jsonb,
@@ -6427,12 +10597,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0010-0008-0000-000000000001',
-  '00000003-0010-0000-0000-000000000008',
+  '00000003-0011-0008-0000-000000000001',
+  '00000003-0011-0000-0000-000000000008',
   1,
   'What is ''stripping the ball''?',
   '["Punching the ball out while tackling", "Removing the ball carrier''s jersey", "A type of tackle", "An illegal move"]',
@@ -6441,12 +10617,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0010-0000-0000-000000000009',
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0011-0000-0000-000000000009',
+  '00000003-0000-0000-0000-000000000011',
   'mcq',
   'Understand fit',
   '{"type": "mcq", "options": ["Filling your assigned gap correctly", "Fitting into your uniform", "Tackling technique", "A coverage assignment"], "correct": 0}'::jsonb,
@@ -6455,12 +10637,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0010-0009-0000-000000000001',
-  '00000003-0010-0000-0000-000000000009',
+  '00000003-0011-0009-0000-000000000001',
+  '00000003-0011-0000-0000-000000000009',
   1,
   'What does ''fitting up'' mean in run defense?',
   '["Filling your assigned gap correctly", "Fitting into your uniform", "Tackling technique", "A coverage assignment"]',
@@ -6469,12 +10657,18 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000003-0010-0000-0000-000000000010',
-  '00000003-0000-0000-0000-000000000010',
+  '00000003-0011-0000-0000-000000000010',
+  '00000003-0000-0000-0000-000000000011',
   'mcq',
   'Identify shoulder tackle',
   '{"type": "mcq", "options": ["Leading with shoulder pad into ball carrier", "Tackling someone''s shoulder", "Illegal tackle", "Arm tackle"], "correct": 0}'::jsonb,
@@ -6483,12 +10677,18 @@ VALUES (
   (SELECT id FROM users LIMIT 1),
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000003-0010-0010-0000-000000000001',
-  '00000003-0010-0000-0000-000000000010',
+  '00000003-0011-0010-0000-000000000001',
+  '00000003-0011-0000-0000-000000000010',
   1,
   'What is a shoulder tackle?',
   '["Leading with shoulder pad into ball carrier", "Tackling someone''s shoulder", "Illegal tackle", "Arm tackle"]',
@@ -6497,4 +10697,10 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();

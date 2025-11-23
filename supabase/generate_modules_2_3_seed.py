@@ -54,7 +54,14 @@ VALUES (
   0,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  min_level = EXCLUDED.min_level,
+  max_level = EXCLUDED.max_level,
+  xp_reward = EXCLUDED.xp_reward,
+  updated_at = NOW();
 """)
     
     # Module 3: Defensive Concepts
@@ -71,7 +78,14 @@ VALUES (
   0,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  min_level = EXCLUDED.min_level,
+  max_level = EXCLUDED.max_level,
+  xp_reward = EXCLUDED.xp_reward,
+  updated_at = NOW();
 """)
     
     # Process Module 2 content files
@@ -108,7 +122,13 @@ VALUES (
   {lesson['xp_award']},
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 """)
             
             # Process items
@@ -141,7 +161,13 @@ VALUES (
   {AUTHOR_ID_SQL},
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 """)
                 
                 sql_lines.append(f"""INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
@@ -156,7 +182,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 """)
                 
                 item_counter += 1
@@ -197,7 +229,13 @@ VALUES (
   {lesson['xp_award']},
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  title = EXCLUDED.title,
+  description = EXCLUDED.description,
+  order_index = EXCLUDED.order_index,
+  est_minutes = EXCLUDED.est_minutes,
+  xp_award = EXCLUDED.xp_award,
+  updated_at = NOW();
 """)
             
             # Process items
@@ -230,7 +268,13 @@ VALUES (
   {AUTHOR_ID_SQL},
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
 """)
                 
                 sql_lines.append(f"""INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
@@ -245,7 +289,13 @@ VALUES (
   true,
   NOW(),
   NOW()
-);
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
 """)
                 
                 item_counter += 1

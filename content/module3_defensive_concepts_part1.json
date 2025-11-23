@@ -29,7 +29,7 @@
                             "correct_answer_json": {
                                 "index": 0
                             },
-                            "explanation_richtext": "4-3 defense has 4 defensive linemen (2 ends, 2 tackles) and 3 linebackers. It's a traditional, balanced defense good against both run and pass."
+                            "explanation_richtext": "4-3 defense has 4 defensive linemen (2 ends, 2 tackles) and 3 linebackers."
                         }
                     },
                     {
@@ -47,7 +47,7 @@
                             "correct_answer_json": {
                                 "index": 0
                             },
-                            "explanation_richtext": "3-4 defense has 3 defensive linemen (2 ends, 1 nose tackle) and 4 linebackers. It's versatile for blitzing and disguising pressure."
+                            "explanation_richtext": "3-4 defense has 3 defensive linemen (2 ends, 1 nose tackle) and 4 linebackers."
                         }
                     },
                     {
@@ -65,7 +65,7 @@
                             "correct_answer_json": {
                                 "index": 0
                             },
-                            "explanation_richtext": "Nickel defense has 5 DBs (the 5th DB is the 'nickel back'). It's used against 3+ WR sets, replacing a linebacker with an extra defensive back."
+                            "explanation_richtext": "Nickel defense has 5 DBs (the 5th DB is the 'nickel back')."
                         }
                     },
                     {
@@ -83,7 +83,7 @@
                             "correct_answer_json": {
                                 "index": 0
                             },
-                            "explanation_richtext": "Dime defense has 6 DBs (dime = 10 cents = 2 nickels). It's used in obvious passing situations, typically with only 3 or 4 down linemen."
+                            "explanation_richtext": "Dime defense has 6 DBs (dime = 10 cents = 2 nickels)."
                         }
                     },
                     {
@@ -197,9 +197,90 @@
                 ]
             },
             {
+                "title": "Defensive Strategy",
+                "description": "Learn when and why to use different defensive packages",
+                "order_index": 2,
+                "est_minutes": 5,
+                "xp_award": 100,
+                "items": [
+                    {
+                        "type": "mcq",
+                        "base_prompt": "When to use 3-4",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "When do teams traditionally deploy a 3-4 defense?",
+                            "options_json": [
+                                "To disguise pressure/blitz",
+                                "To stop the run",
+                                "To prevent deep passes",
+                                "To save energy"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "3-4 defenses have 4 linebackers, creating more blitz options and disguise. The offense doesn't know which LBs will rush."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Why use 4-3",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "Why do teams use a 4-3 defense?",
+                            "options_json": [
+                                "Balanced against run and pass",
+                                "To blitz more",
+                                "To play zone only",
+                                "It's cheaper"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "4-3 is a traditional, balanced defense good against both run and pass with defined gaps."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "When to use Nickel",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "When is a Nickel defense typically used?",
+                            "options_json": [
+                                "Against 3+ WR sets",
+                                "On 1st down",
+                                "On the goal line",
+                                "In the rain"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "It's used against 3+ WR sets, replacing a linebacker with an extra defensive back to match speed."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "When to use Dime",
+                        "difficulty": 3,
+                        "variant": {
+                            "prompt_richtext": "When is a Dime defense typically used?",
+                            "options_json": [
+                                "In obvious passing situations",
+                                "On 1st down",
+                                "Against the run",
+                                "In overtime"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "It's used in obvious passing situations (like 3rd & long), typically with only 3 or 4 down linemen to maximize coverage."
+                        }
+                    }
+                ]
+            },
+            {
                 "title": "Cover 1 Defense",
                 "description": "Learn man-free coverage and its strengths and weaknesses",
-                "order_index": 2,
+                "order_index": 3,
                 "est_minutes": 5,
                 "xp_award": 100,
                 "items": [
@@ -388,7 +469,7 @@
             {
                 "title": "Cover 2 Defense",
                 "description": "Learn two-deep zone coverage and its variations",
-                "order_index": 3,
+                "order_index": 4,
                 "est_minutes": 5,
                 "xp_award": 100,
                 "items": [
@@ -497,7 +578,25 @@
                             "correct_answer_json": {
                                 "index": 0
                             },
-                            "explanation_richtext": "Tampa 2 is Cover 2 where the middle linebacker drops deep to cover the seam between safeties. This fixes Cover 2's main weakness but requires athletic LBs."
+                            "explanation_richtext": "Tampa 2 is Cover 2 where the middle linebacker drops deep to cover the seam between safeties."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Why Tampa 2",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "Why was the Tampa 2 defense developed?",
+                            "options_json": [
+                                "To fix Cover 2's deep middle weakness",
+                                "To stop the run",
+                                "To blitz more",
+                                "To confuse the QB"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "It fixes Cover 2's main weakness (the deep middle seam) by having the MLB drop deep, but requires an athletic LB."
                         }
                     },
                     {
@@ -569,7 +668,25 @@
                             "correct_answer_json": {
                                 "index": 0
                             },
-                            "explanation_richtext": "Cover 2 Sink has corners play deeper (8-12 yards) to help with intermediate routes and take away the seam. It's a variation that trades flats for better middle coverage."
+                            "explanation_richtext": "Cover 2 Sink has corners play deeper (8-12 yards) to help with intermediate routes and take away the seam."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Goal of Cover 2 Sink",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is the strategic goal of Cover 2 Sink?",
+                            "options_json": [
+                                "To take away the seam/intermediate routes",
+                                "To stop the run",
+                                "To blitz",
+                                "To play man coverage"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "It trades flat coverage for better middle/seam coverage by sinking the corners deeper."
                         }
                     }
                 ]
@@ -577,7 +694,7 @@
             {
                 "title": "Cover 3 Defense",
                 "description": "Learn three-deep zone coverage and its applications",
-                "order_index": 4,
+                "order_index": 5,
                 "est_minutes": 5,
                 "xp_award": 100,
                 "items": [
@@ -668,7 +785,25 @@
                             "correct_answer_json": {
                                 "index": 0
                             },
-                            "explanation_richtext": "Cover 3 Buzz has the strong safety 'buzz' to the flat to replace the corner, allowing the corner to play deeper. This helps defend both deep and flat routes."
+                            "explanation_richtext": "Cover 3 Buzz has the strong safety 'buzz' to the flat to replace the corner."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "Advantage of Cover 3 Buzz",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "What is the advantage of Cover 3 Buzz?",
+                            "options_json": [
+                                "Disguises coverage and helps in flats",
+                                "Stops the run better",
+                                "Blitzes the QB",
+                                "It's easier"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "It disguises the coverage (looking like Cover 3 or 1) and puts a safety in the flat to help with intermediate routes."
                         }
                     },
                     {
@@ -686,7 +821,25 @@
                             "correct_answer_json": {
                                 "index": 0
                             },
-                            "explanation_richtext": "Cover 3 Cloud has the corner play the flat while the safety rotates over to cover the deep third. This is better against quick passes but can be vulnerable deep."
+                            "explanation_richtext": "Cover 3 Cloud has the corner play the flat while the safety rotates over to cover the deep third."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "When to use Cover 3 Cloud",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "When is Cover 3 Cloud typically used?",
+                            "options_json": [
+                                "Against quick passing teams",
+                                "Against the run",
+                                "On Hail Marys",
+                                "Never"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "It's better against quick passes to the flat, as the corner is already there to disrupt them."
                         }
                     },
                     {
@@ -758,7 +911,25 @@
                             "correct_answer_json": {
                                 "index": 0
                             },
-                            "explanation_richtext": "Sky coverage (opposite of Cloud) has the safety take the deep outside third while the corner plays the flat. This is used to the strong side of formations."
+                            "explanation_richtext": "Sky coverage (opposite of Cloud) has the safety take the deep outside third while the corner plays the flat."
+                        }
+                    },
+                    {
+                        "type": "mcq",
+                        "base_prompt": "When to use Sky coverage",
+                        "difficulty": 4,
+                        "variant": {
+                            "prompt_richtext": "When is Sky coverage typically used?",
+                            "options_json": [
+                                "To the strong side of formations",
+                                "To the weak side",
+                                "In the red zone",
+                                "On punts"
+                            ],
+                            "correct_answer_json": {
+                                "index": 0
+                            },
+                            "explanation_richtext": "It's often used to the strong side, allowing the safety to support the run or cover the flat while the corner bails deep."
                         }
                     }
                 ]
@@ -766,7 +937,7 @@
             {
                 "title": "Cover 4 Defense",
                 "description": "Learn quarters coverage and pattern matching concepts",
-                "order_index": 5,
+                "order_index": 6,
                 "est_minutes": 5,
                 "xp_award": 100,
                 "items": [

@@ -96,7 +96,7 @@ def generate_sql():
             print(f"  -- Item {j}")
             print(f"  INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)")
             print(f"  VALUES ('{item_id}', '{lesson_id}', 'mcq', {base_prompt}, {schema_json}::jsonb, {difficulty}, 'live', {AUTHOR_ID_SQL}, now(), now())")
-            print(f"  ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt, answer_schema_json = EXCLUDED.answer_schema_json;")
+            print(f"  ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt, answer_schema_json = EXCLUDED.answer_schema_json, difficulty = EXCLUDED.difficulty, status = EXCLUDED.status;")
             
             # Variant
             prompt = escape_sql(item['variant']['prompt_richtext'])
@@ -106,7 +106,7 @@ def generate_sql():
             
             print(f"  INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)")
             print(f"  VALUES ('{variant_id}', '{item_id}', 1, {prompt}, {options_json}::jsonb, {correct_json}::jsonb, {explanation}, true, now(), now())")
-            print(f"  ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, explanation_richtext = EXCLUDED.explanation_richtext;")
+            print(f"  ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, explanation_richtext = EXCLUDED.explanation_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, active = EXCLUDED.active;")
             
         print("")
 

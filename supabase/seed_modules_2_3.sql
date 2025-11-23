@@ -93,7 +93,7 @@ VALUES (
   'The quarterback is 5 yards behind the center with no running back beside him. What formation is this?',
   '["Shotgun", "I-Formation", "Pistol", "Under Center"]',
   '{"index": 0}',
-  'Shotgun formation has the QB standing 5-7 yards behind center. This gives the QB more time to read the defense and is commonly used for passing plays.',
+  'In shotgun, the QB stands about 5-7 yards behind the center and catches the snap.',
   true,
   NOW(),
   NOW()
@@ -108,6 +108,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0001-0000-0000-000000000002',
+  '00000002-0000-0000-0000-000000000001',
+  'mcq',
+  'Understand shotgun advantage',
+  '{"type": "mcq", "options": ["It gives the QB a better view of the defense and more time to throw", "It''s better for running the ball", "It confuses the defense"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0001-0002-0000-000000000001',
+  '00000002-0001-0000-0000-000000000002',
+  1,
+  'What is the main advantage of the Shotgun formation?',
+  '["It gives the QB a better view of the defense and more time to throw", "It''s better for running the ball", "It confuses the defense"]',
+  '{"index": 0}',
+  'By standing back, the QB can see the whole field clearly and has a head start on his dropback, which helps against pass rushers.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0001-0000-0000-000000000003',
   '00000002-0000-0000-0000-000000000001',
   'mcq',
   'Identify formation',
@@ -127,13 +167,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0001-0002-0000-000000000001',
-  '00000002-0001-0000-0000-000000000002',
+  '00000002-0001-0003-0000-000000000001',
+  '00000002-0001-0000-0000-000000000003',
   1,
   'The QB is under center with a fullback and tailback lined up directly behind him in a straight line. What formation is this?',
   '["I-Formation", "Shotgun", "Spread", "Singleback"]',
   '{"index": 0}',
-  'The I-Formation gets its name because the QB, fullback, and tailback form the shape of an ''I''. It''s a classic power running formation.',
+  'The I-formation has the QB under center, with a fullback and running back lined up directly behind him in a straight line.',
   true,
   NOW(),
   NOW()
@@ -147,7 +187,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0001-0000-0000-000000000003',
+  '00000002-0001-0000-0000-000000000004',
+  '00000002-0000-0000-0000-000000000001',
+  'mcq',
+  'Understand I-formation strength',
+  '{"type": "mcq", "options": ["Power running with a lead blocker", "Deep passing", "Trick plays"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0001-0004-0000-000000000001',
+  '00000002-0001-0000-0000-000000000004',
+  1,
+  'What is the primary strength of the I-Formation?',
+  '["Power running with a lead blocker", "Deep passing", "Trick plays"]',
+  '{"index": 0}',
+  'The I-Formation is built for power running. The fullback acts as a lead blocker, clearing a path for the running back to follow.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0001-0000-0000-000000000005',
   '00000002-0000-0000-0000-000000000001',
   'mcq',
   'Identify formation',
@@ -167,13 +247,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0001-0003-0000-000000000001',
-  '00000002-0001-0000-0000-000000000003',
+  '00000002-0001-0005-0000-000000000001',
+  '00000002-0001-0000-0000-000000000005',
   1,
   'The QB is in shotgun with the running back lined up beside him at about 4 yards deep. What formation is this?',
   '["Pistol", "I-Formation", "Shotgun", "Wildcat"]',
   '{"index": 0}',
-  'The Pistol formation combines elements of shotgun and under center. The QB is in shotgun but the RB is directly behind him, allowing for better running angles.',
+  'Pistol formation has the QB in shotgun, but the RB is directly behind him, allowing for better running angles and a downhill run game.',
   true,
   NOW(),
   NOW()
@@ -187,7 +267,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0001-0000-0000-000000000004',
+  '00000002-0001-0000-0000-000000000006',
+  '00000002-0000-0000-0000-000000000001',
+  'mcq',
+  'Understand Pistol advantage',
+  '{"type": "mcq", "options": ["It allows for a more effective downhill running game", "It''s better for deep passes", "It hides the ball better"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0001-0006-0000-000000000001',
+  '00000002-0001-0000-0000-000000000006',
+  1,
+  'What is an advantage of the Pistol formation over traditional Shotgun?',
+  '["It allows for a more effective downhill running game", "It''s better for deep passes", "It hides the ball better"]',
+  '{"index": 0}',
+  'In Pistol, the RB is directly behind the QB, which allows for a more direct, downhill run approach compared to the offset RBs in traditional shotgun.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0001-0000-0000-000000000007',
   '00000002-0000-0000-0000-000000000001',
   'mcq',
   'Understand formation purpose',
@@ -207,8 +327,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0001-0004-0000-000000000001',
-  '00000002-0001-0000-0000-000000000004',
+  '00000002-0001-0007-0000-000000000001',
+  '00000002-0001-0000-0000-000000000007',
   1,
   'Why do teams use the shotgun formation?',
   '["Better for passing plays", "Better for running plays", "Confuses the defense", "Required on 3rd down"]',
@@ -227,7 +347,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0001-0000-0000-000000000005',
+  '00000002-0001-0000-0000-000000000008',
   '00000002-0000-0000-0000-000000000001',
   'mcq',
   'Identify formation',
@@ -247,13 +367,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0001-0005-0000-000000000001',
-  '00000002-0001-0000-0000-000000000005',
+  '00000002-0001-0008-0000-000000000001',
+  '00000002-0001-0000-0000-000000000008',
   1,
   'The offense has 4 or 5 wide receivers spread across the field with no running back. What formation is this?',
   '["Empty Set", "I-Formation", "Goal Line", "Wildcat"]',
   '{"index": 0}',
-  'An Empty Set (or Empty Backfield) has no running backs, forcing the defense to cover more space. It''s a pure passing formation.',
+  'An empty set has no running backs in the backfield. All eligible players are lined up as receivers.',
   true,
   NOW(),
   NOW()
@@ -267,7 +387,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0001-0000-0000-000000000006',
+  '00000002-0001-0000-0000-000000000009',
+  '00000002-0000-0000-0000-000000000001',
+  'mcq',
+  'Understand empty set usage',
+  '{"type": "mcq", "options": ["In obvious passing situations to spread the defense out", "On the goal line", "To run the clock out"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0001-0009-0000-000000000001',
+  '00000002-0001-0000-0000-000000000009',
+  1,
+  'When is an ''Empty Set'' typically used?',
+  '["In obvious passing situations to spread the defense out", "On the goal line", "To run the clock out"]',
+  '{"index": 0}',
+  'Empty sets force the defense to spread out to cover all 5 receivers, often revealing their coverage or leaving the middle of the field open for the QB.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0001-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000001',
   'mcq',
   'Understand singleback',
@@ -287,8 +447,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0001-0006-0000-000000000001',
-  '00000002-0001-0000-0000-000000000006',
+  '00000002-0001-0010-0000-000000000001',
+  '00000002-0001-0000-0000-000000000010',
   1,
   'In a Singleback formation, how many running backs are in the backfield?',
   '["1", "2", "0", "3"]',
@@ -307,7 +467,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0001-0000-0000-000000000007',
+  '00000002-0001-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000001',
   'mcq',
   'Identify formation advantage',
@@ -327,8 +487,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0001-0007-0000-000000000001',
-  '00000002-0001-0000-0000-000000000007',
+  '00000002-0001-0011-0000-000000000001',
+  '00000002-0001-0000-0000-000000000011',
   1,
   'What is the main advantage of the I-Formation for running plays?',
   '["The fullback can lead block for the tailback", "It spreads out the defense", "The QB has more time to throw", "It''s unpredictable"]',
@@ -347,7 +507,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0001-0000-0000-000000000008',
+  '00000002-0001-0000-0000-000000000012',
   '00000002-0000-0000-0000-000000000001',
   'mcq',
   'Understand formation terminology',
@@ -367,8 +527,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0001-0008-0000-000000000001',
-  '00000002-0001-0000-0000-000000000008',
+  '00000002-0001-0012-0000-000000000001',
+  '00000002-0001-0000-0000-000000000012',
   1,
   'What does ''under center'' mean?',
   '["QB takes snap directly from center", "QB is in shotgun", "Center is the team captain", "QB calls the play"]',
@@ -387,7 +547,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0001-0000-0000-000000000009',
+  '00000002-0001-0000-0000-000000000013',
   '00000002-0000-0000-0000-000000000001',
   'mcq',
   'Identify wildcat formation',
@@ -407,8 +567,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0001-0009-0000-000000000001',
-  '00000002-0001-0000-0000-000000000009',
+  '00000002-0001-0013-0000-000000000001',
+  '00000002-0001-0000-0000-000000000013',
   1,
   'In the Wildcat formation, who typically receives the snap?',
   '["A running back or receiver", "The quarterback", "The fullback", "The tight end"]',
@@ -427,7 +587,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0001-0000-0000-000000000010',
+  '00000002-0001-0000-0000-000000000014',
   '00000002-0000-0000-0000-000000000001',
   'mcq',
   'Formation recognition',
@@ -447,8 +607,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0001-0010-0000-000000000001',
-  '00000002-0001-0000-0000-000000000010',
+  '00000002-0001-0014-0000-000000000001',
+  '00000002-0001-0000-0000-000000000014',
   1,
   'The offense lines up with the QB under center and one RB offset to the left or right. What formation is this likely?',
   '["Singleback", "I-Formation", "Shotgun", "Empty"]',
@@ -513,7 +673,7 @@ VALUES (
   'What is the main goal of a spread formation?',
   '["Force the defense to cover more space", "Pack more blockers near the line", "Confuse the officials", "Run the ball more effectively"]',
   '{"index": 0}',
-  'Spread formations spread receivers across the field, forcing defenders to cover more ground. This creates space for both passing and running plays.',
+  'Spread offenses use 3, 4, or 5 receivers to stretch the defense horizontally across the field.',
   true,
   NOW(),
   NOW()
@@ -528,6 +688,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0002-0000-0000-000000000002',
+  '00000002-0000-0000-0000-000000000002',
+  'mcq',
+  'Understand spread goal',
+  '{"type": "mcq", "options": ["To create space and isolate defenders", "To protect the QB with more blockers", "To run the clock"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0002-0002-0000-000000000001',
+  '00000002-0002-0000-0000-000000000002',
+  1,
+  'Why do teams use Spread formations?',
+  '["To create space and isolate defenders", "To protect the QB with more blockers", "To run the clock"]',
+  '{"index": 0}',
+  'By spreading receivers out, the offense forces defenders to cover more ground. This creates 1-on-1 matchups and opens up running lanes in the box.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0002-0000-0000-000000000003',
   '00000002-0000-0000-0000-000000000002',
   'mcq',
   'Count receivers',
@@ -547,8 +747,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0002-0002-0000-000000000001',
-  '00000002-0002-0000-0000-000000000002',
+  '00000002-0002-0003-0000-000000000001',
+  '00000002-0002-0000-0000-000000000003',
   1,
   'In a ''4-wide'' formation, how many wide receivers are on the field?',
   '["4", "3", "5", "2"]',
@@ -567,7 +767,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0002-0000-0000-000000000003',
+  '00000002-0002-0000-0000-000000000004',
   '00000002-0000-0000-0000-000000000002',
   'mcq',
   'Identify trips formation',
@@ -587,13 +787,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0002-0003-0000-000000000001',
-  '00000002-0002-0000-0000-000000000003',
+  '00000002-0002-0004-0000-000000000001',
+  '00000002-0002-0000-0000-000000000004',
   1,
   'What does ''Trips'' mean in formation terminology?',
   '["Three receivers on one side", "Three running backs", "Three tight ends", "Three offensive linemen pull"]',
   '{"index": 0}',
-  'Trips (short for ''triple'') means three receivers lined up on the same side of the field. This creates natural route combinations and overloads one side.',
+  'Trips is a formation with 3 receivers on one side of the field.',
   true,
   NOW(),
   NOW()
@@ -607,7 +807,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0002-0000-0000-000000000004',
+  '00000002-0002-0000-0000-000000000005',
+  '00000002-0000-0000-0000-000000000002',
+  'mcq',
+  'Understand trips strategy',
+  '{"type": "mcq", "options": ["It overloads one side of the field", "It confuses the defensive line", "It hides the QB"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0002-0005-0000-000000000001',
+  '00000002-0002-0000-0000-000000000005',
+  1,
+  'How does a Trips formation stress the defense?',
+  '["It overloads one side of the field", "It confuses the defensive line", "It hides the QB"]',
+  '{"index": 0}',
+  'Trips forces the defense to shift more defenders to one side to cover the 3 receivers, potentially leaving the other side weak or the middle open.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0002-0000-0000-000000000006',
   '00000002-0000-0000-0000-000000000002',
   'mcq',
   'Understand empty backfield',
@@ -627,8 +867,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0002-0004-0000-000000000001',
-  '00000002-0002-0000-0000-000000000004',
+  '00000002-0002-0006-0000-000000000001',
+  '00000002-0002-0000-0000-000000000006',
   1,
   'In an empty backfield, where does the running back typically line up?',
   '["Split out as a receiver", "Behind the QB", "Next to the QB", "There is no RB on the field"]',
@@ -647,7 +887,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0002-0000-0000-000000000005',
+  '00000002-0002-0000-0000-000000000007',
   '00000002-0000-0000-0000-000000000002',
   'mcq',
   'Identify bunch formation',
@@ -667,13 +907,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0002-0005-0000-000000000001',
-  '00000002-0002-0000-0000-000000000005',
+  '00000002-0002-0007-0000-000000000001',
+  '00000002-0002-0000-0000-000000000007',
   1,
   'What is a ''bunch'' formation?',
   '["Multiple receivers lined up close together", "All receivers on one side", "No receivers on the field", "Receivers in the backfield"]',
   '{"index": 0}',
-  'A bunch formation has 2-3 receivers lined up within a few yards of each other. This creates natural picks and makes it hard for defenders to cover man-to-man.',
+  'Bunch formation has 3 receivers lined up very close together in a cluster.',
   true,
   NOW(),
   NOW()
@@ -687,7 +927,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0002-0000-0000-000000000006',
+  '00000002-0002-0000-0000-000000000008',
+  '00000002-0000-0000-0000-000000000002',
+  'mcq',
+  'Understand bunch advantage',
+  '{"type": "mcq", "options": ["It creates ''rub'' or ''pick'' plays that confuse defenders", "It makes the receivers look bigger", "It protects the QB"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0002-0008-0000-000000000001',
+  '00000002-0002-0000-0000-000000000008',
+  1,
+  'Why is a ''Bunch'' formation effective against man coverage?',
+  '["It creates ''rub'' or ''pick'' plays that confuse defenders", "It makes the receivers look bigger", "It protects the QB"]',
+  '{"index": 0}',
+  'When receivers are close together, their routes can cross, causing defenders to run into each other (rub routes) and get separated from their man.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0002-0000-0000-000000000009',
   '00000002-0000-0000-0000-000000000002',
   'mcq',
   'Understand spread advantage',
@@ -707,8 +987,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0002-0006-0000-000000000001',
-  '00000002-0002-0000-0000-000000000006',
+  '00000002-0002-0009-0000-000000000001',
+  '00000002-0002-0000-0000-000000000009',
   1,
   'How does spread offense help the running game?',
   '["Defenders must spread out, creating running lanes", "It doesn''t help running", "More blockers at the line", "Confuses the defense"]',
@@ -727,7 +1007,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0002-0000-0000-000000000007',
+  '00000002-0002-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000002',
   'mcq',
   'Identify slot receiver',
@@ -747,8 +1027,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0002-0007-0000-000000000001',
-  '00000002-0002-0000-0000-000000000007',
+  '00000002-0002-0010-0000-000000000001',
+  '00000002-0002-0000-0000-000000000010',
   1,
   'Where does a slot receiver line up?',
   '["Between the outside receiver and offensive line", "On the outside", "In the backfield", "Next to the QB"]',
@@ -767,7 +1047,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0002-0000-0000-000000000008',
+  '00000002-0002-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000002',
   'mcq',
   'Understand 5-wide formation',
@@ -787,8 +1067,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0002-0008-0000-000000000001',
-  '00000002-0002-0000-0000-000000000008',
+  '00000002-0002-0011-0000-000000000001',
+  '00000002-0002-0000-0000-000000000011',
   1,
   'In a 5-wide formation, what is the biggest risk?',
   '["No blockers to protect the QB", "Too many receivers", "Illegal formation", "Can''t run the ball"]',
@@ -807,7 +1087,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0002-0000-0000-000000000009',
+  '00000002-0002-0000-0000-000000000012',
   '00000002-0000-0000-0000-000000000002',
   'mcq',
   'Identify formation balance',
@@ -827,8 +1107,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0002-0009-0000-000000000001',
-  '00000002-0002-0000-0000-000000000009',
+  '00000002-0002-0012-0000-000000000001',
+  '00000002-0002-0000-0000-000000000012',
   1,
   'What does ''2x2'' mean in formation terminology?',
   '["Two receivers on each side", "Two running backs", "Two tight ends", "Second down and 2 yards"]',
@@ -847,7 +1127,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0002-0000-0000-000000000010',
+  '00000002-0002-0000-0000-000000000013',
   '00000002-0000-0000-0000-000000000002',
   'mcq',
   'Understand spread tempo',
@@ -867,8 +1147,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0002-0010-0000-000000000001',
-  '00000002-0002-0000-0000-000000000010',
+  '00000002-0002-0013-0000-000000000001',
+  '00000002-0002-0000-0000-000000000013',
   1,
   'Why do spread offenses often use hurry-up/no-huddle?',
   '["Prevents defense from substituting", "Saves time on the clock", "Confuses the offense", "Required by rules"]',
@@ -973,7 +1253,7 @@ VALUES (
   'What is the primary job of a fullback in power formations?',
   '["Lead blocking for the running back", "Catching passes", "Blocking the defensive line", "Calling plays"]',
   '{"index": 0}',
-  'The fullback is a blocking specialist who leads through the hole and blocks linebackers or safeties, clearing the path for the tailback.',
+  'The fullback is primarily a blocker. In power runs, they lead the way through the hole.',
   true,
   NOW(),
   NOW()
@@ -988,6 +1268,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0003-0000-0000-000000000003',
+  '00000002-0000-0000-0000-000000000003',
+  'mcq',
+  'Understand fullback role',
+  '{"type": "mcq", "options": ["Block the first linebacker they see", "Carry the ball", "Catch passes"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0003-0003-0000-000000000001',
+  '00000002-0003-0000-0000-000000000003',
+  1,
+  'What is the Fullback''s primary job in a power run scheme?',
+  '["Block the first linebacker they see", "Carry the ball", "Catch passes"]',
+  '{"index": 0}',
+  'The fullback acts as a battering ram, hitting the linebacker in the hole so the running back can run freely behind them.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0003-0000-0000-000000000004',
   '00000002-0000-0000-0000-000000000003',
   'mcq',
   'Identify goal line formation',
@@ -1007,13 +1327,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0003-0003-0000-000000000001',
-  '00000002-0003-0000-0000-000000000003',
+  '00000002-0003-0004-0000-000000000001',
+  '00000002-0003-0000-0000-000000000004',
   1,
   'On the goal line, teams often bring in extra offensive linemen. What is this package called?',
   '["Goal Line or Jumbo package", "Spread package", "Empty package", "Wildcat package"]',
   '{"index": 0}',
-  'Goal Line or Jumbo packages replace receivers with extra offensive linemen and tight ends. This creates maximum blocking power for short-yardage situations.',
+  'Goal line formations use extra tight ends and linemen to pack the line of scrimmage.',
   true,
   NOW(),
   NOW()
@@ -1027,7 +1347,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0003-0000-0000-000000000004',
+  '00000002-0003-0000-0000-000000000005',
+  '00000002-0000-0000-0000-000000000003',
+  'mcq',
+  'Understand goal line strategy',
+  '{"type": "mcq", "options": ["Maximum blockers, few or no wide receivers", "5 wide receivers", "Shotgun formation"], "correct": 0}'::jsonb,
+  1,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0003-0005-0000-000000000001',
+  '00000002-0003-0000-0000-000000000005',
+  1,
+  'What characterizes a ''Goal Line'' formation?',
+  '["Maximum blockers, few or no wide receivers", "5 wide receivers", "Shotgun formation"]',
+  '{"index": 0}',
+  'On the goal line, teams need power to push forward just a few yards. They substitute receivers for big blockers to create a massive push.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0003-0000-0000-000000000006',
   '00000002-0000-0000-0000-000000000003',
   'mcq',
   'Understand strong formation',
@@ -1047,8 +1407,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0003-0004-0000-000000000001',
-  '00000002-0003-0000-0000-000000000004',
+  '00000002-0003-0006-0000-000000000001',
+  '00000002-0003-0000-0000-000000000006',
   1,
   'What makes a formation ''strong'' vs ''weak''?',
   '["The side with more blockers (usually the TE)", "The side the QB looks at", "The side with the best receiver", "The side facing the sideline"]',
@@ -1067,7 +1427,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0003-0000-0000-000000000005',
+  '00000002-0003-0000-0000-000000000007',
   '00000002-0000-0000-0000-000000000003',
   'mcq',
   'Identify full house formation',
@@ -1087,8 +1447,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0003-0005-0000-000000000001',
-  '00000002-0003-0000-0000-000000000005',
+  '00000002-0003-0007-0000-000000000001',
+  '00000002-0003-0000-0000-000000000007',
   1,
   'What is a ''Full House'' backfield?',
   '["Three running backs behind the QB", "Five wide receivers", "Two tight ends", "No running backs"]',
@@ -1107,7 +1467,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0003-0000-0000-000000000006',
+  '00000002-0003-0000-0000-000000000008',
   '00000002-0000-0000-0000-000000000003',
   'mcq',
   'Understand tight end role',
@@ -1127,8 +1487,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0003-0006-0000-000000000001',
-  '00000002-0003-0000-0000-000000000006',
+  '00000002-0003-0008-0000-000000000001',
+  '00000002-0003-0000-0000-000000000008',
   1,
   'In power running formations, what is the tight end''s primary role?',
   '["Blocking defensive ends and linebackers", "Running routes", "Protecting the QB", "Snapping the ball"]',
@@ -1147,7 +1507,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0003-0000-0000-000000000007',
+  '00000002-0003-0000-0000-000000000009',
   '00000002-0000-0000-0000-000000000003',
   'mcq',
   'Identify two-back formation',
@@ -1167,8 +1527,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0003-0007-0000-000000000001',
-  '00000002-0003-0000-0000-000000000007',
+  '00000002-0003-0009-0000-000000000001',
+  '00000002-0003-0000-0000-000000000009',
   1,
   'What is an advantage of using two running backs in the backfield?',
   '["More blocking and run options", "Better for passing", "Confuses officials", "Required on 1st down"]',
@@ -1187,7 +1547,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0003-0000-0000-000000000008',
+  '00000002-0003-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000003',
   'mcq',
   'Understand offset I-formation',
@@ -1207,8 +1567,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0003-0008-0000-000000000001',
-  '00000002-0003-0000-0000-000000000008',
+  '00000002-0003-0010-0000-000000000001',
+  '00000002-0003-0000-0000-000000000010',
   1,
   'In an offset I-formation, why is the tailback positioned slightly left or right?',
   '["To give a better angle to the intended hole", "To confuse the defense", "It''s a penalty", "To catch passes"]',
@@ -1227,7 +1587,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0003-0000-0000-000000000009',
+  '00000002-0003-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000003',
   'mcq',
   'Identify heavy formation',
@@ -1247,8 +1607,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0003-0009-0000-000000000001',
-  '00000002-0003-0000-0000-000000000009',
+  '00000002-0003-0011-0000-000000000001',
+  '00000002-0003-0000-0000-000000000011',
   1,
   'When would a team use a ''heavy'' formation with multiple tight ends?',
   '["Short yardage or goal line situations", "3rd and long", "When losing badly", "Only in the 4th quarter"]',
@@ -1267,7 +1627,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0003-0000-0000-000000000010',
+  '00000002-0003-0000-0000-000000000012',
   '00000002-0000-0000-0000-000000000003',
   'mcq',
   'Understand power vs finesse',
@@ -1287,8 +1647,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0003-0010-0000-000000000001',
-  '00000002-0003-0000-0000-000000000010',
+  '00000002-0003-0012-0000-000000000001',
+  '00000002-0003-0000-0000-000000000012',
   1,
   'What''s the main difference between power and finesse running?',
   '["Power uses blockers to create holes, finesse uses speed and misdirection", "Power is faster", "Finesse uses more blockers", "They''re the same thing"]',
@@ -1353,7 +1713,7 @@ VALUES (
   'What does ''11 personnel'' mean?',
   '["1 RB, 1 TE, 3 WR", "11 players on field", "1 QB, 1 RB", "11 offensive linemen"]',
   '{"index": 0}',
-  'Personnel packages use two digits: first is number of RBs, second is number of TEs. So ''11'' = 1 RB, 1 TE (and 3 WRs to make 5 skill players).',
+  'Personnel groups are named by the number of RBs and TEs. The first digit is RBs, second is TEs.',
   true,
   NOW(),
   NOW()
@@ -1368,6 +1728,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0004-0000-0000-000000000002',
+  '00000002-0000-0000-0000-000000000004',
+  'mcq',
+  'Understand 11 personnel',
+  '{"type": "mcq", "options": ["1 Running Back, 1 Tight End (and 3 WRs)", "1 Running Back, 1 Wide Receiver", "11 players on the field"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0004-0002-0000-000000000001',
+  '00000002-0004-0000-0000-000000000002',
+  1,
+  'What does ''11 personnel'' mean?',
+  '["1 Running Back, 1 Tight End (and 3 WRs)", "1 Running Back, 1 Wide Receiver", "11 players on the field"]',
+  '{"index": 0}',
+  '11 personnel means 1 RB and 1 TE. Since there are always 5 linemen and 1 QB, that leaves 3 spots for Wide Receivers. It''s the most common NFL grouping.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0004-0000-0000-000000000003',
   '00000002-0000-0000-0000-000000000004',
   'mcq',
   'Identify 12 personnel',
@@ -1387,8 +1787,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0004-0002-0000-000000000001',
-  '00000002-0004-0000-0000-000000000002',
+  '00000002-0004-0003-0000-000000000001',
+  '00000002-0004-0000-0000-000000000003',
   1,
   'In ''12 personnel'', how many tight ends are on the field?',
   '["2", "1", "12", "0"]',
@@ -1407,7 +1807,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0004-0000-0000-000000000003',
+  '00000002-0004-0000-0000-000000000004',
   '00000002-0000-0000-0000-000000000004',
   'mcq',
   'Identify 10 personnel',
@@ -1427,8 +1827,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0004-0003-0000-000000000001',
-  '00000002-0004-0000-0000-000000000003',
+  '00000002-0004-0004-0000-000000000001',
+  '00000002-0004-0000-0000-000000000004',
   1,
   'What does ''10 personnel'' tell you about the formation?',
   '["1 RB, 0 TE, 4 WR", "10 players on field", "0 RB, 1 TE", "10 offensive linemen"]',
@@ -1447,7 +1847,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0004-0000-0000-000000000004',
+  '00000002-0004-0000-0000-000000000005',
   '00000002-0000-0000-0000-000000000004',
   'mcq',
   'Understand 21 personnel',
@@ -1467,8 +1867,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0004-0004-0000-000000000001',
-  '00000002-0004-0000-0000-000000000004',
+  '00000002-0004-0005-0000-000000000001',
+  '00000002-0004-0000-0000-000000000005',
   1,
   'When would a team use ''21 personnel''?',
   '["Balanced run/pass situations", "Only passing downs", "Only running downs", "Goal line only"]',
@@ -1487,7 +1887,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0004-0000-0000-000000000005',
+  '00000002-0004-0000-0000-000000000006',
   '00000002-0000-0000-0000-000000000004',
   'mcq',
   'Identify heavy personnel',
@@ -1507,8 +1907,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0004-0005-0000-000000000001',
-  '00000002-0004-0000-0000-000000000005',
+  '00000002-0004-0006-0000-000000000001',
+  '00000002-0004-0000-0000-000000000006',
   1,
   'What is ''13 personnel'' best used for?',
   '["Short yardage and power running", "Deep passing", "Spread offense", "Trick plays"]',
@@ -1527,7 +1927,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0004-0000-0000-000000000006',
+  '00000002-0004-0000-0000-000000000007',
   '00000002-0000-0000-0000-000000000004',
   'mcq',
   'Understand 00 personnel',
@@ -1547,8 +1947,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0004-0006-0000-000000000001',
-  '00000002-0004-0000-0000-000000000006',
+  '00000002-0004-0007-0000-000000000001',
+  '00000002-0004-0000-0000-000000000007',
   1,
   'What does ''00 personnel'' (or ''empty'') mean?',
   '["0 RB, 0 TE, 5 WR", "No players on field", "0 points scored", "0 yards gained"]',
@@ -1567,7 +1967,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0004-0000-0000-000000000007',
+  '00000002-0004-0000-0000-000000000008',
   '00000002-0000-0000-0000-000000000004',
   'mcq',
   'Identify nickel defense response',
@@ -1587,13 +1987,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0004-0007-0000-000000000001',
-  '00000002-0004-0000-0000-000000000007',
+  '00000002-0004-0008-0000-000000000001',
+  '00000002-0004-0000-0000-000000000008',
   1,
   'When the offense uses 11 personnel (3 WR), what does the defense typically do?',
   '["Go to nickel defense (5 DBs)", "Add more linebackers", "Use goal line defense", "Nothing changes"]',
   '{"index": 0}',
-  'Against 3+ WRs, defenses typically use nickel (5 DBs) to match speed. They replace a linebacker with an extra defensive back.',
+  'When the offense uses 3 WRs (like 11 personnel), the defense usually counters with Nickel.',
   true,
   NOW(),
   NOW()
@@ -1607,7 +2007,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0004-0000-0000-000000000008',
+  '00000002-0004-0000-0000-000000000009',
+  '00000002-0000-0000-0000-000000000004',
+  'mcq',
+  'Understand nickel response',
+  '{"type": "mcq", "options": ["Bring in a 5th defensive back (Nickel)", "Add a linebacker", "Add a defensive lineman"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0004-0009-0000-000000000001',
+  '00000002-0004-0000-0000-000000000009',
+  1,
+  'How does the defense typically respond to 3 wide receivers?',
+  '["Bring in a 5th defensive back (Nickel)", "Add a linebacker", "Add a defensive lineman"]',
+  '{"index": 0}',
+  'To match the speed of 3 receivers, the defense substitutes a slower linebacker for a faster defensive back (the Nickelback).',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0004-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000004',
   'mcq',
   'Understand personnel advantage',
@@ -1627,8 +2067,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0004-0008-0000-000000000001',
-  '00000002-0004-0000-0000-000000000008',
+  '00000002-0004-0010-0000-000000000001',
+  '00000002-0004-0000-0000-000000000010',
   1,
   'Why do offenses substitute personnel packages?',
   '["To create favorable matchups", "Because it''s required", "To rest players", "To waste time"]',
@@ -1647,7 +2087,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0004-0000-0000-000000000009',
+  '00000002-0004-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000004',
   'mcq',
   'Identify 22 personnel',
@@ -1667,8 +2107,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0004-0009-0000-000000000001',
-  '00000002-0004-0000-0000-000000000009',
+  '00000002-0004-0011-0000-000000000001',
+  '00000002-0004-0000-0000-000000000011',
   1,
   'What type of plays is ''22 personnel'' (2 RB, 2 TE) typically used for?',
   '["Power running", "Deep passing", "Trick plays", "Field goals"]',
@@ -1687,7 +2127,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0004-0000-0000-000000000010',
+  '00000002-0004-0000-0000-000000000012',
   '00000002-0000-0000-0000-000000000004',
   'mcq',
   'Understand substitution strategy',
@@ -1707,8 +2147,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0004-0010-0000-000000000001',
-  '00000002-0004-0000-0000-000000000010',
+  '00000002-0004-0012-0000-000000000001',
+  '00000002-0004-0000-0000-000000000012',
   1,
   'Why might an offense hurry to the line after substituting personnel?',
   '["To prevent the defense from substituting", "To save time", "Because they''re losing", "It''s required by rules"]',
@@ -1773,7 +2213,7 @@ VALUES (
   'What is a ''Go'' or ''Fly'' route?',
   '["Receiver runs straight downfield", "Receiver runs across the field", "Receiver runs backward", "Receiver stays at the line"]',
   '{"index": 0}',
-  'A Go route (also called Fly, Streak, or 9 route) is when the receiver runs straight downfield as fast as possible. It''s used to attack deep coverage.',
+  'A Go route is when the receiver runs straight downfield as fast as possible.',
   true,
   NOW(),
   NOW()
@@ -1788,6 +2228,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0005-0000-0000-000000000002',
+  '00000002-0000-0000-0000-000000000005',
+  'mcq',
+  'Understand Go route purpose',
+  '{"type": "mcq", "options": ["To stretch the defense vertically and create deep plays", "To get the ball out quickly", "To block for a run play"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0005-0002-0000-000000000001',
+  '00000002-0005-0000-0000-000000000002',
+  1,
+  'What is the primary purpose of a ''Go'' route?',
+  '["To stretch the defense vertically and create deep plays", "To get the ball out quickly", "To block for a run play"]',
+  '{"index": 0}',
+  'The Go route forces defensive backs to cover deep, opening up space underneath or allowing for a big play if the receiver beats their man.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0005-0000-0000-000000000003',
   '00000002-0000-0000-0000-000000000005',
   'mcq',
   'Identify slant route',
@@ -1807,13 +2287,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0005-0002-0000-000000000001',
-  '00000002-0005-0000-0000-000000000002',
+  '00000002-0005-0003-0000-000000000001',
+  '00000002-0005-0000-0000-000000000003',
   1,
   'In a slant route, which direction does the receiver cut?',
   '["Diagonally toward the middle of the field", "Straight downfield", "Toward the sideline", "Backward"]',
   '{"index": 0}',
-  'A slant route has the receiver take 2-3 steps forward then cut sharply toward the middle. It''s a quick, timing-based route.',
+  'A Slant is a quick diagonal route inward.',
   true,
   NOW(),
   NOW()
@@ -1827,7 +2307,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0005-0000-0000-000000000003',
+  '00000002-0005-0000-0000-000000000004',
+  '00000002-0000-0000-0000-000000000005',
+  'mcq',
+  'Understand slant vs blitz',
+  '{"type": "mcq", "options": ["It''s a quick throw that replaces the blitzing defender", "It goes deep", "It blocks the blitzer"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0005-0004-0000-000000000001',
+  '00000002-0005-0000-0000-000000000004',
+  1,
+  'Why is the Slant route effective against the blitz?',
+  '["It''s a quick throw that replaces the blitzing defender", "It goes deep", "It blocks the blitzer"]',
+  '{"index": 0}',
+  'When a defender blitzes, they leave a void behind them. A quick slant allows the QB to throw into that open space before the pressure arrives.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0005-0000-0000-000000000005',
   '00000002-0000-0000-0000-000000000005',
   'mcq',
   'Identify out route',
@@ -1847,8 +2367,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0005-0003-0000-000000000001',
-  '00000002-0005-0000-0000-000000000003',
+  '00000002-0005-0005-0000-000000000001',
+  '00000002-0005-0000-0000-000000000005',
   1,
   'What is an ''Out'' route?',
   '["Receiver runs downfield then cuts toward sideline", "Receiver runs out of bounds", "Receiver leaves the game", "Receiver runs straight"]',
@@ -1867,7 +2387,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0005-0000-0000-000000000004',
+  '00000002-0005-0000-0000-000000000006',
   '00000002-0000-0000-0000-000000000005',
   'mcq',
   'Identify curl route',
@@ -1887,13 +2407,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0005-0004-0000-000000000001',
-  '00000002-0005-0000-0000-000000000004',
+  '00000002-0005-0006-0000-000000000001',
+  '00000002-0005-0000-0000-000000000006',
   1,
   'In a curl route, what does the receiver do after running downfield?',
   '["Turn back toward the QB", "Keep running straight", "Run to the sideline", "Block a defender"]',
   '{"index": 0}',
-  'A curl (or comeback) route has the receiver run 10-15 yards downfield, then turn back toward the QB. It''s effective against off coverage.',
+  'A Curl (or Hitch) route has the receiver run deep, stop, and turn back to the QB.',
   true,
   NOW(),
   NOW()
@@ -1907,7 +2427,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0005-0000-0000-000000000005',
+  '00000002-0005-0000-0000-000000000007',
+  '00000002-0000-0000-0000-000000000005',
+  'mcq',
+  'Understand curl technique',
+  '{"type": "mcq", "options": ["Selling the deep route to make the defender back up", "Running slowly", "Pushing the defender"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0005-0007-0000-000000000001',
+  '00000002-0005-0000-0000-000000000007',
+  1,
+  'What is the key to running a good Curl route?',
+  '["Selling the deep route to make the defender back up", "Running slowly", "Pushing the defender"]',
+  '{"index": 0}',
+  'The receiver must make the defender think they are running a Go route. When the defender backs up to prevent the deep ball, the receiver stops and is open underneath.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0005-0000-0000-000000000008',
   '00000002-0000-0000-0000-000000000005',
   'mcq',
   'Identify post route',
@@ -1927,13 +2487,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0005-0005-0000-000000000001',
-  '00000002-0005-0000-0000-000000000005',
+  '00000002-0005-0008-0000-000000000001',
+  '00000002-0005-0000-0000-000000000008',
   1,
   'What is a ''Post'' route?',
   '["Receiver runs downfield then cuts toward the goal post", "Receiver runs to the sideline", "Receiver blocks", "Receiver runs backward"]',
   '{"index": 0}',
-  'A Post route has the receiver run 10-15 yards then cut at a 45-degree angle toward the middle (toward the goal post). It attacks deep middle coverage.',
+  'A Post route has the receiver run downfield then cut at a 45-degree angle toward the middle (toward the goal post).',
   true,
   NOW(),
   NOW()
@@ -1947,7 +2507,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0005-0000-0000-000000000006',
+  '00000002-0005-0000-0000-000000000009',
+  '00000002-0000-0000-0000-000000000005',
+  'mcq',
+  'Understand Post route purpose',
+  '{"type": "mcq", "options": ["Against defenses that leave the deep middle of the field open", "Against tight man coverage", "When the QB needs to throw quickly"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0005-0009-0000-000000000001',
+  '00000002-0005-0000-0000-000000000009',
+  1,
+  'When is a ''Post'' route typically effective?',
+  '["Against defenses that leave the deep middle of the field open", "Against tight man coverage", "When the QB needs to throw quickly"]',
+  '{"index": 0}',
+  'The Post route attacks the deep middle of the field, often exploited against Cover 2 or Cover 4 defenses where safeties split the field.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0005-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000005',
   'mcq',
   'Identify corner route',
@@ -1967,8 +2567,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0005-0006-0000-000000000001',
-  '00000002-0005-0000-0000-000000000006',
+  '00000002-0005-0010-0000-000000000001',
+  '00000002-0005-0000-0000-000000000010',
   1,
   'How does a corner route differ from a post route?',
   '["Cuts toward the corner of the end zone instead of middle", "It''s shorter", "It''s faster", "There is no difference"]',
@@ -1987,7 +2587,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0005-0000-0000-000000000007',
+  '00000002-0005-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000005',
   'mcq',
   'Identify hitch route',
@@ -2007,8 +2607,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0005-0007-0000-000000000001',
-  '00000002-0005-0000-0000-000000000007',
+  '00000002-0005-0011-0000-000000000001',
+  '00000002-0005-0000-0000-000000000011',
   1,
   'What is a ''Hitch'' or ''Stop'' route?',
   '["Receiver runs 5-7 yards and stops", "Receiver runs full speed downfield", "Receiver runs across the field", "Receiver blocks"]',
@@ -2027,7 +2627,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0005-0000-0000-000000000008',
+  '00000002-0005-0000-0000-000000000012',
   '00000002-0000-0000-0000-000000000005',
   'mcq',
   'Identify drag route',
@@ -2047,8 +2647,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0005-0008-0000-000000000001',
-  '00000002-0005-0000-0000-000000000008',
+  '00000002-0005-0012-0000-000000000001',
+  '00000002-0005-0000-0000-000000000012',
   1,
   'What is a ''Drag'' or ''In'' route?',
   '["Receiver runs across the field horizontally", "Receiver runs straight downfield", "Receiver runs to sideline", "Receiver blocks"]',
@@ -2067,7 +2667,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0005-0000-0000-000000000009',
+  '00000002-0005-0000-0000-000000000013',
   '00000002-0000-0000-0000-000000000005',
   'mcq',
   'Understand route depth',
@@ -2087,8 +2687,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0005-0009-0000-000000000001',
-  '00000002-0005-0000-0000-000000000009',
+  '00000002-0005-0013-0000-000000000001',
+  '00000002-0005-0000-0000-000000000013',
   1,
   'What does ''route depth'' refer to?',
   '["How many yards downfield the receiver runs", "How fast the receiver runs", "How many receivers run routes", "The QB''s arm strength"]',
@@ -2107,7 +2707,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0005-0000-0000-000000000010',
+  '00000002-0005-0000-0000-000000000014',
   '00000002-0000-0000-0000-000000000005',
   'mcq',
   'Identify route tree',
@@ -2127,8 +2727,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0005-0010-0000-000000000001',
-  '00000002-0005-0000-0000-000000000010',
+  '00000002-0005-0014-0000-000000000001',
+  '00000002-0005-0000-0000-000000000014',
   1,
   'What is a ''route tree''?',
   '["A numbered system for all possible routes", "A diagram of the field", "A type of formation", "A blocking scheme"]',
@@ -2233,7 +2833,7 @@ VALUES (
   'What is the ''Mesh'' concept?',
   '["Two receivers cross paths underneath", "All receivers run deep", "Receivers run to the sideline", "A running play"]',
   '{"index": 0}',
-  'Mesh has two receivers run crossing routes at the same depth, creating a natural ''pick'' that makes man coverage difficult. It''s very effective against man-to-man.',
+  'Mesh has two receivers cross paths underneath, creating a natural ''pick'' against man coverage.',
   true,
   NOW(),
   NOW()
@@ -2248,6 +2848,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0006-0000-0000-000000000003',
+  '00000002-0000-0000-0000-000000000006',
+  'mcq',
+  'Understand Mesh effectiveness',
+  '{"type": "mcq", "options": ["Man-to-man coverage", "Zone coverage", "Blitzes"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0006-0003-0000-000000000001',
+  '00000002-0006-0000-0000-000000000003',
+  1,
+  'Against which type of defense is the ''Mesh'' concept most effective?',
+  '["Man-to-man coverage", "Zone coverage", "Blitzes"]',
+  '{"index": 0}',
+  'The crossing routes in Mesh force defenders in man coverage to run into each other, creating separation for the receivers.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0006-0000-0000-000000000004',
   '00000002-0000-0000-0000-000000000006',
   'mcq',
   'Identify stick concept',
@@ -2267,8 +2907,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0006-0003-0000-000000000001',
-  '00000002-0006-0000-0000-000000000003',
+  '00000002-0006-0004-0000-000000000001',
+  '00000002-0006-0000-0000-000000000004',
   1,
   'In the ''Stick'' concept, what routes are typically run?',
   '["Stick route, flat route, and vertical route", "All deep routes", "All short routes", "No routes - it''s a run"]',
@@ -2287,7 +2927,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0006-0000-0000-000000000004',
+  '00000002-0006-0000-0000-000000000005',
+  '00000002-0000-0000-0000-000000000006',
+  'mcq',
+  'Understand Stick concept purpose',
+  '{"type": "mcq", "options": ["To create a high-low read for the QB against a specific defender", "To get receivers deep", "To run the ball"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0006-0005-0000-000000000001',
+  '00000002-0006-0000-0000-000000000005',
+  1,
+  'What is the primary goal of the ''Stick'' concept?',
+  '["To create a high-low read for the QB against a specific defender", "To get receivers deep", "To run the ball"]',
+  '{"index": 0}',
+  'The Stick concept isolates a defender (often a linebacker) and forces them to choose between covering the short stick route or the flat route, leaving one open.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0006-0000-0000-000000000006',
   '00000002-0000-0000-0000-000000000006',
   'mcq',
   'Identify levels concept',
@@ -2307,8 +2987,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0006-0004-0000-000000000001',
-  '00000002-0006-0000-0000-000000000004',
+  '00000002-0006-0006-0000-000000000001',
+  '00000002-0006-0000-0000-000000000006',
   1,
   'What is the ''Levels'' or ''Hi-Lo'' concept?',
   '["Routes at different depths to stress zone coverage", "All routes at the same depth", "Only deep routes", "A running play"]',
@@ -2327,7 +3007,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0006-0000-0000-000000000005',
+  '00000002-0006-0000-0000-000000000007',
   '00000002-0000-0000-0000-000000000006',
   'mcq',
   'Identify flood concept',
@@ -2347,13 +3027,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0006-0005-0000-000000000001',
-  '00000002-0006-0000-0000-000000000005',
+  '00000002-0006-0007-0000-000000000001',
+  '00000002-0006-0000-0000-000000000007',
   1,
   'What is a ''Flood'' concept?',
   '["Three receivers attack one side at different depths", "All receivers go deep", "Receivers run to the middle", "A trick play"]',
   '{"index": 0}',
-  'Flood sends three receivers to one side at different depths (flat, intermediate, deep). It overloads zone coverage by putting more receivers than defenders.',
+  'Flood sends 3 receivers to one side at different levels (deep, intermediate, short).',
   true,
   NOW(),
   NOW()
@@ -2367,7 +3047,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0006-0000-0000-000000000006',
+  '00000002-0006-0000-0000-000000000008',
+  '00000002-0000-0000-0000-000000000006',
+  'mcq',
+  'Understand flood stress',
+  '{"type": "mcq", "options": ["It overloads a zone with more receivers than defenders", "It runs everyone deep", "It blocks everyone"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0006-0008-0000-000000000001',
+  '00000002-0006-0000-0000-000000000008',
+  1,
+  'How does a Flood concept stress the defense?',
+  '["It overloads a zone with more receivers than defenders", "It runs everyone deep", "It blocks everyone"]',
+  '{"index": 0}',
+  'By placing receivers at three levels (high, medium, low) on one side, the offense overwhelms the zone defenders on that side. They can''t cover everyone.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0006-0000-0000-000000000009',
   '00000002-0000-0000-0000-000000000006',
   'mcq',
   'Identify smash concept',
@@ -2387,8 +3107,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0006-0006-0000-000000000001',
-  '00000002-0006-0000-0000-000000000006',
+  '00000002-0006-0009-0000-000000000001',
+  '00000002-0006-0000-0000-000000000009',
   1,
   'What is the ''Smash'' concept?',
   '["Corner route over a hitch/curl", "All receivers run deep", "A running play", "Receivers block"]',
@@ -2407,7 +3127,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0006-0000-0000-000000000007',
+  '00000002-0006-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000006',
   'mcq',
   'Understand spacing concept',
@@ -2427,8 +3147,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0006-0007-0000-000000000001',
-  '00000002-0006-0000-0000-000000000007',
+  '00000002-0006-0010-0000-000000000001',
+  '00000002-0006-0000-0000-000000000010',
   1,
   'Why do route concepts use different depths and spacing?',
   '["To create throwing windows and stress coverage", "To confuse the offense", "It''s random", "To tire out receivers"]',
@@ -2447,7 +3167,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0006-0000-0000-000000000008',
+  '00000002-0006-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000006',
   'mcq',
   'Identify switch concept',
@@ -2467,8 +3187,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0006-0008-0000-000000000001',
-  '00000002-0006-0000-0000-000000000008',
+  '00000002-0006-0011-0000-000000000001',
+  '00000002-0006-0000-0000-000000000011',
   1,
   'What is a ''Switch'' or ''Rub'' route?',
   '["Two receivers cross paths to create picks", "Receivers switch positions", "A running play", "Receivers block each other"]',
@@ -2487,7 +3207,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0006-0000-0000-000000000009',
+  '00000002-0006-0000-0000-000000000012',
   '00000002-0000-0000-0000-000000000006',
   'mcq',
   'Identify four verticals',
@@ -2507,8 +3227,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0006-0009-0000-000000000001',
-  '00000002-0006-0000-0000-000000000009',
+  '00000002-0006-0012-0000-000000000001',
+  '00000002-0006-0000-0000-000000000012',
   1,
   'What is ''Four Verticals''?',
   '["Four receivers run straight downfield", "Four running backs", "Four tight ends", "Four offensive linemen pull"]',
@@ -2527,7 +3247,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0006-0000-0000-000000000010',
+  '00000002-0006-0000-0000-000000000013',
   '00000002-0000-0000-0000-000000000006',
   'mcq',
   'Understand concept vs coverage',
@@ -2547,8 +3267,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0006-0010-0000-000000000001',
-  '00000002-0006-0000-0000-000000000010',
+  '00000002-0006-0013-0000-000000000001',
+  '00000002-0006-0000-0000-000000000013',
   1,
   'Why do offenses have multiple route concepts?',
   '["Different concepts beat different coverages", "To confuse their own players", "It''s required by rules", "To waste time"]',
@@ -2613,7 +3333,7 @@ VALUES (
   'What is play-action?',
   '["QB fakes a handoff then throws", "QB hands off the ball", "QB runs the ball", "QB punts"]',
   '{"index": 0}',
-  'Play-action is when the QB fakes a handoff to freeze the defense, then throws a pass. It works best when the run game is effective.',
+  'Play-action is when the QB fakes a handoff to freeze the defense, then throws a pass.',
   true,
   NOW(),
   NOW()
@@ -2628,6 +3348,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0007-0000-0000-000000000002',
+  '00000002-0000-0000-0000-000000000007',
+  'mcq',
+  'Understand play action synergy',
+  '{"type": "mcq", "options": ["Defenders are more likely to bite on the fake if they fear the run", "The QB runs faster", "The receivers run faster"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0007-0002-0000-000000000001',
+  '00000002-0007-0000-0000-000000000002',
+  1,
+  'Why does play-action work best when the run game is effective?',
+  '["Defenders are more likely to bite on the fake if they fear the run", "The QB runs faster", "The receivers run faster"]',
+  '{"index": 0}',
+  'If the defense respects the run, linebackers will step forward to stop it. This creates space behind them for receivers to get open.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0007-0000-0000-000000000003',
   '00000002-0000-0000-0000-000000000007',
   'mcq',
   'Understand play action purpose',
@@ -2647,8 +3407,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0007-0002-0000-000000000001',
-  '00000002-0007-0000-0000-000000000002',
+  '00000002-0007-0003-0000-000000000001',
+  '00000002-0007-0000-0000-000000000003',
   1,
   'Why does play-action work?',
   '["Defenders bite on the fake and lose coverage", "It''s faster than regular passing", "It''s required on 1st down", "It confuses the offense"]',
@@ -2667,7 +3427,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0007-0000-0000-000000000003',
+  '00000002-0007-0000-0000-000000000004',
   '00000002-0000-0000-0000-000000000007',
   'mcq',
   'Identify bootleg',
@@ -2687,13 +3447,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0007-0003-0000-000000000001',
-  '00000002-0007-0000-0000-000000000003',
+  '00000002-0007-0004-0000-000000000001',
+  '00000002-0007-0000-0000-000000000004',
   1,
   'What is a ''bootleg'' play?',
   '["QB fakes handoff then rolls opposite direction", "QB throws deep", "QB hands off the ball", "An illegal play"]',
   '{"index": 0}',
-  'A bootleg has the QB fake a handoff one way, then roll out the opposite direction. This often leaves the QB with open field and running options.',
+  'A bootleg has the QB fake a handoff one way, then roll out the opposite direction.',
   true,
   NOW(),
   NOW()
@@ -2707,7 +3467,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0007-0000-0000-000000000004',
+  '00000002-0007-0000-0000-000000000005',
+  '00000002-0000-0000-0000-000000000007',
+  'mcq',
+  'Understand bootleg advantage',
+  '{"type": "mcq", "options": ["It moves the pocket and changes the launch point for the QB", "It''s always a run play", "It requires no blocking"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0007-0005-0000-000000000001',
+  '00000002-0007-0000-0000-000000000005',
+  1,
+  'What is a key advantage of a bootleg play?',
+  '["It moves the pocket and changes the launch point for the QB", "It''s always a run play", "It requires no blocking"]',
+  '{"index": 0}',
+  'By rolling out, the QB moves away from the original pass rush spot. This buys time and gives the QB the option to run or throw on the move.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0007-0000-0000-000000000006',
   '00000002-0000-0000-0000-000000000007',
   'mcq',
   'Understand naked bootleg',
@@ -2727,8 +3527,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0007-0004-0000-000000000001',
-  '00000002-0007-0000-0000-000000000004',
+  '00000002-0007-0006-0000-000000000001',
+  '00000002-0007-0000-0000-000000000006',
   1,
   'What makes a bootleg ''naked''?',
   '["QB has no blockers protecting him", "QB doesn''t wear pads", "It''s an illegal play", "QB doesn''t fake the handoff"]',
@@ -2747,7 +3547,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0007-0000-0000-000000000005',
+  '00000002-0007-0000-0000-000000000007',
   '00000002-0000-0000-0000-000000000007',
   'mcq',
   'Identify play action effectiveness',
@@ -2767,8 +3567,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0007-0005-0000-000000000001',
-  '00000002-0007-0000-0000-000000000005',
+  '00000002-0007-0007-0000-000000000001',
+  '00000002-0007-0000-0000-000000000007',
   1,
   'When is play-action most effective?',
   '["When the run game is working well", "On 3rd and long", "When losing badly", "In the 4th quarter only"]',
@@ -2787,7 +3587,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0007-0000-0000-000000000006',
+  '00000002-0007-0000-0000-000000000008',
   '00000002-0000-0000-0000-000000000007',
   'mcq',
   'Understand play action timing',
@@ -2807,13 +3607,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0007-0006-0000-000000000001',
-  '00000002-0007-0000-0000-000000000006',
+  '00000002-0007-0008-0000-000000000001',
+  '00000002-0007-0000-0000-000000000008',
   1,
   'What''s a disadvantage of play-action?',
   '["Takes longer to develop than quick passes", "It''s illegal", "Can''t gain yards", "Only works once per game"]',
   '{"index": 0}',
-  'The fake handoff takes extra time, so the QB has their back to the defense longer. This makes play-action vulnerable to blitzes.',
+  'The fake handoff takes extra time, so the QB has their back to the defense longer.',
   true,
   NOW(),
   NOW()
@@ -2827,7 +3627,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0007-0000-0000-000000000007',
+  '00000002-0007-0000-0000-000000000009',
+  '00000002-0000-0000-0000-000000000007',
+  'mcq',
+  'Understand play action vulnerability',
+  '{"type": "mcq", "options": ["The QB turns his back to the defense and might not see the blitz coming", "It''s illegal to fake against a blitz", "The receivers can''t run routes"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0007-0009-0000-000000000001',
+  '00000002-0007-0000-0000-000000000009',
+  1,
+  'Why is play-action risky against a heavy blitz?',
+  '["The QB turns his back to the defense and might not see the blitz coming", "It''s illegal to fake against a blitz", "The receivers can''t run routes"]',
+  '{"index": 0}',
+  'Because the QB turns his back to execute the fake, he can''t see blitzers coming. This can lead to a sack before he even sets up to throw.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0007-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000007',
   'mcq',
   'Identify play action formation',
@@ -2847,8 +3687,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0007-0007-0000-000000000001',
-  '00000002-0007-0000-0000-000000000007',
+  '00000002-0007-0010-0000-000000000001',
+  '00000002-0007-0000-0000-000000000010',
   1,
   'What formation makes play-action most believable?',
   '["Under center with running backs", "Empty backfield", "5-wide receiver set", "Punt formation"]',
@@ -2867,7 +3707,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0007-0000-0000-000000000008',
+  '00000002-0007-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000007',
   'mcq',
   'Understand waggle',
@@ -2887,8 +3727,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0007-0008-0000-000000000001',
-  '00000002-0007-0000-0000-000000000008',
+  '00000002-0007-0011-0000-000000000001',
+  '00000002-0007-0000-0000-000000000011',
   1,
   'What is a ''waggle'' play?',
   '["Bootleg with a pulling guard for protection", "QB runs straight ahead", "A type of punt", "An illegal formation"]',
@@ -2907,7 +3747,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0007-0000-0000-000000000009',
+  '00000002-0007-0000-0000-000000000012',
   '00000002-0000-0000-0000-000000000007',
   'mcq',
   'Identify play action read',
@@ -2927,8 +3767,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0007-0009-0000-000000000001',
-  '00000002-0007-0000-0000-000000000009',
+  '00000002-0007-0012-0000-000000000001',
+  '00000002-0007-0000-0000-000000000012',
   1,
   'On play-action, what does the QB typically look for?',
   '["Receivers running deep behind frozen defenders", "Short underneath routes", "Running lanes", "The referee"]',
@@ -2947,7 +3787,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0007-0000-0000-000000000010',
+  '00000002-0007-0000-0000-000000000013',
   '00000002-0000-0000-0000-000000000007',
   'mcq',
   'Understand play action vs shotgun',
@@ -2967,8 +3807,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0007-0010-0000-000000000001',
-  '00000002-0007-0000-0000-000000000010',
+  '00000002-0007-0013-0000-000000000001',
+  '00000002-0007-0000-0000-000000000013',
   1,
   'Can you run play-action from shotgun?',
   '["Yes, but it''s less effective", "No, it''s illegal", "Yes, it''s more effective", "Only on 4th down"]',
@@ -3073,7 +3913,7 @@ VALUES (
   'In a running back screen, what do the offensive linemen do?',
   '["Let defenders through, then block downfield", "Block normally", "Run routes", "Stay at the line"]',
   '{"index": 0}',
-  'On RB screens, linemen intentionally let pass rushers through, then release downfield to block. This tricks the defense into thinking they have a free rush.',
+  'On RB screens, linemen intentionally let pass rushers through, then release downfield to block.',
   true,
   NOW(),
   NOW()
@@ -3088,6 +3928,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0008-0000-0000-000000000003',
+  '00000002-0000-0000-0000-000000000008',
+  'mcq',
+  'Understand screen logic',
+  '{"type": "mcq", "options": ["To trick them into rushing upfield, taking them out of the play", "Because they missed their blocks", "To get a penalty"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0008-0003-0000-000000000001',
+  '00000002-0008-0000-0000-000000000003',
+  1,
+  'Why do linemen let defenders through on a screen pass?',
+  '["To trick them into rushing upfield, taking them out of the play", "Because they missed their blocks", "To get a penalty"]',
+  '{"index": 0}',
+  'By inviting the rush, the offense uses the defenders'' aggression against them. Once the rushers are deep in the backfield, the ball is thrown over their heads.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0008-0000-0000-000000000004',
   '00000002-0000-0000-0000-000000000008',
   'mcq',
   'Understand screen timing',
@@ -3107,8 +3987,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0008-0003-0000-000000000001',
-  '00000002-0008-0000-0000-000000000003',
+  '00000002-0008-0004-0000-000000000001',
+  '00000002-0008-0000-0000-000000000004',
   1,
   'When is the best time to call a screen pass?',
   '["When the defense is blitzing aggressively", "On 1st down only", "When winning by a lot", "Never"]',
@@ -3127,7 +4007,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0008-0000-0000-000000000004',
+  '00000002-0008-0000-0000-000000000005',
   '00000002-0000-0000-0000-000000000008',
   'mcq',
   'Identify bubble screen',
@@ -3147,8 +4027,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0008-0004-0000-000000000001',
-  '00000002-0008-0000-0000-000000000004',
+  '00000002-0008-0005-0000-000000000001',
+  '00000002-0008-0000-0000-000000000005',
   1,
   'What is a ''bubble screen''?',
   '["Quick pass to a receiver in the flat with blockers", "Deep pass", "Screen to the running back", "A type of run play"]',
@@ -3167,7 +4047,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0008-0000-0000-000000000005',
+  '00000002-0008-0000-0000-000000000006',
   '00000002-0000-0000-0000-000000000008',
   'mcq',
   'Understand WR screen',
@@ -3187,8 +4067,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0008-0005-0000-000000000001',
-  '00000002-0008-0000-0000-000000000005',
+  '00000002-0008-0006-0000-000000000001',
+  '00000002-0008-0000-0000-000000000006',
   1,
   'How does a WR screen differ from a bubble screen?',
   '["WR screens often have linemen pulling to block", "They''re the same thing", "WR screens are illegal", "WR screens go deep"]',
@@ -3207,7 +4087,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0008-0000-0000-000000000006',
+  '00000002-0008-0000-0000-000000000007',
   '00000002-0000-0000-0000-000000000008',
   'mcq',
   'Identify middle screen',
@@ -3227,8 +4107,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0008-0006-0000-000000000001',
-  '00000002-0008-0000-0000-000000000006',
+  '00000002-0008-0007-0000-000000000001',
+  '00000002-0008-0000-0000-000000000007',
   1,
   'What is a ''middle screen'' or ''jailbreak screen''?',
   '["Screen up the middle with pulling linemen", "Screen to the sideline", "Deep pass", "A running play"]',
@@ -3247,7 +4127,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0008-0000-0000-000000000007',
+  '00000002-0008-0000-0000-000000000008',
   '00000002-0000-0000-0000-000000000008',
   'mcq',
   'Understand screen blocking',
@@ -3267,8 +4147,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0008-0007-0000-000000000001',
-  '00000002-0008-0000-0000-000000000007',
+  '00000002-0008-0008-0000-000000000001',
+  '00000002-0008-0000-0000-000000000008',
   1,
   'Why do offensive linemen release downfield on screens?',
   '["To block defenders and create running lanes", "To catch the ball", "To confuse officials", "It''s a penalty"]',
@@ -3287,7 +4167,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0008-0000-0000-000000000008',
+  '00000002-0008-0000-0000-000000000009',
   '00000002-0000-0000-0000-000000000008',
   'mcq',
   'Identify screen weakness',
@@ -3307,8 +4187,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0008-0008-0000-000000000001',
-  '00000002-0008-0000-0000-000000000008',
+  '00000002-0008-0009-0000-000000000001',
+  '00000002-0008-0000-0000-000000000009',
   1,
   'What can defeat a screen pass?',
   '["Disciplined defenders who don''t rush hard", "Aggressive blitzing", "Zone coverage", "Man coverage"]',
@@ -3327,7 +4207,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0008-0000-0000-000000000009',
+  '00000002-0008-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000008',
   'mcq',
   'Understand slip screen',
@@ -3347,8 +4227,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0008-0009-0000-000000000001',
-  '00000002-0008-0000-0000-000000000009',
+  '00000002-0008-0010-0000-000000000001',
+  '00000002-0008-0000-0000-000000000010',
   1,
   'What is a ''slip screen''?',
   '["RB pretends to block then slips out for a pass", "QB slips and falls", "Receiver slips on the field", "An illegal play"]',
@@ -3367,7 +4247,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0008-0000-0000-000000000010',
+  '00000002-0008-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000008',
   'mcq',
   'Understand screen as constraint',
@@ -3387,13 +4267,53 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0008-0010-0000-000000000001',
-  '00000002-0008-0000-0000-000000000010',
+  '00000002-0008-0011-0000-000000000001',
+  '00000002-0008-0000-0000-000000000011',
   1,
   'Why are screens called ''constraint plays''?',
   '["They punish defenses for being too aggressive", "They''re only used in emergencies", "They''re illegal in some situations", "They''re very difficult to execute"]',
   '{"index": 0}',
-  'Screens ''constrain'' or limit defensive aggression. If a defense blitzes too much, screens make them pay. This forces defenses to be more balanced.',
+  'Screens ''constrain'' or limit defensive aggression. If a defense blitzes too much, screens make them pay.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0008-0000-0000-000000000012',
+  '00000002-0000-0000-0000-000000000008',
+  'mcq',
+  'Understand constraint play',
+  '{"type": "mcq", "options": ["It forces the defense to rush less aggressively", "It gives the QB a rest", "It wastes time"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0008-0012-0000-000000000001',
+  '00000002-0008-0000-0000-000000000012',
+  1,
+  'How does a successful screen game help the rest of the offense?',
+  '["It forces the defense to rush less aggressively", "It gives the QB a rest", "It wastes time"]',
+  '{"index": 0}',
+  'If the defense gets burned by screens, they will hesitate to blitz or rush hard. This hesitation gives the QB more time on regular pass plays.',
   true,
   NOW(),
   NOW()
@@ -3453,7 +4373,7 @@ VALUES (
   'What is the center''s primary job?',
   '["Snap the ball to the QB", "Catch passes", "Run with the ball", "Call penalties"]',
   '{"index": 0}',
-  'The center snaps (hikes) the ball to the QB to start every play. The center also makes blocking calls and identifies defensive alignments.',
+  'The center snaps (hikes) the ball to the QB to start every play.',
   true,
   NOW(),
   NOW()
@@ -3468,6 +4388,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0009-0000-0000-000000000002',
+  '00000002-0000-0000-0000-000000000009',
+  'mcq',
+  'Understand center mental role',
+  '{"type": "mcq", "options": ["They make blocking calls and identify the defense", "They touch the ball first", "They are the biggest player"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0009-0002-0000-000000000001',
+  '00000002-0009-0000-0000-000000000002',
+  1,
+  'Why is the center often called the ''captain'' of the offensive line?',
+  '["They make blocking calls and identify the defense", "They touch the ball first", "They are the biggest player"]',
+  '{"index": 0}',
+  'Before the snap, the center points out the ''Mike'' linebacker and communicates blocking adjustments to the other linemen.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0009-0000-0000-000000000003',
   '00000002-0000-0000-0000-000000000009',
   'mcq',
   'Identify guard positions',
@@ -3487,13 +4447,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0009-0002-0000-000000000001',
-  '00000002-0009-0000-0000-000000000002',
+  '00000002-0009-0003-0000-000000000001',
+  '00000002-0009-0000-0000-000000000003',
   1,
   'Where do the guards line up?',
   '["On either side of the center", "At the ends of the line", "In the backfield", "Behind the tackles"]',
   '{"index": 0}',
-  'The two guards line up on either side of the center. They''re typically the most athletic linemen and often ''pull'' to lead block on running plays.',
+  'The two guards line up on either side of the center. They''re typically the most athletic linemen.',
   true,
   NOW(),
   NOW()
@@ -3507,7 +4467,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0009-0000-0000-000000000003',
+  '00000002-0009-0000-0000-000000000004',
+  '00000002-0000-0000-0000-000000000009',
+  'mcq',
+  'Understand pulling guard',
+  '{"type": "mcq", "options": ["Their position allows them to move laterally to lead block", "They are faster than tackles", "They don''t have anyone to block"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0009-0004-0000-000000000001',
+  '00000002-0009-0000-0000-000000000004',
+  1,
+  'Why are guards often asked to ''pull''?',
+  '["Their position allows them to move laterally to lead block", "They are faster than tackles", "They don''t have anyone to block"]',
+  '{"index": 0}',
+  'Because they are in the middle, guards can pull left or right to add an extra blocker at the point of attack on run plays.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0009-0000-0000-000000000005',
   '00000002-0000-0000-0000-000000000009',
   'mcq',
   'Identify tackle positions',
@@ -3527,8 +4527,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0009-0003-0000-000000000001',
-  '00000002-0009-0000-0000-000000000003',
+  '00000002-0009-0005-0000-000000000001',
+  '00000002-0009-0000-0000-000000000005',
   1,
   'Where do offensive tackles line up?',
   '["Outside the guards, at the ends of the line", "Next to the center", "In the backfield", "They don''t line up on the line"]',
@@ -3547,7 +4547,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0009-0000-0000-000000000004',
+  '00000002-0009-0000-0000-000000000006',
   '00000002-0000-0000-0000-000000000009',
   'mcq',
   'Understand left tackle importance',
@@ -3567,13 +4567,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0009-0004-0000-000000000001',
-  '00000002-0009-0000-0000-000000000004',
+  '00000002-0009-0006-0000-000000000001',
+  '00000002-0009-0000-0000-000000000006',
   1,
   'Why is the left tackle often the highest-paid offensive lineman?',
   '["Protects the QB''s blind side (for right-handed QBs)", "They''re the team captain", "They snap the ball", "They''re the biggest player"]',
   '{"index": 0}',
-  'For right-handed QBs, the left tackle protects the ''blind side'' - the side the QB can''t see while looking downfield. This is the most critical pass protection position.',
+  'For right-handed QBs, the left tackle protects the ''blind side'' - the side the QB can''t see while looking downfield.',
   true,
   NOW(),
   NOW()
@@ -3587,7 +4587,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0009-0000-0000-000000000005',
+  '00000002-0009-0000-0000-000000000007',
+  '00000002-0000-0000-0000-000000000009',
+  'mcq',
+  'Understand blind side risk',
+  '{"type": "mcq", "options": ["The QB can''t brace for impact or protect the ball", "It''s illegal", "It''s always a penalty"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0009-0007-0000-000000000001',
+  '00000002-0009-0000-0000-000000000007',
+  1,
+  'Why is a hit from the blind side so dangerous?',
+  '["The QB can''t brace for impact or protect the ball", "It''s illegal", "It''s always a penalty"]',
+  '{"index": 0}',
+  'Since the QB doesn''t see the defender coming, hits from the blind side often cause fumbles (strip sacks) and injuries.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0009-0000-0000-000000000008',
   '00000002-0000-0000-0000-000000000009',
   'mcq',
   'Identify gaps',
@@ -3607,8 +4647,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0009-0005-0000-000000000001',
-  '00000002-0009-0000-0000-000000000005',
+  '00000002-0009-0008-0000-000000000001',
+  '00000002-0009-0000-0000-000000000008',
   1,
   'What are ''gaps'' in offensive line terminology?',
   '["Spaces between offensive linemen", "Holes in the defense", "Mistakes by the offense", "Time between plays"]',
@@ -3627,7 +4667,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0009-0000-0000-000000000006',
+  '00000002-0009-0000-0000-000000000009',
   '00000002-0000-0000-0000-000000000009',
   'mcq',
   'Understand pulling guard',
@@ -3647,8 +4687,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0009-0006-0000-000000000001',
-  '00000002-0009-0000-0000-000000000006',
+  '00000002-0009-0009-0000-000000000001',
+  '00000002-0009-0000-0000-000000000009',
   1,
   'What does it mean when a guard ''pulls''?',
   '["Leaves their position to lead block elsewhere", "Pulls the defender down", "Pulls the QB back", "It''s a penalty"]',
@@ -3667,7 +4707,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0009-0000-0000-000000000007',
+  '00000002-0009-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000009',
   'mcq',
   'Identify offensive line count',
@@ -3687,8 +4727,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0009-0007-0000-000000000001',
-  '00000002-0009-0000-0000-000000000007',
+  '00000002-0009-0010-0000-000000000001',
+  '00000002-0009-0000-0000-000000000010',
   1,
   'How many offensive linemen are on the field for most plays?',
   '["5", "7", "3", "11"]',
@@ -3707,7 +4747,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0009-0000-0000-000000000008',
+  '00000002-0009-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000009',
   'mcq',
   'Understand double team',
@@ -3727,8 +4767,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0009-0008-0000-000000000001',
-  '00000002-0009-0000-0000-000000000008',
+  '00000002-0009-0011-0000-000000000001',
+  '00000002-0009-0000-0000-000000000011',
   1,
   'What is a ''double team'' block?',
   '["Two blockers blocking one defender", "Blocking two defenders", "Two plays in a row", "A penalty"]',
@@ -3747,7 +4787,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0009-0000-0000-000000000009',
+  '00000002-0009-0000-0000-000000000012',
   '00000002-0000-0000-0000-000000000009',
   'mcq',
   'Identify combo block',
@@ -3767,13 +4807,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0009-0009-0000-000000000001',
-  '00000002-0009-0000-0000-000000000009',
+  '00000002-0009-0012-0000-000000000001',
+  '00000002-0009-0000-0000-000000000012',
   1,
   'What is a ''combo block''?',
   '["Two linemen double team, then one peels off to block a linebacker", "Blocking two defenders at once", "A type of run play", "An illegal block"]',
   '{"index": 0}',
-  'A combo block starts as a double team on a defensive lineman, then one blocker ''peels off'' to block a linebacker at the second level. It''s fundamental to zone blocking.',
+  'A combo block starts as a double team on a defensive lineman, then one blocker ''peels off'' to block a linebacker.',
   true,
   NOW(),
   NOW()
@@ -3787,7 +4827,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0009-0000-0000-000000000010',
+  '00000002-0009-0000-0000-000000000013',
+  '00000002-0000-0000-0000-000000000009',
+  'mcq',
+  'Understand combo block goal',
+  '{"type": "mcq", "options": ["To secure the first level (DL) before climbing to the second level (LB)", "To block two linemen at once", "To hold the defender"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0009-0013-0000-000000000001',
+  '00000002-0009-0000-0000-000000000013',
+  1,
+  'What is the goal of a combo block?',
+  '["To secure the first level (DL) before climbing to the second level (LB)", "To block two linemen at once", "To hold the defender"]',
+  '{"index": 0}',
+  'The double team ensures the defensive lineman is neutralized. Once he''s under control, one blocker leaves to take on the linebacker, securing both levels.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0009-0000-0000-000000000014',
   '00000002-0000-0000-0000-000000000009',
   'mcq',
   'Understand line splits',
@@ -3807,8 +4887,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0009-0010-0000-000000000001',
-  '00000002-0009-0000-0000-000000000010',
+  '00000002-0009-0014-0000-000000000001',
+  '00000002-0009-0000-0000-000000000014',
   1,
   'What are ''line splits''?',
   '["The distance between offensive linemen", "When the line breaks apart", "A type of formation", "A penalty"]',
@@ -3873,7 +4953,7 @@ VALUES (
   'In zone blocking, what do offensive linemen block?',
   '["Areas/zones rather than specific players", "Specific assigned defenders", "Nobody - they run routes", "The referee"]',
   '{"index": 0}',
-  'Zone blocking has linemen block areas (zones) rather than specific defenders. They work together to create running lanes wherever the defense is weakest.',
+  'Zone blocking has linemen block areas (zones) rather than specific defenders.',
   true,
   NOW(),
   NOW()
@@ -3888,6 +4968,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0010-0000-0000-000000000002',
+  '00000002-0000-0000-0000-000000000010',
+  'mcq',
+  'Understand zone blocking teamwork',
+  '{"type": "mcq", "options": ["They double team and pass off defenders entering their zones", "They each pick a man and stick to him", "They don''t block"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0010-0002-0000-000000000001',
+  '00000002-0010-0000-0000-000000000002',
+  1,
+  'How do linemen work together in zone blocking?',
+  '["They double team and pass off defenders entering their zones", "They each pick a man and stick to him", "They don''t block"]',
+  '{"index": 0}',
+  'Zone blocking relies on double teams and fluidly passing off defenders as they move across the line. It requires great communication and chemistry.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0010-0000-0000-000000000003',
   '00000002-0000-0000-0000-000000000010',
   'mcq',
   'Identify gap blocking',
@@ -3907,13 +5027,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0010-0002-0000-000000000001',
-  '00000002-0010-0000-0000-000000000002',
+  '00000002-0010-0003-0000-000000000001',
+  '00000002-0010-0000-0000-000000000003',
   1,
   'In gap (or man) blocking, what do offensive linemen do?',
   '["Block specific assigned defenders", "Block zones", "Pull to the outside", "Don''t block anyone"]',
   '{"index": 0}',
-  'Gap or man blocking assigns each lineman a specific defender to block. The play is designed to go to a specific gap regardless of defensive alignment.',
+  'Gap or man blocking assigns each lineman a specific defender to block.',
   true,
   NOW(),
   NOW()
@@ -3927,7 +5047,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0010-0000-0000-000000000003',
+  '00000002-0010-0000-0000-000000000004',
+  '00000002-0000-0000-0000-000000000010',
+  'mcq',
+  'Understand gap blocking focus',
+  '{"type": "mcq", "options": ["Moving defenders against their will to open a specific hole", "Waiting for the defense to move", "Running to the sideline"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0010-0004-0000-000000000001',
+  '00000002-0010-0000-0000-000000000004',
+  1,
+  'What is the focus of gap blocking?',
+  '["Moving defenders against their will to open a specific hole", "Waiting for the defense to move", "Running to the sideline"]',
+  '{"index": 0}',
+  'Gap blocking is about force and angles. The offense decides where the ball is going and tries to physically move the defenders out of that gap.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0010-0000-0000-000000000005',
   '00000002-0000-0000-0000-000000000010',
   'mcq',
   'Understand zone blocking advantage',
@@ -3947,8 +5107,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0010-0003-0000-000000000001',
-  '00000002-0010-0000-0000-000000000003',
+  '00000002-0010-0005-0000-000000000001',
+  '00000002-0010-0000-0000-000000000005',
   1,
   'What is the main advantage of zone blocking?',
   '["Adapts to defensive movement, RB finds the best hole", "More powerful", "Easier to learn", "Works against any defense"]',
@@ -3967,7 +5127,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0010-0000-0000-000000000004',
+  '00000002-0010-0000-0000-000000000006',
   '00000002-0000-0000-0000-000000000010',
   'mcq',
   'Understand gap blocking advantage',
@@ -3987,8 +5147,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0010-0004-0000-000000000001',
-  '00000002-0010-0000-0000-000000000004',
+  '00000002-0010-0006-0000-000000000001',
+  '00000002-0010-0000-0000-000000000006',
   1,
   'What is the main advantage of gap blocking?',
   '["More physical and powerful at the point of attack", "More flexible", "Easier to execute", "Better for passing"]',
@@ -4007,7 +5167,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0010-0000-0000-000000000005',
+  '00000002-0010-0000-0000-000000000007',
   '00000002-0000-0000-0000-000000000010',
   'mcq',
   'Identify outside zone',
@@ -4027,13 +5187,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0010-0005-0000-000000000001',
-  '00000002-0010-0000-0000-000000000005',
+  '00000002-0010-0007-0000-000000000001',
+  '00000002-0010-0000-0000-000000000007',
   1,
   'What is ''outside zone'' or ''stretch'' play?',
   '["Linemen block laterally, RB runs to the edge", "Linemen block straight ahead", "A passing play", "A trick play"]',
   '{"index": 0}',
-  'Outside zone has linemen block laterally toward the sideline, creating running lanes on the edge. The RB reads blocks and can cut inside or bounce outside.',
+  'Outside zone has linemen block laterally toward the sideline, creating running lanes on the edge.',
   true,
   NOW(),
   NOW()
@@ -4047,7 +5207,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0010-0000-0000-000000000006',
+  '00000002-0010-0000-0000-000000000008',
+  '00000002-0000-0000-0000-000000000010',
+  'mcq',
+  'Understand outside zone goal',
+  '{"type": "mcq", "options": ["A crease to cut upfield or the edge to outrun the defense", "A specific gap called in the huddle", "To pass the ball"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0010-0008-0000-000000000001',
+  '00000002-0010-0000-0000-000000000008',
+  1,
+  'What is the running back looking for on an outside zone play?',
+  '["A crease to cut upfield or the edge to outrun the defense", "A specific gap called in the huddle", "To pass the ball"]',
+  '{"index": 0}',
+  'The RB stretches the defense horizontally. If a defender over-pursues, he cuts back. If the edge is sealed, he turns the corner.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0010-0000-0000-000000000009',
   '00000002-0000-0000-0000-000000000010',
   'mcq',
   'Identify inside zone',
@@ -4067,8 +5267,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0010-0006-0000-000000000001',
-  '00000002-0010-0000-0000-000000000006',
+  '00000002-0010-0009-0000-000000000001',
+  '00000002-0010-0000-0000-000000000009',
   1,
   'What is ''inside zone''?',
   '["Zone blocking up the middle between the tackles", "Zone blocking to the outside", "A passing play", "A defensive scheme"]',
@@ -4087,7 +5287,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0010-0000-0000-000000000007',
+  '00000002-0010-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000010',
   'mcq',
   'Identify power run',
@@ -4107,8 +5307,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0010-0007-0000-000000000001',
-  '00000002-0010-0000-0000-000000000007',
+  '00000002-0010-0010-0000-000000000001',
+  '00000002-0010-0000-0000-000000000010',
   1,
   'What is a ''power'' run play?',
   '["Gap blocking with a pulling guard leading", "Zone blocking", "A passing play", "A trick play"]',
@@ -4127,7 +5327,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0010-0000-0000-000000000008',
+  '00000002-0010-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000010',
   'mcq',
   'Identify counter run',
@@ -4147,8 +5347,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0010-0008-0000-000000000001',
-  '00000002-0010-0000-0000-000000000008',
+  '00000002-0010-0011-0000-000000000001',
+  '00000002-0010-0000-0000-000000000011',
   1,
   'What is a ''counter'' run?',
   '["RB fakes one direction, then runs the opposite way", "Running straight ahead", "A passing play", "Running backward"]',
@@ -4167,7 +5367,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0010-0000-0000-000000000009',
+  '00000002-0010-0000-0000-000000000012',
   '00000002-0000-0000-0000-000000000010',
   'mcq',
   'Understand reach block',
@@ -4187,8 +5387,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0010-0009-0000-000000000001',
-  '00000002-0010-0000-0000-000000000009',
+  '00000002-0010-0012-0000-000000000001',
+  '00000002-0010-0000-0000-000000000012',
   1,
   'What is a ''reach block'' in zone blocking?',
   '["Blocker tries to get outside shoulder of defender", "Blocker reaches for the ball", "Blocker reaches for the QB", "An illegal block"]',
@@ -4207,7 +5407,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0010-0000-0000-000000000010',
+  '00000002-0010-0000-0000-000000000013',
   '00000002-0000-0000-0000-000000000010',
   'mcq',
   'Identify trap block',
@@ -4227,13 +5427,53 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0010-0010-0000-000000000001',
-  '00000002-0010-0000-0000-000000000010',
+  '00000002-0010-0013-0000-000000000001',
+  '00000002-0010-0000-0000-000000000013',
   1,
   'What is a ''trap'' block?',
   '["Let a defender through, then block them from the side", "Block the defender straight on", "A passing play", "An illegal block"]',
   '{"index": 0}',
-  'A trap intentionally lets a defensive lineman through unblocked, then a pulling guard ''traps'' them from the side. The RB runs through the created gap.',
+  'A trap intentionally lets a defensive lineman through unblocked, then a pulling guard ''traps'' them from the side.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0010-0000-0000-000000000014',
+  '00000002-0000-0000-0000-000000000010',
+  'mcq',
+  'Understand trap surprise',
+  '{"type": "mcq", "options": ["The defender thinks he''s unblocked and rushes upfield, getting blindsided", "The defender falls down", "It''s illegal"], "correct": 0}'::jsonb,
+  3,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0010-0014-0000-000000000001',
+  '00000002-0010-0000-0000-000000000014',
+  1,
+  'Why does a trap block work?',
+  '["The defender thinks he''s unblocked and rushes upfield, getting blindsided", "The defender falls down", "It''s illegal"]',
+  '{"index": 0}',
+  'The unblocked defender thinks he has a free path to the QB/RB. His aggression takes him out of position, making him easy to kick out with a trap block.',
   true,
   NOW(),
   NOW()
@@ -4293,7 +5533,7 @@ VALUES (
   'What is the offensive line''s job on passing plays?',
   '["Protect the QB from pass rushers", "Run downfield", "Catch the ball", "Block for running backs"]',
   '{"index": 0}',
-  'On passing plays, the offensive line must protect the QB from defensive pass rushers, giving the QB time to find open receivers and throw.',
+  'On passing plays, the offensive line must protect the QB from defensive pass rushers.',
   true,
   NOW(),
   NOW()
@@ -4308,6 +5548,46 @@ VALUES (
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
   '00000002-0011-0000-0000-000000000002',
+  '00000002-0000-0000-0000-000000000011',
+  'mcq',
+  'Understand protection time',
+  '{"type": "mcq", "options": ["2.5 to 4 seconds", "10 seconds", "1 minute"], "correct": 0}'::jsonb,
+  1,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0011-0002-0000-000000000001',
+  '00000002-0011-0000-0000-000000000002',
+  1,
+  'How long does the offensive line typically need to hold their blocks?',
+  '["2.5 to 4 seconds", "10 seconds", "1 minute"]',
+  '{"index": 0}',
+  'Most pass plays are designed to be thrown within 3 seconds. Holding blocks longer than that is extremely difficult against NFL defenders.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0011-0000-0000-000000000003',
   '00000002-0000-0000-0000-000000000011',
   'mcq',
   'Identify man protection',
@@ -4327,13 +5607,13 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0011-0002-0000-000000000001',
-  '00000002-0011-0000-0000-000000000002',
+  '00000002-0011-0003-0000-000000000001',
+  '00000002-0011-0000-0000-000000000003',
   1,
   'What is ''man protection''?',
   '["Each blocker is assigned a specific rusher", "Blocking zones", "Only one blocker protects the QB", "No protection"]',
   '{"index": 0}',
-  'Man protection assigns each blocker a specific pass rusher to block. If the defense brings more rushers than blockers, someone comes free.',
+  'Man protection assigns each blocker a specific pass rusher to block.',
   true,
   NOW(),
   NOW()
@@ -4347,7 +5627,47 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0011-0000-0000-000000000003',
+  '00000002-0011-0000-0000-000000000004',
+  '00000002-0000-0000-0000-000000000011',
+  'mcq',
+  'Understand man protection weakness',
+  '{"type": "mcq", "options": ["Vulnerable to stunts and blitzes that confuse assignments", "It''s illegal", "It''s too easy"], "correct": 0}'::jsonb,
+  2,
+  'live',
+  (SELECT id FROM users LIMIT 1),
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  type = EXCLUDED.type,
+  base_prompt = EXCLUDED.base_prompt,
+  answer_schema_json = EXCLUDED.answer_schema_json,
+  difficulty = EXCLUDED.difficulty,
+  status = EXCLUDED.status,
+  updated_at = NOW();
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
+VALUES (
+  '00000002-0011-0004-0000-000000000001',
+  '00000002-0011-0000-0000-000000000004',
+  1,
+  'What is the main weakness of man protection?',
+  '["Vulnerable to stunts and blitzes that confuse assignments", "It''s illegal", "It''s too easy"]',
+  '{"index": 0}',
+  'If defenders switch places (stunt) or blitz, blockers chasing their man can get picked off or run into each other, leaving a rusher free.',
+  true,
+  NOW(),
+  NOW()
+) ON CONFLICT (id) DO UPDATE SET
+  prompt_richtext = EXCLUDED.prompt_richtext,
+  options_json = EXCLUDED.options_json,
+  correct_answer_json = EXCLUDED.correct_answer_json,
+  explanation_richtext = EXCLUDED.explanation_richtext,
+  active = EXCLUDED.active,
+  updated_at = NOW();
+
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
+VALUES (
+  '00000002-0011-0000-0000-000000000005',
   '00000002-0000-0000-0000-000000000011',
   'mcq',
   'Identify zone protection',
@@ -4367,8 +5687,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0011-0003-0000-000000000001',
-  '00000002-0011-0000-0000-000000000003',
+  '00000002-0011-0005-0000-000000000001',
+  '00000002-0011-0000-0000-000000000005',
   1,
   'What is ''zone protection''?',
   '["Blockers protect areas and pass off rushers", "Each blocker has a specific assignment", "No blocking", "Only for running plays"]',
@@ -4387,7 +5707,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0011-0000-0000-000000000004',
+  '00000002-0011-0000-0000-000000000006',
   '00000002-0000-0000-0000-000000000011',
   'mcq',
   'Understand slide protection',
@@ -4407,8 +5727,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0011-0004-0000-000000000001',
-  '00000002-0011-0000-0000-000000000004',
+  '00000002-0011-0006-0000-000000000001',
+  '00000002-0011-0000-0000-000000000006',
   1,
   'What is ''slide protection''?',
   '["Line slides together in one direction to pick up rushers", "Linemen slide on the ground", "A type of run blocking", "An illegal technique"]',
@@ -4427,7 +5747,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0011-0000-0000-000000000005',
+  '00000002-0011-0000-0000-000000000007',
   '00000002-0000-0000-0000-000000000011',
   'mcq',
   'Identify pocket',
@@ -4447,8 +5767,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0011-0005-0000-000000000001',
-  '00000002-0011-0000-0000-000000000005',
+  '00000002-0011-0007-0000-000000000001',
+  '00000002-0011-0000-0000-000000000007',
   1,
   'What is the ''pocket'' in pass protection?',
   '["Protected area around the QB created by blockers", "QB''s pants pocket", "A type of formation", "A running lane"]',
@@ -4467,7 +5787,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0011-0000-0000-000000000006',
+  '00000002-0011-0000-0000-000000000008',
   '00000002-0000-0000-0000-000000000011',
   'mcq',
   'Understand hot route',
@@ -4487,8 +5807,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0011-0006-0000-000000000001',
-  '00000002-0011-0000-0000-000000000006',
+  '00000002-0011-0008-0000-000000000001',
+  '00000002-0011-0000-0000-000000000008',
   1,
   'What is a ''hot route'' in pass protection?',
   '["Quick route when the defense blitzes", "A deep route", "A running play", "An illegal route"]',
@@ -4507,7 +5827,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0011-0000-0000-000000000007',
+  '00000002-0011-0000-0000-000000000009',
   '00000002-0000-0000-0000-000000000011',
   'mcq',
   'Identify chip block',
@@ -4527,8 +5847,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0011-0007-0000-000000000001',
-  '00000002-0011-0000-0000-000000000007',
+  '00000002-0011-0009-0000-000000000001',
+  '00000002-0011-0000-0000-000000000009',
   1,
   'What is a ''chip block''?',
   '["RB or TE briefly blocks then releases into route", "Blocking with your shoulder pads", "An illegal block", "A type of run block"]',
@@ -4547,7 +5867,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0011-0000-0000-000000000008',
+  '00000002-0011-0000-0000-000000000010',
   '00000002-0000-0000-0000-000000000011',
   'mcq',
   'Understand max protection',
@@ -4567,8 +5887,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0011-0008-0000-000000000001',
-  '00000002-0011-0000-0000-000000000008',
+  '00000002-0011-0010-0000-000000000001',
+  '00000002-0011-0000-0000-000000000010',
   1,
   'What is ''max protection''?',
   '["Using RBs and TEs to help block, fewer receivers", "Maximum number of receivers", "A type of run play", "Illegal formation"]',
@@ -4587,7 +5907,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0011-0000-0000-000000000009',
+  '00000002-0011-0000-0000-000000000011',
   '00000002-0000-0000-0000-000000000011',
   'mcq',
   'Identify pass rush lane',
@@ -4607,8 +5927,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0011-0009-0000-000000000001',
-  '00000002-0011-0000-0000-000000000009',
+  '00000002-0011-0011-0000-000000000001',
+  '00000002-0011-0000-0000-000000000011',
   1,
   'What are ''pass rush lanes''?',
   '["Paths rushers take to get to the QB", "Lanes for the QB to run", "Passing routes", "Running lanes"]',
@@ -4627,7 +5947,7 @@ VALUES (
 
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, difficulty, status, author_id, created_at, updated_at)
 VALUES (
-  '00000002-0011-0000-0000-000000000010',
+  '00000002-0011-0000-0000-000000000012',
   '00000002-0000-0000-0000-000000000011',
   'mcq',
   'Understand protection breakdown',
@@ -4647,8 +5967,8 @@ VALUES (
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active, created_at, updated_at)
 VALUES (
-  '00000002-0011-0010-0000-000000000001',
-  '00000002-0011-0000-0000-000000000010',
+  '00000002-0011-0012-0000-000000000001',
+  '00000002-0011-0000-0000-000000000012',
   1,
   'What causes most sacks?',
   '["Protection breakdowns or QB holding ball too long", "Receivers not getting open", "Bad play calls", "Weather conditions"]',

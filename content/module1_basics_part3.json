@@ -22,7 +22,24 @@
                         "correct_answer_json": {
                             "index": 2
                         },
-                        "explanation_richtext": "A football game has 4 quarters. Each quarter is 15 minutes long, making a total of 60 minutes of game time."
+                        "explanation_richtext": "A football game has 4 quarters. Each quarter is 15 minutes long."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand total game time",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is the total game time (excluding halftime and stoppages)?",
+                        "options_json": [
+                            "60 minutes",
+                            "90 minutes",
+                            "45 minutes"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "With four 15-minute quarters, the total regulation game time is 60 minutes."
                     }
                 },
                 {
@@ -56,7 +73,24 @@
                         "correct_answer_json": {
                             "index": 1
                         },
-                        "explanation_richtext": "Halftime is a break between the 2nd and 3rd quarters. Teams go to their locker rooms to rest and adjust their game plans."
+                        "explanation_richtext": "Halftime is a break between the 2nd and 3rd quarters."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand halftime strategy",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What do teams typically do during halftime?",
+                        "options_json": [
+                            "Rest and adjust their game plan",
+                            "Practice on the field",
+                            "Go home"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Halftime is crucial for coaches to make adjustments based on what happened in the first half. Players also rest and hydrate."
                     }
                 },
                 {
@@ -73,7 +107,24 @@
                         "correct_answer_json": {
                             "index": 1
                         },
-                        "explanation_richtext": "The clock stops when a player goes out of bounds, a pass is incomplete, there's a penalty, or a timeout is called. It keeps running on most tackles in bounds."
+                        "explanation_richtext": "The clock stops when a player goes out of bounds, a pass is incomplete, there's a penalty, or a timeout is called."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand running clock",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Does the clock stop after a player is tackled in bounds?",
+                        "options_json": [
+                            "No, it keeps running",
+                            "Yes, always",
+                            "Only in the 4th quarter"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "If a player is tackled in bounds, the clock keeps running (except for some specific situations near the end of the game). The offense must hurry to the line."
                     }
                 },
                 {
@@ -107,7 +158,24 @@
                         "correct_answer_json": {
                             "index": 1
                         },
-                        "explanation_richtext": "The two-minute warning is an automatic timeout that occurs when 2 minutes remain in the 2nd and 4th quarters. It gives teams a chance to plan their final plays."
+                        "explanation_richtext": "The two-minute warning is an automatic timeout that occurs when 2 minutes remain in the 2nd and 4th quarters."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand two-minute warning timing",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "When does the two-minute warning happen?",
+                        "options_json": [
+                            "At the end of the 2nd and 4th quarters",
+                            "At the end of every quarter",
+                            "Only at the end of the game"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "It happens twice a game: with 2 minutes left in the first half (2nd quarter) and 2 minutes left in the game (4th quarter)."
                     }
                 },
                 {
@@ -167,7 +235,24 @@
                         "correct_answer_json": {
                             "index": 1
                         },
-                        "explanation_richtext": "When a team commits a penalty, they usually lose yards. Offensive penalties move them back, defensive penalties give the offense yards."
+                        "explanation_richtext": "When a team commits a penalty, they usually lose yards."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand penalty result",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "What is the most common result of a penalty?",
+                        "options_json": [
+                            "The offending team moves back a certain number of yards",
+                            "The offending team loses a point",
+                            "The player is ejected"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Most penalties result in a 5, 10, or 15-yard loss for the team that committed the foul."
                     }
                 },
                 {
@@ -184,7 +269,24 @@
                         "correct_answer_json": {
                             "index": 1
                         },
-                        "explanation_richtext": "A false start is when an offensive player (except the QB) moves before the snap. It's a 5-yard penalty and the play doesn't count."
+                        "explanation_richtext": "A false start is when an offensive player (except the QB) moves before the snap."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand false start penalty",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "How many yards is the penalty for a false start?",
+                        "options_json": [
+                            "5 yards",
+                            "10 yards",
+                            "15 yards"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A false start costs the offense 5 yards. It's a 'dead ball' foul, meaning the play is blown dead immediately."
                     }
                 },
                 {
@@ -235,7 +337,24 @@
                         "correct_answer_json": {
                             "index": 1
                         },
-                        "explanation_richtext": "Pass interference is when a defender makes illegal contact with a receiver trying to catch a pass. It's a major penalty that gives the offense the ball at the spot of the foul."
+                        "explanation_richtext": "Pass interference is when a defender makes illegal contact with a receiver trying to catch a pass."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand PI penalty",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is the penalty for defensive pass interference in the NFL?",
+                        "options_json": [
+                            "The offense gets the ball at the spot of the foul",
+                            "15 yards",
+                            "5 yards"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "In the NFL, defensive PI is a 'spot foul'. The offense gets the ball right where the foul happened, which can be a huge gain!"
                     }
                 },
                 {
@@ -269,7 +388,24 @@
                         "correct_answer_json": {
                             "index": 1
                         },
-                        "explanation_richtext": "Delay of game is a 5-yard penalty when the offense doesn't snap the ball in time. The play clock shows how much time they have."
+                        "explanation_richtext": "Delay of game is a 5-yard penalty when the offense doesn't snap the ball in time."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand delay of game trigger",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What happens if the play clock hits zero before the snap?",
+                        "options_json": [
+                            "Delay of game penalty",
+                            "The play starts automatically",
+                            "Timeout is called automatically"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "If the play clock expires, the referee blows the whistle and calls a delay of game penalty on the offense."
                     }
                 },
                 {
@@ -363,7 +499,24 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "A touchback occurs when the kickoff goes into the end zone and the returner kneels or doesn't return it. The ball is placed at the 25-yard line."
+                        "explanation_richtext": "A touchback occurs when the kickoff goes into the end zone and the returner kneels or doesn't return it."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand touchback placement",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Where does the offense start after a touchback on a kickoff?",
+                        "options_json": [
+                            "25-yard line",
+                            "20-yard line",
+                            "Goal line"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "After a touchback on a kickoff, the ball is placed at the 25-yard line. This is a safe starting point for the offense."
                     }
                 },
                 {
@@ -397,7 +550,24 @@
                         "correct_answer_json": {
                             "index": 1
                         },
-                        "explanation_richtext": "An onside kick is a short, intentional kick where the kicking team tries to recover the ball themselves. It's risky but used when a team is losing and needs the ball back quickly."
+                        "explanation_richtext": "An onside kick is a short, intentional kick where the kicking team tries to recover the ball themselves."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand onside kick risk",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why is an onside kick risky?",
+                        "options_json": [
+                            "If it fails, the other team gets the ball with great field position",
+                            "It's illegal in the first half",
+                            "The kicker might get hurt"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Because the kick must be short (10 yards), if the kicking team doesn't recover it, the receiving team gets the ball very close to the end zone."
                     }
                 },
                 {
@@ -508,7 +678,24 @@
                         "correct_answer_json": {
                             "index": 1
                         },
-                        "explanation_richtext": "Yes! After an interception, the defensive player can run with the ball toward the opponent's end zone. If they score, it's called a 'pick-six' (6 points)."
+                        "explanation_richtext": "Yes! After an interception, the defensive player can run with the ball toward the opponent's end zone."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand pick-six",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What is a 'pick-six'?",
+                        "options_json": [
+                            "An interception returned for a touchdown",
+                            "Intercepting 6 passes in a game",
+                            "A 6-yard interception return"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "A 'pick-six' is slang for an interception ('pick') that is returned for a touchdown (6 points)."
                     }
                 },
                 {
@@ -559,7 +746,24 @@
                         "correct_answer_json": {
                             "index": 2
                         },
-                        "explanation_richtext": "If the QB's arm was moving forward when he lost the ball, it's an incomplete pass. If his arm wasn't moving forward, it's a fumble. This is called the 'tuck rule' situation."
+                        "explanation_richtext": "If the QB's arm was moving forward when he lost the ball, it's an incomplete pass. If his arm wasn't moving forward, it's a fumble."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand tuck rule concept",
+                    "difficulty": 3,
+                    "variant": {
+                        "prompt_richtext": "What determines if a dropped ball during a throw is a fumble or incomplete pass?",
+                        "options_json": [
+                            "Forward arm motion",
+                            "Where the ball lands",
+                            "If the receiver was open"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The key is whether the QB's arm was moving forward in a passing motion. Even if he loses grip, forward motion makes it an incomplete pass, not a fumble."
                     }
                 },
                 {

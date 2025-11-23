@@ -22,7 +22,24 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "The quarterback (QB) is the leader of the offense and throws most passes. They also hand the ball off to running backs and sometimes run themselves."
+                        "explanation_richtext": "The quarterback (QB) is the leader of the offense and throws most passes."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand QB role",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "Besides throwing, what is a key responsibility of the Quarterback?",
+                        "options_json": [
+                            "Communicating the play to the rest of the offense",
+                            "Blocking for the running back",
+                            "Kicking field goals"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The QB is the 'field general'. They receive the play from the coach and communicate it to the other 10 players in the huddle."
                     }
                 },
                 {
@@ -90,7 +107,24 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "The center is the middle offensive lineman who snaps (hikes) the ball to the QB to start each play. They're crucial for starting plays smoothly."
+                        "explanation_richtext": "The center is the middle offensive lineman who snaps (hikes) the ball to the QB to start each play."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand center responsibility",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What must the center do before snapping the ball?",
+                        "options_json": [
+                            "Identify the defensive alignment and make blocking calls",
+                            "Run a route",
+                            "Talk to the coach"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The center is often the 'brain' of the offensive line. They point out the middle linebacker and adjust the blocking scheme based on the defense."
                     }
                 },
                 {
@@ -107,7 +141,24 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "The tight end (TE) is a hybrid position - they line up next to the offensive line and can either block defenders or run routes to catch passes."
+                        "explanation_richtext": "The tight end (TE) is a hybrid position - they line up next to the offensive line."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand TE versatility",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why is the Tight End considered a 'hybrid' position?",
+                        "options_json": [
+                            "They can both block like a lineman and catch like a receiver",
+                            "They play both offense and defense",
+                            "They can throw the ball"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Tight Ends are unique because they must be strong enough to block defensive ends but fast enough to run routes and catch passes."
                     }
                 },
                 {
@@ -167,7 +218,24 @@
                         "correct_answer_json": {
                             "index": 1
                         },
-                        "explanation_richtext": "The defense tries to stop the offense from scoring and gaining yards. They can also score by getting interceptions or fumbles and running them back."
+                        "explanation_richtext": "The defense tries to stop the offense from scoring and gaining yards."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand defensive scoring",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "How can the defense score points directly?",
+                        "options_json": [
+                            "By returning an interception or fumble for a touchdown",
+                            "By tackling the QB",
+                            "By forcing a punt"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "While their main job is stopping the offense, the defense can score 6 points if they steal the ball (turnover) and run it into the opponent's end zone."
                     }
                 },
                 {
@@ -201,7 +269,24 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "Linebackers (LB) are versatile defenders who play behind the D-line. They stop runs, rush the QB, and cover receivers - they do it all!"
+                        "explanation_richtext": "Linebackers (LB) are versatile defenders who play behind the D-line."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand LB versatility",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "What makes Linebackers 'versatile'?",
+                        "options_json": [
+                            "They defend both the run and the pass",
+                            "They play offense too",
+                            "They kick the ball"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Linebackers must be able to plug holes to stop running backs, but also drop back to cover tight ends and receivers in the passing game."
                     }
                 },
                 {
@@ -235,7 +320,24 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "Safeties (S) play deep in the secondary (defensive backfield). They prevent long passes and are the last defenders who can stop a touchdown."
+                        "explanation_richtext": "Safeties (S) play deep in the secondary (defensive backfield)."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand safety role",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why are safeties called the 'last line of defense'?",
+                        "options_json": [
+                            "If a ball carrier gets past them, it's likely a touchdown",
+                            "They are the slowest players",
+                            "They line up on the sideline"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "Safeties play the deepest. If an offensive player gets past the defensive line and linebackers, the safety is the only one left to stop a touchdown."
                     }
                 },
                 {
@@ -312,7 +414,24 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "The playing field is 100 yards long (not counting the end zones). Each end zone adds 10 yards, making the total field 120 yards."
+                        "explanation_richtext": "The playing field is 100 yards long (not counting the end zones)."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand total field length",
+                    "difficulty": 1,
+                    "variant": {
+                        "prompt_richtext": "Including the two 10-yard end zones, what is the total length of the field?",
+                        "options_json": [
+                            "120 yards",
+                            "100 yards",
+                            "110 yards"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "The 100-yard playing field plus two 10-yard end zones equals a total length of 120 yards."
                     }
                 },
                 {
@@ -414,7 +533,24 @@
                         "correct_answer_json": {
                             "index": 0
                         },
-                        "explanation_richtext": "The red zone is the area from the 20-yard line to the goal line. It's called this because the offense is close to scoring and the defense must be on high alert!"
+                        "explanation_richtext": "The red zone is the area from the 20-yard line to the goal line."
+                    }
+                },
+                {
+                    "type": "mcq",
+                    "base_prompt": "Understand red zone difficulty",
+                    "difficulty": 2,
+                    "variant": {
+                        "prompt_richtext": "Why does it get harder to pass the ball in the Red Zone?",
+                        "options_json": [
+                            "There is less vertical space, so the defense is more condensed",
+                            "The offense gets tired",
+                            "The ball gets slippery"
+                        ],
+                        "correct_answer_json": {
+                            "index": 0
+                        },
+                        "explanation_richtext": "As the offense gets closer to the end zone, the field 'shrinks'. The defense doesn't have to defend deep passes, so they can pack players closer together."
                     }
                 },
                 {

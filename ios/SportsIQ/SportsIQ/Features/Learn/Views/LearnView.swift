@@ -153,6 +153,7 @@ struct ModuleCard: View {
                 Text(module.title)
                     .font(.heading4)
                     .foregroundStyle(Color.textPrimary)
+                    .multilineTextAlignment(.leading)
 
                 Text(module.description)
                     .font(.bodySmall)

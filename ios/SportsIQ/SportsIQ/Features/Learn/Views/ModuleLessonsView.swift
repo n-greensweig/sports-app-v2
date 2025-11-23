@@ -106,6 +106,7 @@ struct LessonCard: View {
                 Text(lesson.title)
                     .font(.heading4)
                     .foregroundStyle(Color.textPrimary)
+                    .multilineTextAlignment(.leading)
 
                 Text(lesson.description)
                     .font(.bodySmall)

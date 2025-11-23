@@ -27,6 +27,10 @@ class LessonViewModel {
     var correctAnswersCount = 0
     var submissions: [Submission] = []
     
+    // MARK: - Shuffling State
+    var currentShuffledOptions: [String]?
+    var currentOptionIndices: [Int]? // Maps shuffled index -> original index
+    
     // MARK: - SRS State
     var reviewQueue: [Item] = [] // Items that were answered incorrectly
     var answeredCorrectly: Set<UUID> = [] // IDs of items answered correctly
@@ -77,6 +81,32 @@ class LessonViewModel {
         self.learningRepository = learningRepository
         self.audioManager = audioManager
         self.hapticManager = hapticManager
+        
+        // Prepare first item
+        prepareCurrentItem()
+    }
+    
+    private func prepareCurrentItem() {
+        guard let item = currentItem else {
+            currentShuffledOptions = nil
+            currentOptionIndices = nil
+            return
+        }
+        
+        if let options = item.options {
+            // Create indices array [0, 1, 2, ...]
+            let indices = Array(0..<options.count)
+            
+            // Shuffle indices
+            let shuffledIndices = indices.shuffled()
+            
+            // Store mapping and shuffled options
+            currentOptionIndices = shuffledIndices
+            currentShuffledOptions = shuffledIndices.map { options[$0] }
+        } else {
+            currentShuffledOptions = nil
+            currentOptionIndices = nil
+        }
     }
 
     func selectAnswer(_ index: Int) {
@@ -108,9 +138,13 @@ class LessonViewModel {
         switch currentItem.type {
         case .mcq, .binary:
             guard let selectedAnswer = selectedAnswer else { return }
-            userAnswer = .single(selectedAnswer)
+            // Map shuffled index back to original index
+            let originalIndex = currentOptionIndices?[selectedAnswer] ?? selectedAnswer
+            userAnswer = .single(originalIndex)
         case .multiSelect:
-            userAnswer = .multiple(Array(selectedAnswers).sorted())
+            // Map shuffled indices back to original indices
+            let originalIndices = selectedAnswers.compactMap { currentOptionIndices?[$0] }.sorted()
+            userAnswer = .multiple(originalIndices)
         case .slider:
             userAnswer = .slider(sliderValue)
         case .freeText:
@@ -268,7 +302,11 @@ class LessonViewModel {
                 currentItemIndex += 1
             }
         }
+        
+        // Prepare the new item (shuffle options)
+        prepareCurrentItem()
     }
+
 
     var hasAnswer: Bool {
         guard let currentItem = currentItem else { return false }

@@ -54,7 +54,7 @@ struct LessonView: View {
                             // Answer Input (based on item type)
                             switch currentItem.type {
                             case .mcq, .binary:
-                                if let options = currentItem.options {
+                                if let options = viewModel.currentShuffledOptions {
                                     VStack(spacing: .spacingM) {
                                         ForEach(Array(options.enumerated()), id: \.offset) { index, option in
                                             AnswerOptionButton(
@@ -71,7 +71,7 @@ struct LessonView: View {
                                 }
 
                             case .multiSelect:
-                                if let options = currentItem.options {
+                                if let options = viewModel.currentShuffledOptions {
                                     VStack(spacing: .spacingM) {
                                         ForEach(Array(options.enumerated()), id: \.offset) { index, option in
                                             MultiSelectOptionButton(
@@ -192,7 +192,10 @@ struct LessonView: View {
 
     private func getMultiSelectCorrectness(index: Int, correctAnswer: ItemAnswer) -> Bool? {
         guard case .multiple(let correctIndices) = correctAnswer else { return nil }
-        let isCorrectOption = correctIndices.contains(index)
+        
+        // Map shuffled index to original index to check correctness
+        let originalIndex = viewModel.currentOptionIndices?[index] ?? index
+        let isCorrectOption = correctIndices.contains(originalIndex)
         let wasSelected = viewModel.selectedAnswers.contains(index)
 
         if wasSelected {

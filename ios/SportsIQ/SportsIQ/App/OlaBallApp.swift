@@ -1,16 +1,17 @@
 //
-//  SportsIQApp.swift
-//  SportsIQ
+//  OlaBallApp.swift
+//  Ola Ball
 //
 //  Created on 2025-11-15.
 //  Updated: 2025-11-15 - Added Supabase dependency injection (Task 3)
 //  Updated: 2025-11-16 - Added GameRepository (Task 7)
+//  Updated: 2025-11-23 - Renamed to Ola Ball
 //
 
 import SwiftUI
 
 @main
-struct SportsIQApp: App {
+struct OlaBallApp: App {
     @State private var appCoordinator: AppCoordinator
     @State private var supabaseService = SupabaseService.shared
 

@@ -1,6 +1,6 @@
 //
 //  SupabaseUserRepository.swift
-//  SportsIQ
+//  Ola Ball
 //
 //  Created for Database Setup Task 6
 //

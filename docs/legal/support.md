@@ -1,6 +1,6 @@
-# SportsIQ Support
+# Ola Ball Support
 
-Welcome to SportsIQ Support! We're here to help you get the most out of your sports learning experience.
+Welcome to Ola Ball Support! We're here to help you get the most out of your sports learning experience.
 
 ## Contact Us
 
@@ -9,15 +9,15 @@ For support inquiries, please reach out to us:
 - **Email**: noah@nsgsolutions.co
 - **Response Time**: We typically respond within 24-48 hours
 
-## Frequently Asked Questions
+## Frequently Asked Questions (FAQ)
 
-### Account & Authentication
-
-**Q: How do I create an account?**  
-A: You can sign up using your email address and password, or use Apple Sign In or Google Sign In for quick registration.
+### Account & Login
 
 **Q: I forgot my password. How do I reset it?**  
-A: On the login screen, tap "Forgot Password?" and enter your email address. You'll receive a password reset link.
+A: On the login screen, tap "Forgot Password?" and enter your email address. We'll send you a link to reset your password.
+
+**Q: Can I use Ola Ball on multiple devices?**  
+A: Yes! Your progress is synced to your account, so you can log in on any iOS device and pick up where you left off.
 
 **Q: Can I change my email address?**  
 A: Currently, email addresses cannot be changed after account creation. Please contact support if you need assistance.

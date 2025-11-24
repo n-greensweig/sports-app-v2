@@ -1,6 +1,6 @@
 //
 //  ForgotPasswordView.swift
-//  SportsIQ
+//  Ola Ball
 //
 //  Created by Claude on 2025-11-17.
 //  Task 8: Authentication Integration

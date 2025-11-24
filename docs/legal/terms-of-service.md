@@ -1,14 +1,16 @@
-# Terms of Service for SportsIQ
+# Terms of Service for Ola Ball
 
-**Last Updated**: November 20, 2025
+**Last updated**: November 23, 2025
 
 ## 1. Acceptance of Terms
 
-Welcome to SportsIQ! These Terms of Service ("Terms") govern your access to and use of the SportsIQ mobile application (the "App"). By creating an account or using the App, you agree to be bound by these Terms.
+By accessing or using Ola Ball, you agree to be bound by these Terms and our Privacy Policy. If you do not agree to these Terms, you may not use the App.
 
-If you do not agree to these Terms, please do not use the App.
+## 2. Description of Service
 
-## 2. Eligibility
+Ola Ball is a sports education platform that provides interactive lessons, quizzes, and gamified learning experiences to help users understand sports rules and strategies.
+
+## 3. Eligibility
 
 You must be at least 13 years old to use the App. By using the App, you represent and warrant that:
 - You are at least 13 years of age

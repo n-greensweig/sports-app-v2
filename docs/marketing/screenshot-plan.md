@@ -1,11 +1,16 @@
-# App Store Screenshot Plan
+# Ola Ball Screenshot Plan
 
-This document outlines the screenshots needed for App Store submission and provides guidance for creating them.
+This document outlines the plan for App Store screenshots for Ola Ball.
 
-## Screenshot Requirements
+## Screenshot 1: Hero / Value Prop
+- **Caption**: "Master the Game"
+- **Visual**: Home screen showing progress and daily streak
+- **Focus**: Gamification and clean UI
 
-### iPhone Screenshots
-
+## Screenshot 2: Learn Mode
+- **Caption**: "Interactive Lessons"
+- **Visual**: Lesson view with a diagram or video
+- **Focus**: Educational content quality
 **iPhone 6.7" Display** (iPhone 15 Pro Max, 14 Pro Max, 13 Pro Max, 12 Pro Max)
 - Resolution: 1290 x 2796 pixels
 - Required: Yes (primary)

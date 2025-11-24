@@ -90,26 +90,27 @@ Future: Kotlin Multiplatform
 └─────────────────────────────────────────┘
 ```
 
-### 3. Key Design Patterns
+# Ola Ball Project Guide
 
-**MVVM + Coordinators**:
-- Views are dumb, ViewModels contain presentation logic
-- Coordinators handle navigation (keeps navigation out of ViewModels)
-- Use dependency injection for testability
+## Project Overview
+Ola Ball is a mobile application designed to help users learn sports IQ through interactive lessons and gamified experiences.
+- **Stack**: iOS (SwiftUI) + Supabase (PostgreSQL, Auth)
+- **State Management**: MVVM + Repository Pattern
+- **Design System**: Custom SwiftUI components
 
-**Repository Pattern**:
-- Abstract data sources behind protocols
-- Repositories can combine network + local cache
-- Easy to mock for testing
+## Key Commands
+- **Build**: Cmd+B (Xcode)
+- **Run**: Cmd+R (Xcode)
+- **Test**: Cmd+U (Xcode)
 
-**Use Case Pattern**:
-- One use case = one business operation
-- Examples: `CompleteLesson`, `SubmitAnswer`, `FetchDueReviews`
-- Keep use cases small and focused
-
----
-
-## File Structure Convention
+## Project Structure
+- `/ios`: Native iOS application code
+  - `App`: Entry point and coordination
+  - `Core`: Domain logic and data layer
+  - `Features`: UI screens and view models
+  - `Shared`: Reusable components
+- `/supabase`: Database migrations and seed data
+- `/docs`: Project documentation
 
 When creating the iOS project, use this structure:
 

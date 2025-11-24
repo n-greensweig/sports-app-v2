@@ -1,6 +1,6 @@
 //
 //  Config.swift
-//  SportsIQ
+//  Ola Ball
 //
 //  Configuration helper to access app credentials
 //  Values are read from Secrets.swift (gitignored)

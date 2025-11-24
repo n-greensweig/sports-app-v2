@@ -1,6 +1,6 @@
 //
 //  ResponseParser.swift
-//  SportsIQ
+//  Ola Ball
 //
 //  Generic utilities for parsing API responses
 //  Created as part of Database Setup Task 3

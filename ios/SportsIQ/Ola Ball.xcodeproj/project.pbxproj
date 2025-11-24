@@ -19,18 +19,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B55B150C2EC8DA4500098907 /* SportsIQ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SportsIQ.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B55B150C2EC8DA4500098907 /* Ola Ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ola Ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B55B178E2EC9461300098907 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B5703E802ECE9F8F004B1DDC /* Exceptions for "SportsIQ" folder in "SportsIQ" target */ = {
+		B5703E802ECE9F8F004B1DDC /* Exceptions for "SportsIQ" folder in "Ola Ball" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 				PrivacyInfo.xcprivacy,
 			);
-			target = B55B150B2EC8DA4500098907 /* SportsIQ */;
+			target = B55B150B2EC8DA4500098907 /* Ola Ball */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -38,7 +38,7 @@
 		B55B150E2EC8DA4500098907 /* SportsIQ */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				B5703E802ECE9F8F004B1DDC /* Exceptions for "SportsIQ" folder in "SportsIQ" target */,
+				B5703E802ECE9F8F004B1DDC /* Exceptions for "SportsIQ" folder in "Ola Ball" target */,
 			);
 			path = SportsIQ;
 			sourceTree = "<group>";
@@ -77,7 +77,7 @@
 		B55B150D2EC8DA4500098907 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B55B150C2EC8DA4500098907 /* SportsIQ.app */,
+				B55B150C2EC8DA4500098907 /* Ola Ball.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,9 +92,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B55B150B2EC8DA4500098907 /* SportsIQ */ = {
+		B55B150B2EC8DA4500098907 /* Ola Ball */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B55B15172EC8DA4800098907 /* Build configuration list for PBXNativeTarget "SportsIQ" */;
+			buildConfigurationList = B55B15172EC8DA4800098907 /* Build configuration list for PBXNativeTarget "Ola Ball" */;
 			buildPhases = (
 				B55B15082EC8DA4500098907 /* Sources */,
 				B55B15092EC8DA4500098907 /* Frameworks */,
@@ -107,7 +107,7 @@
 			fileSystemSynchronizedGroups = (
 				B55B150E2EC8DA4500098907 /* SportsIQ */,
 			);
-			name = SportsIQ;
+			name = "Ola Ball";
 			packageProductDependencies = (
 				B5620BF52ECA0D9F003AE410 /* Auth */,
 				B5620BF72ECA0D9F003AE410 /* Functions */,
@@ -119,7 +119,7 @@
 				B57040222ECEA994004B1DDC /* GoogleSignInSwift */,
 			);
 			productName = SportsIQ;
-			productReference = B55B150C2EC8DA4500098907 /* SportsIQ.app */;
+			productReference = B55B150C2EC8DA4500098907 /* Ola Ball.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -137,7 +137,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B55B15072EC8DA4500098907 /* Build configuration list for PBXProject "SportsIQ" */;
+			buildConfigurationList = B55B15072EC8DA4500098907 /* Build configuration list for PBXProject "Ola Ball" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -155,7 +155,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B55B150B2EC8DA4500098907 /* SportsIQ */,
+				B55B150B2EC8DA4500098907 /* Ola Ball */,
 			);
 		};
 /* End PBXProject section */
@@ -240,6 +240,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -297,6 +298,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -310,6 +312,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S6QW7SV228;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SportsIQ/Info.plist;
@@ -324,7 +327,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "noah-nsgllc.SportsIQ";
+				PRODUCT_BUNDLE_IDENTIFIER = com.olaball.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -343,6 +346,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S6QW7SV228;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SportsIQ/Info.plist;
@@ -357,7 +361,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "noah-nsgllc.SportsIQ";
+				PRODUCT_BUNDLE_IDENTIFIER = com.olaball.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -372,7 +376,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B55B15072EC8DA4500098907 /* Build configuration list for PBXProject "SportsIQ" */ = {
+		B55B15072EC8DA4500098907 /* Build configuration list for PBXProject "Ola Ball" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B55B15152EC8DA4800098907 /* Debug */,
@@ -381,7 +385,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B55B15172EC8DA4800098907 /* Build configuration list for PBXNativeTarget "SportsIQ" */ = {
+		B55B15172EC8DA4800098907 /* Build configuration list for PBXNativeTarget "Ola Ball" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B55B15182EC8DA4800098907 /* Debug */,

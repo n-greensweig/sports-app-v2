@@ -3,14 +3,25 @@
 **Learn sports like a pro — Duolingo for sports fans**
 
 <p align="center">
-  <em>From novice to expert, SportsIQ helps you understand the game you love.</em>
+  <em>From novice to expert, Ola Ball helps you understand the game you love.</em>
 </p>
 
 ---
 
+## Ola Ball
+
+**Ola Ball** is an interactive mobile application designed to help fans master sports knowledge through gamified learning.
+
 ## Overview
 
-SportsIQ is a mobile-first sports education platform that makes learning about sports engaging, accessible, and rewarding. Whether you're watching your first football game or you've been a fan for decades, SportsIQ meets you at your level and helps you progress through structured lessons and real-time game companion features.
+Ola Ball transforms the way people learn about sports by breaking down complex concepts into bite-sized, interactive lessons. Whether you're a casual fan wanting to understand the rules or an enthusiast looking to deepen your strategic knowledge, Ola Ball makes learning fun and rewarding.
+
+## Tech Stack
+
+- **Mobile**: iOS (SwiftUI)
+- **Backend**: Supabase (PostgreSQL, Auth, Edge Functions)
+- **AI**: Gemini (Content Generation)
+ features.
 
 ### Key Features
 

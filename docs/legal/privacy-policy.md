@@ -1,20 +1,18 @@
-# Privacy Policy for SportsIQ
+# Privacy Policy for Ola Ball
 
-**Last Updated**: November 20, 2025
+**Last updated**: November 23, 2025
 
-## Introduction
+Ola Ball ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the "App").
 
-SportsIQ ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application (the "App").
+Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the application.
 
-Please read this Privacy Policy carefully. By using the App, you agree to the collection and use of information in accordance with this policy.
+## 1. Collection of Your Information
 
-## Information We Collect
+We may collect information about you in a variety of ways. The information we may collect via the App includes:
 
-### Personal Information
-
-When you create an account, we collect:
-- **Email address**: Used for account creation and communication
-- **Name**: Used for personalization and display
+### Personal Data
+Personally identifiable information, such as your name, email address, and profile image, that you voluntarily give to us when you register with the App or when you choose to participate in various activities related to the App.
+ersonalization and display
 - **Profile information**: Optional profile picture and preferences
 - **Authentication credentials**: Securely managed through Supabase Auth
 

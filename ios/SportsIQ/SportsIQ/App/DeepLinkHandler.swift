@@ -1,19 +1,19 @@
 //
 //  DeepLinkHandler.swift
-//  SportsIQ
+//  Ola Ball
 //
-//  Deep link handler for email confirmation and other auth flows
+//  Created on 2025-11-15.
 //
 
 import SwiftUI
 
-extension SportsIQApp {
+extension OlaBallApp {
     /// Handle incoming URLs (email confirmation, password reset, etc.)
     func handleIncomingURL(_ url: URL) {
         print("📱 Received URL: \(url)")
 
         // Check if this is a Supabase auth callback
-        guard url.scheme == "com.sportsiq.app" || url.scheme == "sportsiq",
+        guard url.scheme == "com.olaball.app" || url.scheme == "olaball",
               url.host == "auth" || url.path.contains("auth") else {
             print("⚠️ URL is not an auth callback")
             return

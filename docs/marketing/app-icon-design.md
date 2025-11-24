@@ -1,14 +1,22 @@
-# SportsIQ App Icon Design
+# Ola Ball App Icon Design
 
-This document outlines the design concept and specifications for the SportsIQ app icon.
+This document outlines the design concept and specifications for the Ola Ball app icon.
 
-## Design Concept
+## Design Requirements
 
-### Theme: Football-First with Multi-Sport Future
+- **Platform**: iOS
+- **Style**: Modern, clean, vibrant, premium
+- **Colors**: Primary brand colors (Deep Navy, Electric Green/Blue)
+- **Metaphor**: Knowledge + Sports (Brain, Lightbulb, Playbook)
 
-The app icon should:
-- **Represent Football**: As the V1 sport, football should be the primary focus
-- **Suggest Intelligence**: Incorporate elements that convey learning, knowledge, or IQ
+## Concept
+
+**Concept**: Modern monogram of "OB" (Ola Ball) with football elements
+
+- **Background**: Deep Navy gradient
+- **Foreground**: Stylized "OB" or abstract ball shape in Electric Green
+- **Detail**: Subtle circuit board or neural network pattern overlay to signify "IQ/Learning"
+, knowledge, or IQ
 - **Be Scalable**: Work well at all sizes from 1024x1024 down to 20x20
 - **Be Memorable**: Stand out on the home screen among other apps
 - **Be Timeless**: Avoid trends that will look dated quickly

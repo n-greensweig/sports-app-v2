@@ -1,6 +1,6 @@
 //
 //  NetworkError.swift
-//  SportsIQ
+//  Ola Ball
 //
 //  Network error types for API and database operations
 //  Created as part of Database Setup Task 3

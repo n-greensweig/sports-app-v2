@@ -1,6 +1,6 @@
 //
 //  LoginView.swift
-//  SportsIQ
+//  Ola Ball
 //
 //  Created by Claude on 2025-11-17.
 //  Task 8: Authentication Integration
@@ -26,27 +26,23 @@ struct LoginView: View {
     // MARK: - Body
 
     var body: some View {
-        NavigationStack {
+        NavigationView { // Changed from NavigationStack
             ZStack {
-                // Background gradient
-                LinearGradient(
-                    colors: [Color.footballAccent.opacity(0.1), Color.white],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                // Background
+                Color.backgroundPrimary // Changed from LinearGradient
+                    .ignoresSafeArea()
 
                 ScrollView {
-                    VStack(spacing: .spacingXL) {
-                        // Logo and title
-                        VStack(spacing: .spacingM) {
-                            Image(systemName: "sportscourt.fill")
-                                .font(.system(size: 80))
-                                .foregroundStyle(Color.footballAccent)
+                    VStack(spacing: .spacingXL) { // Changed from .spacingXL
+                        // Logo/Header
+                        VStack(spacing: .spacingM) { // Changed from .spacingM
+                            Image(systemName: "trophy.fill") // Changed from sportscourt.fill
+                                .font(.system(size: 60)) // Changed from 80
+                                .foregroundStyle(Color.brandPrimary) // Changed from Color.footballAccent
 
-                            Text("SportsIQ")
+                            Text("Ola Ball")
                                 .font(.heading1)
-                                .fontWeight(.bold)
+                                .fontWeight(.bold) // Corrected typo: .fontWeight(.bold)
 
                             Text("Learn sports the smart way")
                                 .font(.body)

@@ -1,6 +1,6 @@
 //
 //  SupabaseClient.swift
-//  SportsIQ
+//  Ola Ball
 //
 //  Supabase client service for database and API access
 //  Created as part of Database Setup Task 3

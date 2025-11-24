@@ -1,4 +1,4 @@
--- Quick Test Seed Script for SportsIQ
+-- Quick Test Seed Script for Ola Ball
 -- This adds minimal data to test the lesson flow
 -- Run this in Supabase SQL Editor
 

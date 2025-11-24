@@ -28,24 +28,26 @@ Transform from casual fan to sports expert! Bite-sized lessons, live game questi
 
 ### Main Description
 
-**Become a Sports Expert with SportsIQ**
+**Become a Sports Expert with Ola Ball**
 
-SportsIQ is the ultimate sports education app that transforms casual fans into knowledgeable experts through gamified, bite-sized learning. Whether you're new to football or want to deepen your understanding, SportsIQ makes learning fun, engaging, and effective.
+Ola Ball is the ultimate sports education app that transforms casual fans into knowledgeable experts through gamified, bite-sized learning. Whether you're new to football or want to deepen your understanding, Ola Ball makes learning fun, engaging, and effective.
 
-**🎓 Learn Like Never Before**
+**🎮 Gamified Learning**
+Master complex rules, strategies, and terminology through interactive quizzes and challenges. Earn XP, maintain streaks, and climb the leaderboard as you boost your sports IQ.
 
-• **Structured Learning Paths**: Progress through expertly designed modules covering everything from basic rules to advanced strategies
-• **Bite-Sized Lessons**: Each lesson takes just 3-5 minutes, perfect for learning on the go
-• **Interactive Questions**: Multiple choice, sliders, video clips, and more keep learning engaging
-• **Instant Feedback**: Get immediate explanations for every answer, right or wrong
+**📚 Bite-Sized Lessons**
+Our curriculum is broken down into digestible modules that take just minutes to complete. Learn at your own pace, anytime, anywhere.
 
-**🏆 Gamification That Motivates**
+**🏆 Compete with Friends**
+Challenge your friends and see who really knows the game best. Share your achievements and show off your badges.
 
-• **Earn XP**: Gain experience points for every correct answer and lesson completed
-• **Overall Rating (0-99)**: Track your expertise level as you master concepts
-• **Unlock Badges**: Earn achievements for milestones and special accomplishments
-• **Daily Streaks**: Build learning habits with streak tracking and rewards
-• **Leaderboards**: Compete with other learners on daily, weekly, and all-time rankings
+**🎯 Why Ola Ball?**
+• **Interactive Content**: Don't just read rules—experience them through interactive diagrams and scenarios.
+• **Visual Learning**: High-quality visuals help you visualize formations, plays, and referee signals.
+• **Progress Tracking**: Track your journey from Rookie to Hall of Famer with detailed stats.
+• **Always Updated**: Content stays fresh with the latest rule changes and seasonal updates.
+
+Download Ola Ball and transform how you experience sports. Whether you're watching from the couch or at the stadium, you'll never see the game the same way again.
 
 **⚡ Live Mode - Learn During Real Games**
 

@@ -1,51 +1,24 @@
-# SportsIQ iOS App
+# Ola Ball iOS App
 
-This directory contains the iOS implementation of SportsIQ, built with SwiftUI following Clean Architecture principles.
+This directory contains the iOS implementation of Ola Ball, built with SwiftUI following Clean Architecture principles.
+
+## Architecture Overview
+
+The app follows a Clean Architecture approach with MVVM (Model-View-ViewModel) pattern:
+
+- **App**: Entry point and dependency injection
+- **Core**: Domain entities, repositories, and services
+- **Features**: Feature-specific views and view models
+- **Shared**: Reusable UI components and utilities
 
 ## Project Structure
 
-The codebase follows a Clean Architecture pattern with clear separation of concerns:
-
 ```
-SportsIQ/
-├── App/                    # App entry point and coordinator
+OlaBall/
+├── App/
+│   ├── OlaBallApp.swift          # App entry point
+│   └── AppCoordinator.swift       # Navigation handling
 ├── Core/
-│   ├── Domain/            # Business logic (platform-agnostic)
-│   │   ├── Entities/      # Core data models
-│   │   ├── UseCases/      # Business use cases
-│   │   └── Repositories/  # Repository protocols
-│   └── Data/              # Data layer
-│       ├── Network/       # API client and DTOs
-│       ├── Local/         # Local storage (SwiftData)
-│       └── Repositories/  # Repository implementations
-├── Features/              # Feature modules
-│   ├── Auth/
-│   ├── Home/
-│   ├── Learn/
-│   ├── LiveMode/
-│   ├── Review/
-│   └── Profile/
-├── Shared/                # Shared components
-│   ├── UI/               # UI components and design system
-│   ├── Utils/            # Utilities and extensions
-│   └── Services/         # Platform services
-└── Resources/            # Assets, sounds, etc.
-```
-
-## Setting Up the Xcode Project
-
-Since Xcode projects are complex binary files, you'll need to create a new Xcode project and add the source files:
-
-### Option 1: Create New Xcode Project (Recommended)
-
-1. Open Xcode
-2. Select "Create a new Xcode project"
-3. Choose "iOS" → "App"
-4. Set the following:
-   - Product Name: `SportsIQ`
-   - Team: Your team
-   - Organization Identifier: `com.yourcompany`
-   - Interface: **SwiftUI**
    - Language: **Swift**
    - Storage: None (we'll use SwiftData later)
    - Include Tests: Yes

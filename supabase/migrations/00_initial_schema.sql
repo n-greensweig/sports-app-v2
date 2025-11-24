@@ -1,5 +1,5 @@
 -- ============================================================================
--- SportsIQ Database Schema - Complete Migration
+-- Ola Ball Database Schema - Complete Migration
 -- ============================================================================
 -- Version: 1.0
 -- Database: PostgreSQL 15+ (Supabase)

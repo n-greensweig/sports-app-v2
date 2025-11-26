@@ -23,145 +23,44 @@ struct ProfileView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: .spacingL) {
-                    // Profile Header
-                    VStack(spacing: .spacingM) {
-                        // Avatar
-                        Circle()
-                            .fill(Color.brandPrimary.opacity(0.2))
-                            .frame(width: 100, height: 100)
-                            .overlay(
-                                Image(systemName: "person.fill")
-                                    .font(.system(size: 48))
-                                    .foregroundStyle(Color.brandPrimary)
-                            )
-
-                        if let user = coordinator.currentUser {
-                            Text(user.displayName ?? user.username)
-                                .font(.heading2)
-                                .foregroundStyle(Color.textPrimary)
-
-                            Text("@\(user.username)")
-                                .font(.body)
-                                .foregroundStyle(Color.textSecondary)
-                        }
-                    }
-                    .padding(.spacingL)
-
-                    // Stats
-                    if let progress = viewModel.userProgress {
-                        VStack(spacing: .spacingM) {
-                            Text("Football Stats")
-                                .font(.heading3)
-                                .foregroundStyle(Color.textPrimary)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-
-                            VStack(spacing: .spacingS) {
-                                ProfileStatRow(
-                                    icon: "star.fill",
-                                    label: "Overall Rating",
-                                    value: "\(progress.overallRating)/99"
-                                )
-
-                                ProfileStatRow(
-                                    icon: "flame.fill",
-                                    label: "Current Streak",
-                                    value: "\(progress.currentStreak) days"
-                                )
-
-                                ProfileStatRow(
-                                    icon: "trophy.fill",
-                                    label: "Total XP",
-                                    value: "\(progress.totalXP)"
-                                )
-
-                                ProfileStatRow(
-                                    icon: "book.fill",
-                                    label: "Lessons Completed",
-                                    value: "\(progress.lessonsCompleted)"
-                                )
-
-                                ProfileStatRow(
-                                    icon: "checkmark.circle.fill",
-                                    label: "Accuracy",
-                                    value: String(format: "%.1f%%", progress.accuracyPercentage)
-                                )
-                            }
-                        }
-                        .padding(.horizontal, .spacingM)
-                    }
-
-                    Divider()
-                        .padding(.horizontal, .spacingM)
-
-                    // Badges Section
-                    VStack(alignment: .leading, spacing: .spacingM) {
-                        HStack {
-                            Text("Badges")
-                                .font(.heading3)
-                                .foregroundStyle(Color.textPrimary)
-
-                            Spacer()
-
-                            Text("\(viewModel.earnedBadges.count)/\(Badge.mockBadges.count)")
-                                .font(.caption)
-                                .foregroundStyle(Color.textSecondary)
-                        }
-
-                        LazyVGrid(columns: [
-                            GridItem(.flexible()),
-                            GridItem(.flexible()),
-                            GridItem(.flexible())
-                        ], spacing: .spacingM) {
-                            ForEach(Badge.mockBadges) { badge in
-                                BadgeCardView(
-                                    badge: badge,
-                                    isEarned: viewModel.earnedBadges.contains(where: { $0.badge.id == badge.id })
-                                )
-                            }
-                        }
-                    }
-                    .padding(.horizontal, .spacingM)
-
-                    Divider()
-                        .padding(.horizontal, .spacingM)
-
-                    // Settings/Actions
-                    VStack(spacing: .spacingS) {
-                        ProfileActionButton(
-                            icon: "bell.fill",
-                            label: "Notifications",
-                            action: {}
+            VStack(spacing: .spacingL) {
+                // Profile Header
+                VStack(spacing: .spacingM) {
+                    // Avatar
+                    Circle()
+                        .fill(Color.brandPrimary.opacity(0.2))
+                        .frame(width: 100, height: 100)
+                        .overlay(
+                            Image(systemName: "person.fill")
+                                .font(.system(size: 48))
+                                .foregroundStyle(Color.brandPrimary)
                         )
 
-                        ProfileActionButton(
-                            icon: "questionmark.circle.fill",
-                            label: "Help & Support",
-                            action: {}
-                        )
+                    if let user = coordinator.currentUser {
+                        Text(user.displayName ?? user.username)
+                            .font(.heading2)
+                            .foregroundStyle(Color.textPrimary)
 
-                        ProfileActionButton(
-                            icon: "info.circle.fill",
-                            label: "About",
-                            action: {}
-                        )
-
-                        ProfileActionButton(
-                            icon: "arrow.right.square.fill",
-                            label: isSigningOut ? "Signing Out..." : "Sign Out",
-                            action: { showSignOutAlert = true },
-                            isDestructive: true
-                        )
+                        Text("@\(user.username)")
+                            .font(.body)
+                            .foregroundStyle(Color.textSecondary)
                     }
-                    .padding(.horizontal, .spacingM)
                 }
-                .padding(.vertical, .spacingL)
+                .padding(.spacingL)
+
+                Spacer()
+
+                // Sign Out Button
+                ProfileActionButton(
+                    icon: "arrow.right.square.fill",
+                    label: isSigningOut ? "Signing Out..." : "Sign Out",
+                    action: { showSignOutAlert = true },
+                    isDestructive: true
+                )
+                .padding(.horizontal, .spacingM)
+                .padding(.bottom, .spacingL)
             }
             .navigationTitle("Profile")
-            .task {
-                await viewModel.loadUserProgress()
-            }
             .alert("Sign Out", isPresented: $showSignOutAlert) {
                 Button("Cancel", role: .cancel) { }
                 Button("Sign Out", role: .destructive) {

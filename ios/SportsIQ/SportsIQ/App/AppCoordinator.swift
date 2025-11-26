@@ -56,25 +56,11 @@ class AppCoordinator {
     }
 }
 
-/// Main tab view with bottom navigation
+/// Main view (no tab bar - minimalist design)
 struct MainTabView: View {
     let coordinator: AppCoordinator
-    @State private var selectedTab = 0
 
     var body: some View {
-        TabView(selection: $selectedTab) {
-            HomeView(coordinator: coordinator)
-                .tabItem {
-                    Label("Home", systemImage: "house.fill")
-                }
-                .tag(0)
-
-            ProfileView(coordinator: coordinator)
-                .tabItem {
-                    Label("Profile", systemImage: "person.fill")
-                }
-                .tag(1)
-        }
-        .tint(.brandPrimary)
+        HomeView(coordinator: coordinator)
     }
 }

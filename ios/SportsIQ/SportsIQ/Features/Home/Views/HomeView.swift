@@ -13,6 +13,7 @@ struct HomeView: View {
     @State private var scrollOffset: CGFloat = 0
     @State private var showSportSelector = true
     @State private var selectedLesson: Lesson?
+    @State private var showProfile = false
 
     // Threshold for hiding/showing sport selector
     private let scrollThreshold: CGFloat = 50
@@ -72,6 +73,20 @@ struct HomeView: View {
             }
             .navigationTitle("Home")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showProfile = true
+                    } label: {
+                        Image(systemName: "person.circle.fill")
+                            .font(.title3)
+                            .foregroundStyle(Color.brandPrimary)
+                    }
+                }
+            }
+            .sheet(isPresented: $showProfile) {
+                ProfileView(coordinator: coordinator)
+            }
             .task {
                 await viewModel.loadData()
             }

@@ -69,17 +69,11 @@ struct MainTabView: View {
                 }
                 .tag(0)
 
-            LearnView(coordinator: coordinator)
-                .tabItem {
-                    Label("Learn", systemImage: "book.fill")
-                }
-                .tag(1)
-
             ProfileView(coordinator: coordinator)
                 .tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }
-                .tag(2)
+                .tag(1)
         }
         .tint(.brandPrimary)
     }

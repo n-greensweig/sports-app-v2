@@ -677,6 +677,156 @@ Use abbreviated codes for easy reference:
 
 ---
 
+## Creating Lesson Seed SQL Files
+
+When creating new lessons, follow this guide to generate proper SQL seed files.
+
+### Critical IDs (Do Not Change)
+
+```sql
+-- Football Sport ID (MUST use this exact ID)
+'0105433b-5bdd-4093-b6b1-157a0c3c515e'
+
+-- Rookie Module ID
+'11111111-1111-1111-1111-111111111111'
+
+-- System User ID (for author_id)
+'00000000-0000-0000-0000-000000000000'
+```
+
+### Lesson ID Pattern
+
+Use this pattern for lesson IDs: `00000001-0000-0000-0000-00000000000X` where X is the lesson number.
+
+| Lesson | ID |
+|--------|-----|
+| TF1 | `00000001-0000-0000-0000-000000000001` |
+| TF2 | `00000001-0000-0000-0000-000000000002` |
+| OT1 | `00000001-0000-0000-0000-000000000003` |
+| ... | (increment last digit/use hex for >9) |
+
+### Item ID Pattern
+
+Use this pattern: `0000000X-0001-0000-0000-00000000000Y` where:
+- X = lesson number (2 for TF2, 3 for OT1, etc.)
+- Y = question number within lesson (1-13)
+
+### Item Variant ID Pattern
+
+Use: `0000000X-0001-0001-0000-00000000000Y` (note the middle `0001` for version 1)
+
+### Required SQL Structure
+
+Every lesson seed file MUST include these sections in order:
+
+```sql
+-- 1. Ensure Football sport exists (with ON CONFLICT)
+INSERT INTO sports (id, slug, name, accent_color, description, order_index, is_active)
+VALUES (
+    '0105433b-5bdd-4093-b6b1-157a0c3c515e',
+    'football',
+    'Football',
+    '#2E7D32',
+    'Football - NFL and College',
+    1,
+    true
+)
+ON CONFLICT (slug) DO UPDATE SET
+    name = EXCLUDED.name,
+    accent_color = EXCLUDED.accent_color,
+    description = EXCLUDED.description;
+
+-- 2. Create Module (with ON CONFLICT)
+INSERT INTO modules (id, sport_id, title, description, order_index, min_level, max_level, xp_reward)
+VALUES (
+    '11111111-1111-1111-1111-111111111111',
+    '0105433b-5bdd-4093-b6b1-157a0c3c515e',
+    'Rookie',
+    'Start your football journey! Learn the basics of the field, scoring, and key terms.',
+    1, 1, 2, 500
+)
+ON CONFLICT (id) DO UPDATE SET
+    title = EXCLUDED.title,
+    description = EXCLUDED.description;
+
+-- 3. Create System User (with ON CONFLICT)
+INSERT INTO users (id, clerk_user_id, email, role)
+VALUES (
+    '00000000-0000-0000-0000-000000000000',
+    'system',
+    'system@olaball.app',
+    'admin'
+)
+ON CONFLICT (clerk_user_id) DO NOTHING;
+
+-- 4. Create Lesson
+INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
+VALUES (...);
+
+-- 5. Create Items and Item Variants (13 questions per lesson)
+```
+
+### ON CONFLICT Clauses (Critical!)
+
+Use the correct unique constraint for each table:
+
+| Table | ON CONFLICT Target |
+|-------|-------------------|
+| `sports` | `(slug)` |
+| `modules` | `(id)` |
+| `users` | `(clerk_user_id)` |
+| `lessons` | `(id)` |
+| `items` | `(id)` |
+| `item_variants` | `(item_id, version)` - **NOT (id)!** |
+
+**Common Error:** Using `ON CONFLICT (id)` for `item_variants` will fail with:
+```
+ERROR: duplicate key value violates unique constraint "item_variants_unique_version"
+```
+
+**Correct item_variants insert:**
+```sql
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (...)
+ON CONFLICT (item_id, version) DO UPDATE SET
+    prompt_richtext = EXCLUDED.prompt_richtext,
+    options_json = EXCLUDED.options_json,
+    correct_answer_json = EXCLUDED.correct_answer_json,
+    explanation_richtext = EXCLUDED.explanation_richtext;
+```
+
+### Question Types
+
+| Type | `type` value | `correct_answer_json` format |
+|------|-------------|------------------------------|
+| Multiple Choice | `'mcq'` | `'{"index": N}'` (0-indexed) |
+| True/False | `'binary'` | `'{"boolean": true/false}'` |
+| Multi-Select | `'multi_select'` | `'{"indices": [0, 2]}'` |
+
+### Lesson Configuration
+
+```sql
+-- Standard lesson config
+items_per_session: 5,      -- Questions shown per completion
+required_completions: 5,   -- Times to complete for mastery
+is_locked: true,           -- false only for first lesson (TF1)
+est_minutes: 4,            -- Estimated completion time
+xp_award: 50               -- XP earned per completion
+```
+
+### Example Seed File Location
+
+See `/supabase/seed_tf1.sql` and `/supabase/seed_tf2.sql` for complete examples.
+
+### Running Seed Files
+
+Run in Supabase SQL Editor or via psql:
+```bash
+psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/seed_tfX.sql
+```
+
+---
+
 ## Development Workflow
 
 **Creating Features:** Create folder structure in `Features/`, add Views/ViewModels/Coordinator, write tests.

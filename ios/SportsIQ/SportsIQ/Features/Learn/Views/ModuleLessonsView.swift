@@ -15,6 +15,13 @@ struct ModuleLessonsView: View {
     @State private var completions: [UUID: Int] = [:]  // lessonId -> completionCount
     @State private var isLoading = false
 
+    /// The index of the current lesson (first unlocked, incomplete lesson)
+    private var currentLessonIndex: Int? {
+        lessons.firstIndex { lesson in
+            !lesson.isLocked && (completions[lesson.id] ?? 0) < lesson.requiredCompletions
+        }
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: .spacingM) {
@@ -53,7 +60,8 @@ struct ModuleLessonsView: View {
                                 lesson: lesson,
                                 lessonNumber: index + 1,
                                 sport: sport,
-                                completionCount: completions[lesson.id] ?? 0
+                                completionCount: completions[lesson.id] ?? 0,
+                                isCurrentLesson: index == currentLessonIndex
                             )
                         }
                         .disabled(lesson.isLocked)
@@ -88,6 +96,7 @@ struct LessonCard: View {
     let lessonNumber: Int
     let sport: Sport
     let completionCount: Int  // How many times user has completed this lesson
+    var isCurrentLesson: Bool = false
 
     // Icons to cycle through for different lessons
     private static let lessonIcons = [
@@ -111,7 +120,8 @@ struct LessonCard: View {
                 isLocked: lesson.isLocked,
                 icon: lessonIcon,
                 accentColor: sport.accentColor,
-                size: 56
+                size: 56,
+                isCurrentLesson: isCurrentLesson
             )
 
             VStack(alignment: .leading, spacing: .spacingXS) {

@@ -21,6 +21,13 @@ struct LessonPathView: View {
     private let verticalSpacing: CGFloat = 24
     private let horizontalOffset: CGFloat = 80  // How far nodes swing left/right
 
+    /// The index of the current lesson (first unlocked, incomplete lesson)
+    private var currentLessonIndex: Int? {
+        lessons.firstIndex { lesson in
+            !lesson.isLocked && (completions[lesson.id] ?? 0) < lesson.requiredCompletions
+        }
+    }
+
     var body: some View {
         VStack(spacing: verticalSpacing) {
             ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
@@ -57,7 +64,8 @@ struct LessonPathView: View {
                     isLocked: lesson.isLocked,
                     icon: lessonIcon(for: index),
                     accentColor: sport.accentColor,
-                    size: nodeSize
+                    size: nodeSize,
+                    isCurrentLesson: index == currentLessonIndex
                 )
             }
             .buttonStyle(LessonButtonStyle())

@@ -14,16 +14,23 @@ struct LessonProgressRing: View {
     let icon: String                 // SF Symbol name for the center icon
     var accentColor: Color = .footballAccent
     var size: CGFloat = 64           // Total size of the ring
+    var isCurrentLesson: Bool = false // Whether this is the lesson the user should work on next
 
     // Ring configuration
     private let ringWidth: CGFloat = 6
     private let ringPadding: CGFloat = 4 // Space between inner circle and ring segments
     private let gapAngle: Double = 12 // Gap between segments in degrees
 
+    // Pulse animation state
+    @State private var isPulsed: Bool = false
+
     // Computed properties for visual states
     private var isCompleted: Bool { completedSegments >= totalSegments }
     private var isInProgress: Bool { completedSegments > 0 && !isCompleted }
     private var isAvailable: Bool { !isLocked && completedSegments == 0 }
+
+    // Whether to show pulse animation (current lesson that's not completed)
+    private var shouldPulse: Bool { isCurrentLesson && !isCompleted && !isLocked }
 
     var body: some View {
         ZStack {
@@ -38,11 +45,37 @@ struct LessonProgressRing: View {
         }
         .animation(.spring(response: 0.4, dampingFraction: 0.7), value: completedSegments)
         .animation(.easeInOut(duration: 0.2), value: isLocked)
+        .onAppear {
+            if shouldPulse {
+                startPulseAnimation()
+            }
+        }
+        .onChange(of: shouldPulse) { _, newValue in
+            if newValue {
+                startPulseAnimation()
+            }
+        }
+    }
+
+    private func startPulseAnimation() {
+        withAnimation(
+            .easeIn(duration: 0.8)
+            .repeatForever(autoreverses: true)
+            .speed(1.2)
+        ) {
+            isPulsed = true
+        }
+    }
+
+    // Pulse offset - moves ring inward to touch the circle edge
+    private var pulseOffset: CGFloat {
+        shouldPulse && isPulsed ? ringPadding : 0
     }
 
     // MARK: - Progress Ring
     private var progressRing: some View {
-        ZStack {
+        let ringSize = size + ringPadding * 2 + ringWidth * 2 - pulseOffset * 2
+        return ZStack {
             // Show all segments - unfilled ones are grayed out, filled ones are colored
             ForEach(0..<totalSegments, id: \.self) { index in
                 SegmentArc(
@@ -58,7 +91,7 @@ struct LessonProgressRing: View {
                         lineCap: .round
                     )
                 )
-                .frame(width: size + ringPadding * 2 + ringWidth * 2, height: size + ringPadding * 2 + ringWidth * 2)
+                .frame(width: ringSize, height: ringSize)
             }
         }
     }
@@ -208,6 +241,7 @@ struct LessonNode: View {
     let completionCount: Int
     let sport: Sport
     let lessonIndex: Int
+    let isCurrentLesson: Bool
     let action: () -> Void
 
     // Icons to cycle through for different lessons
@@ -234,7 +268,8 @@ struct LessonNode: View {
                 isLocked: lesson.isLocked,
                 icon: lessonIcon,
                 accentColor: sport.accentColor,
-                size: 64
+                size: 64,
+                isCurrentLesson: isCurrentLesson
             )
         }
         .buttonStyle(LessonButtonStyle())
@@ -324,6 +359,41 @@ struct LessonButtonStyle: ButtonStyle {
                         accentColor: .footballAccent
                     )
                     Text("Complete!")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            Divider()
+
+            Text("Current Lesson (Pulsing)")
+                .font(.headline)
+
+            HStack(spacing: 32) {
+                VStack(spacing: 8) {
+                    LessonProgressRing(
+                        completedSegments: 0,
+                        totalSegments: 3,
+                        isLocked: false,
+                        icon: "star.fill",
+                        accentColor: .footballAccent,
+                        isCurrentLesson: true
+                    )
+                    Text("Current (0/3)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                VStack(spacing: 8) {
+                    LessonProgressRing(
+                        completedSegments: 2,
+                        totalSegments: 3,
+                        isLocked: false,
+                        icon: "book.fill",
+                        accentColor: .footballAccent,
+                        isCurrentLesson: true
+                    )
+                    Text("Current (2/3)")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }

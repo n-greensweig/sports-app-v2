@@ -16,9 +16,15 @@ class HomeViewModel {
 
     // MARK: - State
     var sports: [Sport] = []
+    var selectedSport: Sport?
+    var modules: [Module] = []
     var userProgress: UserProgress?
     var isLoading = false
+    var isLoadingModules = false
     var errorMessage: String?
+
+    // MARK: - UserDefaults Keys
+    private static let lastSelectedSportIdKey = "lastSelectedSportId"
 
     init(
         learningRepository: LearningRepository,
@@ -36,22 +42,63 @@ class HomeViewModel {
         errorMessage = nil
 
         do {
-            // Fetch sports first to get the real Football ID
+            // Fetch sports first
             sports = try await learningRepository.getSports()
-            
-            // Find Football sport (should be first, but search by slug to be safe)
-            if let footballSport = sports.first(where: { $0.slug == "football" }) {
+
+            // Restore last selected sport or default to first sport
+            if let lastSportId = UserDefaults.standard.string(forKey: Self.lastSelectedSportIdKey),
+               let uuid = UUID(uuidString: lastSportId),
+               let lastSport = sports.first(where: { $0.id == uuid }) {
+                selectedSport = lastSport
+            } else if let firstSport = sports.first {
+                selectedSport = firstSport
+            }
+
+            // Load user progress for selected sport
+            if let sport = selectedSport {
                 userProgress = try await userRepository.getUserProgress(
                     userId: userId,
-                    sportId: footballSport.id
+                    sportId: sport.id
                 )
-            } else {
-                print("⚠️ Football sport not found in database")
+                await loadModules(for: sport)
             }
         } catch {
             errorMessage = "Failed to load data: \(error.localizedDescription)"
         }
 
         isLoading = false
+    }
+
+    @MainActor
+    func selectSport(_ sport: Sport) async {
+        guard sport.id != selectedSport?.id else { return }
+
+        selectedSport = sport
+
+        // Save to UserDefaults
+        UserDefaults.standard.set(sport.id.uuidString, forKey: Self.lastSelectedSportIdKey)
+
+        // Load progress and modules for newly selected sport
+        do {
+            userProgress = try await userRepository.getUserProgress(
+                userId: userId,
+                sportId: sport.id
+            )
+            await loadModules(for: sport)
+        } catch {
+            print("Error loading progress for \(sport.name): \(error)")
+        }
+    }
+
+    @MainActor
+    private func loadModules(for sport: Sport) async {
+        isLoadingModules = true
+        do {
+            modules = try await learningRepository.getModules(sportId: sport.id)
+        } catch {
+            print("Error loading modules for \(sport.name): \(error)")
+            modules = []
+        }
+        isLoadingModules = false
     }
 }

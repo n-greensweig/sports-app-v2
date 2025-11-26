@@ -10,6 +10,11 @@ import SwiftUI
 struct HomeView: View {
     let coordinator: AppCoordinator
     @State private var viewModel: HomeViewModel
+    @State private var scrollOffset: CGFloat = 0
+    @State private var showSportSelector = true
+
+    // Threshold for hiding/showing sport selector
+    private let scrollThreshold: CGFloat = 50
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
@@ -22,109 +27,197 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: .spacingL) {
-                    // Welcome Header
-                    VStack(alignment: .leading, spacing: .spacingS) {
-                        Text("Welcome back!")
-                            .font(.heading2)
-                            .foregroundStyle(Color.textSecondary)
+            VStack(spacing: 0) {
+                // Collapsible Sport Selector Header
+                if !viewModel.sports.isEmpty {
+                    sportSelectorHeader
+                        .frame(height: showSportSelector ? nil : 0)
+                        .opacity(showSportSelector ? 1 : 0)
+                        .clipped()
+                }
 
-                        if let user = coordinator.currentUser {
-                            Text(user.displayName ?? user.username)
-                                .font(.heading1)
-                                .foregroundStyle(Color.textPrimary)
+                // Main Content
+                ScrollView {
+                    scrollOffsetReader
+
+                    VStack(alignment: .leading, spacing: .spacingL) {
+                        // Stats Overview
+                        if viewModel.isLoading {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                                .padding(.spacingXL)
+                        } else {
+                            // Current Sport Header
+                            if let sport = viewModel.selectedSport {
+                                currentSportHeader(sport: sport)
+                            }
+
+                            StatsOverviewCard(
+                                totalXP: viewModel.userProgress?.totalXP ?? 0,
+                                overallRating: viewModel.userProgress?.overallRating ?? 0,
+                                currentStreak: viewModel.userProgress?.currentStreak ?? 0
+                            )
+
+                            // Error Message
+                            if let errorMessage = viewModel.errorMessage {
+                                errorView(message: errorMessage)
+                            }
+
+                            // Learning Path
+                            learningPathSection
                         }
                     }
-
-                    // Stats Overview
-                    if viewModel.isLoading {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
-                            .padding(.spacingXL)
-                    } else {
-                        StatsOverviewCard(
-                            totalXP: viewModel.userProgress?.totalXP ?? 0,
-                            overallRating: viewModel.userProgress?.overallRating ?? 0,
-                            currentStreak: viewModel.userProgress?.currentStreak ?? 0
-                        )
-
-                        // Error Message
-                        if let errorMessage = viewModel.errorMessage {
-                            VStack(spacing: .spacingM) {
-                                Text("⚠️ Error")
-                                    .font(.heading3)
-                                    .foregroundStyle(Color.incorrect)
-
-                                Text(errorMessage)
-                                    .font(.body)
-                                    .foregroundStyle(Color.textSecondary)
-                                    .multilineTextAlignment(.center)
-                            }
-                            .padding(.spacingL)
-                            .background(Color.incorrect.opacity(0.1))
-                            .cornerRadius(.radiusL)
-                        }
-
-                        // Continue Learning
-                        if !viewModel.sports.isEmpty {
-                            VStack(alignment: .leading, spacing: .spacingM) {
-                                Text("Continue Learning")
-                                    .font(.heading3)
-                                    .foregroundStyle(Color.textPrimary)
-
-                                ForEach(viewModel.sports) { sport in
-                                    if sport.id == Sport.football.id {
-                                        NavigationLink {
-                                            LessonView(
-                                                lesson: .footballBasicsLesson1,
-                                                sport: sport,
-                                                coordinator: coordinator
-                                            )
-                                        } label: {
-                                            SportCardContent(sport: sport)
-                                        }
-                                    } else {
-                                        NavigationLink {
-                                            SportModulesView(
-                                                sport: sport,
-                                                coordinator: coordinator
-                                            )
-                                        } label: {
-                                            SportCardContent(sport: sport)
-                                        }
-                                    }
-                                }
-                            }
-                        } else if viewModel.errorMessage == nil {
-                            // No sports loaded but no error - show debug info
-                            VStack(spacing: .spacingM) {
-                                Text("🔍 Debug Info")
-                                    .font(.heading3)
-                                    .foregroundStyle(Color.warning)
-
-                                Text("Sports array is empty. This could mean:\n• Supabase query returned no results\n• Database has no active sports\n• Silent error occurred")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.textSecondary)
-                                    .multilineTextAlignment(.center)
-
-                                Text("Check Xcode console for errors")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.brandPrimary)
-                            }
-                            .padding(.spacingL)
-                            .background(Color.warning.opacity(0.1))
-                            .cornerRadius(.radiusL)
+                    .padding(.spacingM)
+                }
+                .coordinateSpace(name: "scroll")
+                .onChange(of: scrollOffset) { _, newValue in
+                    withAnimation(.easeInOut(duration: 0.25)) {
+                        if newValue > scrollThreshold {
+                            showSportSelector = false
+                        } else if newValue < scrollThreshold / 2 {
+                            showSportSelector = true
                         }
                     }
                 }
-                .padding(.spacingM)
             }
             .navigationTitle("Home")
+            .navigationBarTitleDisplayMode(.inline)
             .task {
                 await viewModel.loadData()
             }
         }
+    }
+
+    // MARK: - Sport Selector Header
+    private var sportSelectorHeader: some View {
+        VStack(spacing: 0) {
+            SportSelectorView(
+                sports: viewModel.sports,
+                selectedSport: Binding(
+                    get: { viewModel.selectedSport },
+                    set: { newSport in
+                        if let sport = newSport {
+                            Task {
+                                await viewModel.selectSport(sport)
+                            }
+                        }
+                    }
+                )
+            )
+            .padding(.vertical, .spacingS)
+            .background(Color.backgroundPrimary)
+
+            Divider()
+        }
+        .animation(.easeInOut(duration: 0.25), value: showSportSelector)
+    }
+
+    // MARK: - Scroll Offset Reader
+    private var scrollOffsetReader: some View {
+        GeometryReader { geometry in
+            Color.clear
+                .preference(
+                    key: ScrollOffsetPreferenceKey.self,
+                    value: -geometry.frame(in: .named("scroll")).origin.y
+                )
+        }
+        .frame(height: 0)
+        .onPreferenceChange(ScrollOffsetPreferenceKey.self) { value in
+            scrollOffset = value
+        }
+    }
+
+    // MARK: - Current Sport Header
+    private func currentSportHeader(sport: Sport) -> some View {
+        HStack(spacing: .spacingS) {
+            Text(sport.emoji)
+                .font(.title2)
+
+            Text(sport.name)
+                .font(.heading2)
+                .foregroundStyle(Color.textPrimary)
+
+            Spacer()
+        }
+    }
+
+    // MARK: - Error View
+    private func errorView(message: String) -> some View {
+        VStack(spacing: .spacingM) {
+            Text("Error")
+                .font(.heading3)
+                .foregroundStyle(Color.incorrect)
+
+            Text(message)
+                .font(.body)
+                .foregroundStyle(Color.textSecondary)
+                .multilineTextAlignment(.center)
+        }
+        .padding(.spacingL)
+        .background(Color.incorrect.opacity(0.1))
+        .cornerRadius(.radiusL)
+    }
+
+    // MARK: - Learning Path Section
+    @ViewBuilder
+    private var learningPathSection: some View {
+        if let sport = viewModel.selectedSport {
+            VStack(alignment: .leading, spacing: .spacingM) {
+                Text("Learning Path")
+                    .font(.heading3)
+                    .foregroundStyle(Color.textPrimary)
+
+                if viewModel.isLoadingModules {
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                        .padding(.spacingL)
+                } else if viewModel.modules.isEmpty {
+                    emptyModulesView(sport: sport)
+                } else {
+                    ForEach(viewModel.modules) { module in
+                        NavigationLink {
+                            ModuleLessonsView(
+                                module: module,
+                                sport: sport,
+                                coordinator: coordinator
+                            )
+                        } label: {
+                            ModuleCard(module: module, sport: sport)
+                        }
+                        .disabled(module.isLocked)
+                    }
+                }
+            }
+        }
+    }
+
+    // MARK: - Empty Modules View
+    private func emptyModulesView(sport: Sport) -> some View {
+        VStack(spacing: .spacingM) {
+            Text(sport.emoji)
+                .font(.system(size: 48))
+
+            Text("Coming Soon!")
+                .font(.heading3)
+                .foregroundStyle(Color.textPrimary)
+
+            Text("\(sport.name) lessons are being prepared. Check back soon!")
+                .font(.body)
+                .foregroundStyle(Color.textSecondary)
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.spacingXL)
+        .background(Color.backgroundSecondary)
+        .cornerRadius(.radiusL)
+    }
+}
+
+// MARK: - Scroll Offset Preference Key
+struct ScrollOffsetPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
     }
 }
 
@@ -140,7 +233,7 @@ struct StatsOverviewCard: View {
             Divider()
             StatItem(title: "Rating", value: "\(overallRating)", color: .footballAccent)
             Divider()
-            StatItem(title: "Streak", value: "\(currentStreak)🔥", color: .warning)
+            StatItem(title: "Streak", value: "\(currentStreak)", color: .warning)
         }
         .padding(.spacingM)
         .background(Color.backgroundSecondary)
@@ -164,40 +257,6 @@ struct StatItem: View {
                 .foregroundStyle(Color.textSecondary)
         }
         .frame(maxWidth: .infinity)
-    }
-}
-
-// MARK: - Sport Card Content (for NavigationLink)
-struct SportCardContent: View {
-    let sport: Sport
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: .spacingS) {
-            HStack {
-                Image(systemName: sport.iconName)
-                    .font(.system(size: 32))
-                    .foregroundStyle(sport.accentColor)
-
-                Spacer()
-
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 16))
-                    .foregroundStyle(Color.textSecondary)
-            }
-
-            Text(sport.name)
-                .font(.heading3)
-                .foregroundStyle(Color.textPrimary)
-
-            Text(sport.description)
-                .font(.bodySmall)
-                .foregroundStyle(Color.textSecondary)
-                .lineLimit(2)
-        }
-        .padding(.spacingM)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.backgroundSecondary)
-        .cornerRadius(.radiusL)
     }
 }
 

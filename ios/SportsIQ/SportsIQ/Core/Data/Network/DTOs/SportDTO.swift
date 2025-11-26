@@ -15,6 +15,7 @@ struct SportDTO: Codable {
     let icon_url: String?
     let accent_color: String?
     let description: String?
+    let emoji: String?
     let order_index: Int
     let is_active: Bool
     let created_at: String
@@ -26,6 +27,9 @@ struct SportDTO: Codable {
             throw DTOConversionError.invalidUUID(field: "id", value: id)
         }
 
+        // Default emojis based on sport slug
+        let sportEmoji = emoji ?? defaultEmoji(for: slug)
+
         return Sport(
             id: uuid,
             name: name,
@@ -33,9 +37,24 @@ struct SportDTO: Codable {
             description: description ?? "",
             iconName: icon_url ?? "sportscourt.fill", // Default SF Symbol
             accentColorHex: accent_color ?? "#000000",
+            emoji: sportEmoji,
             isActive: is_active,
             displayOrder: order_index
         )
+    }
+
+    /// Provides default emoji based on sport slug
+    private func defaultEmoji(for slug: String) -> String {
+        switch slug.lowercased() {
+        case "football": return "🏈"
+        case "basketball": return "🏀"
+        case "baseball": return "⚾"
+        case "hockey": return "🏒"
+        case "soccer": return "⚽"
+        case "golf": return "⛳"
+        case "tennis": return "🎾"
+        default: return "🏆"
+        }
     }
 }
 
@@ -70,6 +89,7 @@ extension Sport {
             icon_url: iconName,
             accent_color: accentColorHex,
             description: description.isEmpty ? nil : description,
+            emoji: emoji.isEmpty ? nil : emoji,
             order_index: displayOrder,
             is_active: isActive,
             created_at: ISO8601DateFormatter().string(from: Date()),

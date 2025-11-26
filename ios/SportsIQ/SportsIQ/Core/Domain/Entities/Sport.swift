@@ -20,6 +20,9 @@ struct Sport: Identifiable, Codable, Hashable {
     /// Accent color for the sport (stored as hex string)
     let accentColorHex: String
 
+    /// Emoji for the sport (used in sport selector)
+    let emoji: String
+
     init(
         id: UUID,
         name: String,
@@ -27,6 +30,7 @@ struct Sport: Identifiable, Codable, Hashable {
         description: String,
         iconName: String,
         accentColorHex: String,
+        emoji: String = "",
         isActive: Bool = true,
         displayOrder: Int = 0
     ) {
@@ -36,6 +40,7 @@ struct Sport: Identifiable, Codable, Hashable {
         self.description = description
         self.iconName = iconName
         self.accentColorHex = accentColorHex
+        self.emoji = emoji
         self.isActive = isActive
         self.displayOrder = displayOrder
     }
@@ -50,6 +55,7 @@ extension Sport {
         description: "Learn the ins and outs of American Football",
         iconName: "football.fill",
         accentColorHex: "#2E7D32",
+        emoji: "🏈",
         displayOrder: 1
     )
 
@@ -60,6 +66,7 @@ extension Sport {
         description: "Master the fundamentals of Basketball",
         iconName: "basketball.fill",
         accentColorHex: "#F57C00",
+        emoji: "🏀",
         displayOrder: 2
     )
 
@@ -70,8 +77,42 @@ extension Sport {
         description: "Discover America's favorite pastime",
         iconName: "baseball.fill",
         accentColorHex: "#1976D2",
+        emoji: "⚾",
         displayOrder: 3
     )
 
-    static let mockSports = [football, basketball, baseball]
+    static let hockey = Sport(
+        id: UUID(uuidString: "DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD")!,
+        name: "Hockey",
+        slug: "hockey",
+        description: "Learn the fast-paced game of Hockey",
+        iconName: "hockey.puck.fill",
+        accentColorHex: "#0288D1",
+        emoji: "🏒",
+        displayOrder: 4
+    )
+
+    static let soccer = Sport(
+        id: UUID(uuidString: "EEEEEEEE-EEEE-EEEE-EEEE-EEEEEEEEEEEE")!,
+        name: "Soccer",
+        slug: "soccer",
+        description: "Discover the world's most popular sport",
+        iconName: "soccerball",
+        accentColorHex: "#388E3C",
+        emoji: "⚽",
+        displayOrder: 5
+    )
+
+    static let golf = Sport(
+        id: UUID(uuidString: "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF")!,
+        name: "Golf",
+        slug: "golf",
+        description: "Master the gentleman's game",
+        iconName: "figure.golf",
+        accentColorHex: "#689F38",
+        emoji: "⛳",
+        displayOrder: 6
+    )
+
+    static let mockSports = [football, basketball, baseball, hockey, soccer, golf]
 }

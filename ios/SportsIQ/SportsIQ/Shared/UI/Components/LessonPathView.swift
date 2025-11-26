@@ -32,7 +32,6 @@ struct LessonPathView: View {
         VStack(spacing: verticalSpacing) {
             ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
                 lessonRow(lesson: lesson, index: index)
-                    .frame(maxWidth: .infinity) // Allow full width for popup overlay
             }
         }
         .padding(.vertical, .spacingM)
@@ -44,54 +43,66 @@ struct LessonPathView: View {
         let position = pathPosition(for: index)
         let completionCount = completions[lesson.id] ?? 0
         let isSelected = selectedLessonIndex == index
+        let nodeOffset = horizontalOffset(for: position)
 
-        VStack(spacing: 8) {
-            // Lesson node button
-            Button {
-                if !lesson.isLocked {
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
-                        if selectedLessonIndex == index {
-                            selectedLessonIndex = nil
-                        } else {
-                            selectedLessonIndex = index
+        // Full-width row container - popup overlay is attached here for correct positioning
+        ZStack {
+            // Node content positioned within the full-width row
+            VStack(spacing: 8) {
+                // Lesson node button
+                Button {
+                    if !lesson.isLocked {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                            if selectedLessonIndex == index {
+                                selectedLessonIndex = nil
+                            } else {
+                                selectedLessonIndex = index
+                            }
                         }
                     }
-                }
-            } label: {
-                LessonProgressRing(
-                    completedSegments: completionCount,
-                    totalSegments: lesson.requiredCompletions,
-                    isLocked: lesson.isLocked,
-                    icon: lessonIcon(for: index),
-                    accentColor: sport.accentColor,
-                    size: nodeSize,
-                    isCurrentLesson: index == currentLessonIndex
-                )
-            }
-            .buttonStyle(LessonButtonStyle())
-            .disabled(lesson.isLocked)
-
-            // Lesson code badge (optional)
-            if let code = lesson.code {
-                Text(code)
-                    .font(.caption2)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(lesson.isLocked ? Color.textTertiary : sport.accentColor)
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 2)
-                    .background(
-                        Capsule()
-                            .fill(lesson.isLocked ? Color.backgroundTertiary : sport.accentColor.opacity(0.15))
+                } label: {
+                    LessonProgressRing(
+                        completedSegments: completionCount,
+                        totalSegments: lesson.requiredCompletions,
+                        isLocked: lesson.isLocked,
+                        icon: lessonIcon(for: index),
+                        accentColor: sport.accentColor,
+                        size: nodeSize,
+                        isCurrentLesson: index == currentLessonIndex
                     )
+                }
+                .buttonStyle(LessonButtonStyle())
+                .disabled(lesson.isLocked)
+
+                // Lesson code badge (optional)
+                if let code = lesson.code {
+                    Text(code)
+                        .font(.caption2)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(lesson.isLocked ? Color.textTertiary : sport.accentColor)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 2)
+                        .background(
+                            Capsule()
+                                .fill(lesson.isLocked ? Color.backgroundTertiary : sport.accentColor.opacity(0.15))
+                        )
+                }
             }
+            .offset(x: nodeOffset)
         }
-        // Popup appears as overlay below the lesson node (doesn't affect layout)
+        .frame(maxWidth: .infinity)
+        // Popup appears as overlay on the full-width row
         .overlay(alignment: .top) {
             if isSelected {
+                // The row is full-width and centered on screen
+                // The node is offset by nodeOffset from the row center
+                // The popup should be centered on screen (at row center)
+                // The triangle should point at the node (at row center + nodeOffset)
                 LessonStartPopup(
                     lesson: lesson,
                     completionCount: completionCount,
                     sport: sport,
+                    triangleOffsetX: nodeOffset, // Triangle offset from popup center to point at node
                     onStart: {
                         withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
                             selectedLessonIndex = nil
@@ -104,15 +115,16 @@ struct LessonPathView: View {
                         }
                     }
                 )
-                .frame(width: 280) // Explicit width to prevent compression
-                .offset(y: nodeSize + 24) // Position below the node + code badge
+                .padding(.horizontal, 20) // 20pt padding on each side
+                // Position popup below the node
+                // nodeOffset positions the node from center, so add that to vertical offset calculation
+                .offset(y: nodeSize + 24)
                 .transition(.asymmetric(
                     insertion: .scale(scale: 0.8, anchor: .top).combined(with: .opacity),
                     removal: .scale(scale: 0.9, anchor: .top).combined(with: .opacity)
                 ))
             }
         }
-        .offset(x: horizontalOffset(for: position))
         .zIndex(isSelected ? 1 : 0) // Bring selected row to front so popup overlaps other rows
     }
 

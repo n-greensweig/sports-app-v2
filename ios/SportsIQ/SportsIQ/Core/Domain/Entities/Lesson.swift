@@ -316,51 +316,191 @@ extension Lesson {
         ]
     )
 
-    static let footballBasicsLesson3 = Lesson(
-        id: UUID(uuidString: "00000001-0000-0000-0000-000000000003")!,
+    // MARK: - Rookie Section: Offensive Terms 1 (OT1)
+    // Topics: Run, pass, catch, first down
+    // 10 questions total, 5 shown per session for variety
+
+    private static let ot1LessonId = UUID(uuidString: "00000001-0000-0000-0000-000000000003")!
+
+    static let offensiveTerms1 = Lesson(
+        id: ot1LessonId,
         moduleId: Module.footballBasics.id,
-        title: "Offensive Positions",
-        description: "Learn about the key offensive positions",
+        title: "Offensive Terms 1",
+        description: "Learn the basic offensive plays: running, passing, catching, and what a first down means",
         orderIndex: 3,
-        estimatedMinutes: 5,
+        estimatedMinutes: 4,
         xpAward: 50,
-        isLocked: false,
-        items: [
-            Item(
-                id: UUID(),
-                lessonId: UUID(uuidString: "00000001-0000-0000-0000-000000000003")!,
-                type: .mcq,
-                orderIndex: 1,
-                prompt: "Which position typically throws the ball?",
-                options: ["Running Back", "Quarterback", "Wide Receiver", "Center"],
-                correctAnswer: .single(1),
-                explanation: "The Quarterback (QB) is the player who throws the ball on most passing plays.",
-                xpValue: 10
-            ),
-            Item(
-                id: UUID(),
-                lessonId: UUID(uuidString: "00000001-0000-0000-0000-000000000003")!,
-                type: .freeText,
-                orderIndex: 2,
-                prompt: "What is the abbreviation for the Quarterback position?",
-                options: nil,
-                correctAnswer: .text("QB"),
-                explanation: "QB stands for Quarterback, the most important offensive position.",
-                xpValue: 10
-            ),
-            Item(
-                id: UUID(),
-                lessonId: UUID(uuidString: "00000001-0000-0000-0000-000000000003")!,
-                type: .multiSelect,
-                orderIndex: 3,
-                prompt: "Select all positions that are part of the offensive line:",
-                options: ["Center", "Linebacker", "Guard", "Tackle", "Safety"],
-                correctAnswer: .multiple([0, 2, 3]),
-                explanation: "The offensive line consists of Center, Guards, and Tackles. Linebacker and Safety are defensive positions.",
-                xpValue: 15
-            )
-        ]
+        isLocked: true,
+        items: ot1Items,
+        code: "OT1",
+        itemsPerSession: 5,
+        requiredCompletions: 5
     )
+
+    private static let ot1Items: [Item] = [
+        // Q1: What is a run play? (Run)
+        Item(
+            id: UUID(uuidString: "00000003-0001-0000-0000-000000000001")!,
+            lessonId: ot1LessonId,
+            type: .mcq,
+            orderIndex: 1,
+            prompt: "What is a \"run play\" in football?",
+            options: [
+                "When a player kicks the ball downfield",
+                "When a player carries the ball and runs with it",
+                "When the quarterback throws the ball to a receiver",
+                "When the defense tackles the quarterback"
+            ],
+            correctAnswer: .single(1),
+            explanation: "A run play is when a player (usually a running back) carries the ball and runs with it, trying to gain yards by advancing down the field on foot rather than through a pass.",
+            xpValue: 10
+        ),
+
+        // Q2: What is a pass play? (Pass)
+        Item(
+            id: UUID(uuidString: "00000003-0001-0000-0000-000000000002")!,
+            lessonId: ot1LessonId,
+            type: .mcq,
+            orderIndex: 2,
+            prompt: "What is a \"pass play\" in football?",
+            options: [
+                "When a player runs with the ball",
+                "When the ball is kicked through the uprights",
+                "When the quarterback throws the ball to a teammate",
+                "When the defense intercepts the ball"
+            ],
+            correctAnswer: .single(2),
+            explanation: "A pass play is when the quarterback throws the ball to a teammate (usually a wide receiver or tight end) who attempts to catch it and gain yards.",
+            xpValue: 10
+        ),
+
+        // Q3: What is a catch? (Catch)
+        Item(
+            id: UUID(uuidString: "00000003-0001-0000-0000-000000000003")!,
+            lessonId: ot1LessonId,
+            type: .mcq,
+            orderIndex: 3,
+            prompt: "What must happen for a receiver to be credited with a \"catch\"?",
+            options: [
+                "Secure the ball with control and get both feet inbounds",
+                "Touch the ball with one hand",
+                "Have the ball hit their body",
+                "Run a route downfield"
+            ],
+            correctAnswer: .single(0),
+            explanation: "For a legal catch, the receiver must secure control of the ball and get both feet (NFL) or one foot (college) inbounds. If the ball touches the ground or the receiver goes out of bounds before establishing possession, it's incomplete.",
+            xpValue: 10
+        ),
+
+        // Q4: What is a first down? (First Down)
+        Item(
+            id: UUID(uuidString: "00000003-0001-0000-0000-000000000004")!,
+            lessonId: ot1LessonId,
+            type: .mcq,
+            orderIndex: 4,
+            prompt: "What is a \"first down\" in football?",
+            options: [
+                "The first play of the game",
+                "When the offense gains 10 yards and gets a new set of 4 downs",
+                "When the defense stops the offense",
+                "The first quarter of the game"
+            ],
+            correctAnswer: .single(1),
+            explanation: "A first down occurs when the offense advances the ball at least 10 yards from where the previous set of downs started. This gives the team a new set of 4 downs to try to gain another 10 yards.",
+            xpValue: 10
+        ),
+
+        // Q5: How many downs to get a first down? (First Down)
+        Item(
+            id: UUID(uuidString: "00000003-0001-0000-0000-000000000005")!,
+            lessonId: ot1LessonId,
+            type: .mcq,
+            orderIndex: 5,
+            prompt: "How many attempts (downs) does an offense have to gain 10 yards for a first down?",
+            options: ["2 downs", "3 downs", "5 downs", "4 downs"],
+            correctAnswer: .single(3),
+            explanation: "The offense has 4 downs (attempts) to gain 10 yards. If they succeed, they get a new first down. If they fail, the other team gets the ball.",
+            xpValue: 10
+        ),
+
+        // Q6: True/False - Run vs Pass (Run/Pass)
+        Item(
+            id: UUID(uuidString: "00000003-0001-0000-0000-000000000006")!,
+            lessonId: ot1LessonId,
+            type: .binary,
+            orderIndex: 6,
+            prompt: "On a run play, the quarterback always carries the ball himself.",
+            options: ["True", "False"],
+            correctAnswer: .boolean(false),
+            explanation: "False! While quarterbacks can run with the ball, most run plays involve a handoff to a running back who then carries the ball. The running back is typically the primary ball carrier on run plays.",
+            xpValue: 10
+        ),
+
+        // Q7: Who typically throws passes? (Pass)
+        Item(
+            id: UUID(uuidString: "00000003-0001-0000-0000-000000000007")!,
+            lessonId: ot1LessonId,
+            type: .mcq,
+            orderIndex: 7,
+            prompt: "Which player typically throws the ball on a pass play?",
+            options: ["Quarterback", "Wide receiver", "Running back", "Linebacker"],
+            correctAnswer: .single(0),
+            explanation: "The quarterback is the primary passer on the team. They take the snap and throw the ball to receivers downfield. Occasionally other players throw passes on trick plays, but this is rare.",
+            xpValue: 10
+        ),
+
+        // Q8: Situational - First down scenario (First Down)
+        Item(
+            id: UUID(uuidString: "00000003-0001-0000-0000-000000000008")!,
+            lessonId: ot1LessonId,
+            type: .mcq,
+            orderIndex: 8,
+            prompt: "The Dallas Cowboys have the ball at their own 30-yard line. It's 1st and 10. The running back gains 6 yards. What down is it now?",
+            options: ["1st and 4", "2nd and 4", "2nd and 10", "1st and 10"],
+            correctAnswer: .single(1),
+            explanation: "After gaining 6 yards on 1st down, it's now 2nd down with 4 yards to go for a first down (10 - 6 = 4). The offense still needs 4 more yards to earn a new set of downs.",
+            xpValue: 10
+        ),
+
+        // Q9: Situational - First down achieved (First Down)
+        Item(
+            id: UUID(uuidString: "00000003-0001-0000-0000-000000000009")!,
+            lessonId: ot1LessonId,
+            type: .mcq,
+            orderIndex: 9,
+            prompt: "The Kansas City Chiefs have the ball at the 50-yard line. It's 2nd and 8. Patrick Mahomes throws a 15-yard pass to Travis Kelce. What happens next?",
+            options: [
+                "First down! New set of 4 downs at the opponent's 35",
+                "3rd and 7 at the opponent's 35",
+                "2nd and 8 at the 50",
+                "Touchdown"
+            ],
+            correctAnswer: .single(0),
+            explanation: "The 15-yard gain exceeds the 8 yards needed for a first down, so the Chiefs get a new set of 4 downs. The ball is now at the opponent's 35-yard line (50 - 15 = 35).",
+            xpValue: 10
+        ),
+
+        // Q10: Situational - Run play result (Run/First Down)
+        Item(
+            id: UUID(uuidString: "00000003-0001-0000-0000-000000000010")!,
+            lessonId: ot1LessonId,
+            type: .mcq,
+            orderIndex: 10,
+            prompt: "The Philadelphia Eagles are on 3rd down with 2 yards to go for a first down. The running back takes a handoff and runs for 3 yards. What is the result?",
+            options: [
+                "4th and short",
+                "Incomplete pass",
+                "First down! New set of 4 downs",
+                "Turnover on downs"
+            ],
+            correctAnswer: .single(2),
+            explanation: "The Eagles gained 3 yards on a run play, which is more than the 2 yards they needed for a first down. They now have a fresh set of 4 downs to continue their drive.",
+            xpValue: 10
+        )
+    ]
+
+    // Keep legacy reference for backwards compatibility
+    static let footballBasicsLesson3 = offensiveTerms1
 
     static let footballBasicsLesson4 = Lesson(
         id: UUID(uuidString: "00000001-0000-0000-0000-000000000004")!,

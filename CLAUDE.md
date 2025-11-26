@@ -59,10 +59,10 @@ Section → Units → Lessons → Completions
 
 ### Question Pool & Rotation System
 
-Each lesson contains a **question pool** (typically 12-13 questions) but only shows **5 questions per session**. This creates variety across the 5 required completions and reinforces learning through spaced repetition.
+Each lesson contains a **question pool** (typically 8-11 questions) but only shows **5 questions per session**. This creates variety across the 5 required completions and reinforces learning through spaced repetition.
 
 **Question Pool Guidelines:**
-- **Pool size:** 12-13 questions per lesson (minimum 8-9 for smaller lessons)
+- **Pool size:** 8-11 questions per lesson (minimum 8-9 for smaller lessons)
 - **Questions per session:** 5 questions shown each time the user attempts the lesson
 - **Required completions:** 5 times to master and unlock the next lesson
 
@@ -91,7 +91,7 @@ The app tracks which questions each user has seen (`seenItemIds`) and prioritize
 - No single completion shows all questions, encouraging multiple attempts
 
 **When Creating New Lessons:**
-1. Write 12-13 questions covering the lesson's topics
+1. Write 8-11 questions covering the lesson's topics
 2. Use a variety of question types (see below)
 3. Set `items_per_session: 5` and `required_completions: 5` in the lesson config
 4. The rotation algorithm handles the rest automatically
@@ -709,7 +709,7 @@ Use this pattern for lesson IDs: `00000001-0000-0000-0000-00000000000X` where X 
 
 Use this pattern: `0000000X-0001-0000-0000-00000000000Y` where:
 - X = lesson number (2 for TF2, 3 for OT1, etc.)
-- Y = question number within lesson (1-13)
+- Y = question number within lesson (1-11)
 
 ### Item Variant ID Pattern
 
@@ -763,7 +763,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
 VALUES (...);
 
--- 5. Create Items and Item Variants (13 questions per lesson)
+-- 5. Create Items and Item Variants (8-11 questions per lesson)
 ```
 
 ### ON CONFLICT Clauses (Critical!)

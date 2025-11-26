@@ -434,7 +434,7 @@ VALUES (
     '00000002-0001-0000-0000-000000000013',
     '00000001-0000-0000-0000-000000000002',
     'mcq',
-    'The line of scrimmage is at the Green Bay 25-yard line. The running back rushes for a 4-yard gain. On what yard line is the new line of scrimmage?',
+    'The Chicago Bears are driving toward the Green Bay end zone. The line of scrimmage is at the Green Bay 25-yard line. The running back rushes for a 4-yard gain. On what yard line is the new line of scrimmage?',
     '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -447,10 +447,10 @@ VALUES (
     '00000002-0001-0001-0000-000000000013',
     '00000002-0001-0000-0000-000000000013',
     1,
-    'The line of scrimmage is at the Green Bay 25-yard line. The running back rushes for a 4-yard gain. On what yard line is the new line of scrimmage?',
+    'The Chicago Bears are driving toward the Green Bay end zone. The line of scrimmage is at the Green Bay 25-yard line. The running back rushes for a 4-yard gain. On what yard line is the new line of scrimmage?',
     '["Green Bay 29-yard line", "Green Bay 21-yard line", "Green Bay 25-yard line", "Green Bay 20-yard line"]',
     '{"index": 1}',
-    'The new line of scrimmage is at the Green Bay 21-yard line. A 4-yard gain toward the end zone moves the ball from the 25 to the 21 (25 - 4 = 21). Remember, yard numbers count down as you approach the goal line!',
+    'The new line of scrimmage is at the Green Bay 21-yard line. Since the Bears are driving toward Green Bay''s end zone, a 4-yard gain moves the ball from the 25 to the 21 (25 - 4 = 21). Yard numbers count down as you approach the goal line!',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;

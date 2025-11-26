@@ -97,16 +97,25 @@ class HomeViewModel {
         do {
             // Get all modules for the sport
             let modules = try await learningRepository.getModules(sportId: sport.id)
+            print("📦 Found \(modules.count) modules for sport \(sport.name) (id: \(sport.id))")
+            for module in modules {
+                print("   📁 Module: \(module.title) (id: \(module.id))")
+            }
 
             // Flatten all lessons from all modules
             var allLessons: [Lesson] = []
             for module in modules {
                 let moduleLessons = try await learningRepository.getLessons(moduleId: module.id)
+                print("   📚 Module '\(module.title)' has \(moduleLessons.count) lessons")
+                for lesson in moduleLessons {
+                    print("      📖 Lesson: \(lesson.title) (order: \(lesson.orderIndex), locked: \(lesson.isLocked))")
+                }
                 allLessons.append(contentsOf: moduleLessons)
             }
 
             // Sort by orderIndex
             lessons = allLessons.sorted { $0.orderIndex < $1.orderIndex }
+            print("📊 Total lessons loaded: \(lessons.count)")
 
             // Load actual completion counts from repository
             lessonCompletions = try await learningRepository.getLessonCompletions(
@@ -116,7 +125,7 @@ class HomeViewModel {
             print("📊 Loaded \(lessonCompletions.count) lesson completions")
 
         } catch {
-            print("Error loading lessons for \(sport.name): \(error)")
+            print("❌ Error loading lessons for \(sport.name): \(error)")
             lessons = []
             lessonCompletions = [:]
         }

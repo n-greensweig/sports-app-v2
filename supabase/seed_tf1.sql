@@ -15,7 +15,7 @@
 
 INSERT INTO sports (id, slug, name, accent_color, description, order_index, is_active)
 VALUES (
-    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    '0105433b-5bdd-4093-b6b1-157a0c3c515e',
     'football',
     'Football',
     '#2E7D32',
@@ -36,7 +36,7 @@ ON CONFLICT (slug) DO UPDATE SET
 INSERT INTO modules (id, sport_id, title, description, order_index, min_level, max_level, xp_reward)
 VALUES (
     '11111111-1111-1111-1111-111111111111',
-    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    '0105433b-5bdd-4093-b6b1-157a0c3c515e',
     'Rookie',
     'Start your football journey! Learn the basics of the field, scoring, and key terms.',
     1,

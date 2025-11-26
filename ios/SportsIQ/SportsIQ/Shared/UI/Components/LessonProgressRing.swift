@@ -17,6 +17,7 @@ struct LessonProgressRing: View {
 
     // Ring configuration
     private let ringWidth: CGFloat = 6
+    private let ringPadding: CGFloat = 4 // Space between inner circle and ring segments
     private let gapAngle: Double = 12 // Gap between segments in degrees
 
     // Computed properties for visual states
@@ -42,15 +43,7 @@ struct LessonProgressRing: View {
     // MARK: - Progress Ring
     private var progressRing: some View {
         ZStack {
-            // Background ring (always visible, subtle)
-            Circle()
-                .stroke(
-                    ringBackgroundColor,
-                    lineWidth: ringWidth
-                )
-                .frame(width: size + ringWidth * 2, height: size + ringWidth * 2)
-
-            // Completed segments
+            // Show all segments - unfilled ones are grayed out, filled ones are colored
             ForEach(0..<totalSegments, id: \.self) { index in
                 SegmentArc(
                     segmentIndex: index,
@@ -59,13 +52,13 @@ struct LessonProgressRing: View {
                     isFilled: index < completedSegments
                 )
                 .stroke(
-                    index < completedSegments ? segmentColor : Color.clear,
+                    index < completedSegments ? segmentColor : unfilledSegmentColor,
                     style: StrokeStyle(
                         lineWidth: ringWidth,
                         lineCap: .round
                     )
                 )
-                .frame(width: size + ringWidth * 2, height: size + ringWidth * 2)
+                .frame(width: size + ringPadding * 2 + ringWidth * 2, height: size + ringPadding * 2 + ringWidth * 2)
             }
         }
     }
@@ -102,18 +95,18 @@ struct LessonProgressRing: View {
     }
 
     // MARK: - Colors
-    private var ringBackgroundColor: Color {
-        if isLocked {
-            return Color.backgroundTertiary.opacity(0.5)
-        }
-        return Color.backgroundTertiary
-    }
-
     private var segmentColor: Color {
         if isCompleted {
             return accentColor.opacity(0.8)
         }
         return accentColor
+    }
+
+    private var unfilledSegmentColor: Color {
+        if isLocked {
+            return Color.backgroundTertiary.opacity(0.3)
+        }
+        return Color.backgroundTertiary.opacity(0.5)
     }
 
     private var circleGradient: LinearGradient {

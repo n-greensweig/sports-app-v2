@@ -22,7 +22,7 @@ struct LessonProgressRing: View {
     private let gapAngle: Double = 12 // Gap between segments in degrees
 
     // Pulse animation state
-    @State private var isPulsed: Bool = false
+    @State private var pulseScale: CGFloat = 1.0
 
     // Computed properties for visual states
     private var isCompleted: Bool { completedSegments >= totalSegments }
@@ -58,17 +58,14 @@ struct LessonProgressRing: View {
     }
 
     private func startPulseAnimation() {
-        isPulsed = true
-    }
-
-    // Pulse offset - moves ring inward to touch the circle edge
-    private var pulseOffset: CGFloat {
-        shouldPulse && isPulsed ? ringPadding : 0
+        withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+            pulseScale = 0.92
+        }
     }
 
     // MARK: - Progress Ring
     private var progressRing: some View {
-        let ringSize = size + ringPadding * 2 + ringWidth * 2 - pulseOffset * 2
+        let ringSize = size + ringPadding * 2 + ringWidth * 2
         return ZStack {
             // Show all segments - unfilled ones are grayed out, filled ones are colored
             ForEach(0..<totalSegments, id: \.self) { index in
@@ -88,13 +85,7 @@ struct LessonProgressRing: View {
                 .frame(width: ringSize, height: ringSize)
             }
         }
-        .animation(pulseAnimation, value: isPulsed)
-    }
-
-    // Custom animation for the pulse - only applied to the ring
-    private var pulseAnimation: Animation? {
-        guard shouldPulse else { return nil }
-        return .easeInOut(duration: 1.0).repeatForever(autoreverses: true)
+        .scaleEffect(shouldPulse ? pulseScale : 1.0)
     }
 
     // MARK: - Main Circle

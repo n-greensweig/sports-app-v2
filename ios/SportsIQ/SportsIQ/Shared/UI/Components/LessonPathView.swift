@@ -19,15 +19,15 @@ struct LessonPathView: View {
     // Path configuration
     private let nodeSize: CGFloat = 64
     private let verticalSpacing: CGFloat = 24
-    private let horizontalOffset: CGFloat = 60  // How far nodes swing left/right
+    private let horizontalOffset: CGFloat = 80  // How far nodes swing left/right
 
     var body: some View {
         VStack(spacing: verticalSpacing) {
             ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
                 lessonRow(lesson: lesson, index: index)
+                    .frame(maxWidth: .infinity) // Allow full width for popup overlay
             }
         }
-        .padding(.horizontal, .spacingL)
         .padding(.vertical, .spacingM)
     }
 
@@ -38,80 +38,74 @@ struct LessonPathView: View {
         let completionCount = completions[lesson.id] ?? 0
         let isSelected = selectedLessonIndex == index
 
-        HStack {
-            if position == .right || position == .farRight {
-                Spacer()
-            }
-
-            VStack(spacing: 8) {
-                // Lesson node button
-                Button {
-                    if !lesson.isLocked {
-                        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
-                            if selectedLessonIndex == index {
-                                selectedLessonIndex = nil
-                            } else {
-                                selectedLessonIndex = index
-                            }
+        VStack(spacing: 8) {
+            // Lesson node button
+            Button {
+                if !lesson.isLocked {
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                        if selectedLessonIndex == index {
+                            selectedLessonIndex = nil
+                        } else {
+                            selectedLessonIndex = index
                         }
                     }
-                } label: {
-                    LessonProgressRing(
-                        completedSegments: completionCount,
-                        totalSegments: lesson.requiredCompletions,
-                        isLocked: lesson.isLocked,
-                        icon: lessonIcon(for: index),
-                        accentColor: sport.accentColor,
-                        size: nodeSize
-                    )
                 }
-                .buttonStyle(LessonButtonStyle())
-                .disabled(lesson.isLocked)
-
-                // Lesson code badge (optional)
-                if let code = lesson.code {
-                    Text(code)
-                        .font(.caption2)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(lesson.isLocked ? Color.textTertiary : sport.accentColor)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 2)
-                        .background(
-                            Capsule()
-                                .fill(lesson.isLocked ? Color.backgroundTertiary : sport.accentColor.opacity(0.15))
-                        )
-                }
-
-                // Popup appears below the selected lesson
-                if isSelected {
-                    LessonStartPopup(
-                        lesson: lesson,
-                        completionCount: completionCount,
-                        sport: sport,
-                        onStart: {
-                            withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
-                                selectedLessonIndex = nil
-                            }
-                            onLessonStart(lesson)
-                        },
-                        onDismiss: {
-                            withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
-                                selectedLessonIndex = nil
-                            }
-                        }
-                    )
-                    .transition(.asymmetric(
-                        insertion: .scale(scale: 0.8, anchor: .top).combined(with: .opacity),
-                        removal: .scale(scale: 0.9, anchor: .top).combined(with: .opacity)
-                    ))
-                }
+            } label: {
+                LessonProgressRing(
+                    completedSegments: completionCount,
+                    totalSegments: lesson.requiredCompletions,
+                    isLocked: lesson.isLocked,
+                    icon: lessonIcon(for: index),
+                    accentColor: sport.accentColor,
+                    size: nodeSize
+                )
             }
-            .offset(x: horizontalOffset(for: position))
+            .buttonStyle(LessonButtonStyle())
+            .disabled(lesson.isLocked)
 
-            if position == .left || position == .farLeft {
-                Spacer()
+            // Lesson code badge (optional)
+            if let code = lesson.code {
+                Text(code)
+                    .font(.caption2)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(lesson.isLocked ? Color.textTertiary : sport.accentColor)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 2)
+                    .background(
+                        Capsule()
+                            .fill(lesson.isLocked ? Color.backgroundTertiary : sport.accentColor.opacity(0.15))
+                    )
             }
         }
+        // Popup appears as overlay below the lesson node (doesn't affect layout)
+        .overlay(alignment: .top) {
+            if isSelected {
+                LessonStartPopup(
+                    lesson: lesson,
+                    completionCount: completionCount,
+                    sport: sport,
+                    onStart: {
+                        withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                            selectedLessonIndex = nil
+                        }
+                        onLessonStart(lesson)
+                    },
+                    onDismiss: {
+                        withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                            selectedLessonIndex = nil
+                        }
+                    }
+                )
+                .frame(width: 280) // Explicit width to prevent compression
+                .offset(y: nodeSize + 24) // Position below the node + code badge
+                .transition(.asymmetric(
+                    insertion: .scale(scale: 0.8, anchor: .top).combined(with: .opacity),
+                    removal: .scale(scale: 0.9, anchor: .top).combined(with: .opacity)
+                ))
+            }
+        }
+        .offset(x: horizontalOffset(for: position))
+        .zIndex(isSelected ? 1 : 0) // Bring selected row to front so popup overlaps other rows
     }
 
     // MARK: - Path Position Logic

@@ -11,7 +11,10 @@ struct LessonPathView: View {
     let lessons: [Lesson]
     let completions: [UUID: Int]  // lessonId -> completionCount
     let sport: Sport
-    let onLessonTap: (Lesson) -> Void
+    let onLessonStart: (Lesson) -> Void  // Called when user taps "Start" in popup
+
+    // State for popup
+    @State private var selectedLessonIndex: Int? = nil
 
     // Path configuration
     private let nodeSize: CGFloat = 64
@@ -33,6 +36,7 @@ struct LessonPathView: View {
     private func lessonRow(lesson: Lesson, index: Int) -> some View {
         let position = pathPosition(for: index)
         let completionCount = completions[lesson.id] ?? 0
+        let isSelected = selectedLessonIndex == index
 
         HStack {
             if position == .right || position == .farRight {
@@ -41,8 +45,16 @@ struct LessonPathView: View {
 
             VStack(spacing: 8) {
                 // Lesson node button
-                NavigationLink {
-                    // This will be handled by the parent view
+                Button {
+                    if !lesson.isLocked {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                            if selectedLessonIndex == index {
+                                selectedLessonIndex = nil
+                            } else {
+                                selectedLessonIndex = index
+                            }
+                        }
+                    }
                 } label: {
                     LessonProgressRing(
                         completedSegments: completionCount,
@@ -55,11 +67,6 @@ struct LessonPathView: View {
                 }
                 .buttonStyle(LessonButtonStyle())
                 .disabled(lesson.isLocked)
-                .simultaneousGesture(TapGesture().onEnded {
-                    if !lesson.isLocked {
-                        onLessonTap(lesson)
-                    }
-                })
 
                 // Lesson code badge (optional)
                 if let code = lesson.code {
@@ -73,6 +80,30 @@ struct LessonPathView: View {
                             Capsule()
                                 .fill(lesson.isLocked ? Color.backgroundTertiary : sport.accentColor.opacity(0.15))
                         )
+                }
+
+                // Popup appears below the selected lesson
+                if isSelected {
+                    LessonStartPopup(
+                        lesson: lesson,
+                        completionCount: completionCount,
+                        sport: sport,
+                        onStart: {
+                            withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                selectedLessonIndex = nil
+                            }
+                            onLessonStart(lesson)
+                        },
+                        onDismiss: {
+                            withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                selectedLessonIndex = nil
+                            }
+                        }
+                    )
+                    .transition(.asymmetric(
+                        insertion: .scale(scale: 0.8, anchor: .top).combined(with: .opacity),
+                        removal: .scale(scale: 0.9, anchor: .top).combined(with: .opacity)
+                    ))
                 }
             }
             .offset(x: horizontalOffset(for: position))

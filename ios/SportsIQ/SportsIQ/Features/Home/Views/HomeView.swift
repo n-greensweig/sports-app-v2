@@ -187,14 +187,15 @@ struct HomeView: View {
                     emptyLessonsView(sport: sport)
                         .padding(.spacingM)
                 } else {
-                    // Duolingo-style lesson path
+                    // Duolingo-style lesson path with popup
                     LessonPathView(
                         lessons: viewModel.lessons,
                         completions: viewModel.lessonCompletions,
-                        sport: sport
-                    ) { lesson in
-                        selectedLesson = lesson
-                    }
+                        sport: sport,
+                        onLessonStart: { lesson in
+                            selectedLesson = lesson
+                        }
+                    )
                 }
             }
         }

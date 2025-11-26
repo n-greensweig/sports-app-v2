@@ -668,7 +668,7 @@ Use abbreviated codes for easy reference:
 
 **Creating Features:** Create folder structure in `Features/`, add Views/ViewModels/Coordinator, write tests.
 
-**Running App:** Use Xcode (Cmd+R) or `xcodebuild -scheme SportsIQ -destination 'platform=iOS Simulator,name=iPhone 15 Pro'`
+**Running App:** Always use **iPhone 17 Pro** simulator for development and testing. Use Xcode (Cmd+R) or `xcodebuild -scheme SportsIQ -destination 'platform=iOS Simulator,name=iPhone 17 Pro'`
 
 **Conventions:** UTC for dates, UUID type for IDs, domain-specific errors with LocalizedError, handle with async throws.
 

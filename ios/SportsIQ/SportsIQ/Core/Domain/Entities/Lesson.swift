@@ -19,6 +19,11 @@ struct Lesson: Identifiable, Codable, Hashable {
     let isLocked: Bool
     let items: [Item]
 
+    // New fields for multi-completion system
+    let code: String?                // Short code like "TF1", "OT1"
+    let itemsPerSession: Int         // Questions shown per completion (default 5)
+    let requiredCompletions: Int     // Completions needed to master (default 3)
+
     init(
         id: UUID,
         moduleId: UUID,
@@ -28,7 +33,10 @@ struct Lesson: Identifiable, Codable, Hashable {
         estimatedMinutes: Int,
         xpAward: Int,
         isLocked: Bool = false,
-        items: [Item] = []
+        items: [Item] = [],
+        code: String? = nil,
+        itemsPerSession: Int = 5,
+        requiredCompletions: Int = 3
     ) {
         self.id = id
         self.moduleId = moduleId
@@ -39,57 +47,171 @@ struct Lesson: Identifiable, Codable, Hashable {
         self.xpAward = xpAward
         self.isLocked = isLocked
         self.items = items
+        self.code = code
+        self.itemsPerSession = itemsPerSession
+        self.requiredCompletions = requiredCompletions
     }
 }
 
 // MARK: - Mock Data
 extension Lesson {
-    // MARK: - Football Basics Module Lessons
-    static let footballBasicsLesson1 = Lesson(
-        id: UUID(uuidString: "00000001-0000-0000-0000-000000000001")!,
+    // MARK: - Rookie Section: The Field 1 (TF1)
+    // Topics: Dimensions, markings (yard lines), goal lines, end zones
+    // 9 questions total, 5 shown per session for variety
+
+    private static let tf1LessonId = UUID(uuidString: "00000001-0000-0000-0000-000000000001")!
+
+    static let theField1 = Lesson(
+        id: tf1LessonId,
         moduleId: Module.footballBasics.id,
-        title: "The Field & Players",
-        description: "Learn about the football field and how many players are on each team",
+        title: "The Field 1",
+        description: "Learn about field dimensions, yard lines, goal lines, and end zones",
         orderIndex: 1,
-        estimatedMinutes: 5,
+        estimatedMinutes: 4,
         xpAward: 50,
         isLocked: false,
-        items: [
-            Item(
-                id: UUID(),
-                lessonId: UUID(uuidString: "00000001-0000-0000-0000-000000000001")!,
-                type: .mcq,
-                orderIndex: 1,
-                prompt: "How many players are on the field for one team in American Football?",
-                options: ["9", "11", "12", "15"],
-                correctAnswer: .single(1),
-                explanation: "Each team has 11 players on the field at a time.",
-                xpValue: 10
-            ),
-            Item(
-                id: UUID(),
-                lessonId: UUID(uuidString: "00000001-0000-0000-0000-000000000001")!,
-                type: .slider,
-                orderIndex: 2,
-                prompt: "How many yards is the football field (excluding end zones)?",
-                options: nil,
-                correctAnswer: .range(min: 95, max: 105),
-                explanation: "The football field is 100 yards long, not including the 10-yard end zones on each end.",
-                xpValue: 10
-            ),
-            Item(
-                id: UUID(),
-                lessonId: UUID(uuidString: "00000001-0000-0000-0000-000000000001")!,
-                type: .binary,
-                orderIndex: 3,
-                prompt: "Each end zone is 10 yards deep.",
-                options: ["True", "False"],
-                correctAnswer: .boolean(true),
-                explanation: "Correct! Each end zone is exactly 10 yards deep.",
-                xpValue: 10
-            )
-        ]
+        items: tf1Items,
+        code: "TF1",
+        itemsPerSession: 5,
+        requiredCompletions: 3
     )
+
+    private static let tf1Items: [Item] = [
+        // Q1: Field length (Dimensions)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000001")!,
+            lessonId: tf1LessonId,
+            type: .mcq,
+            orderIndex: 1,
+            prompt: "How long is a football field from goal line to goal line?",
+            options: ["80 yards", "100 yards", "120 yards", "150 yards"],
+            correctAnswer: .single(1),
+            explanation: "A football field is exactly 100 yards (300 feet) from goal line to goal line. The end zones add another 10 yards on each side.",
+            xpValue: 10
+        ),
+
+        // Q2: Field width (Dimensions)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000002")!,
+            lessonId: tf1LessonId,
+            type: .mcq,
+            orderIndex: 2,
+            prompt: "How wide is a regulation football field?",
+            options: ["40 yards", "53⅓ yards", "60 yards", "75 yards"],
+            correctAnswer: .single(1),
+            explanation: "A regulation football field is 53⅓ yards (160 feet) wide. This width is the same for both NFL and college football.",
+            xpValue: 10
+        ),
+
+        // Q3: End zone depth (End zones)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000003")!,
+            lessonId: tf1LessonId,
+            type: .binary,
+            orderIndex: 3,
+            prompt: "Each end zone is 10 yards deep.",
+            options: ["True", "False"],
+            correctAnswer: .boolean(true),
+            explanation: "Correct! Each end zone extends 10 yards beyond the goal line, adding 20 total yards to the field's overall length of 120 yards.",
+            xpValue: 10
+        ),
+
+        // Q4: Yard line markings (Markings)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000004")!,
+            lessonId: tf1LessonId,
+            type: .mcq,
+            orderIndex: 4,
+            prompt: "Yard lines are marked on the field every how many yards?",
+            options: ["1 yard", "5 yards", "10 yards", "20 yards"],
+            correctAnswer: .single(1),
+            explanation: "Yard lines are painted across the field every 5 yards. Numbers are displayed every 10 yards to help players and fans track field position.",
+            xpValue: 10
+        ),
+
+        // Q5: Goal line definition (Goal lines)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000005")!,
+            lessonId: tf1LessonId,
+            type: .mcq,
+            orderIndex: 5,
+            prompt: "What does a player need to do to score a touchdown?",
+            options: [
+                "Touch the goal line",
+                "Cross the goal line with the ball",
+                "Throw the ball over the goal line",
+                "Kick the ball through the uprights"
+            ],
+            correctAnswer: .single(1),
+            explanation: "To score a touchdown, the ball must cross (or \"break the plane of\") the goal line while in a player's possession. The goal line is the front edge of the end zone.",
+            xpValue: 10
+        ),
+
+        // Q6: Total field length including end zones (Dimensions)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000006")!,
+            lessonId: tf1LessonId,
+            type: .mcq,
+            orderIndex: 6,
+            prompt: "Including both end zones, how long is a football field in total?",
+            options: ["100 yards", "110 yards", "120 yards", "130 yards"],
+            correctAnswer: .single(2),
+            explanation: "The total length is 120 yards: 100 yards of playing field plus two 10-yard end zones (one at each end).",
+            xpValue: 10
+        ),
+
+        // Q7: Numbered yard lines (Markings)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000007")!,
+            lessonId: tf1LessonId,
+            type: .binary,
+            orderIndex: 7,
+            prompt: "The 50-yard line is at the exact center of the field.",
+            options: ["True", "False"],
+            correctAnswer: .boolean(true),
+            explanation: "The 50-yard line marks the midfield point, exactly halfway between both goal lines. Yard numbers count down from 50 toward each end zone (50, 40, 30, 20, 10).",
+            xpValue: 10
+        ),
+
+        // Q8: End zone purpose (End zones)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000008")!,
+            lessonId: tf1LessonId,
+            type: .mcq,
+            orderIndex: 8,
+            prompt: "What is the primary purpose of the end zone?",
+            options: [
+                "A rest area for tired players",
+                "The scoring area for touchdowns",
+                "Where the coaches stand",
+                "A warmup area before plays"
+            ],
+            correctAnswer: .single(1),
+            explanation: "The end zone is the scoring area! When an offensive player carries or catches the ball in the end zone, their team scores a touchdown (6 points).",
+            xpValue: 10
+        ),
+
+        // Q9: Goal line location (Goal lines)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000009")!,
+            lessonId: tf1LessonId,
+            type: .mcq,
+            orderIndex: 9,
+            prompt: "Where is the goal line located?",
+            options: [
+                "In the middle of the end zone",
+                "At the back of the end zone",
+                "At the front edge of the end zone",
+                "Behind the goalposts"
+            ],
+            correctAnswer: .single(2),
+            explanation: "The goal line is at the front edge of the end zone, separating the 100-yard playing field from the end zone. It's the line a player must cross to score a touchdown.",
+            xpValue: 10
+        )
+    ]
+
+    // Keep legacy reference for backwards compatibility
+    static let footballBasicsLesson1 = theField1
 
     static let footballBasicsLesson2 = Lesson(
         id: UUID(uuidString: "00000001-0000-0000-0000-000000000002")!,

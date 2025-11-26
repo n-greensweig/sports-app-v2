@@ -12,6 +12,7 @@ struct ModuleLessonsView: View {
     let sport: Sport
     let coordinator: AppCoordinator
     @State private var lessons: [Lesson] = []
+    @State private var completions: [UUID: Int] = [:]  // lessonId -> completionCount
     @State private var isLoading = false
 
     var body: some View {
@@ -51,7 +52,8 @@ struct ModuleLessonsView: View {
                             LessonCard(
                                 lesson: lesson,
                                 lessonNumber: index + 1,
-                                sport: sport
+                                sport: sport,
+                                completionCount: completions[lesson.id] ?? 0
                             )
                         }
                         .disabled(lesson.isLocked)
@@ -71,6 +73,8 @@ struct ModuleLessonsView: View {
         isLoading = true
         do {
             lessons = try await coordinator.learningRepository.getLessons(moduleId: module.id)
+            // TODO: Load user's completion counts from repository
+            // completions = try await coordinator.learningRepository.getLessonCompletions(moduleId: module.id)
         } catch {
             print("Error loading lessons: \(error)")
         }
@@ -83,30 +87,52 @@ struct LessonCard: View {
     let lesson: Lesson
     let lessonNumber: Int
     let sport: Sport
+    let completionCount: Int  // How many times user has completed this lesson
+
+    // Icons to cycle through for different lessons
+    private static let lessonIcons = [
+        "star.fill",
+        "scalemass.fill",
+        "football.fill",
+        "figure.american.football",
+        "trophy.fill"
+    ]
+
+    private var lessonIcon: String {
+        LessonCard.lessonIcons[(lessonNumber - 1) % LessonCard.lessonIcons.count]
+    }
 
     var body: some View {
         HStack(spacing: .spacingM) {
-            // Lesson Number
-            ZStack {
-                Circle()
-                    .fill(lesson.isLocked ? Color.backgroundTertiary : sport.accentColor.opacity(0.2))
-                    .frame(width: 44, height: 44)
-
-                if lesson.isLocked {
-                    Image(systemName: "lock.fill")
-                        .foregroundStyle(Color.textTertiary)
-                } else {
-                    Text("\(lessonNumber)")
-                        .font(.heading4)
-                        .foregroundStyle(sport.accentColor)
-                }
-            }
+            // Progress Ring
+            LessonProgressRing(
+                completedSegments: completionCount,
+                totalSegments: lesson.requiredCompletions,
+                isLocked: lesson.isLocked,
+                icon: lessonIcon,
+                accentColor: sport.accentColor,
+                size: 56
+            )
 
             VStack(alignment: .leading, spacing: .spacingXS) {
-                Text(lesson.title)
-                    .font(.heading4)
-                    .foregroundStyle(Color.textPrimary)
-                    .multilineTextAlignment(.leading)
+                HStack(spacing: .spacingS) {
+                    // Show lesson code if available
+                    if let code = lesson.code {
+                        Text(code)
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(sport.accentColor)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(sport.accentColor.opacity(0.15))
+                            .cornerRadius(4)
+                    }
+
+                    Text(lesson.title)
+                        .font(.heading4)
+                        .foregroundStyle(Color.textPrimary)
+                        .multilineTextAlignment(.leading)
+                }
 
                 Text(lesson.description)
                     .font(.bodySmall)
@@ -117,6 +143,16 @@ struct LessonCard: View {
                 HStack(spacing: .spacingM) {
                     Label("\(lesson.estimatedMinutes) min", systemImage: "clock.fill")
                     Label("\(lesson.xpAward) XP", systemImage: "star.fill")
+
+                    // Show completion progress
+                    if !lesson.isLocked && completionCount < lesson.requiredCompletions {
+                        Text("\(completionCount)/\(lesson.requiredCompletions)")
+                            .fontWeight(.medium)
+                            .foregroundStyle(sport.accentColor)
+                    } else if completionCount >= lesson.requiredCompletions {
+                        Label("Mastered", systemImage: "checkmark.circle.fill")
+                            .foregroundStyle(Color.correct)
+                    }
                 }
                 .font(.caption)
                 .foregroundStyle(Color.textSecondary)
@@ -146,4 +182,54 @@ struct LessonCard: View {
             )
         )
     }
+}
+
+#Preview("Lesson Cards") {
+    VStack(spacing: 16) {
+        LessonCard(
+            lesson: .footballBasicsLesson1,
+            lessonNumber: 1,
+            sport: .football,
+            completionCount: 0
+        )
+
+        LessonCard(
+            lesson: .footballBasicsLesson2,
+            lessonNumber: 2,
+            sport: .football,
+            completionCount: 1
+        )
+
+        LessonCard(
+            lesson: .footballBasicsLesson3,
+            lessonNumber: 3,
+            sport: .football,
+            completionCount: 2
+        )
+
+        LessonCard(
+            lesson: .footballBasicsLesson4,
+            lessonNumber: 4,
+            sport: .football,
+            completionCount: 3
+        )
+
+        LessonCard(
+            lesson: Lesson(
+                id: UUID(),
+                moduleId: Module.footballBasics.id,
+                title: "Locked Lesson",
+                description: "This lesson is locked",
+                orderIndex: 5,
+                estimatedMinutes: 5,
+                xpAward: 50,
+                isLocked: true,
+                code: "TF2"
+            ),
+            lessonNumber: 5,
+            sport: .football,
+            completionCount: 0
+        )
+    }
+    .padding()
 }

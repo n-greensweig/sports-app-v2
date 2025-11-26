@@ -15,9 +15,12 @@ class LessonViewModel {
     private let learningRepository: LearningRepository
     private let audioManager: AudioManager
     private let hapticManager: HapticManager
-    
+
     // MARK: - Internal State
+    /// The subset of items selected for this session (from the larger pool)
     private var lessonItems: [Item]
+    /// IDs of items shown in this session (to track for variety in future sessions)
+    private(set) var sessionItemIds: [UUID] = []
 
     // MARK: - State
     var currentItemIndex = 0
@@ -29,17 +32,17 @@ class LessonViewModel {
     var isCurrentAnswerCorrect = false
     var correctAnswersCount = 0
     var submissions: [Submission] = []
-    
+
     // MARK: - Shuffling State
     var currentShuffledOptions: [String]?
     var currentOptionIndices: [Int]? // Maps shuffled index -> original index
-    
+
     // MARK: - SRS State
     var reviewQueue: [Item] = [] // Items that were answered incorrectly
     var answeredCorrectly: Set<UUID> = [] // IDs of items answered correctly
     private var isInReviewMode = false // Track if we're presenting review items
     private var reviewIndex = 0 // Current index in review queue
-    
+
     var totalUniqueItems: Int {
         lessonItems.count
     }
@@ -49,7 +52,7 @@ class LessonViewModel {
         if showCompletionScreen {
             return lessonItems.last
         }
-        
+
         if isInReviewMode {
             guard reviewIndex < reviewQueue.count else { return nil }
             return reviewQueue[reviewIndex]
@@ -72,9 +75,18 @@ class LessonViewModel {
         }
     }
 
+    /// Initialize with previously seen items (for variety in question selection)
+    /// - Parameters:
+    ///   - lesson: The lesson to present
+    ///   - userId: The current user's ID
+    ///   - previouslySeenItemIds: IDs of items the user has seen in previous sessions
+    ///   - learningRepository: Repository for submitting answers
+    ///   - audioManager: Audio feedback manager
+    ///   - hapticManager: Haptic feedback manager
     init(
         lesson: Lesson,
         userId: UUID,
+        previouslySeenItemIds: Set<UUID> = [],
         learningRepository: LearningRepository,
         audioManager: AudioManager,
         hapticManager: HapticManager
@@ -84,12 +96,74 @@ class LessonViewModel {
         self.learningRepository = learningRepository
         self.audioManager = audioManager
         self.hapticManager = hapticManager
-        
-        // Shuffle items for random order
-        self.lessonItems = lesson.items.shuffled()
-        
+
+        // Select items for this session with variety
+        self.lessonItems = Self.selectItemsForSession(
+            from: lesson.items,
+            itemsPerSession: lesson.itemsPerSession,
+            previouslySeenItemIds: previouslySeenItemIds
+        )
+
+        // Track which items we're showing this session
+        self.sessionItemIds = lessonItems.map { $0.id }
+
         // Prepare first item
         prepareCurrentItem()
+    }
+
+    /// Legacy initializer for backwards compatibility
+    convenience init(
+        lesson: Lesson,
+        userId: UUID,
+        learningRepository: LearningRepository,
+        audioManager: AudioManager,
+        hapticManager: HapticManager
+    ) {
+        self.init(
+            lesson: lesson,
+            userId: userId,
+            previouslySeenItemIds: [],
+            learningRepository: learningRepository,
+            audioManager: audioManager,
+            hapticManager: hapticManager
+        )
+    }
+
+    /// Selects items for a lesson session, prioritizing unseen items for variety
+    /// - Parameters:
+    ///   - items: All items in the lesson pool
+    ///   - itemsPerSession: How many items to show per session
+    ///   - previouslySeenItemIds: Items the user has seen before
+    /// - Returns: A shuffled array of items to show this session
+    private static func selectItemsForSession(
+        from items: [Item],
+        itemsPerSession: Int,
+        previouslySeenItemIds: Set<UUID>
+    ) -> [Item] {
+        // If we have fewer items than needed, just shuffle and return all
+        guard items.count > itemsPerSession else {
+            return items.shuffled()
+        }
+
+        // Split items into unseen and seen
+        let unseenItems = items.filter { !previouslySeenItemIds.contains($0.id) }
+        let seenItems = items.filter { previouslySeenItemIds.contains($0.id) }
+
+        var selectedItems: [Item] = []
+
+        // First, add unseen items (up to itemsPerSession)
+        let unseenToAdd = Array(unseenItems.shuffled().prefix(itemsPerSession))
+        selectedItems.append(contentsOf: unseenToAdd)
+
+        // If we need more items, fill with seen items
+        let remaining = itemsPerSession - selectedItems.count
+        if remaining > 0 {
+            let seenToAdd = Array(seenItems.shuffled().prefix(remaining))
+            selectedItems.append(contentsOf: seenToAdd)
+        }
+
+        // Shuffle the final selection so unseen items aren't always first
+        return selectedItems.shuffled()
     }
     
     private func prepareCurrentItem() {

@@ -1,1297 +1,685 @@
-# Claude Context - SportsIQ Project
-
-**Last Updated**: 2025-11-19
-**Project Phase**: Active Development (Phase 1 - App Store Preparation)
-**Primary Language**: Swift (iOS first)
-**Future Languages**: Kotlin (Android), potentially TypeScript (Web)
-
----
-
-## Quick Project Summary
-
-**SportsIQ** is a Duolingo-style sports education app that helps fans of all levels learn about sports through:
-- Structured bite-sized lessons (≤5 minutes)
-- Real-time prompts during live games
-- Spaced repetition for retention
-- Gamification (XP, Overall ratings 0-99, medals, badges, leaderboards)
-
-**V1 Focus**: Football only, iOS/Swift, with architecture designed for easy multi-platform expansion.
-
----
-
-## Essential Reading
-
-Before starting any development task, read these documents:
-
-1. **[README.md](./README.md)**: Project overview and quick reference
-2. **[docs/PROJECT_SCOPE.md](./docs/PROJECT_SCOPE.md)**: Complete product vision, features, UX/UI design, roadmap
-3. **[docs/DATABASE_SCHEMA.md](./docs/DATABASE_SCHEMA.md)**: Full database schema with all tables and relationships
-
-**Key Sections to Know**:
-- User Personas (4 levels): docs/PROJECT_SCOPE.md#user-personas
-- Technical Architecture: docs/PROJECT_SCOPE.md#technical-architecture
-- MVP Roadmap: docs/PROJECT_SCOPE.md#mvp-roadmap
-- Database Schema Overview: docs/DATABASE_SCHEMA.md
-
----
-
-## Architecture Principles
-
-### 1. Multi-Platform from Day 1 (Even Though We Start iOS-Only)
-
-**Critical**: Although we're building in Swift first, the architecture MUST support easy addition of Kotlin (Android) and other platforms later.
-
-**How to Achieve This**:
-- Use **Clean Architecture** with clear layer separation
-- Keep business logic in the **Domain Layer** (platform-agnostic concepts)
-- Use **protocols/interfaces** for all cross-layer dependencies
-- Keep platform code (SwiftUI, UIKit, Core Haptics) isolated in **Presentation Layer**
-- Design data models that can be serialized/deserialized identically across platforms
-
-**Future Migration Path** (Phase 2):
-```
-Current: Swift-only
-         ├── Presentation (SwiftUI) ← Platform-specific
-         ├── Domain (Swift) ← Will become KMM shared module
-         └── Data (Swift) ← Will become KMM shared module
-
-Future: Kotlin Multiplatform
-         ├── iOS: Presentation (SwiftUI)
-         ├── Android: Presentation (Jetpack Compose)
-         ├── Shared: Domain (Kotlin Multiplatform)
-         └── Shared: Data (Kotlin Multiplatform)
-```
-
-### 2. Clean Architecture Layers
-
-```
-┌─────────────────────────────────────────┐
-│         Presentation Layer              │
-│  • SwiftUI Views                        │
-│  • ViewModels (@Observable)             │
-│  • Coordinators (Navigation)            │
-│  • Platform-specific code               │
-└─────────────────┬───────────────────────┘
-                  │
-┌─────────────────▼───────────────────────┐
-│         Domain Layer                    │
-│  • Use Cases (business logic)           │
-│  • Entities (core models)               │
-│  • Repository Protocols                 │
-│  • NO platform dependencies             │
-└─────────────────┬───────────────────────┘
-                  │
-┌─────────────────▼───────────────────────┐
-│         Data Layer                      │
-│  • Repository Implementations           │
-│  • Network Service (URLSession)         │
-│  • Database Service (SwiftData)         │
-│  • DTOs (Data Transfer Objects)         │
-└─────────────────────────────────────────┘
-```
-
-# Ola Ball Project Guide
+# Ola Ball (SportsIQ) - Complete Project Guide
 
 ## Project Overview
-Ola Ball is a mobile application designed to help users learn sports IQ through interactive lessons and gamified experiences.
-- **Stack**: iOS (SwiftUI) + Supabase (PostgreSQL, Auth)
-- **State Management**: MVVM + Repository Pattern
-- **Design System**: Custom SwiftUI components
 
-## Key Commands
-- **Build**: Cmd+B (Xcode)
-- **Run**: Cmd+R (Xcode)
-- **Test**: Cmd+U (Xcode)
+**Ola Ball** (technical name: SportsIQ) is a sports education app that teaches users about sports (starting with football) using a Duolingo-inspired spaced repetition learning system. The app emphasizes gradual, continuous learning over time rather than quick completion.
 
-## Project Structure
-- `/ios`: Native iOS application code
-  - `App`: Entry point and coordination
-  - `Core`: Domain logic and data layer
-  - `Features`: UI screens and view models
-  - `Shared`: Reusable components
-- `/supabase`: Database migrations and seed data
-- `/docs`: Project documentation
+**Current Status**: Active Development (Phase 1 - App Store Preparation)
+**Primary Stack**: Swift (iOS) + Supabase (PostgreSQL, Auth)
+**Architecture**: Clean Architecture with MVVM pattern
 
-When creating the iOS project, use this structure:
+## Core Learning Philosophy
+
+### Spaced Repetition System (SRS)
+- Questions appear across multiple lessons with decreasing frequency
+- Users reinforce knowledge through repeated exposure to concepts
+- No need to repeat previously completed lessons - future lessons inherently reinforce past material
+- Learning journey should take **weeks to months** to complete (no shortcuts)
+
+### Question Distribution Strategy
+**For a 5-question lesson:**
+- 1-4 questions repeated from previous lessons
+- 1-4 new questions introduced
+- Questions appear in different orders each time
+- Questions only repeat within the same category (e.g., offensive terms questions only appear in offensive term lessons)
+
+### Key Features
+- **Structured bite-sized lessons** (≤5 minutes each)
+- **Real-time prompts during live games** (future feature)
+- **Spaced repetition for retention** (SM-2 algorithm)
+- **Gamification** (XP, Overall ratings 0-99, medals, badges, leaderboards)
+- **Ola character animation** (visible during lessons with reactions)
+
+---
+
+## Technical Architecture
+
+**Stack:** Swift + SwiftUI + Supabase (PostgreSQL/Auth). MVVM + @Observable (iOS 17+).
+
+**Multi-Platform Ready:** Clean Architecture with Presentation/Domain/Data layers. Domain/Data designed to migrate to Kotlin Multiplatform.
+
+**Structure:** `ios/SportsIQ/{App, Core/{Domain,Data}, Features/{Auth,Home,Learn,LiveMode,Review,Profile}, Shared/{UI,Services}, Resources}`
+
+---
+
+## Structural Hierarchy
 
 ```
-ios/
-└── SportsIQ/
-    ├── App/
-    │   ├── SportsIQApp.swift
-    │   └── AppCoordinator.swift
-    ├── Core/
-    │   ├── Domain/
-    │   │   ├── Entities/
-    │   │   │   ├── User.swift
-    │   │   │   ├── Sport.swift
-    │   │   │   ├── Lesson.swift
-    │   │   │   ├── Item.swift
-    │   │   │   └── Submission.swift
-    │   │   ├── UseCases/
-    │   │   │   ├── Auth/
-    │   │   │   ├── Learning/
-    │   │   │   ├── Gamification/
-    │   │   │   └── LiveMode/
-    │   │   └── Repositories/ (protocols only)
-    │   │       ├── UserRepository.swift
-    │   │       ├── LearningRepository.swift
-    │   │       └── GameRepository.swift
-    │   └── Data/
-    │       ├── Network/
-    │       │   ├── APIClient.swift
-    │       │   ├── Endpoints/
-    │       │   └── DTOs/
-    │       ├── Local/
-    │       │   ├── SwiftDataModels/
-    │       │   └── CacheManager.swift
-    │       └── Repositories/ (implementations)
-    │           ├── UserRepositoryImpl.swift
-    │           ├── LearningRepositoryImpl.swift
-    │           └── GameRepositoryImpl.swift
-    ├── Features/
-    │   ├── Auth/
-    │   │   ├── Views/
-    │   │   ├── ViewModels/
-    │   │   └── AuthCoordinator.swift
-    │   ├── Home/
-    │   ├── Learn/
-    │   │   ├── Views/
-    │   │   │   ├── SportSubLandingView.swift
-    │   │   │   ├── LessonView.swift
-    │   │   │   └── LessonCompleteView.swift
-    │   │   ├── ViewModels/
-    │   │   │   └── LessonViewModel.swift
-    │   │   └── LearnCoordinator.swift
-    │   ├── LiveMode/
-    │   ├── Review/
-    │   └── Profile/
-    ├── Shared/
-    │   ├── UI/
-    │   │   ├── Components/
-    │   │   │   ├── Buttons/
-    │   │   │   ├── Cards/
-    │   │   │   └── ProgressBar.swift
-    │   │   ├── Styles/
-    │   │   │   ├── Colors.swift
-    │   │   │   ├── Typography.swift
-    │   │   │   └── SportTheme.swift
-    │   │   └── Modifiers/
-    │   ├── Utils/
-    │   │   ├── Extensions/
-    │   │   └── Helpers/
-    │   └── Services/
-    │       ├── AudioManager.swift
-    │       ├── HapticManager.swift
-    │       └── NotificationManager.swift
-    └── Resources/
-        ├── Assets.xcassets/
-        ├── Sounds/
-        └── Localizable.strings
+Section → Units → Lessons → Completions
 ```
+
+### Lesson Completion Mechanics
+- Each lesson must be passed **3-5 times** before progressing
+- Visual progress indicator: Circle with icon
+  - Empty/grayed out initially
+  - Ring fills in segments (⅓, ⅔, full) as user completes
+  - Small gaps between ring segments
+  - Icon becomes fully colored when lesson is complete
+  - Incomplete segments remain grayed out
+
+### Visual Icons (Football Theme)
+Suggested icons for lessons:
+- Star
+- Weight
+- Football
+- Football helmet
+- Football player
+
+## Content Structure
+
+### Complete Lesson Breakdown
+
+---
+
+## SECTION: Rookie
+
+### LESSON: The Field 1 (TF1)
+**Topics covered:** Dimensions, markings (yard lines), goal lines, end zones.
+
+### LESSON: The Field 2 (TF2)
+**Topics covered:** Uprights, hash marks, the line of scrimmage, pylon, sideline, boundary lines, field goal posts, press box.
+
+### QUIZ: Rookie Field Quiz
+
+### LESSON: Offensive Terms 1 (OT1)
+**Topics covered:** Run, pass, catch, first down.
+
+### LESSON: Offensive Terms 2 (OT2)
+**Topics covered:** Field goal, touchdown, extra point, safety.
+
+### LESSON: Offensive Terms 3 (OT3)
+**Topics covered:** Conversion, line to gain, down by contact, inbounds/out of bounds, goal-line stand.
+
+### QUIZ: Rookie Offensive Terms Quiz
+
+### LESSON: Defensive Terms 1 (DT1)
+**Topics covered:** Defensive line, linebacker, interception, fumble, sack.
+
+### LESSON: Defensive Terms 2 (DT2)
+**Topics covered:** Forced fumble, pass defensed, pick-six, strip-sack.
+
+### LESSON: Defensive Terms 3 (DT3)
+**Topics covered:** Turnover on downs, containment, secondary.
+
+### QUIZ: Rookie Defensive Terms Quiz
+
+### LESSON: Games & Overtime 1 (G&O 1)
+**Topics covered:** Coin toss at beginning of game and overtime, timeouts, quarter and overtime period length.
+
+### LESSON: Games & Overtime 2 (G&O 2)
+**Topics covered:** Elect to defer or receive, why teams might choose to defer or receive, basic clock management, two-minute warning.
+
+### LESSON: Games & Overtime 3 (G&O 3)
+**Topics covered:** Sudden death, possession arrow (CFB), half-time, game clock vs. play clock.
+
+### LESSON: Scoreboard & Records 1 (SR1)
+**Topics covered:** Reading the score, understanding home/away designation, interpreting team records (Win-Loss-Tie), basic stat line components (passing yards, rushing yards, turnovers).
+
+### LESSON: Scoreboard & Records 2 (SR2)
+**Topics covered:** Basic stat line components (passing yards, rushing yards, turnovers, completions-incompletions).
+
+### QUIZ: Rookie Test & Overtime Quiz
+
+### LESSON: Common Penalties 1 (CP1)
+**Topics covered:** Holding, false start, offside.
+
+### LESSON: Common Penalties 2 (CP2)
+**Topics covered:** DPI (Defensive Pass Interference), unnecessary roughness, roughing the passer, face mask.
+
+### LESSON: Common Penalties 3 (CP3)
+**Topics covered:** Neutral zone infraction, illegal block in the back, intentional grounding, encroachment, dead ball foul.
+
+### QUIZ: Rookie Penalties Quiz
+
+### LESSON: Coaches & Personnel 1 (C&P 1)
+**Topics covered:** Head Coach, Offensive Coordinator, Defensive Coordinator, Special Teams Coordinator, basic roles.
+
+### LESSON: Coaches & Personnel 2 (C&P 2)
+**Topics covered:** Scouting, personnel groupings (basic introduction), general manager.
+
+### QUIZ: Rookie Coaches & Personnel Quiz
+
+### LESSON: Special Teams Fundamentals 1 (STF1)
+**Topics covered:** Kickoff, punt, field goal attempt, extra point attempt (PAT).
+
+### LESSON: Offensive Positions 1 (OP1)
+**Topics covered:** Quarterback (QB), Running Back (RB), and descriptions of each of their roles.
+
+### LESSON: Offensive Positions 2 (OP2)
+**Topics covered:** Wide Receiver (WR), Tight End (TE), and descriptions of each of their roles.
+
+### LESSON: Defensive Positions 1 (DP1)
+**Topics covered:** Defensive Lineman (DL), Linebackers (LBs), and descriptions of each of their roles.
+
+### LESSON: Defensive Positions 2 (DP2)
+**Topics covered:** Cornerbacks (CBs), Safeties (Ss - Free/Strong), and descriptions of each of their roles.
+
+### LESSON: Penalties Intermediate 1 (PI1)
+**Topics covered:** Holding (offensive/defensive distinction), chop block, intentional grounding.
+
+### QUIZ: Rookie Fundamentals Quiz
+
+### QUIZ: Rookie Final Test
+
+---
+
+## SECTION: Veteran
+
+### LESSON: Offense Fundamentals 1 (OF1)
+**Topics covered:** Snap, huddle, basic offensive formation (e.g., I-formation, Shotgun).
+
+### LESSON: Offense Fundamentals 2 (OF2)
+**Topics covered:** Handoffs, passing routes (basic), check with me.
+
+### LESSON: Offense Fundamentals 3 (OF3)
+**Topics covered:** Hard count, motion, shift, blocking assignments (basic).
+
+### LESSON: Defense Fundamentals 1 (DF1)
+**Topics covered:** Basic defensive formations (e.g., 4-3, 3-4), man-to-man coverage, zone coverage (basic).
+
+### LESSON: Defense Fundamentals 2 (DF2)
+**Topics covered:** Tackling, gap control, run support, open-field tackling, assignment football.
+
+### LESSON: Special Teams Fundamentals 2 (STF2)
+**Topics covered:** Basic roles (kicker, punter, long snapper), kick return, punt return.
+
+### LESSON: Special Teams Fundamentals 3 (STF3)
+**Topics covered:** Touchback, fair catch signal, coverage team.
+
+### LESSON: Offensive Positions 3 (OP3)
+**Topics covered:** Offensive Line (OL), and description of its role, slot receiver.
+
+### LESSON: Offensive Positions 4 (OP4)
+**Topics covered:** Blindside protector, pulling guard, check-down receiver.
+
+### LESSON: Offensive Positions 5 (OP5)
+**Topics covered:** Dual-threat QB.
+
+### QUIZ: Veteran Offensive Positions Quiz
+
+### LESSON: Defensive Positions 3 (DP3)
+**Topics covered:** Edge rusher, interior lineman, A-gap/B-gap/C-gap, middle linebacker (Mike).
+
+### LESSON: Defensive Positions 4 (DP4)
+**Topics covered:** Nickelback, dime back, deep half/third safety, press coverage, off-man coverage.
+
+### QUIZ: Veteran Defensive Positions Quiz
+
+### LESSON: Penalties Intermediate 2 (PI2)
+**Topics covered:** Illegal formation, illegal shift, leverage, horse collar tackle.
+
+### LESSON: Penalties Intermediate 3 (PI3)
+**Topics covered:** Face guarding, unsportsmanlike conduct.
+
+### QUIZ: Veteran Penalties Quiz
+
+### LESSON: Challenges and Booth Reviews 1 (CBR1)
+**Topics covered:** When a coach can challenge, what is reviewable, how the booth review works.
+
+### LESSON: Challenges and Booth Reviews 2 (CBR2)
+**Topics covered:** Loss of timeout, targeting (CFB), clear and obvious evidence, replay assistant.
+
+### QUIZ: Veteran Challenges & Reviews Quiz
+
+### LESSON: Offense Intermediate 1 (OI1)
+**Topics covered:** Play calling basics (run/pass distribution), reading basic defenses, play-action pass.
+
+### LESSON: Offense Intermediate 2 (OI2)
+**Topics covered:** Screen pass, RPOs (Run-Pass Options - basic concept), jet sweep.
+
+### LESSON: Offense Intermediate 3 (OI3)
+**Topics covered:** Hurry-up offense, four-minute offense, heavy package.
+
+### QUIZ: Veteran Offensive Concepts Quiz
+
+### LESSON: Defense Intermediate 1 (DI1)
+**Topics covered:** Blitzes (basic concepts), stunts/games on the defensive line, zone blitz.
+
+### LESSON: Defense Intermediate 2 (DI2)
+**Topics covered:** Identifying the "Mike" linebacker, defensive keys, read-and-react, delayed blitz.
+
+### LESSON: Defense Intermediate 3 (DI3)
+**Topics covered:** Mug look, anchor point.
+
+### QUIZ: Veteran Defensive Concepts Quiz
+
+### LESSON: Terms Intermediate 1 (TI1)
+**Topics covered:** Blitz, Mike (linebacker), hurry, draw play.
+
+### LESSON: Terms Intermediate 2 (TI2)
+**Topics covered:** Bootleg, check-down, red zone, goal-to-go.
+
+### LESSON: Terms Intermediate 3 (TI3)
+**Topics covered:** Jumbo package, option route, seam route, wheel route, post-corner, sideline catch.
+
+### QUIZ: Veteran Intermediate Terms Quiz
+
+### LESSON: Special Teams Intermediate 1 (STI1)
+**Topics covered:** Onside kick, squib kick, blocking a punt/field goal.
+
+### LESSON: Special Teams Intermediate 2 (STI2)
+**Topics covered:** Fair catch rules, return strategies, muff, downed punt.
+
+### LESSON: Special Teams Intermediate 3 (STI3)
+**Topics covered:** Coffin corner, holding for a kicker, shield punt.
+
+### QUIZ: Veteran Special Teams Quiz
+
+### LESSON: Common Lingo 1 (CL1)
+**Topics covered:** Drop, Swat, Wrapped up, Breaks a tackle, Stiff arm.
+
+### LESSON: Common Lingo 2 (CL2)
+**Topics covered:** Left/Right hash, Hooked it (a field goal), Touchback, Fair Catch, Holding.
+
+### LESSON: Common Lingo 3 (CL3)
+**Topics covered:** Audibles, hot routes, gap integrity.
+
+### LESSON: Common Lingo 4 (CL4)
+**Topics covered:** Turnover margin, 3-and-out, dime/nickel package.
+
+### LESSON: Common Lingo 5 (CL5)
+**Topics covered:** In the box, over the top, cover zero, high-low concept, possession receiver.
+
+### LESSON: Common Lingo 6 (CL6)
+**Topics covered:** Play clock, game clock, two-minute drill.
+
+### QUIZ: Veteran Lingo Quiz
+
+### LESSON: NFL Conferences and Divisions (NCD)
+**Topics covered:** AFC and NFC structure, East/North/South/West divisions, breakdown of divisions within each conference.
+
+### LESSON: NFL Teams
+**Topics covered:** Introduction to all current NFL teams.
+
+### LESSON: NFL Playoffs 1 (NP1)
+**Topics covered:** Wild card, divisional, conference championships, Super Bowl.
+
+### LESSON: NFL Playoffs 2 (NP2)
+**Topics covered:** Seeding process, home-field advantage.
+
+### LESSON: CFB Conferences 1 (CFC1)
+**Topics covered:** Power 5 vs. Group of 5, conference championships, realignment basics.
+
+### LESSON: CFB Conferences 2 (CFC2)
+**Topics covered:** Automatic qualifiers.
+- FBS
+  - Big Ten
+  - Big 12
+  - ACC
+  - SEC
+  - Pac 12
+- FCS
+
+### LESSON: CFB Playoffs 1 (CFP1)
+**Topics covered:** Automatic bids, selection committee, ranking process.
+
+### LESSON: CFB Playoffs 2 (CFP2)
+**Topics covered:** New Year's Six bowls, strength of schedule (SOS).
+
+### LESSON: CFB Teams
+**Topics covered:** Introduction to major college football teams.
+
+### LESSON: Bowl Games 1 (BG1)
+**Topics covered:** Major bowl games, selection process, tie-ins.
+
+### LESSON: Bowl Games 2 (BG2)
+**Topics covered:** Bowl eligibility.
+
+### QUIZ: Veteran League Structure Test
+
+### QUIZ: Veteran Final Test
+
+---
+
+## SECTION: All-Pro
+
+### LESSON: Regular Seasons 1 (RS1)
+**Topics covered:** Number of games, bye weeks, NFL schedule format, strength of schedule, tie-breaking procedures for playoffs.
+
+### LESSON: Regular Seasons 2 (RS2)
+**Topics covered:** Division winner tiebreakers, wild card tiebreakers, home/away splits.
+
+### QUIZ: All-Pro Regular Season Quiz
+
+### LESSON: Front Office & Salary Cap 1 (FOSC1)
+**Topics covered:** General Manager (GM) role, salary cap basics, scouting department.
+
+### LESSON: Front Office & Salary Cap 2 (FOSC2)
+**Topics covered:** Ownership role, cap space, dead cap, prorated bonus, cap hit.
+
+### LESSON: Trades and Trade Deadline 1 (TTD1)
+**Topics covered:** How trades work, trade compensation (draft picks).
+
+### LESSON: Trades and Trade Deadline 2 (TTD2)
+**Topics covered:** Implications of the trade deadline, conditional picks, trade block, cap consequences of a trade.
+
+### LESSON: Free Agency 1 (FA1)
+**Topics covered:** Unrestricted Free Agents (UFA), Restricted Free Agents (RFA), franchise tag.
+
+### LESSON: Free Agency 2 (FA2)
+**Topics covered:** Transition tag, basic contract structures (guaranteed money), void years, tender offer, market value.
+
+### LESSON: Draft 1 (D1)
+**Topics covered:** Draft order, compensatory picks, rounds.
+
+### LESSON: Draft 2 (D2)
+**Topics covered:** Positional value in the draft, scouting combine, pro day, sleeper pick, bust, trade value chart.
+
+### QUIZ: All-Pro Off-Season Quiz
+
+### LESSON: Injured Reserve & Roster Management 1 (IRM1)
+**Topics covered:** IR rules, designation to return, short-term vs. long-term injury management.
+
+### LESSON: Injured Reserve & Roster Management 2 (IRM2)
+**Topics covered:** Practice squad rules, vested veteran, street free agent, waiver wire.
+
+### LESSON: Transfers and Red Shirts (CFB Focus) 1 (TRS1)
+**Topics covered:** NCAA transfer portal, redshirt rules (traditional and four-game rule), eligibility.
+
+### LESSON: Transfers and Red Shirts (CFB Focus) 2 (TRS2)
+**Topics covered:** Immediate Eligibility Rule, graduate transfer.
+
+### QUIZ: All-Pro Roster Management Quiz
+
+### LESSON: Fantasy Football 1 (FF1)
+**Topics covered:** Basic scoring formats (PPR/Standard), drafting strategies.
+
+### LESSON: Fantasy Football 2 (FF2)
+**Topics covered:** Waivers, trade evaluations, value over replacement (VOR), streaming defenses/kickers, handcuff.
+
+### QUIZ: All-Pro Fantasy Football Quiz
+
+### QUIZ: All-Pro Final Test
+
+---
+
+## SECTION: MVP
+
+### LESSON: Offensive Strategy Advanced 1 (OSA1)
+**Topics covered:** Situational football (3rd down, 4th down decisions), clock management (kneel down, spiking the ball).
+
+### LESSON: Offensive Strategy Advanced 2 (OSA2)
+**Topics covered:** Personnel groupings (11, 12, 21 personnel), down-and-distance, chains, kill clock, complementary football.
+
+### LESSON: Offensive Strategy Advanced 3 (OSA3)
+**Topics covered:** Advanced route concepts (smash, shallow cross), reading defensive rotations (single high vs. two high safety looks).
+
+### LESSON: Offensive Strategy Advanced 4 (OSA4)
+**Topics covered:** Pre-snap reads (safeties, corners), progression reads, half-field read, route tree, alert call.
+
+### QUIZ: MVP Advanced Offensive Strategy Quiz
+
+### LESSON: Defensive Strategy Advanced 1 (DSA1)
+**Topics covered:** Advanced zone coverages (Cover 3 Sky/Cloud, Quarters/Cover 4).
+
+### LESSON: Defensive Strategy Advanced 2 (DSA2)
+**Topics covered:** Hybrid defenses (sub-packages), defending different personnel groupings, base defense, boundary/field safety, overhang player.
+
+### QUIZ: MVP Advanced Defensive Strategy Quiz
+
+### QUIZ: MVP Final Test
+
+---
+
+## SECTION: HOF
+
+### LESSON: Offensive Strategy Advanced 5 (OSA5)
+**Topics covered:** Two-minute offense philosophy, no-huddle strategy (tempo).
+
+### LESSON: Offensive Strategy Advanced 6 (OSA6)
+**Topics covered:** Run scheme variations (Inside Zone, Outside Zone, Power, Counter), misdirection, option routes (advanced), play calling nomenclature.
+
+### QUIZ: HOF Offensive Strategy Quiz
+
+### LESSON: Defensive Strategy Advanced 3 (DSA3)
+**Topics covered:** Pressure packages and exotic blitzes, disguising coverage.
+
+### LESSON: Defensive Strategy Advanced 4 (DSA4)
+**Topics covered:** Run defense gap assignments, defending RPOs, fire zone, simulated pressure, scraped over linebacker.
+
+### QUIZ: HOF Defensive Strategy Quiz
+
+### QUIZ: HOF Final Test
+
+---
+
+## SECTION: Legend
+
+### LESSON: Defensive Strategy Advanced 5 (DSA5)
+**Topics covered:** Match principles in zone coverage, defending screen passes, defending play-action.
+
+### LESSON: Defensive Strategy Advanced 6 (DSA6)
+**Topics covered:** Leveraging personnel matchups (shadowing WRs), pattern-matching, bracket coverage, force player.
+
+### QUIZ: Legend Advanced Defensive Strategy Quiz
+
+### QUIZ: Legend Final Test
+
+---
+
+## SECTION: GOAT
+
+### LESSON: Scheme & Trend Analysis 1 (STA1)
+**Topics covered:** Historical evolution of schemes (West Coast, Air Raid, 46 Defense), current league trends.
+
+### LESSON: Scheme & Trend Analysis 2 (STA2)
+**Topics covered:** Advanced metrics (DVOA, EPA), Pass blocking schemes (slide protection), run-pass ratio analysis, win rate.
+
+### QUIZ: GOAT Scheme & Trend Analysis Quiz
+
+### QUIZ: GOAT Final Test
+
+---
+
+## UI/UX Requirements
+
+### Ola Character Animation
+
+**Character Presence:**
+- Animated avatar visible during lessons
+- Character progresses along a physical path relevant to the sport
+- For football: completing passes, scoring touchdowns, or other creative alternatives
+
+**Correct Answer Animations (3 variations):**
+1. Jumps in air and spins (synced with correct answer reveal)
+2. Crosses arms, turns to side, smirks ("I'm so smart" expression)
+3. Fist pump
+
+**Incorrect Answer Animations:**
+- Hangs head
+- Shrugs shoulders
+- Kicks invisible rocks/dirt
+
+### Interface Philosophy
+- Encourage a **fun, long learning journey**
+- Discourage speed-running through content
+- Present learning as a continuum rather than segmented categories
+- Minimize over-structuring that might encourage skipping ahead
+
+## Current To-Do List
+
+| Task | Priority |
+|------|----------|
+| Rename app to 'Ola Ball' | High |
+| Transfer GitHub ownership to NSG LLC | High |
+| Switch icon to Ola Ball branding | High |
+| Minimize profile view | Medium |
+| Focus on building out learning material | High |
+| Build questions for football lingo and phraseology | High |
+
+## Future Considerations
+
+### Live Mode (Not Current Priority)
+- Real-time API integration with providers like Sportradar
+- Live game data integration
+- Current focus: Complete core learning system first
+
+## Design Principles
+
+### What We're Moving Away From:
+- ❌ Broad category lessons ("Offensive Strategies", "Football Basics")
+- ❌ One-and-done lesson structure
+- ❌ Having to repeat completed lessons
+- ❌ Over-segmented learning paths
+- ❌ Speed-completion incentives
+
+### What We're Building Toward:
+- ✅ Granular topic lessons ("Offensive Terms 1", "Offensive Terms 2")
+- ✅ Spaced repetition across multiple lessons
+- ✅ Continuous reinforcement through forward progress
+- ✅ Duolingo-inspired learning continuum
+- ✅ Long-term engagement (weeks to months)
+- ✅ Fun, gamified experience with Ola character
+
+## Technical Notes
+
+### Lesson Naming Convention
+Use abbreviated codes for easy reference:
+- TF1 = The Field 1
+- OT1 = Offensive Terms 1
+- DT1 = Defensive Terms 1
+- G&O1 = Games & Overtime 1
+- etc.
+
+### Content Coverage Examples
+
+**The Field 1 (TF1):**
+- Dimensions, markings (yard lines), goal lines, end zones
+
+**Offensive Terms 1 (OT1):**
+- Run, pass, catch, first down
+
+**Defensive Terms 1 (DT1):**
+- Defensive line, linebacker, interception, fumble, sack
+
+**Games & Overtime 1 (G&O1):**
+- Coin toss (game/overtime), timeouts, quarter/overtime length
+
+*(See full document for complete topic breakdowns per lesson)*
+
+## Success Metrics
+- Time to complete full progression: Weeks to months (target)
+- User retention over time
+- Lesson completion rates
+- Question mastery (correct answers on repeated questions)
 
 ---
 
 ## Coding Standards
 
-### Swift Conventions
+**Naming:** PascalCase for types, camelCase for variables/functions/constants. Use descriptive protocol names.
 
-**Naming**:
-- Types: `PascalCase` (e.g., `LessonViewModel`, `UserRepository`)
-- Variables/Functions: `camelCase` (e.g., `fetchLesson()`, `isCompleted`)
-- Constants: `camelCase` (e.g., `maxLessonDuration`, not `MAX_LESSON_DURATION`)
-- Protocols: Descriptive nouns (e.g., `UserRepository`) or adjectives ending in `-able` (e.g., `Cacheable`)
+**Code Organization:** Use `// MARK:` sections. Inject dependencies via initializer. Use async/await (iOS 17+).
 
-**Code Organization**:
-```swift
-// MARK: - Types first
-struct LessonView: View {
-    // MARK: - Properties
-    @State private var currentIndex: Int = 0
-    let lesson: Lesson
-
-    // MARK: - Body
-    var body: some View {
-        // ...
-    }
-
-    // MARK: - Private Methods
-    private func submitAnswer() {
-        // ...
-    }
-}
-```
-
-**Dependency Injection**:
-```swift
-// ✅ Good: Inject dependencies via initializer
-class LessonViewModel: ObservableObject {
-    private let repository: LearningRepository
-
-    init(repository: LearningRepository) {
-        self.repository = repository
-    }
-}
-
-// ❌ Bad: Hardcoded dependencies
-class LessonViewModel: ObservableObject {
-    private let repository = LearningRepositoryImpl()
-}
-```
-
-**Async/Await** (iOS 17+):
-```swift
-// ✅ Use async/await for network calls
-func fetchLesson(id: UUID) async throws -> Lesson {
-    let data = try await apiClient.get(endpoint: .lesson(id))
-    return try JSONDecoder().decode(Lesson.self, from: data)
-}
-
-// ❌ Don't use completion handlers
-func fetchLesson(id: UUID, completion: @escaping (Result<Lesson, Error>) -> Void) {
-    // Old style
-}
-```
-
-### SwiftUI Best Practices
-
-**State Management**:
-- Use `@State` for view-local state
-- Use `@Observable` (iOS 17+) for ViewModels instead of `@ObservableObject`
-- Use `@Environment` for dependency injection
-- Keep views simple, move logic to ViewModels
-
-**Performance**:
-```swift
-// ✅ Extract subviews for complex UI
-struct LessonView: View {
-    var body: some View {
-        VStack {
-            LessonHeaderView()
-            LessonProgressView()
-            LessonQuestionView()
-        }
-    }
-}
-
-// ❌ Don't put everything in one view
-struct LessonView: View {
-    var body: some View {
-        VStack {
-            // 200 lines of code...
-        }
-    }
-}
-```
-
-**Previews**:
-```swift
-// Always provide previews with mock data
-#Preview("Lesson - MCQ") {
-    LessonView(
-        viewModel: LessonViewModel(
-            lesson: .mockMultipleChoice,
-            repository: MockLearningRepository()
-        )
-    )
-}
-
-#Preview("Lesson - Completed") {
-    LessonView(
-        viewModel: LessonViewModel(
-            lesson: .mockCompleted,
-            repository: MockLearningRepository()
-        )
-    )
-}
-```
+**SwiftUI:** Use `@State` for view state, `@Observable` for ViewModels, extract complex views into subviews. Always provide previews with mock data.
 
 ---
 
 ## Data Models
 
-### Entity Examples
+**Domain Entities** (platform-agnostic): `Lesson`, `Item`, `User`, `Sport` with standard Swift types (UUID, String, Int, etc.)
 
-**Domain Entities** (platform-agnostic):
-```swift
-// Core/Domain/Entities/Lesson.swift
-struct Lesson: Identifiable {
-    let id: UUID
-    let moduleId: UUID
-    let title: String
-    let description: String
-    let orderIndex: Int
-    let estimatedMinutes: Int
-    let xpAward: Int
-    let isLocked: Bool
-    let items: [Item]
-}
-
-// Core/Domain/Entities/Item.swift
-enum ItemType: String, Codable {
-    case mcq
-    case multiSelect
-    case slider
-    case freeText
-    case clipLabel
-    case binary
-}
-
-struct Item: Identifiable {
-    let id: UUID
-    let type: ItemType
-    let prompt: String
-    let options: [String]?
-    let correctAnswer: ItemAnswer
-    let explanation: String?
-    let mediaURL: URL?
-}
-```
-
-**DTOs** (Data Transfer Objects for API):
-```swift
-// Core/Data/Network/DTOs/LessonDTO.swift
-struct LessonDTO: Codable {
-    let id: String  // UUID as string from API
-    let module_id: String
-    let title: String
-    let description: String
-    let order_index: Int
-    let est_minutes: Int
-    let xp_award: Int
-    let is_locked: Bool
-    let items: [ItemDTO]
-
-    // Convert to domain entity
-    func toDomain() -> Lesson {
-        Lesson(
-            id: UUID(uuidString: id)!,
-            moduleId: UUID(uuidString: module_id)!,
-            title: title,
-            description: description,
-            orderIndex: order_index,
-            estimatedMinutes: est_minutes,
-            xpAward: xp_award,
-            isLocked: is_locked,
-            items: items.map { $0.toDomain() }
-        )
-    }
-}
-```
+**DTOs** (Data Transfer Objects): Match database snake_case, convert to domain entities via `.toDomain()` method.
 
 ---
 
-## Key Features Implementation Notes
+## Key Features Implementation
 
-### 1. Learn Mode (Lessons)
+**Learn Mode:** State machine (loading/presenting/feedback/complete), audio feedback (AVFoundation), haptics (CoreHaptics).
 
-**State Machine for Lesson Flow**:
-```swift
-enum LessonState {
-    case loading
-    case ready
-    case presenting(itemIndex: Int)
-    case feedback(isCorrect: Bool)
-    case transitioning
-    case complete(score: Int)
-    case error(Error)
-}
-```
+**Live Mode:** WebSocket (URLSessionWebSocketTask), 3-5s delay after plays, 20-30s answer window.
 
-**Audio Feedback**:
-- Use `AVFoundation` to play sounds
-- Preload sounds at app launch
-- Football: `crowd_cheer.mp3`, `whistle.mp3`, `victory_horn.mp3`
-- Keep sounds under 1 second for responsiveness
+**SRS:** SM-2 algorithm, track dueDate/interval/easeFactor/repetitions, limit 20 items/session.
 
-**Haptics**:
-```swift
-// Use Core Haptics framework
-import CoreHaptics
-
-class HapticManager {
-    private var engine: CHHapticEngine?
-
-    func playCorrectFeedback() {
-        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.7)
-        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.5)
-        let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
-        // Play event...
-    }
-}
-```
-
-### 2. Live Mode
-
-**WebSocket Connection**:
-```swift
-// Use URLSessionWebSocketTask (iOS 13+)
-class LiveGameService {
-    private var webSocketTask: URLSessionWebSocketTask?
-
-    func connect(to gameId: UUID) {
-        let url = URL(string: "wss://api.sportsiq.com/live/\(gameId)")!
-        webSocketTask = URLSession.shared.webSocketTask(with: url)
-        webSocketTask?.resume()
-        receiveMessage()
-    }
-
-    private func receiveMessage() {
-        webSocketTask?.receive { [weak self] result in
-            switch result {
-            case .success(let message):
-                // Handle live prompt
-                self?.receiveMessage() // Continue listening
-            case .failure(let error):
-                // Handle error
-            }
-        }
-    }
-}
-```
-
-**Live Prompt Timing**:
-- Wait 3-5 seconds after play completion
-- Check user's cooldown timer (stored locally)
-- Display prompt in floating card (can be minimized)
-- 20-30 second answer window
-
-### 3. Spaced Repetition System (SRS)
-
-**SM-2 Algorithm Implementation**:
-```swift
-struct SRSCard {
-    let itemId: UUID
-    var dueDate: Date
-    var interval: TimeInterval // in seconds
-    var easeFactor: Double // 1.3 to 2.5
-    var repetitions: Int
-
-    mutating func recordReview(grade: Int) {
-        // grade: 0 (wrong) to 3 (easy)
-        // Update easeFactor, interval, dueDate
-        // See: https://en.wikipedia.org/wiki/SuperMemo#SM-2_algorithm
-    }
-}
-```
-
-**Due Review Queue**:
-- Fetch all cards where `dueDate <= Date()`
-- Sort by due date (oldest first)
-- Limit to 20 items per session (prevent overwhelming)
-
-### 4. Gamification
-
-**XP Calculation**:
-```swift
-enum XPSource {
-    case lessonItem(correct: Bool)      // 10 XP if correct
-    case lessonPerfectScore             // +20 bonus
-    case liveAnswer(correct: Bool)      // 15 XP if correct
-    case dailyStreak                    // 25 XP
-    case reviewItem(correct: Bool)      // 5 XP if correct
-}
-
-func awardXP(source: XPSource, userId: UUID, sportId: UUID) {
-    let amount = source.xpAmount
-    // Save to user_xp_events table
-    // Update user_progress.total_xp
-    // Recalculate overall rating
-    // Check for level-up
-    // Check for badge unlocks
-}
-```
-
-**Overall Rating (0-99)**:
-```swift
-func calculateOverallRating(
-    lessonsCompleted: Int,
-    totalLessons: Int,
-    accuracy: Double,
-    conceptsMastered: Int,
-    totalConcepts: Int,
-    liveAnswers: Int,
-    advancedCorrect: Int
-) -> Int {
-    let lessonComponent = Double(lessonsCompleted) / Double(totalLessons) * 25.0
-    let accuracyComponent = accuracy * 20.0
-    let conceptsComponent = Double(conceptsMastered) / Double(totalConcepts) * 30.0
-    let liveComponent = min(Double(liveAnswers), 100.0) / 100.0 * 10.0
-    let advancedComponent = min(Double(advancedCorrect), 50.0) / 50.0 * 14.0
-
-    let overall = lessonComponent + accuracyComponent + conceptsComponent + liveComponent + advancedComponent
-    return min(Int(overall.rounded()), 99)
-}
-```
+**Gamification:** XP sources (lesson item 10XP, perfect score +20, live answer 15XP, daily streak 25XP). Overall rating 0-99 calculated from lessons/accuracy/concepts/live/advanced.
 
 ---
 
-## Testing Strategy
+## Testing
 
-### Unit Tests
+**Unit Tests:** Test use cases and ViewModels with mock repositories. Use XCTest framework.
 
-**Test Use Cases**:
-```swift
-// Tests/SportsIQTests/UseCases/CompleteLesson
-class CompleteLessonUseCaseTests: XCTestCase {
-    var sut: CompleteLessonUseCase!
-    var mockRepository: MockLearningRepository!
-
-    override func setUp() {
-        super.setUp()
-        mockRepository = MockLearningRepository()
-        sut = CompleteLessonUseCase(repository: mockRepository)
-    }
-
-    func testCompleteLessonAwardsXP() async throws {
-        // Given
-        let lesson = Lesson.mock
-        mockRepository.lessonToReturn = lesson
-
-        // When
-        let result = try await sut.execute(lessonId: lesson.id, score: 10)
-
-        // Then
-        XCTAssertEqual(result.xpAwarded, 120)
-    }
-}
-```
-
-**Test ViewModels**:
-```swift
-class LessonViewModelTests: XCTestCase {
-    func testSubmitCorrectAnswerShowsFeedback() {
-        // Given
-        let viewModel = LessonViewModel(
-            lesson: .mock,
-            repository: MockLearningRepository()
-        )
-
-        // When
-        viewModel.submitAnswer(.option(0))
-
-        // Then
-        XCTAssertEqual(viewModel.state, .feedback(isCorrect: true))
-    }
-}
-```
-
-### UI Tests
-
-**Test Critical Flows**:
-```swift
-class LessonFlowUITests: XCTestCase {
-    func testCompletingLessonUnlocksNext() {
-        let app = XCUIApplication()
-        app.launch()
-
-        // Navigate to lesson
-        app.buttons["Football"].tap()
-        app.buttons["Lesson 1"].tap()
-
-        // Answer all questions correctly
-        for _ in 0..<8 {
-            app.buttons["Option A"].tap()
-            app.buttons["Check Answer"].tap()
-            app.buttons["Continue"].tap()
-        }
-
-        // Verify completion screen
-        XCTAssertTrue(app.staticTexts["Lesson Complete!"].exists)
-
-        // Go back and verify next lesson unlocked
-        app.buttons["Back to Path"].tap()
-        XCTAssertFalse(app.buttons["Lesson 2"].isEnabled == false)
-    }
-}
-```
+**UI Tests:** Test critical flows (lesson completion, unlocking, navigation) with XCUIApplication.
 
 ---
 
 ## Backend Integration
 
-### API Endpoints (Expected)
+**Supabase handles:** Auth (email/password, Apple, Google), PostgreSQL database, real-time subscriptions, RLS policies.
 
-When backend is implemented, expect these endpoints:
+**Key endpoints:** `/sports`, `/modules/:moduleId/lessons`, `/lessons/:lessonId`, `/submissions`, `/users/:userId/progress/:sportId`
 
-**Authentication** (via Supabase Auth):
-- Supabase handles authentication directly (email/password, Apple Sign In, Google Sign In)
-- Auth state managed via SupabaseClient session
-- GET `/auth/me` - Get current user (via Supabase Auth)
-
-**Learning**:
-- GET `/sports` - List all sports
-- GET `/sports/:sportId/modules` - Get modules for sport
-- GET `/modules/:moduleId/lessons` - Get lessons for module
-- GET `/lessons/:lessonId` - Get lesson with items
-- POST `/submissions` - Submit answer
-- GET `/users/:userId/progress/:sportId` - Get user progress
-
-**Gamification**:
-- GET `/users/:userId/xp/:sportId` - Get XP history
-- GET `/leaderboards/:sportId?window=daily|weekly|alltime` - Get leaderboard
-- GET `/users/:userId/badges` - Get user badges
-- GET `/users/:userId/streaks/:sportId` - Get streak info
-
-**Live Mode**:
-- GET `/games?date=YYYY-MM-DD` - Get games for date
-- WS `/live/:gameId` - WebSocket for live game updates
-- POST `/live/submissions` - Submit live answer
-
-**Spaced Repetition**:
-- GET `/users/:userId/reviews/:sportId/due` - Get due reviews
-- POST `/reviews` - Record review
-
-### API Client Structure
-
-```swift
-// Core/Data/Network/APIClient.swift
-protocol APIClient {
-    func get<T: Decodable>(endpoint: Endpoint) async throws -> T
-    func post<T: Decodable, U: Encodable>(endpoint: Endpoint, body: U) async throws -> T
-    func delete(endpoint: Endpoint) async throws
-}
-
-// Core/Data/Network/Endpoints.swift
-enum Endpoint {
-    case sports
-    case sportModules(sportId: UUID)
-    case lesson(lessonId: UUID)
-    case submitAnswer
-    case userProgress(userId: UUID, sportId: UUID)
-    // ...
-
-    var path: String {
-        switch self {
-        case .sports: return "/sports"
-        case .sportModules(let id): return "/sports/\(id)/modules"
-        // ...
-        }
-    }
-}
-```
+**Direct queries via Supabase client:** `supabase.from("table").select().execute()`
 
 ---
 
-## Supabase Configuration & Setup
+## Supabase Setup
 
-### Current Implementation
+**Config:** Create `Secrets.swift` (gitignored) with URL and anon key. Use `AuthService` for email/password, Apple, Google auth. User profiles auto-created on signup.
 
-The app uses **Supabase** for backend services, including:
-- Authentication (email/password, Apple Sign In, Google Sign In)
-- PostgreSQL database
-- Real-time subscriptions (for live features)
-- Row Level Security (RLS) for data protection
+**Database:** Direct queries via Supabase client. RLS policies protect user data. Public tables: sports, modules, lessons, items.
 
-### Architecture
+**Deep Linking:** Configure URL schemes (`com.sportsiq.app://auth/*`) in Info.plist and Supabase Dashboard.
 
-```
-SupabaseService (Singleton)
-├── Supabase Client (supabase-swift SDK)
-├── Auth Service (AuthService.swift)
-│   ├── Email/Password auth
-│   ├── Apple Sign In
-│   └── Google Sign In
-└── Repositories
-    ├── SupabaseLearningRepository
-    ├── SupabaseUserRepository
-    └── SupabaseGameRepository
-```
-
-### Configuration Files
-
-**Secrets.swift** (gitignored):
-```swift
-struct SupabaseConfig {
-    static let url = "https://your-project.supabase.co"
-    static let anonKey = "your-anon-public-key"
-}
-```
-
-**Config.swift** (wrapper for safe access):
-```swift
-enum Config {
-    static var supabaseURL: String {
-        SupabaseConfig.url
-    }
-
-    static var supabaseAnonKey: String {
-        SupabaseConfig.anonKey
-    }
-}
-```
-
-### Authentication Flow
-
-**AuthService.swift** handles all authentication:
-
-```swift
-class AuthService: ObservableObject {
-    @Published var isAuthenticated = false
-    @Published var currentUser: User?
-
-    // Email/Password
-    func signUp(email: String, password: String) async throws
-    func signIn(email: String, password: String) async throws
-
-    // Apple Sign In
-    func signInWithApple(credential: ASAuthorizationAppleIDCredential) async throws
-
-    // Google Sign In
-    func signInWithGoogle() async throws
-
-    // Session management
-    func signOut() async throws
-    func resetPassword(email: String) async throws
-}
-```
-
-**User Profile Creation**:
-After successful authentication, `AuthService` automatically:
-1. Creates a user profile in `users` table
-2. Creates `user_progress` records for all sports
-3. Initializes starting stats (0 XP, rating, etc.)
-
-### Database Access
-
-**Direct Supabase Queries** (current approach):
-```swift
-// SupabaseLearningRepository.swift
-func fetchSports() async throws -> [Sport] {
-    let response: [SportDTO] = try await supabase
-        .from("sports")
-        .select()
-        .execute()
-        .value
-
-    return response.map { $0.toDomain() }
-}
-
-func submitAnswer(submission: SubmissionCreate) async throws {
-    try await supabase
-        .from("submissions")
-        .insert(submission)
-        .execute()
-}
-```
-
-**Row Level Security (RLS)**:
-Supabase RLS policies ensure users can only access their own data:
-- Users can only read/write their own `user_progress`
-- Users can only read/write their own `submissions`
-- Public tables: `sports`, `modules`, `lessons`, `items`
-
-### Deep Linking Setup
-
-**URL Schemes** (configured in Info.plist):
-```xml
-<key>CFBundleURLTypes</key>
-<array>
-    <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-            <string>com.sportsiq.app</string>
-        </array>
-    </dict>
-</array>
-```
-
-**Supabase Auth Callbacks**:
-- Email verification: `com.sportsiq.app://auth/verify`
-- Password reset: `com.sportsiq.app://auth/reset`
-
-Configure these in Supabase Dashboard → Authentication → URL Configuration
-
-### Environment Setup
-
-1. **Create Supabase Project**:
-   - Go to [supabase.com](https://supabase.com)
-   - Create new project
-   - Note Project URL and anon/public key
-
-2. **Run Database Migration**:
-   ```bash
-   # In Supabase SQL Editor, run:
-   # supabase/migrations/20240101000000_initial_schema.sql
-   ```
-
-3. **Configure Auth Providers**:
-   - **Email/Password**: Enabled by default
-   - **Apple Sign In**:
-     - Add Apple OAuth provider in Supabase Dashboard
-     - Configure Service ID, Team ID, Key ID
-     - Upload .p8 key file
-   - **Google Sign In**:
-     - Add Google OAuth provider
-     - Configure Client ID and Client Secret from Google Cloud Console
-
-4. **Set Up RLS Policies**:
-   - RLS policies are included in migration file
-   - Verify in Supabase Dashboard → Authentication → Policies
-
-5. **Configure Email Templates**:
-   - Customize email templates in Supabase Dashboard
-   - Update redirect URLs to use app URL scheme
-
-### Testing Supabase Locally
-
-```swift
-// Use mock repositories for testing
-let mockRepo = MockLearningRepository()
-let viewModel = LessonViewModel(repository: mockRepo)
-
-// Or test against Supabase staging project
-// Update Secrets.swift to point to staging URL
-```
-
-### Common Supabase Tasks
-
-**Check Auth Status**:
-```swift
-let session = try await supabase.auth.session
-print("User ID: \(session.user.id)")
-```
-
-**Manual Database Query** (debugging):
-```swift
-let result = try await supabase
-    .from("users")
-    .select("*")
-    .eq("id", userId)
-    .single()
-    .execute()
-```
-
-**Listen to Auth Changes**:
-```swift
-Task {
-    for await state in await supabase.auth.authStateChanges {
-        switch state {
-        case .signedIn(let session):
-            print("User signed in: \(session.user.id)")
-        case .signedOut:
-            print("User signed out")
-        }
-    }
-}
-```
+**Setup:** Create project at supabase.com → Run SQL migration → Configure auth providers → Set up RLS policies → Customize email templates.
 
 ---
 
-## Common Tasks & Commands
+## Development Workflow
 
-### Creating a New Feature
+**Creating Features:** Create folder structure in `Features/`, add Views/ViewModels/Coordinator, write tests.
 
-```bash
-# 1. Create feature folder structure
-mkdir -p ios/SportsIQ/Features/NewFeature/{Views,ViewModels}
+**Running App:** Use Xcode (Cmd+R) or `xcodebuild -scheme SportsIQ -destination 'platform=iOS Simulator,name=iPhone 15 Pro'`
 
-# 2. Create necessary files
-touch ios/SportsIQ/Features/NewFeature/NewFeatureCoordinator.swift
-touch ios/SportsIQ/Features/NewFeature/Views/NewFeatureView.swift
-touch ios/SportsIQ/Features/NewFeature/ViewModels/NewFeatureViewModel.swift
-
-# 3. Add tests
-mkdir -p ios/SportsIQTests/Features/NewFeature
-touch ios/SportsIQTests/Features/NewFeature/NewFeatureViewModelTests.swift
-```
-
-### Database Migrations
-
-When backend is set up:
-```bash
-# Create new migration
-npm run migrate:create add_new_table
-
-# Run migrations
-npm run migrate:up
-
-# Rollback
-npm run migrate:down
-```
-
-### Running the App
-
-```bash
-# iOS Simulator
-xcodebuild -scheme SportsIQ -destination 'platform=iOS Simulator,name=iPhone 15 Pro' build
-
-# Or use Xcode UI: Cmd+R
-```
+**Conventions:** UTC for dates, UUID type for IDs, domain-specific errors with LocalizedError, handle with async throws.
 
 ---
 
-## Important Conventions
+## Design System
 
-### Date/Time Handling
+**Colors:** Sport-specific accents (Football #2E7D32, Basketball #F57C00, etc.). Use `sport.accentColor`.
 
-**Always use UTC** for storage, convert to user timezone for display:
-```swift
-// ✅ Good: Store as UTC
-let createdAt = Date() // This is UTC
+**Typography:** heading1 (32pt bold), heading2 (24pt semibold), heading3 (20pt semibold), body (16pt), caption (14pt), small (12pt).
 
-// ✅ Good: Display in user timezone
-let formatter = DateFormatter()
-formatter.timeZone = TimeZone.current
-formatter.dateStyle = .medium
-let displayString = formatter.string(from: createdAt)
-
-// ❌ Bad: Store in local timezone
-let createdAt = Date().addingTimeInterval(TimeZone.current.secondsFromGMT())
-```
-
-### UUID Handling
-
-```swift
-// ✅ Good: Use UUID type
-struct Lesson {
-    let id: UUID
-}
-
-// ✅ Good: Parse from string safely
-if let id = UUID(uuidString: stringFromAPI) {
-    // Use id
-}
-
-// ❌ Bad: Use strings for IDs
-struct Lesson {
-    let id: String
-}
-```
-
-### Error Handling
-
-```swift
-// Define domain-specific errors
-enum LearningError: LocalizedError {
-    case lessonNotFound
-    case lessonLocked
-    case invalidAnswer
-    case networkError(underlying: Error)
-
-    var errorDescription: String? {
-        switch self {
-        case .lessonNotFound: return "Lesson not found"
-        case .lessonLocked: return "Complete the previous lesson first"
-        case .invalidAnswer: return "Invalid answer format"
-        case .networkError(let error): return "Network error: \(error.localizedDescription)"
-        }
-    }
-}
-
-// Use async throws
-func fetchLesson(id: UUID) async throws -> Lesson {
-    guard let lesson = await repository.getLesson(id: id) else {
-        throw LearningError.lessonNotFound
-    }
-    return lesson
-}
-```
+**Spacing:** XS(4), S(8), M(16), L(24), XL(32), XXL(48).
 
 ---
 
-## Design System Quick Reference
+## Performance & Security
 
-### Colors (Per Sport)
+**Performance:** Use AsyncImage with placeholders, LazyVStack for lists, `[weak self]` in closures.
 
-```swift
-// Shared/UI/Styles/Colors.swift
-extension Color {
-    static let footballAccent = Color(hex: "#2E7D32")
-    static let basketballAccent = Color(hex: "#F57C00")
-    static let baseballAccent = Color(hex: "#1976D2")
-    static let hockeyAccent = Color(hex: "#0288D1")
-    static let soccerAccent = Color(hex: "#388E3C")
-    static let golfAccent = Color(hex: "#689F38")
-}
+**Security:** Never commit API keys (use Secrets.swift, gitignored). Store auth tokens in Keychain. Never log sensitive data.
 
-// Usage
-struct LessonView: View {
-    let sport: Sport
-
-    var body: some View {
-        VStack {
-            // ...
-        }
-        .foregroundStyle(sport.accentColor)
-    }
-}
-```
-
-### Typography
-
-```swift
-extension Font {
-    static let heading1 = Font.system(size: 32, weight: .bold, design: .default)
-    static let heading2 = Font.system(size: 24, weight: .semibold, design: .default)
-    static let heading3 = Font.system(size: 20, weight: .semibold, design: .default)
-    static let body = Font.system(size: 16, weight: .regular, design: .default)
-    static let caption = Font.system(size: 14, weight: .regular, design: .default)
-    static let small = Font.system(size: 12, weight: .regular, design: .default)
-}
-```
-
-### Spacing
-
-```swift
-extension CGFloat {
-    static let spacingXS: CGFloat = 4
-    static let spacingS: CGFloat = 8
-    static let spacingM: CGFloat = 16
-    static let spacingL: CGFloat = 24
-    static let spacingXL: CGFloat = 32
-    static let spacingXXL: CGFloat = 48
-}
-```
-
----
-
-## Performance Considerations
-
-### Image Loading
-
-```swift
-// Use AsyncImage with placeholder
-AsyncImage(url: imageURL) { image in
-    image
-        .resizable()
-        .aspectRatio(contentMode: .fill)
-} placeholder: {
-    ProgressView()
-}
-.frame(width: 100, height: 100)
-.clipped()
-
-// Cache images (use SDWebImageSwiftUI or similar)
-```
-
-### Large Lists
-
-```swift
-// Use LazyVStack/LazyHStack for long lists
-LazyVStack {
-    ForEach(lessons) { lesson in
-        LessonCard(lesson: lesson)
-    }
-}
-
-// Or use List for automatic optimization
-List(lessons) { lesson in
-    LessonCard(lesson: lesson)
-}
-```
-
-### Memory Management
-
-```swift
-// Use [weak self] in closures
-class LessonViewModel {
-    func fetchLesson() {
-        Task {
-            do {
-                let lesson = try await repository.fetchLesson(id: lessonId)
-                // Update UI on main thread
-                await MainActor.run { [weak self] in
-                    self?.lesson = lesson
-                }
-            } catch {
-                // Handle error
-            }
-        }
-    }
-}
-```
-
----
-
-## Security Considerations
-
-### API Keys
-
-```swift
-// NEVER commit API keys to git
-// Use separate Secrets.swift file (add to .gitignore)
-
-// Secrets.swift (gitignored)
-struct SupabaseConfig {
-    static let url = "https://your-project.supabase.co"
-    static let anonKey = "your-anon-key-here"
-}
-
-struct ExternalAPIConfig {
-    static let sportRadarAPIKey = "your_api_key_here"
-}
-
-// For other APIs, use Info.plist method:
-guard let apiKey = Bundle.main.infoDictionary?["SPORTRADAR_API_KEY"] as? String else {
-    fatalError("API key not found")
-}
-```
-
-### User Data
-
-- Never log sensitive user data (email, tokens, etc.)
-- Use Keychain for storing auth tokens
-- Sanitize user input before sending to backend
-
-```swift
-import Security
-
-class KeychainManager {
-    static func save(key: String, data: Data) -> Bool {
-        let query: [String: Any] = [
-            kSecClass as String: kSecClassGenericPassword,
-            kSecAttrAccount as String: key,
-            kSecValueData as String: data
-        ]
-        SecItemDelete(query as CFDictionary) // Delete old
-        return SecItemAdd(query as CFDictionary, nil) == errSecSuccess
-    }
-}
-```
-
----
-
-## Troubleshooting
-
-### Common Issues
-
-**1. SwiftUI Preview Not Working**
-```swift
-// Make sure all dependencies are mockable
-#Preview {
-    LessonView(
-        viewModel: LessonViewModel(
-            lesson: .mock,
-            repository: MockLearningRepository() // ← Mock dependency
-        )
-    )
-}
-```
-
-**2. WebSocket Not Connecting**
-- Check backend is running
-- Verify URL is correct (ws:// or wss://)
-- Check network permissions in Info.plist
-
-**3. Audio Not Playing**
-- Verify audio file is in bundle
-- Check AVAudioSession is configured
-- Ensure device is not in silent mode (use `.playback` category)
-
-**4. Database Queries Slow**
-- Check indexes are created (see DATABASE_SCHEMA.md)
-- Use EXPLAIN ANALYZE in PostgreSQL
-- Consider materialized views for complex queries
+**Troubleshooting:** Ensure mock dependencies for previews, check WebSocket URL/permissions, verify audio files in bundle, add database indexes.
 
 ---
 
 ## Deployment
 
-### TestFlight (Beta)
+**TestFlight:** Archive in Xcode → Upload to App Store Connect → Add testers → Send invite.
 
-```bash
-# 1. Archive app in Xcode
-# Product → Archive
-
-# 2. Upload to App Store Connect
-# Organizer → Distribute App → App Store Connect
-
-# 3. Add testers in App Store Connect
-# TestFlight → Testers → Add Tester
-
-# 4. Send test invite
-```
-
-### App Store Submission
-
-**Requirements**:
-- Privacy Policy URL
-- Terms of Service URL
-- App screenshots (all required sizes)
-- App preview video (optional but recommended)
-- App description and keywords
-- Support URL
-
-**Checklist**:
-- [ ] All features working
-- [ ] Crash-free rate >99%
-- [ ] Performance tested (60fps UI)
-- [ ] Accessibility tested (VoiceOver, Dynamic Type)
-- [ ] Privacy manifest included
-- [ ] App Store assets prepared
-- [ ] Reviewed App Store guidelines
+**App Store Requirements:** Privacy Policy, Terms of Service, screenshots, description/keywords, support URL. Ensure >99% crash-free, 60fps UI, accessibility tested, privacy manifest included.
 
 ---
 
-## When Working on This Project
+## Development Principles
 
-### Ask These Questions
+**Key Questions:** Multi-platform ready? Testable? Clean Architecture? Accessible? Performant? Aligns with SRS philosophy?
 
-1. **Does this change support multi-platform expansion?**
-   - Is business logic platform-agnostic?
-   - Are dependencies injected via protocols?
+**Avoid:** Business logic in views, hardcoded dependencies, ignoring errors, force unwrapping, platform code in domain, committing secrets, skipping accessibility, allowing lesson shortcuts.
 
-2. **Is this testable?**
-   - Can I write a unit test for this?
-   - Are dependencies mockable?
-
-3. **Does this follow Clean Architecture?**
-   - Am I mixing presentation and business logic?
-   - Is this in the right layer?
-
-4. **Is this accessible?**
-   - Does it work with VoiceOver?
-   - Does it support Dynamic Type?
-   - Is there sufficient color contrast?
-
-5. **Is this performant?**
-   - Will this cause UI lag?
-   - Am I loading unnecessary data?
-   - Should this be cached?
-
-### Red Flags to Avoid
-
-❌ **Don't** put business logic in Views or ViewModels
-❌ **Don't** hardcode dependencies (use DI)
-❌ **Don't** ignore errors (handle gracefully)
-❌ **Don't** use force unwrapping (`!`) without strong justification
-❌ **Don't** put platform-specific code in Domain layer
-❌ **Don't** commit sensitive data (API keys, tokens)
-❌ **Don't** skip accessibility considerations
-❌ **Don't** write views over 200 lines (extract subviews)
-
-### Green Flags to Embrace
-
-✅ **Do** use dependency injection
-✅ **Do** write tests for critical paths
-✅ **Do** use protocols for abstraction
-✅ **Do** handle errors gracefully
-✅ **Do** consider performance implications
-✅ **Do** follow Swift naming conventions
-✅ **Do** use async/await for asynchronous code
-✅ **Do** provide SwiftUI previews
-✅ **Do** keep platform code isolated
-✅ **Do** document complex logic
+**Embrace:** Dependency injection, testing critical paths, protocols for abstraction, graceful errors, async/await, SwiftUI previews, isolated platform code, spaced repetition, engaging UX.
 
 ---
 
 ## Resources
 
-**Apple Documentation**:
-- [SwiftUI Documentation](https://developer.apple.com/documentation/swiftui)
-- [Swift Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
-- [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
+**Apple:** [SwiftUI](https://developer.apple.com/documentation/swiftui), [Swift Concurrency](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html), [HIG](https://developer.apple.com/design/human-interface-guidelines/)
 
-**Third-Party Libraries** (Currently Used):
-- **Supabase Swift** (Auth & Backend): [github.com/supabase/supabase-swift](https://github.com/supabase/supabase-swift)
-- **GoogleSignIn** (OAuth): [github.com/google/GoogleSignIn-iOS](https://github.com/google/GoogleSignIn-iOS)
-- **Starscream** (WebSockets - for Live Mode): [github.com/daltoniam/Starscream](https://github.com/daltoniam/Starscream)
-- **Sentry** (Crash Reporting - recommended): [docs.sentry.io/platforms/apple/](https://docs.sentry.io/platforms/apple/)
+**Libraries:** Supabase Swift, GoogleSignIn, Starscream (WebSockets), Sentry (crash reporting)
 
-**Design Tools**:
-- Figma (for UI mockups)
-- SF Symbols (built-in iconography)
+**Learning:** [SM-2 Algorithm](https://en.wikipedia.org/wiki/SuperMemo#SM-2_algorithm), Duolingo design principles
 
 ---
 
@@ -1309,6 +697,8 @@ class KeychainManager {
 - ✅ Mock data for testing
 - ✅ Google Sign In Integration (with nonce support)
 - ✅ Learn Mode polish (audio, haptics, celebration)
+- ✅ Complete lesson structure defined (Rookie through GOAT)
+- ✅ Ola Ball branding and character requirements documented
 
 **In Progress** (App Store Preparation):
 
@@ -1317,6 +707,7 @@ class KeychainManager {
    - ✅ Rename clerkId to externalId in User entity
    - ✅ Add Supabase configuration guide
    - ✅ Document current architecture
+   - ✅ Integrate Ola Ball requirements with technical guide
 
 2. **App Configuration**
    - Create Info.plist with required keys
@@ -1331,6 +722,8 @@ class KeychainManager {
    - ✅ Seed Supabase with test data (1 module, 1 lesson, 3 questions)
    - ✅ Generate additional modules (Modules 2-3) with content (22 lessons, 220 items)
    - ✅ Test content delivery (SQL seed verified)
+   - ⏳ Generate remaining modules (Veteran through GOAT sections)
+   - ⏳ Implement Ola character animations
 
 4. **Feature Completion**
    - ✅ SRS (Spaced Repetition System) implementation in lessons
@@ -1338,6 +731,8 @@ class KeychainManager {
      - Wrong answers tracked and re-presented at end
      - Lesson completion requires all questions correct
      - Lesson locking/unlocking based on completion
+   - ⏳ Multi-completion lesson system (3-5 completions per lesson)
+   - ⏳ Question rotation across lessons
    - Error handling and offline support
 
 5. **Testing & QA**
@@ -1364,9 +759,29 @@ class KeychainManager {
    - Create actual screenshots from app
    - Final testing and submission
 
+---
+
+## Current To-Do List (from Product Requirements)
+
+| Task | Priority | Status |
+|------|----------|--------|
+| Rename app to 'Ola Ball' | High | ✅ Documented |
+| Transfer GitHub ownership to NSG LLC | High | Pending |
+| Switch icon to Ola Ball branding | High | ✅ Completed |
+| Minimize profile view | Medium | Pending |
+| Focus on building out learning material | High | In Progress |
+| Build questions for football lingo and phraseology | High | In Progress |
+| Implement Ola character animations | High | Pending |
+| Implement lesson completion rings/circles UI | Medium | Pending |
+| Generate all section content (Veteran-GOAT) | High | Pending |
 
 ---
 
-**Remember**: We're building for the long term. Make decisions that will make multi-platform expansion smooth, even though we're starting iOS-only. Write code that your future self (and future AI assistants) will thank you for.
+**Remember**: We're building for the long term with these principles:
+1. **Spaced repetition over speed** - Learning takes weeks to months
+2. **Multi-platform from day one** - Architecture supports future expansion
+3. **Clean Architecture** - Keep layers separated and testable
+4. **User engagement** - Fun, gamified, with Ola character presence
+5. **Quality over shortcuts** - No compromises on the learning experience
 
 **Good luck, and build something great!** 🏈🏀⚾🏒⚽⛳

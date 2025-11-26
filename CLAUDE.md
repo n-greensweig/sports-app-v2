@@ -92,9 +92,22 @@ The app tracks which questions each user has seen (`seenItemIds`) and prioritize
 
 **When Creating New Lessons:**
 1. Write 12-13 questions covering the lesson's topics
-2. Ensure questions vary in difficulty and format (MCQ, True/False)
+2. Use a variety of question types (see below)
 3. Set `items_per_session: 5` and `required_completions: 5` in the lesson config
 4. The rotation algorithm handles the rest automatically
+
+### Question Types & Variety
+
+Use a mix of question formats to keep lessons engaging:
+
+- **Single-answer multiple choice** - One correct answer from 3-4 options
+- **True/False** - Simple binary questions
+- **Multiple correct answers** - Select all that apply
+- **Situational questions (~25%)** - Apply knowledge to realistic game scenarios
+
+Situational questions are key to making learning stick. Example: "The line of scrimmage is at the Green Bay 25-yard line. The running back rushes for a 4-yard gain. On what yard line is the new line of scrimmage?"
+
+Be creative. Use real team names. Make it feel like a real game. The goal is learning, not trick questions.
 
 ### Visual Icons (Football Theme)
 Suggested icons for lessons:

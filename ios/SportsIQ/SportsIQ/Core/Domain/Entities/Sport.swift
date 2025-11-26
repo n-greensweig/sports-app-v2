@@ -52,7 +52,7 @@ extension Sport {
         id: UUID(uuidString: "AAAAAAAA-AAAA-AAAA-AAAA-AAAAAAAAAAAA")!,
         name: "Football",
         slug: "football",
-        description: "Learn the ins and outs of American Football",
+        description: "Learn the ins and outs of Football",
         iconName: "football.fill",
         accentColorHex: "#2E7D32",
         emoji: "🏈",

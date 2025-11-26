@@ -49,13 +49,52 @@ Section → Units → Lessons → Completions
 ```
 
 ### Lesson Completion Mechanics
-- Each lesson must be passed **3-5 times** before progressing
+- Each lesson must be passed **5 times** before progressing to the next lesson
 - Visual progress indicator: Circle with icon
   - Empty/grayed out initially
-  - Ring fills in segments (⅓, ⅔, full) as user completes
+  - Ring fills in segments (⅕ increments) as user completes
   - Small gaps between ring segments
   - Icon becomes fully colored when lesson is complete
   - Incomplete segments remain grayed out
+
+### Question Pool & Rotation System
+
+Each lesson contains a **question pool** (typically 12-13 questions) but only shows **5 questions per session**. This creates variety across the 5 required completions and reinforces learning through spaced repetition.
+
+**Question Pool Guidelines:**
+- **Pool size:** 12-13 questions per lesson (minimum 8-9 for smaller lessons)
+- **Questions per session:** 5 questions shown each time the user attempts the lesson
+- **Required completions:** 5 times to master and unlock the next lesson
+
+**How Question Selection Works:**
+
+The app tracks which questions each user has seen (`seenItemIds`) and prioritizes showing unseen questions first:
+
+| Completion | What the User Sees |
+|------------|-------------------|
+| **1st** | 5 new questions (all unseen) |
+| **2nd** | ~4 new + ~1 review (prioritizes remaining unseen) |
+| **3rd** | ~3 new + ~2 review (pool getting familiar) |
+| **4th** | Mostly review, few new if any remain |
+| **5th** | Strategic mix ensuring comprehensive coverage |
+
+**Algorithm (in `LessonViewModel.swift`):**
+1. Split all lesson items into "unseen" and "seen" based on user's history
+2. Select unseen items first (up to 5)
+3. Fill remaining slots with previously seen items
+4. Shuffle final selection so new items aren't always first
+
+**Why This Matters:**
+- Users encounter **all questions** in the pool across their 5 completions
+- Repetition reinforces learning without being boring
+- Each session feels fresh with a mix of new and familiar content
+- No single completion shows all questions, encouraging multiple attempts
+
+**When Creating New Lessons:**
+1. Write 12-13 questions covering the lesson's topics
+2. Ensure questions vary in difficulty and format (MCQ, True/False)
+3. Set `items_per_session: 5` and `required_completions: 5` in the lesson config
+4. The rotation algorithm handles the rest automatically
 
 ### Visual Icons (Football Theme)
 Suggested icons for lessons:

@@ -22,7 +22,7 @@ struct Lesson: Identifiable, Codable, Hashable {
     // New fields for multi-completion system
     let code: String?                // Short code like "TF1", "OT1"
     let itemsPerSession: Int         // Questions shown per completion (default 5)
-    let requiredCompletions: Int     // Completions needed to master (default 3)
+    let requiredCompletions: Int     // Completions needed to master (default 5)
 
     init(
         id: UUID,
@@ -36,7 +36,7 @@ struct Lesson: Identifiable, Codable, Hashable {
         items: [Item] = [],
         code: String? = nil,
         itemsPerSession: Int = 5,
-        requiredCompletions: Int = 3
+        requiredCompletions: Int = 5
     ) {
         self.id = id
         self.moduleId = moduleId
@@ -57,7 +57,7 @@ struct Lesson: Identifiable, Codable, Hashable {
 extension Lesson {
     // MARK: - Rookie Section: The Field 1 (TF1)
     // Topics: Dimensions, markings (yard lines), goal lines, end zones
-    // 9 questions total, 5 shown per session for variety
+    // 13 questions total, 5 shown per session for variety
 
     private static let tf1LessonId = UUID(uuidString: "00000001-0000-0000-0000-000000000001")!
 
@@ -73,7 +73,7 @@ extension Lesson {
         items: tf1Items,
         code: "TF1",
         itemsPerSession: 5,
-        requiredCompletions: 3
+        requiredCompletions: 5
     )
 
     private static let tf1Items: [Item] = [
@@ -206,6 +206,63 @@ extension Lesson {
             ],
             correctAnswer: .single(2),
             explanation: "The goal line is at the front edge of the end zone, separating the 100-yard playing field from the end zone. It's the line a player must cross to score a touchdown.",
+            xpValue: 10
+        ),
+
+        // Q10: Hash marks (Markings)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000010")!,
+            lessonId: tf1LessonId,
+            type: .mcq,
+            orderIndex: 10,
+            prompt: "What are the short lines between the yard line numbers called?",
+            options: ["Sidelines", "Hash marks", "Goal markers", "Field stripes"],
+            correctAnswer: .single(1),
+            explanation: "Hash marks are the short lines that run parallel to the sidelines. They mark where the ball is placed for each play and help players and officials align properly.",
+            xpValue: 10
+        ),
+
+        // Q11: Goal line color (Goal lines)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000011")!,
+            lessonId: tf1LessonId,
+            type: .mcq,
+            orderIndex: 11,
+            prompt: "What color is the goal line typically painted?",
+            options: ["Yellow", "Blue", "White", "Red"],
+            correctAnswer: .single(2),
+            explanation: "The goal line is painted white, like most field markings. It marks the boundary between the playing field and the end zone.",
+            xpValue: 10
+        ),
+
+        // Q12: End zone location (End zones)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000012")!,
+            lessonId: tf1LessonId,
+            type: .mcq,
+            orderIndex: 12,
+            prompt: "Where are the end zones located on a football field?",
+            options: [
+                "In the middle of the field",
+                "On the sidelines",
+                "At each end of the 100-yard field",
+                "Behind the bleachers"
+            ],
+            correctAnswer: .single(2),
+            explanation: "The end zones are the 10-yard areas at each end of the 100-yard playing field. A team scores a touchdown by getting the ball into their opponent's end zone.",
+            xpValue: 10
+        ),
+
+        // Q13: Yard numbers direction (Markings)
+        Item(
+            id: UUID(uuidString: "00000001-0001-0000-0000-000000000013")!,
+            lessonId: tf1LessonId,
+            type: .binary,
+            orderIndex: 13,
+            prompt: "From the 50-yard line, yard numbers count down toward each end zone.",
+            options: ["True", "False"],
+            correctAnswer: .boolean(true),
+            explanation: "Correct! The yard numbers go 50, 40, 30, 20, 10 as you move from midfield toward either end zone. This helps players and fans quickly understand field position.",
             xpValue: 10
         )
     ]

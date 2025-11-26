@@ -6,7 +6,7 @@
 --
 -- Structure:
 -- - Rookie Module (Section)
--- - TF1 Lesson (9 questions, 5 shown per session, 3 completions to master)
+-- - TF1 Lesson (13 questions, 5 shown per session, 5 completions to master)
 -- ============================================================================
 
 -- ============================================================================
@@ -19,7 +19,7 @@ VALUES (
     'football',
     'Football',
     '#2E7D32',
-    'American Football - NFL and College',
+    'Football - NFL and College',
     1,
     true
 )
@@ -65,7 +65,7 @@ VALUES (
     false,
     'TF1',
     5,
-    3
+    5
 )
 ON CONFLICT (id) DO UPDATE SET
     title = EXCLUDED.title,
@@ -90,7 +90,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 5: Create TF1 Items (9 questions)
+-- STEP 5: Create TF1 Items (13 questions)
 -- ============================================================================
 
 -- Q1: Field length (Dimensions)
@@ -340,6 +340,118 @@ VALUES (
     '["In the middle of the end zone", "At the back of the end zone", "At the front edge of the end zone", "Behind the goalposts"]',
     '{"index": 2}',
     'The goal line is at the front edge of the end zone, separating the 100-yard playing field from the end zone. It''s the line a player must cross to score a touchdown.',
+    true
+)
+ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
+
+
+-- Q10: Hash marks (Markings)
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
+VALUES (
+    '00000001-0001-0000-0000-000000000010',
+    '00000001-0000-0000-0000-000000000001',
+    'mcq',
+    'What are the short lines between the yard line numbers called?',
+    '{"correct_index": 1}',
+    '00000000-0000-0000-0000-000000000000',
+    'live',
+    1
+)
+ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (
+    '00000001-0001-0001-0000-000000000010',
+    '00000001-0001-0000-0000-000000000010',
+    1,
+    'What are the short lines between the yard line numbers called?',
+    '["Sidelines", "Hash marks", "Goal markers", "Field stripes"]',
+    '{"index": 1}',
+    'Hash marks are the short lines that run parallel to the sidelines. They mark where the ball is placed for each play and help players and officials align properly.',
+    true
+)
+ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
+
+
+-- Q11: Goal line color (Goal lines)
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
+VALUES (
+    '00000001-0001-0000-0000-000000000011',
+    '00000001-0000-0000-0000-000000000001',
+    'mcq',
+    'What color is the goal line typically painted?',
+    '{"correct_index": 2}',
+    '00000000-0000-0000-0000-000000000000',
+    'live',
+    1
+)
+ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (
+    '00000001-0001-0001-0000-000000000011',
+    '00000001-0001-0000-0000-000000000011',
+    1,
+    'What color is the goal line typically painted?',
+    '["Yellow", "Blue", "White", "Red"]',
+    '{"index": 2}',
+    'The goal line is painted white, like most field markings. It marks the boundary between the playing field and the end zone.',
+    true
+)
+ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
+
+
+-- Q12: End zone location (End zones)
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
+VALUES (
+    '00000001-0001-0000-0000-000000000012',
+    '00000001-0000-0000-0000-000000000001',
+    'mcq',
+    'Where are the end zones located on a football field?',
+    '{"correct_index": 2}',
+    '00000000-0000-0000-0000-000000000000',
+    'live',
+    1
+)
+ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (
+    '00000001-0001-0001-0000-000000000012',
+    '00000001-0001-0000-0000-000000000012',
+    1,
+    'Where are the end zones located on a football field?',
+    '["In the middle of the field", "On the sidelines", "At each end of the 100-yard field", "Behind the bleachers"]',
+    '{"index": 2}',
+    'The end zones are the 10-yard areas at each end of the 100-yard playing field. A team scores a touchdown by getting the ball into their opponent''s end zone.',
+    true
+)
+ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
+
+
+-- Q13: Yard numbers direction (Markings)
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
+VALUES (
+    '00000001-0001-0000-0000-000000000013',
+    '00000001-0000-0000-0000-000000000001',
+    'binary',
+    'From the 50-yard line, yard numbers count down toward each end zone.',
+    '{"correct_boolean": true}',
+    '00000000-0000-0000-0000-000000000000',
+    'live',
+    1
+)
+ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (
+    '00000001-0001-0001-0000-000000000013',
+    '00000001-0001-0000-0000-000000000013',
+    1,
+    'From the 50-yard line, yard numbers count down toward each end zone.',
+    '["True", "False"]',
+    '{"boolean": true}',
+    'Correct! The yard numbers go 50, 40, 30, 20, 10 as you move from midfield toward either end zone. This helps players and fans quickly understand field position.',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;

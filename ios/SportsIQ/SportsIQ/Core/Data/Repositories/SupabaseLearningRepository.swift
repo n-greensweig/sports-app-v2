@@ -403,6 +403,10 @@ final class SupabaseLearningRepository: LearningRepository {
             )
         }
 
+        // Record the completion in user_lesson_completions table
+        let newCompletionCount = try await recordLessonCompletion(userId: userId, lessonId: lessonId)
+        print("✅ Lesson completion recorded - new count: \(newCompletionCount)")
+
         try await upsertUserProgress(
             userId: userId,
             sportId: sportId,
@@ -411,11 +415,134 @@ final class SupabaseLearningRepository: LearningRepository {
             xpDelta: score,
             incrementLessons: true
         )
-        
-        // Unlock the next lesson in the module
-        try await unlockNextLesson(moduleId: lesson.moduleId, currentOrderIndex: lesson.orderIndex)
+
+        // Only unlock the next lesson if user has completed this lesson enough times
+        if newCompletionCount >= lesson.requiredCompletions {
+            try await unlockNextLesson(moduleId: lesson.moduleId, currentOrderIndex: lesson.orderIndex)
+        }
+    }
+
+    func getLessonCompletions(userId: UUID, sportId: UUID) async throws -> [UUID: Int] {
+        print("🔄 Fetching lesson completions for user: \(userId), sport: \(sportId)")
+
+        // Get all lesson IDs for this sport by joining through modules
+        let lessonIdsResponse = try await client
+            .from("lessons")
+            .select("id, modules!inner(sport_id)")
+            .eq("modules.sport_id", value: sportId.uuidString)
+            .execute()
+
+        struct LessonIdRow: Decodable {
+            let id: String
+        }
+        let lessonRows: [LessonIdRow] = try decode(lessonIdsResponse.data, as: [LessonIdRow].self)
+        let lessonIds = lessonRows.compactMap { UUID(uuidString: $0.id) }
+
+        guard !lessonIds.isEmpty else {
+            print("⚠️ No lessons found for sport \(sportId)")
+            return [:]
+        }
+
+        // Fetch completions for these lessons
+        let completionsResponse = try await client
+            .from("user_lesson_completions")
+            .select("lesson_id, completion_count")
+            .eq("user_id", value: userId.uuidString)
+            .in("lesson_id", values: lessonIds.map { $0.uuidString })
+            .execute()
+
+        struct CompletionRow: Decodable {
+            let lesson_id: String
+            let completion_count: Int
+        }
+        let completionRows: [CompletionRow] = try decode(completionsResponse.data, as: [CompletionRow].self)
+
+        var completions: [UUID: Int] = [:]
+        for row in completionRows {
+            if let lessonId = UUID(uuidString: row.lesson_id) {
+                completions[lessonId] = row.completion_count
+            }
+        }
+
+        print("✅ Found \(completions.count) lesson completions")
+        return completions
     }
     
+    // MARK: - Lesson Completion Types
+
+    private struct LessonCompletionUpdatePayload: Encodable {
+        let completion_count: Int
+        let last_completed_at: String
+        let updated_at: String
+    }
+
+    private struct LessonCompletionInsertPayload: Encodable {
+        let user_id: String
+        let lesson_id: String
+        let completion_count: Int
+        let last_completed_at: String
+    }
+
+    /// Records a lesson completion and returns the new completion count
+    private func recordLessonCompletion(userId: UUID, lessonId: UUID) async throws -> Int {
+        print("🔄 Recording lesson completion for user: \(userId), lesson: \(lessonId)")
+
+        // Use direct upsert approach (more reliable across Supabase versions)
+        return try await recordLessonCompletionDirect(userId: userId, lessonId: lessonId)
+    }
+
+    /// Direct upsert for recording lesson completion
+    private func recordLessonCompletionDirect(userId: UUID, lessonId: UUID) async throws -> Int {
+        // First, try to get existing record
+        let existingResponse = try await client
+            .from("user_lesson_completions")
+            .select("id, completion_count")
+            .eq("user_id", value: userId.uuidString)
+            .eq("lesson_id", value: lessonId.uuidString)
+            .limit(1)
+            .execute()
+
+        struct ExistingRow: Decodable {
+            let id: String
+            let completion_count: Int
+        }
+        let existingRows: [ExistingRow] = try decode(existingResponse.data, as: [ExistingRow].self)
+
+        let nowString = ISO8601DateFormatter().string(from: Date())
+
+        if let existing = existingRows.first {
+            // Update existing record
+            let newCount = existing.completion_count + 1
+            let updatePayload = LessonCompletionUpdatePayload(
+                completion_count: newCount,
+                last_completed_at: nowString,
+                updated_at: nowString
+            )
+            _ = try await client
+                .from("user_lesson_completions")
+                .update(updatePayload)
+                .eq("id", value: existing.id)
+                .execute()
+            print("✅ Updated completion count to \(newCount)")
+            return newCount
+        } else {
+            // Insert new record
+            let insertPayload = LessonCompletionInsertPayload(
+                user_id: userId.uuidString,
+                lesson_id: lessonId.uuidString,
+                completion_count: 1,
+                last_completed_at: nowString
+            )
+
+            _ = try await client
+                .from("user_lesson_completions")
+                .insert([insertPayload])
+                .execute()
+            print("✅ Created new completion record with count 1")
+            return 1
+        }
+    }
+
     private func unlockNextLesson(moduleId: UUID, currentOrderIndex: Int) async throws {
         // Find the next lesson in order
         let nextOrderIndex = currentOrderIndex + 1

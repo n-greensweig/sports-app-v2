@@ -17,10 +17,11 @@ class HomeViewModel {
     // MARK: - State
     var sports: [Sport] = []
     var selectedSport: Sport?
-    var modules: [Module] = []
+    var lessons: [Lesson] = []
+    var lessonCompletions: [UUID: Int] = [:]  // lessonId -> completionCount
     var userProgress: UserProgress?
     var isLoading = false
-    var isLoadingModules = false
+    var isLoadingLessons = false
     var errorMessage: String?
 
     // MARK: - UserDefaults Keys
@@ -54,13 +55,13 @@ class HomeViewModel {
                 selectedSport = firstSport
             }
 
-            // Load user progress for selected sport
+            // Load user progress and lessons for selected sport
             if let sport = selectedSport {
                 userProgress = try await userRepository.getUserProgress(
                     userId: userId,
                     sportId: sport.id
                 )
-                await loadModules(for: sport)
+                await loadLessons(for: sport)
             }
         } catch {
             errorMessage = "Failed to load data: \(error.localizedDescription)"
@@ -78,27 +79,47 @@ class HomeViewModel {
         // Save to UserDefaults
         UserDefaults.standard.set(sport.id.uuidString, forKey: Self.lastSelectedSportIdKey)
 
-        // Load progress and modules for newly selected sport
+        // Load progress and lessons for newly selected sport
         do {
             userProgress = try await userRepository.getUserProgress(
                 userId: userId,
                 sportId: sport.id
             )
-            await loadModules(for: sport)
+            await loadLessons(for: sport)
         } catch {
             print("Error loading progress for \(sport.name): \(error)")
         }
     }
 
     @MainActor
-    private func loadModules(for sport: Sport) async {
-        isLoadingModules = true
+    private func loadLessons(for sport: Sport) async {
+        isLoadingLessons = true
         do {
-            modules = try await learningRepository.getModules(sportId: sport.id)
+            // Get all modules for the sport
+            let modules = try await learningRepository.getModules(sportId: sport.id)
+
+            // Flatten all lessons from all modules
+            var allLessons: [Lesson] = []
+            for module in modules {
+                let moduleLessons = try await learningRepository.getLessons(moduleId: module.id)
+                allLessons.append(contentsOf: moduleLessons)
+            }
+
+            // Sort by orderIndex
+            lessons = allLessons.sorted { $0.orderIndex < $1.orderIndex }
+
+            // Load actual completion counts from repository
+            lessonCompletions = try await learningRepository.getLessonCompletions(
+                userId: userId,
+                sportId: sport.id
+            )
+            print("📊 Loaded \(lessonCompletions.count) lesson completions")
+
         } catch {
-            print("Error loading modules for \(sport.name): \(error)")
-            modules = []
+            print("Error loading lessons for \(sport.name): \(error)")
+            lessons = []
+            lessonCompletions = [:]
         }
-        isLoadingModules = false
+        isLoadingLessons = false
     }
 }

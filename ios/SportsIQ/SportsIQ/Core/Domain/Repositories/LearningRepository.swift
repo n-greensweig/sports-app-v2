@@ -33,6 +33,10 @@ protocol LearningRepository {
         timeSpentSeconds: Int
     ) async throws -> Submission
 
-    /// Mark a lesson as completed
+    /// Mark a lesson as completed and increment completion count
     func completeLesson(userId: UUID, lessonId: UUID, score: Int) async throws
+
+    /// Get lesson completion counts for a user's lessons in a sport
+    /// Returns a dictionary mapping lessonId -> completionCount
+    func getLessonCompletions(userId: UUID, sportId: UUID) async throws -> [UUID: Int]
 }

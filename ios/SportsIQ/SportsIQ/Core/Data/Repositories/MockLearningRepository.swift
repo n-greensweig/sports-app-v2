@@ -12,6 +12,7 @@ class MockLearningRepository: LearningRepository {
     private var sports: [Sport] = Sport.mockSports
     private var modules: [Module] = Module.mockModules
     private var lessons: [Lesson] = Lesson.mockLessons
+    private var lessonCompletionCounts: [UUID: Int] = [:]  // Track completions in memory
 
     func getSports() async throws -> [Sport] {
         // Simulate network delay
@@ -70,7 +71,15 @@ class MockLearningRepository: LearningRepository {
 
     func completeLesson(userId: UUID, lessonId: UUID, score: Int) async throws {
         try await Task.sleep(nanoseconds: 300_000_000)
-        // Mock: In real implementation, this would unlock next lesson
-        print("Lesson \(lessonId) completed with score \(score)")
+        // Increment completion count
+        let currentCount = lessonCompletionCounts[lessonId] ?? 0
+        lessonCompletionCounts[lessonId] = currentCount + 1
+        print("Lesson \(lessonId) completed with score \(score). Completion count: \(currentCount + 1)")
+    }
+
+    func getLessonCompletions(userId: UUID, sportId: UUID) async throws -> [UUID: Int] {
+        try await Task.sleep(nanoseconds: 300_000_000)
+        // Return all tracked completions (mock doesn't filter by sport)
+        return lessonCompletionCounts
     }
 }

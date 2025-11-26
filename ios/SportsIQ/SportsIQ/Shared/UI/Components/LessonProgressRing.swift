@@ -2,8 +2,7 @@
 //  LessonProgressRing.swift
 //  Ola Ball
 //
-//  A circular progress indicator showing lesson completion progress
-//  with segmented rings (⅓, ⅔, full based on completions)
+//  A Duolingo-style circular lesson button with progress ring segments
 //
 
 import SwiftUI
@@ -14,70 +13,165 @@ struct LessonProgressRing: View {
     let isLocked: Bool               // Whether the lesson is locked
     let icon: String                 // SF Symbol name for the center icon
     var accentColor: Color = .footballAccent
-    var size: CGFloat = 56           // Total size of the ring
+    var size: CGFloat = 64           // Total size of the ring
 
     // Ring configuration
-    private let ringWidth: CGFloat = 5
-    private let gapAngle: Double = 8 // Gap between segments in degrees
+    private let ringWidth: CGFloat = 6
+    private let gapAngle: Double = 12 // Gap between segments in degrees
+
+    // Computed properties for visual states
+    private var isCompleted: Bool { completedSegments >= totalSegments }
+    private var isInProgress: Bool { completedSegments > 0 && !isCompleted }
+    private var isAvailable: Bool { !isLocked && completedSegments == 0 }
 
     var body: some View {
         ZStack {
-            // Background circle (unfilled ring)
-            Circle()
-                .stroke(
-                    isLocked ? Color.backgroundTertiary : Color.backgroundTertiary,
-                    lineWidth: ringWidth
-                )
-                .frame(width: size, height: size)
+            // Outer progress ring segments
+            progressRing
 
-            // Completed segments
-            if !isLocked {
-                ForEach(0..<totalSegments, id: \.self) { index in
-                    SegmentArc(
-                        segmentIndex: index,
-                        totalSegments: totalSegments,
-                        gapAngle: gapAngle,
-                        isFilled: index < completedSegments
-                    )
-                    .stroke(
-                        index < completedSegments ? accentColor : Color.clear,
-                        style: StrokeStyle(
-                            lineWidth: ringWidth,
-                            lineCap: .round
-                        )
-                    )
-                    .frame(width: size, height: size)
-                }
-            }
+            // Main circle button
+            mainCircle
 
             // Center icon
-            Image(systemName: centerIcon)
-                .font(.system(size: size * 0.35, weight: .semibold))
-                .foregroundStyle(iconColor)
+            centerIconView
         }
-        .animation(.easeInOut(duration: 0.3), value: completedSegments)
+        .animation(.spring(response: 0.4, dampingFraction: 0.7), value: completedSegments)
+        .animation(.easeInOut(duration: 0.2), value: isLocked)
     }
 
-    private var centerIcon: String {
-        if isLocked {
-            return "lock.fill"
-        } else if completedSegments >= totalSegments {
-            return "checkmark"
-        } else {
-            return icon
+    // MARK: - Progress Ring
+    private var progressRing: some View {
+        ZStack {
+            // Background ring (always visible, subtle)
+            Circle()
+                .stroke(
+                    ringBackgroundColor,
+                    lineWidth: ringWidth
+                )
+                .frame(width: size + ringWidth * 2, height: size + ringWidth * 2)
+
+            // Completed segments
+            ForEach(0..<totalSegments, id: \.self) { index in
+                SegmentArc(
+                    segmentIndex: index,
+                    totalSegments: totalSegments,
+                    gapAngle: gapAngle,
+                    isFilled: index < completedSegments
+                )
+                .stroke(
+                    index < completedSegments ? segmentColor : Color.clear,
+                    style: StrokeStyle(
+                        lineWidth: ringWidth,
+                        lineCap: .round
+                    )
+                )
+                .frame(width: size + ringWidth * 2, height: size + ringWidth * 2)
+            }
         }
+    }
+
+    // MARK: - Main Circle
+    private var mainCircle: some View {
+        Circle()
+            .fill(circleGradient)
+            .frame(width: size, height: size)
+            .shadow(color: shadowColor, radius: isLocked ? 0 : 4, y: isLocked ? 0 : 3)
+            .overlay(
+                Circle()
+                    .stroke(circleBorderColor, lineWidth: 2)
+            )
+    }
+
+    // MARK: - Center Icon
+    private var centerIconView: some View {
+        Group {
+            if isLocked {
+                Image(systemName: "lock.fill")
+                    .font(.system(size: size * 0.35, weight: .bold))
+                    .foregroundStyle(Color.textTertiary)
+            } else if isCompleted {
+                Image(systemName: "checkmark")
+                    .font(.system(size: size * 0.4, weight: .bold))
+                    .foregroundStyle(.white)
+            } else {
+                Image(systemName: icon)
+                    .font(.system(size: size * 0.35, weight: .semibold))
+                    .foregroundStyle(iconColor)
+            }
+        }
+    }
+
+    // MARK: - Colors
+    private var ringBackgroundColor: Color {
+        if isLocked {
+            return Color.backgroundTertiary.opacity(0.5)
+        }
+        return Color.backgroundTertiary
+    }
+
+    private var segmentColor: Color {
+        if isCompleted {
+            return accentColor.opacity(0.8)
+        }
+        return accentColor
+    }
+
+    private var circleGradient: LinearGradient {
+        if isLocked {
+            // Locked - dark gray
+            return LinearGradient(
+                colors: [Color.backgroundTertiary, Color.backgroundTertiary.opacity(0.8)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        } else if isCompleted {
+            // Fully completed - bright accent color
+            return LinearGradient(
+                colors: [accentColor, accentColor.opacity(0.85)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        } else if isInProgress {
+            // In progress (1+ completions but not done) - accent color
+            return LinearGradient(
+                colors: [accentColor.opacity(0.9), accentColor.opacity(0.75)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        } else {
+            // Available but NOT started (0 completions) - GRAY like Duolingo
+            return LinearGradient(
+                colors: [Color.backgroundTertiary.opacity(0.9), Color.backgroundTertiary.opacity(0.7)],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        }
+    }
+
+    private var circleBorderColor: Color {
+        if isLocked || isAvailable {
+            return Color.backgroundTertiary.opacity(0.5)
+        } else if isCompleted {
+            return accentColor.opacity(0.5)
+        }
+        return accentColor.opacity(0.3)
+    }
+
+    private var shadowColor: Color {
+        if isLocked || isAvailable {
+            return Color.black.opacity(0.1)
+        }
+        return accentColor.opacity(0.4)
     }
 
     private var iconColor: Color {
         if isLocked {
             return .textTertiary
-        } else if completedSegments >= totalSegments {
-            return accentColor
-        } else if completedSegments > 0 {
-            return accentColor.opacity(0.8)
-        } else {
+        } else if isAvailable {
+            // Available but not started - gray icon
             return .textSecondary
         }
+        return .white
     }
 }
 
@@ -115,139 +209,195 @@ struct SegmentArc: Shape {
     }
 }
 
+// MARK: - Lesson Node (Tappable button wrapper)
+struct LessonNode: View {
+    let lesson: Lesson
+    let completionCount: Int
+    let sport: Sport
+    let lessonIndex: Int
+    let action: () -> Void
+
+    // Icons to cycle through for different lessons
+    private static let lessonIcons = [
+        "star.fill",
+        "book.fill",
+        "lightbulb.fill",
+        "graduationcap.fill",
+        "trophy.fill",
+        "flag.fill",
+        "target",
+        "bolt.fill"
+    ]
+
+    private var lessonIcon: String {
+        LessonNode.lessonIcons[lessonIndex % LessonNode.lessonIcons.count]
+    }
+
+    var body: some View {
+        Button(action: action) {
+            LessonProgressRing(
+                completedSegments: completionCount,
+                totalSegments: lesson.requiredCompletions,
+                isLocked: lesson.isLocked,
+                icon: lessonIcon,
+                accentColor: sport.accentColor,
+                size: 64
+            )
+        }
+        .buttonStyle(LessonButtonStyle())
+        .disabled(lesson.isLocked)
+    }
+}
+
+// MARK: - Lesson Button Style
+struct LessonButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 0.92 : 1.0)
+            .animation(.spring(response: 0.2, dampingFraction: 0.6), value: configuration.isPressed)
+    }
+}
+
 // MARK: - Preview
-#Preview("Progress Ring States") {
-    VStack(spacing: 32) {
-        Text("Lesson Progress Ring States")
-            .font(.headline)
+#Preview("Lesson Progress Ring States") {
+    ScrollView {
+        VStack(spacing: 40) {
+            Text("Duolingo-Style Lesson Nodes")
+                .font(.headline)
 
-        HStack(spacing: 24) {
-            VStack {
-                LessonProgressRing(
-                    completedSegments: 0,
-                    totalSegments: 3,
-                    isLocked: true,
-                    icon: "football.fill"
-                )
-                Text("Locked")
-                    .font(.caption)
+            // Row 1: Progress states
+            HStack(spacing: 32) {
+                VStack(spacing: 8) {
+                    LessonProgressRing(
+                        completedSegments: 0,
+                        totalSegments: 3,
+                        isLocked: true,
+                        icon: "lock.fill",
+                        accentColor: .footballAccent
+                    )
+                    Text("Locked")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                VStack(spacing: 8) {
+                    LessonProgressRing(
+                        completedSegments: 0,
+                        totalSegments: 3,
+                        isLocked: false,
+                        icon: "star.fill",
+                        accentColor: .footballAccent
+                    )
+                    Text("Available")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                VStack(spacing: 8) {
+                    LessonProgressRing(
+                        completedSegments: 1,
+                        totalSegments: 3,
+                        isLocked: false,
+                        icon: "book.fill",
+                        accentColor: .footballAccent
+                    )
+                    Text("1/3")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
 
-            VStack {
-                LessonProgressRing(
-                    completedSegments: 0,
-                    totalSegments: 3,
-                    isLocked: false,
-                    icon: "football.fill"
-                )
-                Text("0/3")
-                    .font(.caption)
+            // Row 2: More progress
+            HStack(spacing: 32) {
+                VStack(spacing: 8) {
+                    LessonProgressRing(
+                        completedSegments: 2,
+                        totalSegments: 3,
+                        isLocked: false,
+                        icon: "lightbulb.fill",
+                        accentColor: .footballAccent
+                    )
+                    Text("2/3")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                VStack(spacing: 8) {
+                    LessonProgressRing(
+                        completedSegments: 3,
+                        totalSegments: 3,
+                        isLocked: false,
+                        icon: "trophy.fill",
+                        accentColor: .footballAccent
+                    )
+                    Text("Complete!")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
 
-            VStack {
-                LessonProgressRing(
-                    completedSegments: 1,
-                    totalSegments: 3,
-                    isLocked: false,
-                    icon: "football.fill"
-                )
-                Text("1/3")
-                    .font(.caption)
-            }
+            Divider()
 
-            VStack {
+            Text("Different Sports")
+                .font(.headline)
+
+            HStack(spacing: 24) {
                 LessonProgressRing(
                     completedSegments: 2,
                     totalSegments: 3,
                     isLocked: false,
-                    icon: "football.fill"
+                    icon: "football.fill",
+                    accentColor: .footballAccent
                 )
-                Text("2/3")
-                    .font(.caption)
-            }
 
-            VStack {
+                LessonProgressRing(
+                    completedSegments: 1,
+                    totalSegments: 3,
+                    isLocked: false,
+                    icon: "basketball.fill",
+                    accentColor: .basketballAccent
+                )
+
                 LessonProgressRing(
                     completedSegments: 3,
                     totalSegments: 3,
                     isLocked: false,
-                    icon: "football.fill"
+                    icon: "baseball.fill",
+                    accentColor: .baseballAccent
                 )
-                Text("Mastered")
-                    .font(.caption)
+            }
+
+            Divider()
+
+            Text("Sizes")
+                .font(.headline)
+
+            HStack(spacing: 24) {
+                LessonProgressRing(
+                    completedSegments: 2,
+                    totalSegments: 3,
+                    isLocked: false,
+                    icon: "star.fill",
+                    size: 48
+                )
+
+                LessonProgressRing(
+                    completedSegments: 2,
+                    totalSegments: 3,
+                    isLocked: false,
+                    icon: "star.fill",
+                    size: 64
+                )
+
+                LessonProgressRing(
+                    completedSegments: 2,
+                    totalSegments: 3,
+                    isLocked: false,
+                    icon: "star.fill",
+                    size: 80
+                )
             }
         }
-
-        Divider()
-
-        Text("Different Icons")
-            .font(.headline)
-
-        HStack(spacing: 24) {
-            LessonProgressRing(
-                completedSegments: 2,
-                totalSegments: 3,
-                isLocked: false,
-                icon: "star.fill",
-                accentColor: .footballAccent
-            )
-
-            LessonProgressRing(
-                completedSegments: 1,
-                totalSegments: 3,
-                isLocked: false,
-                icon: "scalemass.fill",
-                accentColor: .basketballAccent
-            )
-
-            LessonProgressRing(
-                completedSegments: 3,
-                totalSegments: 3,
-                isLocked: false,
-                icon: "figure.american.football",
-                accentColor: .baseballAccent
-            )
-
-            LessonProgressRing(
-                completedSegments: 0,
-                totalSegments: 3,
-                isLocked: false,
-                icon: "helmet.fill",
-                accentColor: .soccerAccent,
-                size: 72
-            )
-        }
-
-        Divider()
-
-        Text("Sizes")
-            .font(.headline)
-
-        HStack(spacing: 24) {
-            LessonProgressRing(
-                completedSegments: 2,
-                totalSegments: 3,
-                isLocked: false,
-                icon: "football.fill",
-                size: 44
-            )
-
-            LessonProgressRing(
-                completedSegments: 2,
-                totalSegments: 3,
-                isLocked: false,
-                icon: "football.fill",
-                size: 56
-            )
-
-            LessonProgressRing(
-                completedSegments: 2,
-                totalSegments: 3,
-                isLocked: false,
-                icon: "football.fill",
-                size: 72
-            )
-        }
+        .padding()
     }
-    .padding()
 }

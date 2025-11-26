@@ -58,13 +58,7 @@ struct LessonProgressRing: View {
     }
 
     private func startPulseAnimation() {
-        withAnimation(
-            .easeIn(duration: 0.8)
-            .repeatForever(autoreverses: true)
-            .speed(1.2)
-        ) {
-            isPulsed = true
-        }
+        isPulsed = true
     }
 
     // Pulse offset - moves ring inward to touch the circle edge
@@ -94,6 +88,13 @@ struct LessonProgressRing: View {
                 .frame(width: ringSize, height: ringSize)
             }
         }
+        .animation(pulseAnimation, value: isPulsed)
+    }
+
+    // Custom animation for the pulse - only applied to the ring
+    private var pulseAnimation: Animation? {
+        guard shouldPulse else { return nil }
+        return .easeInOut(duration: 1.0).repeatForever(autoreverses: true)
     }
 
     // MARK: - Main Circle

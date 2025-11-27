@@ -113,7 +113,7 @@ VALUES (
     'What is a touchdown in football?',
     '["Kicking the ball through the goalposts", "Tackling the quarterback behind the line of scrimmage", "When a player carries or catches the ball in the opponent''s end zone", "When the defense intercepts a pass"]',
     '{"index": 2}',
-    'A touchdown is scored when a player carries the ball across the goal line into the end zone, or catches a pass while in the end zone. It''s worth 6 points and is the most valuable scoring play.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -141,7 +141,7 @@ VALUES (
     'How many points is a touchdown worth?',
     '["3 points", "6 points", "7 points", "1 point"]',
     '{"index": 1}',
-    'A touchdown is worth 6 points. After scoring a touchdown, the team gets a chance to score extra points (either 1 point for a kick or 2 points for a conversion).',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -169,7 +169,7 @@ VALUES (
     'What is a field goal?',
     '["A kick through the uprights during a regular play, worth 3 points", "A pass completed in the end zone", "A punt that goes into the end zone", "A running play that gains more than 10 yards"]',
     '{"index": 0}',
-    'A field goal is when the kicker kicks the ball through the uprights (goalposts) during a scrimmage play. It''s worth 3 points and is often attempted on 4th down when the team is close enough to the end zone.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -197,7 +197,7 @@ VALUES (
     'How many points is a field goal worth?',
     '["1 point", "2 points", "3 points", "6 points"]',
     '{"index": 2}',
-    'A field goal is worth 3 points. Teams often attempt field goals when they''re close to the end zone but don''t think they can score a touchdown.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -225,7 +225,7 @@ VALUES (
     'What is an extra point (PAT)?',
     '["A bonus touchdown awarded for excellent play", "A kick through the uprights attempted after a touchdown", "An additional down given after a first down", "A point given for fair catches"]',
     '{"index": 1}',
-    'An extra point (also called a PAT - Point After Touchdown) is a kick through the uprights attempted immediately after scoring a touchdown. It''s worth 1 point if successful.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -253,7 +253,7 @@ VALUES (
     'What is a safety in football?',
     '["A protective piece of equipment", "A type of defensive player", "When a kick goes out of bounds", "When the offense is tackled in their own end zone, giving the defense 2 points"]',
     '{"index": 3}',
-    'A safety occurs when the ball carrier is tackled in their own end zone, or when the offense commits a penalty in their own end zone. It awards 2 points to the defense and the offense must kick the ball to the other team.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -281,7 +281,7 @@ VALUES (
     'How many points is a safety worth?',
     '["1 point", "2 points", "3 points", "6 points"]',
     '{"index": 1}',
-    'A safety is worth 2 points to the defensive team. It''s the only way the defense can score points directly during a play (other than returning a turnover for a touchdown).',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -309,7 +309,7 @@ VALUES (
     'A touchdown plus a successful extra point kick equals 7 total points.',
     '["True", "False"]',
     '{"boolean": true}',
-    'Correct! A touchdown is worth 6 points, and the extra point kick adds 1 more point, totaling 7 points. This is why you often see scores like 7, 14, 21, 28 in football.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -321,7 +321,7 @@ VALUES (
     '00000004-0001-0000-0000-000000000009',
     '00000001-0000-0000-0000-000000000004',
     'mcq',
-    'The Denver Broncos have the ball on the Miami 35-yard line. It''s 4th down with 8 yards to go. The score is tied with 10 seconds left. What should they most likely attempt?',
+    'The Denver Broncos are close to the opponent''s end zone but it''s getting hard to advance the ball. They could try for a touchdown (6 points) or kick a field goal (3 points). When might a team choose to kick a field goal instead of going for a touchdown?',
     '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -334,10 +334,10 @@ VALUES (
     '00000004-0001-0001-0000-000000000009',
     '00000004-0001-0000-0000-000000000009',
     1,
-    'The Denver Broncos have the ball on the Miami 35-yard line. It''s 4th down with 8 yards to go. The score is tied with 10 seconds left. What should they most likely attempt?',
-    '["Punt the ball away", "A field goal attempt", "Run a trick play", "Take a timeout"]',
+    'The Denver Broncos are close to the opponent''s end zone but it''s getting hard to advance the ball. They could try for a touchdown (6 points) or kick a field goal (3 points). When might a team choose to kick a field goal instead of going for a touchdown?',
+    '["When they want to score more points", "When they want guaranteed points rather than risk getting nothing", "When they are losing by a lot", "Field goals are always better than touchdowns"]',
     '{"index": 1}',
-    'With the score tied and only 10 seconds left, a field goal attempt is the best choice. From the 35-yard line, it would be about a 52-yard field goal attempt. Making it would win the game with 3 points!',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -349,7 +349,7 @@ VALUES (
     '00000004-0001-0000-0000-000000000010',
     '00000001-0000-0000-0000-000000000004',
     'mcq',
-    'The New England Patriots quarterback drops back to pass from his own 3-yard line. He''s sacked in the end zone by the Buffalo Bills defense. What is the result?',
+    'The New England Patriots have the ball near their own goal line. A running back takes the ball but is tackled in his own end zone by the Buffalo Bills defense. What is the result?',
     '{"correct_index": 2}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -362,10 +362,10 @@ VALUES (
     '00000004-0001-0001-0000-000000000010',
     '00000004-0001-0000-0000-000000000010',
     1,
-    'The New England Patriots quarterback drops back to pass from his own 3-yard line. He''s sacked in the end zone by the Buffalo Bills defense. What is the result?',
-    '["Touchdown for the Bills", "Loss of down, ball at the 1-yard line", "Safety! 2 points for the Bills", "Incomplete pass"]',
+    'The New England Patriots have the ball near their own goal line. A running back takes the ball but is tackled in his own end zone by the Buffalo Bills defense. What is the result?',
+    '["Touchdown for the Bills", "The play doesn''t count", "Safety! 2 points for the Bills", "First down for the Patriots"]',
     '{"index": 2}',
-    'When a ball carrier is tackled in their own end zone, it''s a safety. The Buffalo Bills are awarded 2 points, and the Patriots must kick the ball to them. Being tackled in your own end zone is one of the worst outcomes in football!',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;

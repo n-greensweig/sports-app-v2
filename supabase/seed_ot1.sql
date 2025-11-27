@@ -113,7 +113,7 @@ VALUES (
     'What is a "run play" in football?',
     '["When a player kicks the ball downfield", "When a player carries the ball and runs with it", "When the quarterback throws the ball to a receiver", "When the defense tackles the quarterback"]',
     '{"index": 1}',
-    'A run play is when a player (usually a running back) carries the ball and runs with it, trying to gain yards by advancing down the field on foot rather than through a pass.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -141,7 +141,7 @@ VALUES (
     'What is a "pass play" in football?',
     '["When a player runs with the ball", "When the ball is kicked through the uprights", "When the quarterback throws the ball to a teammate", "When the defense intercepts the ball"]',
     '{"index": 2}',
-    'A pass play is when the quarterback throws the ball to a teammate (usually a wide receiver or tight end) who attempts to catch it and gain yards.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -167,9 +167,9 @@ VALUES (
     '00000003-0001-0000-0000-000000000003',
     1,
     'What must happen for a receiver to be credited with a "catch"?',
-    '["Secure the ball with control and get both feet inbounds", "Touch the ball with one hand", "Have the ball hit their body", "Run a route downfield"]',
+    '["Secure the ball with control while inbounds", "Touch the ball with one hand", "Have the ball hit their body", "Run a route downfield"]',
     '{"index": 0}',
-    'For a legal catch, the receiver must secure control of the ball and get both feet (NFL) or one foot (college) inbounds. If the ball touches the ground or the receiver goes out of bounds before establishing possession, it''s incomplete.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -197,7 +197,7 @@ VALUES (
     'What is a "first down" in football?',
     '["The first play of the game", "When the offense gains 10 yards and gets a new set of 4 downs", "When the defense stops the offense", "The first quarter of the game"]',
     '{"index": 1}',
-    'A first down occurs when the offense advances the ball at least 10 yards from where the previous set of downs started. This gives the team a new set of 4 downs to try to gain another 10 yards.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -225,7 +225,7 @@ VALUES (
     'How many attempts (downs) does an offense have to gain 10 yards for a first down?',
     '["2 downs", "3 downs", "5 downs", "4 downs"]',
     '{"index": 3}',
-    'The offense has 4 downs (attempts) to gain 10 yards. If they succeed, they get a new first down. If they fail, the other team gets the ball.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -253,7 +253,7 @@ VALUES (
     'Which player typically throws the ball on a pass play?',
     '["Quarterback", "Wide receiver", "Running back", "Linebacker"]',
     '{"index": 0}',
-    'The quarterback is the primary passer on the team. They take the snap and throw the ball to receivers downfield. Occasionally other players throw passes on trick plays, but this is rare.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -281,7 +281,7 @@ VALUES (
     'The Dallas Cowboys have the ball at their own 30-yard line. It''s 1st and 10. The running back gains 6 yards. What down is it now?',
     '["1st and 4", "2nd and 4", "2nd and 10", "1st and 10"]',
     '{"index": 1}',
-    'After gaining 6 yards on 1st down, it''s now 2nd down with 4 yards to go for a first down (10 - 6 = 4). The offense still needs 4 more yards to earn a new set of downs.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -293,7 +293,7 @@ VALUES (
     '00000003-0001-0000-0000-000000000009',
     '00000001-0000-0000-0000-000000000003',
     'mcq',
-    'The Kansas City Chiefs have the ball at the 50-yard line. It''s 2nd and 8. Patrick Mahomes throws a 15-yard pass to Travis Kelce. What happens next?',
+    'The Kansas City Chiefs have the ball at the 50-yard line. It''s 2nd and 8. The quarterback throws a 15-yard pass to a wide receiver. What happens next?',
     '{"correct_index": 0}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -306,10 +306,10 @@ VALUES (
     '00000003-0001-0001-0000-000000000009',
     '00000003-0001-0000-0000-000000000009',
     1,
-    'The Kansas City Chiefs have the ball at the 50-yard line. It''s 2nd and 8. Patrick Mahomes throws a 15-yard pass to Travis Kelce. What happens next?',
+    'The Kansas City Chiefs have the ball at the 50-yard line. It''s 2nd and 8. The quarterback throws a 15-yard pass to a wide receiver. What happens next?',
     '["First down! New set of 4 downs at the opponent''s 35", "3rd and 7 at the opponent''s 35", "2nd and 8 at the 50", "Touchdown"]',
     '{"index": 0}',
-    'The 15-yard gain exceeds the 8 yards needed for a first down, so the Chiefs get a new set of 4 downs. The ball is now at the opponent''s 35-yard line (50 - 15 = 35).',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -337,7 +337,7 @@ VALUES (
     'The Philadelphia Eagles are on 3rd down with 2 yards to go for a first down. The running back takes a handoff and runs for 3 yards. What is the result?',
     '["4th and short", "Incomplete pass", "First down! New set of 4 downs", "Turnover on downs"]',
     '{"index": 2}',
-    'The Eagles gained 3 yards on a run play, which is more than the 2 yards they needed for a first down. They now have a fresh set of 4 downs to continue their drive.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;

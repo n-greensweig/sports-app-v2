@@ -58,7 +58,7 @@ VALUES (
     '00000001-0000-0000-0000-000000000001',
     '11111111-1111-1111-1111-111111111111',
     'The Field 1',
-    'Learn about field dimensions, yard lines, goal lines, and end zones',
+    '',
     1,
     4,
     50,
@@ -115,19 +115,19 @@ VALUES (
     'How long is a football field from goal line to goal line?',
     '["80 yards", "100 yards", "120 yards", "150 yards"]',
     '{"index": 1}',
-    'A football field is exactly 100 yards (300 feet) from goal line to goal line. The end zones add another 10 yards on each side.',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
 
 
--- Q2: Field width (Dimensions)
+-- Q2: What do the numbers on the field mean? (Markings)
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000001-0001-0000-0000-000000000002',
     '00000001-0000-0000-0000-000000000001',
     'mcq',
-    'How wide is a regulation football field?',
+    'What do the large numbers painted on the field (like 10, 20, 30, 40, 50) represent?',
     '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -140,10 +140,10 @@ VALUES (
     '00000001-0001-0001-0000-000000000002',
     '00000001-0001-0000-0000-000000000002',
     1,
-    'How wide is a regulation football field?',
-    '["40 yards", "53⅓ yards", "60 yards", "75 yards"]',
+    'What do the large numbers painted on the field (like 10, 20, 30, 40, 50) represent?',
+    '["Player jersey numbers", "The yard line location on the field", "The score", "The quarter of the game"]',
     '{"index": 1}',
-    'A regulation football field is 53⅓ yards (160 feet) wide. This width is the same for both NFL and college football.',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
@@ -171,7 +171,7 @@ VALUES (
     'Each end zone is 10 yards deep.',
     '["True", "False"]',
     '{"boolean": true}',
-    'Correct! Each end zone extends 10 yards beyond the goal line, adding 20 total yards to the field''s overall length of 120 yards.',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
@@ -199,7 +199,7 @@ VALUES (
     'Yard lines are marked on the field every how many yards?',
     '["1 yard", "5 yards", "10 yards", "20 yards"]',
     '{"index": 1}',
-    'Yard lines are painted across the field every 5 yards. Numbers are displayed every 10 yards to help players and fans track field position.',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
@@ -227,7 +227,7 @@ VALUES (
     'What does a player need to do to score a touchdown?',
     '["Touch the goal line", "Cross the goal line with the ball", "Throw the ball over the goal line", "Kick the ball through the uprights"]',
     '{"index": 1}',
-    'To score a touchdown, the ball must cross (or "break the plane of") the goal line while in a player''s possession. The goal line is the front edge of the end zone.',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
@@ -255,7 +255,7 @@ VALUES (
     'Including both end zones, how long is a football field in total?',
     '["100 yards", "110 yards", "120 yards", "130 yards"]',
     '{"index": 2}',
-    'The total length is 120 yards: 100 yards of playing field plus two 10-yard end zones (one at each end).',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
@@ -283,7 +283,7 @@ VALUES (
     'The 50-yard line is at the exact center of the field.',
     '["True", "False"]',
     '{"boolean": true}',
-    'The 50-yard line marks the midfield point, exactly halfway between both goal lines. Yard numbers count down from 50 toward each end zone (50, 40, 30, 20, 10).',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
@@ -311,7 +311,7 @@ VALUES (
     'What is the primary purpose of the end zone?',
     '["A rest area for tired players", "The scoring area for touchdowns", "Where the coaches stand", "A warmup area before plays"]',
     '{"index": 1}',
-    'The end zone is the scoring area! When an offensive player carries or catches the ball in the end zone, their team scores a touchdown (6 points).',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
@@ -339,7 +339,7 @@ VALUES (
     'Where is the goal line located?',
     '["In the middle of the end zone", "At the back of the end zone", "At the front edge of the end zone", "Behind the goalposts"]',
     '{"index": 2}',
-    'The goal line is at the front edge of the end zone, separating the 100-yard playing field from the end zone. It''s the line a player must cross to score a touchdown.',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
@@ -367,20 +367,20 @@ VALUES (
     'What are the short lines between the yard line numbers called?',
     '["Sidelines", "Hash marks", "Goal markers", "Field stripes"]',
     '{"index": 1}',
-    'Hash marks are the short lines that run parallel to the sidelines. They mark where the ball is placed for each play and help players and officials align properly.',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
 
 
--- Q11: Goal line color (Goal lines)
+-- Q11: When is a touchdown scored? (Goal lines / Scoring)
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000001-0001-0000-0000-000000000011',
     '00000001-0000-0000-0000-000000000001',
     'mcq',
-    'What color is the goal line typically painted?',
-    '{"correct_index": 2}',
+    'At what moment is a touchdown officially scored?',
+    '{"correct_index": 0}',
     '00000000-0000-0000-0000-000000000000',
     'live',
     1
@@ -392,10 +392,10 @@ VALUES (
     '00000001-0001-0001-0000-000000000011',
     '00000001-0001-0000-0000-000000000011',
     1,
-    'What color is the goal line typically painted?',
-    '["Yellow", "Blue", "White", "Red"]',
-    '{"index": 2}',
-    'The goal line is painted white, like most field markings. It marks the boundary between the playing field and the end zone.',
+    'At what moment is a touchdown officially scored?',
+    '["When any part of the ball crosses the goal line while a player has possession", "When the player''s entire body is in the end zone", "When the player touches the ground in the end zone", "When the referee blows the whistle"]',
+    '{"index": 0}',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
@@ -423,7 +423,7 @@ VALUES (
     'Where are the end zones located on a football field?',
     '["In the middle of the field", "On the sidelines", "At each end of the 100-yard field", "Behind the bleachers"]',
     '{"index": 2}',
-    'The end zones are the 10-yard areas at each end of the 100-yard playing field. A team scores a touchdown by getting the ball into their opponent''s end zone.',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
@@ -451,7 +451,7 @@ VALUES (
     'From the 50-yard line, yard numbers count down toward each end zone.',
     '["True", "False"]',
     '{"boolean": true}',
-    'Correct! The yard numbers go 50, 40, 30, 20, 10 as you move from midfield toward either end zone. This helps players and fans quickly understand field position.',
+    '',
     true
 )
 ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;

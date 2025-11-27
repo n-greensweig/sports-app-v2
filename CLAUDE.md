@@ -107,7 +107,91 @@ Use a mix of question formats to keep lessons engaging:
 
 Situational questions are key to making learning stick. Example: "The line of scrimmage is at the Green Bay 25-yard line. The running back rushes for a 4-yard gain. On what yard line is the new line of scrimmage?"
 
-Be creative. Use real team names. Make it feel like a real game. The goal is learning, not trick questions.
+Be creative. Use real team names (but NOT real player names - see below). Make it feel like a real game. The goal is learning, not trick questions.
+
+### Content Guidelines for Early Lessons
+
+**Core Principle: Build Knowledge Incrementally**
+
+Early lessons should focus on foundational knowledge that helps users immediately enjoy watching a game. Each lesson must stack on top of the previous ones - never assume knowledge that hasn't been taught yet.
+
+**DO Include (Early Lessons):**
+- Field basics that appear on every broadcast (yard lines, end zones, goal lines)
+- Core gameplay concepts (what a touchdown is, what downs are, how scoring works)
+- Terms you'll hear constantly during a game (first down, touchdown, field goal)
+- Visual elements viewers will see (pylons marking the end zone, sidelines)
+
+**DON'T Include (Early Lessons):**
+- Trivia/minutiae that won't help game enjoyment (exact goalpost width, uprights height, hash mark distances)
+- Stadium features not visible during gameplay (press box location)
+- NFL vs. college rule differences (save for later lessons)
+- Advanced concepts before fundamentals are established
+
+**No Real Player Names:**
+- Do NOT use real player names in questions (e.g., "Patrick Mahomes throws to Travis Kelce")
+- Real team names ARE allowed and encouraged (e.g., "The Kansas City Chiefs")
+- Use generic descriptions instead: "the quarterback," "a wide receiver," "the running back"
+- This avoids dating content and keeps focus on concepts rather than personalities
+
+**Question Sequencing Rules:**
+1. **Never reference concepts not yet taught** - If downs haven't been explained, don't ask "what down is it now?"
+2. **Define before testing** - Introduce a term/concept, THEN quiz on it
+3. **TF1 should stand alone** - A user completing only TF1 should understand field basics
+4. **Each lesson adds a layer** - Lessons should explicitly build on previous material
+5. **Situational questions must use taught concepts** - Only create scenarios using knowledge from current + prior lessons
+
+**Lesson Dependency Chain (Rookie Section):**
+```
+TF1 (Field basics) → TF2 (More field elements) → OT1 (Basic plays + downs) → OT2 (Scoring) → ...
+```
+
+- TF1: Can be completed with zero prior football knowledge
+- TF2: May reference TF1 concepts (yard lines, end zones)
+- OT1: Introduces downs, runs, passes - may reference field concepts from TF1/TF2
+- OT2: Introduces scoring - may reference downs from OT1 and field from TF1/TF2
+
+**Review Checklist for New Questions:**
+- [ ] Does this question require knowledge from a future lesson? (If yes, move or rewrite)
+- [ ] Does this question use real player names? (If yes, remove them)
+- [ ] Will knowing this help a user enjoy watching a game? (If no, consider removing)
+- [ ] Is this trivia/minutiae or practical knowledge? (Prefer practical)
+- [ ] Could a complete beginner answer this with only prior lesson knowledge? (Should be yes)
+
+### Answer Feedback UI (Duolingo-Style)
+
+**No Explanations:** Do NOT include explanation text after correct/incorrect answers. Keep the UI clean and minimal like Duolingo.
+
+**Correct Answer Feedback:**
+- Display a random encouraging phrase from a pool of 20+ options
+- Show a green "CONTINUE" button
+- Examples of encouraging phrases:
+  - "Great!"
+  - "Fantastic!"
+  - "Wow!"
+  - "Nice work!"
+  - "You got it!"
+  - "Correct!"
+  - "Awesome!"
+  - "Perfect!"
+  - "Well done!"
+  - "Nailed it!"
+  - "Excellent!"
+  - "Amazing!"
+  - "Brilliant!"
+  - "Keep it up!"
+  - "You're on fire!"
+  - "Crushing it!"
+  - "Superb!"
+  - "Outstanding!"
+  - "Way to go!"
+  - "That's right!"
+
+**Incorrect Answer Feedback:**
+- Show which answer was correct (highlight it)
+- Display a brief, non-judgmental phrase like "Not quite" or "Almost!"
+- Show a "CONTINUE" button to move on
+
+**Database Note:** The `explanation_richtext` field in `item_variants` should be empty (`''`). Do not populate this field.
 
 ### Visual Icons (Football Theme)
 Suggested icons for lessons:

@@ -1,8 +1,8 @@
 -- ============================================================================
 -- TF2 (The Field 2) - Seed Data
 -- ============================================================================
--- TF2 covers: Uprights, hash marks, the line of scrimmage, pylon, sideline,
---             boundary lines, field goal posts, press box
+-- TF2 covers: Goalposts/uprights, hash marks, line of scrimmage, pylons,
+--             sidelines, boundary lines - practical knowledge for watching games
 --
 -- Structure:
 -- - TF2 Lesson (13 questions, 5 shown per session, 5 completions to master)
@@ -114,23 +114,23 @@ VALUES (
     'What are the tall yellow posts at the back of each end zone used for?',
     '["Marking the sidelines", "Field goals and extra points", "Hanging team banners", "Measuring wind speed"]',
     '{"index": 1}',
-    'The uprights (also called goalposts) are used for scoring field goals (3 points) and extra points (1 point). The ball must pass between the uprights and above the crossbar.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
 
 
--- Q2: Field goal posts height (Uprights)
+-- Q2: Where are the goalposts located? (Uprights)
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000002-0001-0000-0000-000000000002',
     '00000001-0000-0000-0000-000000000002',
     'mcq',
-    'How tall are the uprights (the vertical posts) on an NFL goalpost?',
-    '{"correct_index": 2}',
+    'Where are the goalposts (uprights) located on a football field?',
+    '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
-    2
+    1
 )
 ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
@@ -139,10 +139,10 @@ VALUES (
     '00000002-0001-0001-0000-000000000002',
     '00000002-0001-0000-0000-000000000002',
     1,
-    'How tall are the uprights (the vertical posts) on an NFL goalpost?',
-    '["20 feet", "25 feet", "35 feet", "50 feet"]',
-    '{"index": 2}',
-    'NFL uprights extend 35 feet above the crossbar. The crossbar itself is 10 feet off the ground, so the total height from the ground to the top of the uprights is 45 feet.',
+    'Where are the goalposts (uprights) located on a football field?',
+    '["At the 50-yard line", "At the back of each end zone", "On the sidelines", "At the front of each end zone"]',
+    '{"index": 1}',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -170,7 +170,7 @@ VALUES (
     'What is the line of scrimmage?',
     '["The line where teams shake hands", "The imaginary line where the ball is placed before each play", "The boundary line on the sides of the field", "The line where the coach stands"]',
     '{"index": 1}',
-    'The line of scrimmage is an imaginary line that runs across the field at the spot where the ball is placed. Both teams line up on opposite sides of this line before each play begins.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -198,23 +198,23 @@ VALUES (
     'What is the main purpose of the hash marks on a football field?',
     '["To mark the end zones", "To show where penalties occurred", "To mark where the ball is placed to start each play", "To indicate the 50-yard line"]',
     '{"index": 2}',
-    'Hash marks indicate where the ball can be placed to start each play. If a play ends outside the hash marks, the ball is moved to the nearest hash mark for the next play. This keeps action near the center of the field.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
 
 
--- Q5: NFL vs College hash marks (Hash Marks)
+-- Q5: Where is the ball placed if a play ends near the sideline? (Hash Marks)
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000002-0001-0000-0000-000000000005',
     '00000001-0000-0000-0000-000000000002',
-    'binary',
-    'The hash marks in the NFL are closer together than in college football.',
-    '{"correct_boolean": true}',
+    'mcq',
+    'If a play ends near the sideline, where is the ball placed for the next play?',
+    '{"correct_index": 2}',
     '00000000-0000-0000-0000-000000000000',
     'live',
-    2
+    1
 )
 ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
@@ -223,10 +223,10 @@ VALUES (
     '00000002-0001-0001-0000-000000000005',
     '00000002-0001-0000-0000-000000000005',
     1,
-    'The hash marks in the NFL are closer together than in college football.',
-    '["True", "False"]',
-    '{"boolean": true}',
-    'Correct! NFL hash marks are 18 feet 6 inches apart, while college hash marks are 40 feet apart. The narrower NFL hash marks create a more balanced playing field for both sides of the offense.',
+    'If a play ends near the sideline, where is the ball placed for the next play?',
+    '["Exactly where the play ended", "At the 50-yard line", "On the nearest hash mark", "In the center of the field"]',
+    '{"index": 2}',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -254,7 +254,7 @@ VALUES (
     'What is a pylon in football?',
     '["An orange marker at the corners of the end zone", "A yellow flag thrown by referees", "A type of blocking technique", "A measurement tool for first downs"]',
     '{"index": 0}',
-    'Pylons are bright orange, flexible markers placed at the four corners of each end zone. They help officials determine if a player has scored a touchdown or if the ball went out of bounds.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -282,7 +282,7 @@ VALUES (
     'How many pylons are placed on a football field?',
     '["4", "6", "8", "10"]',
     '{"index": 2}',
-    'There are 8 pylons total on a football field: 4 at each end zone (one at each corner). They mark where the goal line meets the sideline and the back of the end zone.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -310,7 +310,7 @@ VALUES (
     'What happens when a player with the ball steps on the sideline?',
     '["The play continues", "The player is out of bounds and the play ends", "The player loses 5 yards", "The other team gets the ball"]',
     '{"index": 1}',
-    'When a player with the ball steps on or over the sideline, they are out of bounds and the play is over. The ball is spotted where the player went out.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -338,23 +338,23 @@ VALUES (
     'What are the boundary lines on a football field?',
     '["Only the goal lines", "Only the hash marks", "The sidelines and end lines that define the playing area", "The lines between the 10-yard markers"]',
     '{"index": 2}',
-    'The boundary lines include the sidelines (running the length of the field) and the end lines (at the back of each end zone). Together, they define the in-bounds playing area.',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
 
 
--- Q10: Crossbar height (Field Goal Posts)
+-- Q10: What must the ball do to score a field goal? (Field Goal Posts)
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000002-0001-0000-0000-000000000010',
     '00000001-0000-0000-0000-000000000002',
     'mcq',
-    'How high is the crossbar of the goalpost off the ground?',
-    '{"correct_index": 1}',
+    'For a field goal to count, where must the ball go?',
+    '{"correct_index": 0}',
     '00000000-0000-0000-0000-000000000000',
     'live',
-    2
+    1
 )
 ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
@@ -363,26 +363,26 @@ VALUES (
     '00000002-0001-0001-0000-000000000010',
     '00000002-0001-0000-0000-000000000010',
     1,
-    'How high is the crossbar of the goalpost off the ground?',
-    '["5 feet", "10 feet", "15 feet", "20 feet"]',
-    '{"index": 1}',
-    'The crossbar is 10 feet (3.05 meters) off the ground. For a field goal or extra point to count, the ball must go above the crossbar and between the two uprights.',
+    'For a field goal to count, where must the ball go?',
+    '["Between the uprights and above the crossbar", "Through the end zone", "Over the sideline", "Into the stands"]',
+    '{"index": 0}',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
 
 
--- Q11: Uprights width (Field Goal Posts)
+-- Q11: True/False - Line of scrimmage changes (Line of Scrimmage)
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000002-0001-0000-0000-000000000011',
     '00000001-0000-0000-0000-000000000002',
-    'mcq',
-    'How far apart are the uprights on an NFL goalpost?',
-    '{"correct_index": 1}',
+    'binary',
+    'The line of scrimmage changes after every play.',
+    '{"correct_boolean": true}',
     '00000000-0000-0000-0000-000000000000',
     'live',
-    2
+    1
 )
 ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
@@ -391,23 +391,23 @@ VALUES (
     '00000002-0001-0001-0000-000000000011',
     '00000002-0001-0000-0000-000000000011',
     1,
-    'How far apart are the uprights on an NFL goalpost?',
-    '["12 feet", "18 feet 6 inches", "24 feet", "30 feet"]',
-    '{"index": 1}',
-    'The uprights are 18 feet 6 inches apart in the NFL. College goalposts are wider at 23 feet 4 inches, making college field goals slightly easier.',
+    'The line of scrimmage changes after every play.',
+    '["True", "False"]',
+    '{"boolean": true}',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
 
 
--- Q12: Press box location (Press Box)
+-- Q12: Where do the teams stand when not on the field? (Sidelines)
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000002-0001-0000-0000-000000000012',
     '00000001-0000-0000-0000-000000000002',
     'mcq',
-    'Where is the press box typically located at a football stadium?',
-    '{"correct_index": 2}',
+    'Where do teams stand when they are not on the field playing?',
+    '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
     1
@@ -419,10 +419,10 @@ VALUES (
     '00000002-0001-0001-0000-000000000012',
     '00000002-0001-0000-0000-000000000012',
     1,
-    'Where is the press box typically located at a football stadium?',
-    '["On the field near the benches", "Behind the end zone", "Elevated in the stands, usually at midfield", "In the locker room area"]',
-    '{"index": 2}',
-    'The press box is an enclosed area high up in the stadium, typically at midfield. It provides an elevated view of the field for media members, broadcasters, coaches'' spotters, and team executives.',
+    'Where do teams stand when they are not on the field playing?',
+    '["In the end zone", "On the sidelines (team bench area)", "Behind the goalposts", "In the stands with fans"]',
+    '{"index": 1}',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
@@ -450,7 +450,7 @@ VALUES (
     'The Chicago Bears are driving toward the Green Bay end zone. The line of scrimmage is at the Green Bay 25-yard line. The running back rushes for a 4-yard gain. On what yard line is the new line of scrimmage?',
     '["Green Bay 29-yard line", "Green Bay 21-yard line", "Green Bay 25-yard line", "Green Bay 20-yard line"]',
     '{"index": 1}',
-    'The new line of scrimmage is at the Green Bay 21-yard line. Since the Bears are driving toward Green Bay''s end zone, a 4-yard gain moves the ball from the 25 to the 21 (25 - 4 = 21). Yard numbers count down as you approach the goal line!',
+    '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;

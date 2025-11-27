@@ -64,28 +64,32 @@ struct LessonProgressRing: View {
     }
 
     // MARK: - Progress Ring
+    @ViewBuilder
     private var progressRing: some View {
         let ringSize = size + ringPadding * 2 + ringWidth * 2
-        return ZStack {
-            // Show all segments - unfilled ones are grayed out, filled ones are colored
-            ForEach(0..<totalSegments, id: \.self) { index in
-                SegmentArc(
-                    segmentIndex: index,
-                    totalSegments: totalSegments,
-                    gapAngle: gapAngle,
-                    isFilled: index < completedSegments
-                )
-                .stroke(
-                    index < completedSegments ? segmentColor : unfilledSegmentColor,
-                    style: StrokeStyle(
-                        lineWidth: ringWidth,
-                        lineCap: .round
+        // Don't show ring segments for completed lessons
+        if !isCompleted {
+            ZStack {
+                // Show all segments - unfilled ones are grayed out, filled ones are colored
+                ForEach(0..<totalSegments, id: \.self) { index in
+                    SegmentArc(
+                        segmentIndex: index,
+                        totalSegments: totalSegments,
+                        gapAngle: gapAngle,
+                        isFilled: index < completedSegments
                     )
-                )
-                .frame(width: ringSize, height: ringSize)
+                    .stroke(
+                        index < completedSegments ? segmentColor : unfilledSegmentColor,
+                        style: StrokeStyle(
+                            lineWidth: ringWidth,
+                            lineCap: .round
+                        )
+                    )
+                    .frame(width: ringSize, height: ringSize)
+                }
             }
+            .scaleEffect(shouldPulse ? pulseScale : 1.0)
         }
-        .scaleEffect(shouldPulse ? pulseScale : 1.0)
     }
 
     // MARK: - Main Circle
@@ -107,11 +111,8 @@ struct LessonProgressRing: View {
                 Image(systemName: "lock.fill")
                     .font(.system(size: size * 0.35, weight: .bold))
                     .foregroundStyle(Color.textTertiary)
-            } else if isCompleted {
-                Image(systemName: "checkmark")
-                    .font(.system(size: size * 0.4, weight: .bold))
-                    .foregroundStyle(.white)
             } else {
+                // Show original icon for both in-progress and completed lessons
                 Image(systemName: icon)
                     .font(.system(size: size * 0.35, weight: .semibold))
                     .foregroundStyle(iconColor)

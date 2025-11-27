@@ -25,9 +25,6 @@ struct LessonProgressRing: View {
     // Pulse animation state
     @State private var pulseScale: CGFloat = 1.0
 
-    // Glimmer animation state
-    @State private var glimmerOffset: CGFloat = 0.0
-
     // Computed properties for visual states
     private var isCompleted: Bool { completedSegments >= totalSegments }
     private var isInProgress: Bool { completedSegments > 0 && !isCompleted }
@@ -58,9 +55,6 @@ struct LessonProgressRing: View {
             if shouldPulse {
                 startPulseAnimation()
             }
-            if isCompleted {
-                startGlimmerAnimation()
-            }
         }
         .onChange(of: shouldPulse) { _, newValue in
             if newValue {
@@ -72,11 +66,6 @@ struct LessonProgressRing: View {
                 }
             }
         }
-        .onChange(of: isCompleted) { _, newValue in
-            if newValue {
-                startGlimmerAnimation()
-            }
-        }
     }
 
     private func startPulseAnimation() {
@@ -85,36 +74,24 @@ struct LessonProgressRing: View {
         }
     }
 
-    private func startGlimmerAnimation() {
-        // Stagger start based on a random delay for variety
-        let delay = Double.random(in: 0...2)
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: false)) {
-                glimmerOffset = 1.2 // Go past 1.0 to ensure glimmer fully exits
-            }
-        }
-    }
-
     // MARK: - Glimmer Overlay
     private var glimmerOverlay: some View {
-        // Compute gradient stops ensuring they're always in ascending order
-        let leading = max(0, min(1, glimmerOffset - 0.15))
-        let center = max(0, min(1, glimmerOffset))
-        let trailing = max(0, min(1, glimmerOffset + 0.15))
-
-        // Create stops that are always ordered
-        let stops: [Gradient.Stop] = [
-            .init(color: .clear, location: 0),
-            .init(color: .clear, location: max(0.01, leading)),
-            .init(color: .white.opacity(0.4), location: max(0.02, center)),
-            .init(color: .clear, location: max(0.03, trailing)),
-            .init(color: .clear, location: 1)
-        ].sorted { $0.location < $1.location }
-
-        return Circle()
+        // Static "shine" lines using a diagonal gradient
+        Circle()
             .fill(
                 LinearGradient(
-                    stops: stops,
+                    stops: [
+                        .init(color: .white.opacity(0.0), location: 0.0),
+                        .init(color: .white.opacity(0.05), location: 0.1),
+                        .init(color: .white.opacity(0.3), location: 0.2),  // First shine line
+                        .init(color: .white.opacity(0.05), location: 0.3),
+                        .init(color: .white.opacity(0.0), location: 0.4),
+                        
+                        .init(color: .white.opacity(0.0), location: 0.55),
+                        .init(color: .white.opacity(0.15), location: 0.65), // Second fainter line
+                        .init(color: .white.opacity(0.0), location: 0.75),
+                        .init(color: .white.opacity(0.0), location: 1.0)
+                    ],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )

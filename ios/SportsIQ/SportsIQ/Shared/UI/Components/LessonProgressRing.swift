@@ -67,8 +67,8 @@ struct LessonProgressRing: View {
     @ViewBuilder
     private var progressRing: some View {
         let ringSize = size + ringPadding * 2 + ringWidth * 2
-        // Don't show ring segments for completed lessons
-        if !isCompleted {
+        // Only show ring segments for the current/active lesson (not completed, not locked, and is current)
+        if isCurrentLesson && !isCompleted && !isLocked {
             ZStack {
                 // Show all segments - unfilled ones are grayed out, filled ones are colored
                 ForEach(0..<totalSegments, id: \.self) { index in

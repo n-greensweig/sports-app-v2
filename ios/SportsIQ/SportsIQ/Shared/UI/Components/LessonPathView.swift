@@ -68,7 +68,8 @@ struct LessonPathView: View {
                         icon: lessonIcon(for: index),
                         accentColor: sport.accentColor,
                         size: nodeSize,
-                        isCurrentLesson: index == currentLessonIndex
+                        isCurrentLesson: index == currentLessonIndex,
+                        isSelected: isSelected
                     )
                 }
                 .buttonStyle(LessonButtonStyle())

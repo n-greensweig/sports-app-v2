@@ -15,6 +15,7 @@ struct LessonProgressRing: View {
     var accentColor: Color = .footballAccent
     var size: CGFloat = 64           // Total size of the ring
     var isCurrentLesson: Bool = false // Whether this is the lesson the user should work on next
+    var isSelected: Bool = false     // Whether the lesson popup is currently shown
 
     // Ring configuration
     private let ringWidth: CGFloat = 6
@@ -24,13 +25,16 @@ struct LessonProgressRing: View {
     // Pulse animation state
     @State private var pulseScale: CGFloat = 1.0
 
+    // Glimmer animation state
+    @State private var glimmerOffset: CGFloat = 0.0
+
     // Computed properties for visual states
     private var isCompleted: Bool { completedSegments >= totalSegments }
     private var isInProgress: Bool { completedSegments > 0 && !isCompleted }
     private var isAvailable: Bool { !isLocked && completedSegments == 0 }
 
-    // Whether to show pulse animation (current lesson that's not completed)
-    private var shouldPulse: Bool { isCurrentLesson && !isCompleted && !isLocked }
+    // Whether to show pulse animation (current lesson that's not completed and not selected)
+    private var shouldPulse: Bool { isCurrentLesson && !isCompleted && !isLocked && !isSelected }
 
     var body: some View {
         ZStack {
@@ -39,6 +43,11 @@ struct LessonProgressRing: View {
 
             // Main circle button
             mainCircle
+
+            // Glimmer overlay for completed lessons
+            if isCompleted {
+                glimmerOverlay
+            }
 
             // Center icon
             centerIconView
@@ -49,10 +58,23 @@ struct LessonProgressRing: View {
             if shouldPulse {
                 startPulseAnimation()
             }
+            if isCompleted {
+                startGlimmerAnimation()
+            }
         }
         .onChange(of: shouldPulse) { _, newValue in
             if newValue {
                 startPulseAnimation()
+            } else {
+                // Stop pulse animation by resetting scale
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    pulseScale = 1.0
+                }
+            }
+        }
+        .onChange(of: isCompleted) { _, newValue in
+            if newValue {
+                startGlimmerAnimation()
             }
         }
     }
@@ -61,6 +83,44 @@ struct LessonProgressRing: View {
         withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
             pulseScale = 0.92
         }
+    }
+
+    private func startGlimmerAnimation() {
+        // Stagger start based on a random delay for variety
+        let delay = Double.random(in: 0...2)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+            withAnimation(.easeInOut(duration: 1.5).repeatForever(autoreverses: false)) {
+                glimmerOffset = 1.2 // Go past 1.0 to ensure glimmer fully exits
+            }
+        }
+    }
+
+    // MARK: - Glimmer Overlay
+    private var glimmerOverlay: some View {
+        // Compute gradient stops ensuring they're always in ascending order
+        let leading = max(0, min(1, glimmerOffset - 0.15))
+        let center = max(0, min(1, glimmerOffset))
+        let trailing = max(0, min(1, glimmerOffset + 0.15))
+
+        // Create stops that are always ordered
+        let stops: [Gradient.Stop] = [
+            .init(color: .clear, location: 0),
+            .init(color: .clear, location: max(0.01, leading)),
+            .init(color: .white.opacity(0.4), location: max(0.02, center)),
+            .init(color: .clear, location: max(0.03, trailing)),
+            .init(color: .clear, location: 1)
+        ].sorted { $0.location < $1.location }
+
+        return Circle()
+            .fill(
+                LinearGradient(
+                    stops: stops,
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .frame(width: size, height: size)
+            .clipShape(Circle())
     }
 
     // MARK: - Progress Ring

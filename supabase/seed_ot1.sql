@@ -4,7 +4,7 @@
 -- OT1 covers: Run, pass, catch, first down
 --
 -- Structure:
--- - OT1 Lesson (10 questions, 5 shown per session, 5 completions to master)
+-- - OT1 Lesson (9 questions, 5 shown per session, 5 completions to master)
 -- ============================================================================
 
 -- ============================================================================
@@ -226,34 +226,6 @@ VALUES (
     '["2 downs", "3 downs", "5 downs", "4 downs"]',
     '{"index": 3}',
     'The offense has 4 downs (attempts) to gain 10 yards. If they succeed, they get a new first down. If they fail, the other team gets the ball.',
-    true
-)
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
-
-
--- Q6: True/False - Run vs Pass (Run/Pass)
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000003-0001-0000-0000-000000000006',
-    '00000001-0000-0000-0000-000000000003',
-    'binary',
-    'On a run play, the quarterback always carries the ball himself.',
-    '{"correct_boolean": false}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000003-0001-0001-0000-000000000006',
-    '00000003-0001-0000-0000-000000000006',
-    1,
-    'On a run play, the quarterback always carries the ball himself.',
-    '["True", "False"]',
-    '{"boolean": false}',
-    'False! While quarterbacks can run with the ball, most run plays involve a handoff to a running back who then carries the ball. The running back is typically the primary ball carrier on run plays.',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;

@@ -19,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B52869A52ED8B08900C873F3 /* Ola Ball.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Ola Ball.entitlements"; sourceTree = "<group>"; };
 		B55B150C2EC8DA4500098907 /* Ola Ball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Ola Ball.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B55B178E2EC9461300098907 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +68,7 @@
 		B55B15032EC8DA4500098907 = {
 			isa = PBXGroup;
 			children = (
+				B52869A52ED8B08900C873F3 /* Ola Ball.entitlements */,
 				B55B150E2EC8DA4500098907 /* SportsIQ */,
 				B55B150D2EC8DA4500098907 /* Products */,
 				B55B178E2EC9461300098907 /* Config.xcconfig */,
@@ -310,6 +312,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Ola Ball.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S6QW7SV228;
@@ -344,6 +347,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Ola Ball.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S6QW7SV228;

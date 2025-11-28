@@ -12,6 +12,7 @@ struct LessonStartPopup: View {
     let completionCount: Int        // How many times user has completed this lesson
     let sport: Sport
     let triangleOffsetX: CGFloat    // How far the triangle should be offset from center (to point at node)
+    var isLocked: Bool = false      // Whether the lesson is locked/unavailable
     let onStart: () -> Void
     let onDismiss: () -> Void
 
@@ -29,6 +30,11 @@ struct LessonStartPopup: View {
         completionCount + 1
     }
 
+    /// Background color for the popup
+    private var backgroundColor: Color {
+        isLocked ? Color.backgroundTertiary : sport.accentColor
+    }
+
     var body: some View {
         // Main popup content with triangle overlay
         VStack(spacing: 12) {
@@ -36,12 +42,17 @@ struct LessonStartPopup: View {
             Text(lesson.title)
                 .font(.title3)
                 .fontWeight(.bold)
-                .foregroundStyle(.white)
+                .foregroundStyle(isLocked ? .white : .white)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
 
-            // Show "Review" if fully completed, otherwise show progress
-            if isFullyCompleted {
+            // Show locked message, "Review" if fully completed, otherwise show progress
+            if isLocked {
+                Text("Complete the previous lesson to unlock!")
+                    .font(.subheadline)
+                    .foregroundStyle(.white.opacity(0.7))
+                    .multilineTextAlignment(.center)
+            } else if isFullyCompleted {
                 Text("Review")
                     .font(.subheadline)
                     .foregroundStyle(.white.opacity(0.85))
@@ -52,37 +63,56 @@ struct LessonStartPopup: View {
                     .foregroundStyle(.white.opacity(0.85))
             }
 
-            // Start button
-            Button(action: onStart) {
-                Text("START +\(lesson.xpAward) XP")
+            // Button - locked state or start button
+            if isLocked {
+                // Locked button (non-interactive)
+                Text("LOCKED")
                     .font(.headline)
                     .fontWeight(.bold)
-                    .foregroundStyle(sport.accentColor)
+                    .foregroundStyle(Color.textTertiary)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
                     .background(
                         RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.white)
+                            .fill(Color.backgroundSecondary)
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(sport.accentColor.opacity(0.2), lineWidth: 1)
+                            .stroke(Color.backgroundTertiary, lineWidth: 1)
                     )
+            } else {
+                // Start button
+                Button(action: onStart) {
+                    Text("START +\(lesson.xpAward) XP")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(sport.accentColor)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.white)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(sport.accentColor.opacity(0.2), lineWidth: 1)
+                        )
+                }
+                .buttonStyle(ScaleButtonStyle())
             }
-            .buttonStyle(ScaleButtonStyle())
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 16)
         .frame(maxWidth: .infinity)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(sport.accentColor)
-                .shadow(color: sport.accentColor.opacity(0.4), radius: 8, y: 4)
+                .fill(backgroundColor)
+                .shadow(color: backgroundColor.opacity(0.4), radius: 8, y: 4)
         )
         // Triangle positioned at top, offset to point at the node
         .overlay(alignment: .top) {
             Triangle()
-                .fill(sport.accentColor)
+                .fill(backgroundColor)
                 .frame(width: 24, height: 12)
                 .offset(x: triangleOffsetX, y: -11) // Position above the popup body
         }
@@ -266,6 +296,21 @@ extension View {
                     completionCount: 5,
                     sport: .football,
                     triangleOffsetX: 0,
+                    onStart: {},
+                    onDismiss: {}
+                )
+            }
+
+            // Locked state
+            VStack {
+                Text("Locked lesson")
+                    .font(.caption)
+                LessonStartPopup(
+                    lesson: Lesson.theField1,
+                    completionCount: 0,
+                    sport: .football,
+                    triangleOffsetX: 0,
+                    isLocked: true,
                     onStart: {},
                     onDismiss: {}
                 )

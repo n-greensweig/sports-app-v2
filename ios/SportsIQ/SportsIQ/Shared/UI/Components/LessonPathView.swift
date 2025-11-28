@@ -72,15 +72,13 @@ struct LessonPathView: View {
         ZStack {
             // Node content positioned within the full-width row
             VStack(spacing: 8) {
-                // Lesson node button
+                // Lesson node button - tappable even when locked to show locked popup
                 Button {
-                    if !isLocked {
-                        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
-                            if selectedLessonIndex == index {
-                                selectedLessonIndex = nil
-                            } else {
-                                selectedLessonIndex = index
-                            }
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                        if selectedLessonIndex == index {
+                            selectedLessonIndex = nil
+                        } else {
+                            selectedLessonIndex = index
                         }
                     }
                 } label: {
@@ -96,7 +94,6 @@ struct LessonPathView: View {
                     )
                 }
                 .buttonStyle(LessonButtonStyle())
-                .disabled(isLocked)
 
                 // Lesson code badge (optional)
                 if let code = lesson.code {
@@ -127,6 +124,7 @@ struct LessonPathView: View {
                     completionCount: completionCount,
                     sport: sport,
                     triangleOffsetX: nodeOffset, // Triangle offset from popup center to point at node
+                    isLocked: isLocked,
                     onStart: {
                         withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
                             selectedLessonIndex = nil

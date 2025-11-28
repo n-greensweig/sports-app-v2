@@ -143,18 +143,10 @@ struct LessonProgressRing: View {
 
     // MARK: - Center Icon
     private var centerIconView: some View {
-        Group {
-            if isLocked {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: size * 0.35, weight: .bold))
-                    .foregroundStyle(Color.textTertiary)
-            } else {
-                // Show original icon for both in-progress and completed lessons
-                Image(systemName: icon)
-                    .font(.system(size: size * 0.35, weight: .semibold))
-                    .foregroundStyle(iconColor)
-            }
-        }
+        // Always show the lesson icon, even when locked
+        Image(systemName: icon)
+            .font(.system(size: size * 0.35, weight: isLocked ? .bold : .semibold))
+            .foregroundStyle(iconColor)
     }
 
     // MARK: - Colors
@@ -331,7 +323,7 @@ struct LessonButtonStyle: ButtonStyle {
                         completedSegments: 0,
                         totalSegments: 3,
                         isLocked: true,
-                        icon: "lock.fill",
+                        icon: "star.fill",
                         accentColor: .footballAccent
                     )
                     Text("Locked")

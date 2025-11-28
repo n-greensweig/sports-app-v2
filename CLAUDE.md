@@ -111,21 +111,29 @@ Be creative. Use real team names (but NOT real player names - see below). Make i
 
 ### Content Guidelines for Early Lessons
 
-**Core Principle: Build Knowledge Incrementally**
+**Core Principle: Build Knowledge From Zero**
 
-Early lessons should focus on foundational knowledge that helps users immediately enjoy watching a game. Each lesson must stack on top of the previous ones - never assume knowledge that hasn't been taught yet.
+**CRITICAL: Assume the user knows NOTHING about football.** Early lessons must teach from absolute zero. Users should be able to answer every question using only:
+1. Knowledge taught in the current lesson
+2. Knowledge from previous lessons they've completed
+3. Basic everyday words (team, field, ball, player, points, etc.)
 
-**DO Include (Early Lessons):**
-- Field basics that appear on every broadcast (yard lines, end zones, goal lines)
-- Core gameplay concepts (what a touchdown is, what downs are, how scoring works)
-- Terms you'll hear constantly during a game (first down, touchdown, field goal)
-- Visual elements viewers will see (pylons marking the end zone, sidelines)
+**The Stacking Rule:**
+Every lesson builds directly on the previous ones. Before using ANY football term in a question, that term MUST have been explicitly defined in a prior lesson. This is non-negotiable.
 
-**DON'T Include (Early Lessons):**
-- Trivia/minutiae that won't help game enjoyment (exact goalpost width, uprights height, hash mark distances)
-- Stadium features not visible during gameplay (press box location)
-- NFL vs. college rule differences (save for later lessons)
-- Advanced concepts before fundamentals are established
+**Assumed Knowledge (OK to use without defining):**
+- Basic words: team, field, ball, player, points, score, win, lose, game
+- Spatial concepts: end, middle, side, left, right, forward, backward
+- Numbers and counting
+- Basic actions: run, throw, catch, kick, tackle, stop
+
+**NOT Assumed (MUST be taught before using):**
+- Touchdown, field goal, end zone, goal line
+- Down, first down, "1st and 10" notation
+- Offense, defense (in football context)
+- Any position name (quarterback, running back, etc.)
+- Line of scrimmage, hash marks, pylons
+- Any play terminology (pass play, run play, etc.)
 
 **No Real Player Names:**
 - Do NOT use real player names in questions (e.g., "Patrick Mahomes throws to Travis Kelce")
@@ -134,28 +142,18 @@ Early lessons should focus on foundational knowledge that helps users immediatel
 - This avoids dating content and keeps focus on concepts rather than personalities
 
 **Question Sequencing Rules:**
-1. **Never reference concepts not yet taught** - If downs haven't been explained, don't ask "what down is it now?"
-2. **Define before testing** - Introduce a term/concept, THEN quiz on it
-3. **TF1 should stand alone** - A user completing only TF1 should understand field basics
-4. **Each lesson adds a layer** - Lessons should explicitly build on previous material
-5. **Situational questions must use taught concepts** - Only create scenarios using knowledge from current + prior lessons
-
-**Lesson Dependency Chain (Rookie Section):**
-```
-TF1 (Field basics) → TF2 (More field elements) → OT1 (Basic plays + downs) → OT2 (Scoring) → ...
-```
-
-- TF1: Can be completed with zero prior football knowledge
-- TF2: May reference TF1 concepts (yard lines, end zones)
-- OT1: Introduces downs, runs, passes - may reference field concepts from TF1/TF2
-- OT2: Introduces scoring - may reference downs from OT1 and field from TF1/TF2
+1. **NEVER reference concepts not yet taught** - If "down" hasn't been explained, you cannot ask "what down is it?"
+2. **Define before testing** - Introduce a term/concept in lesson N, THEN quiz on it in lesson N or later
+3. **GB1 should stand alone** - A user completing only GB1 should understand offense/defense and the basic objective
+4. **Each lesson adds exactly one layer** - Don't introduce too many concepts at once
+5. **Situational questions must use ONLY taught concepts** - Create scenarios using knowledge from current + prior lessons only
 
 **Review Checklist for New Questions:**
-- [ ] Does this question require knowledge from a future lesson? (If yes, move or rewrite)
+- [ ] Does this question use ANY football term not yet defined? (If yes, STOP and fix it)
+- [ ] Could someone who has never watched football answer this with prior lessons? (Must be yes)
 - [ ] Does this question use real player names? (If yes, remove them)
-- [ ] Will knowing this help a user enjoy watching a game? (If no, consider removing)
-- [ ] Is this trivia/minutiae or practical knowledge? (Prefer practical)
-- [ ] Could a complete beginner answer this with only prior lesson knowledge? (Should be yes)
+- [ ] Is this practical knowledge for watching a game? (Should be yes)
+- [ ] Am I assuming knowledge I haven't taught? (Must be no)
 
 ### Answer Feedback UI (Duolingo-Style)
 
@@ -209,91 +207,177 @@ Suggested icons for lessons:
 
 ## SECTION: Rookie
 
-### LESSON: The Field 1 (TF1)
-**Topics covered:** Dimensions, markings (yard lines), goal lines, end zones.
+**IMPORTANT: Lessons in the Rookie section are ordered to build knowledge from absolute zero. Each lesson only uses concepts that have been explicitly taught in previous lessons. Do NOT reorder these lessons or add questions that reference untaught concepts.**
 
-### LESSON: The Field 2 (TF2)
-**Topics covered:** Uprights, hash marks, the line of scrimmage, pylon, sideline, boundary lines, field goal posts, press box.
+### Lesson Dependency Chain (Visual):
+```
+GB1 (What is football?)
+  ↓
+TF1 (The field layout)
+  ↓
+TF2 (Sidelines, out of bounds)
+  ↓
+SC1 (Touchdown - the main way to score)
+  ↓
+DS1 (What is a down? 4 tries to move 10 yards)
+  ↓
+DS2 (Reading "1st and 10", how downs work in detail)
+  ↓
+PT1 (Run plays vs pass plays)
+  ↓
+SC2 (Field goals, extra points, goalposts)
+  ↓
+TF3 (Line of scrimmage, hash marks, pylons)
+  ↓
+PT2 (First down scenarios, applying knowledge)
+  ↓
+[Continue to positions, penalties, etc.]
+```
 
-### QUIZ: Rookie Field Quiz
+### Concepts Introduced Per Lesson (Reference Table):
 
-### LESSON: Offensive Terms 1 (OT1)
-**Topics covered:** Run, pass, catch, first down.
+| Lesson | New Concepts Introduced | Can Now Use in Questions |
+|--------|------------------------|--------------------------|
+| GB1 | Offense, defense, end zone (basic), taking turns | offense, defense, end zone, possession |
+| TF1 | 100 yards, yard lines, 50-yard line, end zones (detailed) | yard lines, 50-yard line, end zone location |
+| TF2 | Sidelines, out of bounds, boundary | sidelines, out of bounds, inbounds |
+| SC1 | Touchdown (6 pts), goal line, scoring | touchdown, goal line, 6 points |
+| DS1 | Down, 4 downs, gaining yards, 10-yard goal | down, 4 downs, gaining yards |
+| DS2 | "1st and 10" notation, down resets, turnover on downs | 1st/2nd/3rd/4th down, "and X" notation |
+| PT1 | Run play, pass play, throw, handoff | run, pass, throw, handoff |
+| SC2 | Field goal (3 pts), extra point (1 pt), uprights/goalposts | field goal, extra point, goalposts, kicking |
+| TF3 | Line of scrimmage, hash marks, pylons | line of scrimmage, hash marks, pylons |
+| PT2 | First down achieved, incomplete pass, situational scenarios | All previous + situational questions allowed |
 
-### LESSON: Offensive Terms 2 (OT2)
-**Topics covered:** Field goal, touchdown, extra point, safety.
+---
 
-### LESSON: Offensive Terms 3 (OT3)
-**Topics covered:** Conversion, line to gain, down by contact, inbounds/out of bounds, goal-line stand.
+### LESSON: Game Basics 1 (GB1) - ORDER: 1
+**Prerequisites:** None (first lesson)
+**Topics covered:** What is football? Two teams take turns. Offense tries to move ball to opponent's end zone. Defense tries to stop them. Basic concept of possession.
+**New terms introduced:** Offense, defense, end zone (basic), possession
 
-### QUIZ: Rookie Offensive Terms Quiz
+### LESSON: The Field 1 (TF1) - ORDER: 2
+**Prerequisites:** GB1
+**Topics covered:** The field is 100 yards long. There's an end zone at each end. Yard lines are marked every 10 yards. The 50-yard line is in the middle. Numbers count down toward each end zone.
+**New terms introduced:** 100-yard field, yard lines, 50-yard line, end zone location
+**Can reference:** Offense, defense, end zone (from GB1)
 
-### LESSON: Defensive Terms 1 (DT1)
-**Topics covered:** Defensive line, linebacker, interception, fumble, sack.
+### LESSON: The Field 2 (TF2) - ORDER: 3
+**Prerequisites:** GB1, TF1
+**Topics covered:** Sidelines run along the sides of the field. If a player steps on the sideline, they are "out of bounds" and the play stops. The field has boundaries.
+**New terms introduced:** Sidelines, out of bounds, inbounds, boundary lines
+**Can reference:** All TF1 and GB1 concepts
 
-### LESSON: Defensive Terms 2 (DT2)
-**Topics covered:** Forced fumble, pass defensed, pick-six, strip-sack.
+### LESSON: Scoring 1 (SC1) - ORDER: 4
+**Prerequisites:** GB1, TF1, TF2
+**Topics covered:** A touchdown is worth 6 points. To score a touchdown, the ball must cross the goal line into the end zone. The goal line is at the front of the end zone.
+**New terms introduced:** Touchdown, goal line, 6 points
+**Can reference:** End zone, field concepts
 
-### LESSON: Defensive Terms 3 (DT3)
-**Topics covered:** Turnover on downs, containment, secondary.
+### LESSON: The Downs 1 (DS1) - ORDER: 5
+**Prerequisites:** GB1, TF1, TF2, SC1
+**Topics covered:** What is a "down"? A down is one play/attempt. The offense gets 4 downs to move the ball 10 yards. If they succeed, they get a new set of 4 downs. The goal is to keep moving toward the end zone.
+**New terms introduced:** Down, 4 downs, 10-yard requirement
+**Can reference:** All previous concepts
 
-### QUIZ: Rookie Defensive Terms Quiz
+### LESSON: The Downs 2 (DS2) - ORDER: 6
+**Prerequisites:** DS1
+**Topics covered:** Reading "1st and 10" - means 1st down with 10 yards to go. How the down number increases (1st → 2nd → 3rd → 4th). What happens when you gain yards (yards to go decreases). What happens if you don't get 10 yards in 4 tries (other team gets ball).
+**New terms introduced:** "1st and 10" notation, down progression, turnover on downs
+**Can reference:** All previous concepts
 
-### LESSON: Games & Overtime 1 (G&O 1)
-**Topics covered:** Coin toss at beginning of game and overtime, timeouts, quarter and overtime period length.
+### LESSON: Play Types 1 (PT1) - ORDER: 7
+**Prerequisites:** DS1, DS2
+**Topics covered:** Two main ways to move the ball: running and passing. Run play = player carries the ball. Pass play = ball is thrown through the air to a teammate. A catch = successfully receiving a thrown ball.
+**New terms introduced:** Run play, pass play, throw, catch, handoff
+**Can reference:** Downs, yards, field concepts
 
-### LESSON: Games & Overtime 2 (G&O 2)
-**Topics covered:** Elect to defer or receive, why teams might choose to defer or receive, basic clock management, two-minute warning.
+### LESSON: Scoring 2 (SC2) - ORDER: 8
+**Prerequisites:** SC1, DS1, DS2, PT1
+**Topics covered:** Field goal (3 points) - kicking the ball through the uprights. Extra point (1 point) - kick attempted after a touchdown. The tall yellow posts at the back of each end zone are called goalposts/uprights.
+**New terms introduced:** Field goal, extra point, goalposts/uprights, kicking for points
+**Can reference:** Touchdown, end zone, all previous
 
-### LESSON: Games & Overtime 3 (G&O 3)
-**Topics covered:** Sudden death, possession arrow (CFB), half-time, game clock vs. play clock.
+### LESSON: The Field 3 (TF3) - ORDER: 9
+**Prerequisites:** All previous
+**Topics covered:** Line of scrimmage - the imaginary line where the ball is placed before each play. Hash marks - short lines that mark where the ball can be placed. Pylons - orange markers at the corners of the end zone.
+**New terms introduced:** Line of scrimmage, hash marks, pylons
+**Can reference:** All previous concepts
 
-### LESSON: Scoreboard & Records 1 (SR1)
-**Topics covered:** Reading the score, understanding home/away designation, interpreting team records (Win-Loss-Tie), basic stat line components (passing yards, rushing yards, turnovers).
+### LESSON: Play Types 2 (PT2) - ORDER: 10
+**Prerequisites:** All previous
+**Topics covered:** Applying knowledge - situational questions about downs, yards gained, first downs achieved. What happens when a pass is not caught (incomplete). Simple game scenarios.
+**New terms introduced:** Incomplete pass, first down (achieved)
+**Can reference:** ALL previous concepts - this is where situational questions are appropriate
 
-### LESSON: Scoreboard & Records 2 (SR2)
-**Topics covered:** Basic stat line components (passing yards, rushing yards, turnovers, completions-incompletions).
+### QUIZ: Rookie Foundations Quiz
 
-### QUIZ: Rookie Test & Overtime Quiz
+### LESSON: Offensive Positions 1 (OP1) - ORDER: 11
+**Prerequisites:** PT1, PT2
+**Topics covered:** Quarterback (QB) - the player who throws passes and hands off the ball. Running Back (RB) - the player who usually carries the ball on run plays.
+**New terms introduced:** Quarterback, running back, QB, RB
+**Can reference:** Run plays, pass plays, handoffs, throws
 
-### LESSON: Common Penalties 1 (CP1)
-**Topics covered:** Holding, false start, offside.
+### LESSON: Offensive Positions 2 (OP2) - ORDER: 12
+**Prerequisites:** OP1
+**Topics covered:** Wide Receiver (WR) - players who run down the field to catch passes. Tight End (TE) - a player who can both catch passes and block.
+**New terms introduced:** Wide receiver, tight end, WR, TE, blocking (basic)
 
-### LESSON: Common Penalties 2 (CP2)
-**Topics covered:** DPI (Defensive Pass Interference), unnecessary roughness, roughing the passer, face mask.
+### LESSON: Defensive Positions 1 (DP1) - ORDER: 13
+**Prerequisites:** OP1, OP2
+**Topics covered:** Defensive line - big players at the front who try to stop runs and rush the quarterback. Linebacker - players behind the line who tackle runners and cover receivers.
+**New terms introduced:** Defensive line, linebacker, rushing the quarterback
 
-### LESSON: Common Penalties 3 (CP3)
-**Topics covered:** Neutral zone infraction, illegal block in the back, intentional grounding, encroachment, dead ball foul.
+### LESSON: Defensive Positions 2 (DP2) - ORDER: 14
+**Prerequisites:** DP1
+**Topics covered:** Cornerback - defenders who cover wide receivers. Safety - defenders who play deep and help stop long passes.
+**New terms introduced:** Cornerback, safety, coverage
+
+### QUIZ: Rookie Positions Quiz
+
+### LESSON: Turnovers 1 (TO1) - ORDER: 15
+**Prerequisites:** All positions lessons
+**Topics covered:** Interception - when a defender catches a pass meant for the offense. Fumble - when a player drops the ball and the other team can recover it.
+**New terms introduced:** Interception, fumble, turnover
+
+### LESSON: Turnovers 2 (TO2) - ORDER: 16
+**Prerequisites:** TO1
+**Topics covered:** Forced fumble, fumble recovery, pick-six (interception returned for touchdown).
+**New terms introduced:** Forced fumble, recovery, pick-six
+
+### LESSON: Common Penalties 1 (CP1) - ORDER: 17
+**Prerequisites:** TF3, OP1, DP1
+**Topics covered:** False start - offense moves before the play starts. Offside - defense crosses line of scrimmage before snap.
+**New terms introduced:** Penalty, false start, offside, snap
+
+### LESSON: Common Penalties 2 (CP2) - ORDER: 18
+**Prerequisites:** CP1
+**Topics covered:** Holding - illegally grabbing another player. Pass interference - illegally preventing a catch.
+**New terms introduced:** Holding, pass interference
 
 ### QUIZ: Rookie Penalties Quiz
 
-### LESSON: Coaches & Personnel 1 (C&P 1)
-**Topics covered:** Head Coach, Offensive Coordinator, Defensive Coordinator, Special Teams Coordinator, basic roles.
+### LESSON: Game Structure 1 (GS1) - ORDER: 19
+**Prerequisites:** Basic scoring knowledge
+**Topics covered:** A game has 4 quarters. Each quarter is 15 minutes. Teams switch sides at halftime.
+**New terms introduced:** Quarter, halftime, game clock
 
-### LESSON: Coaches & Personnel 2 (C&P 2)
-**Topics covered:** Scouting, personnel groupings (basic introduction), general manager.
+### LESSON: Game Structure 2 (GS2) - ORDER: 20
+**Prerequisites:** GS1
+**Topics covered:** Timeouts - teams can stop the clock. Two-minute warning. Overtime if tied.
+**New terms introduced:** Timeout, two-minute warning, overtime
 
-### QUIZ: Rookie Coaches & Personnel Quiz
+### LESSON: Special Teams 1 (ST1) - ORDER: 21
+**Prerequisites:** SC2, GS1
+**Topics covered:** Kickoff - how each half and scoring play starts. Punt - kicking the ball to the other team when you can't get a first down.
+**New terms introduced:** Kickoff, punt, special teams
 
-### LESSON: Special Teams Fundamentals 1 (STF1)
-**Topics covered:** Kickoff, punt, field goal attempt, extra point attempt (PAT).
+### LESSON: Special Teams 2 (ST2) - ORDER: 22
+**Prerequisites:** ST1
+**Topics covered:** Field goal attempts, touchback, fair catch.
+**New terms introduced:** Touchback, fair catch
 
-### LESSON: Offensive Positions 1 (OP1)
-**Topics covered:** Quarterback (QB), Running Back (RB), and descriptions of each of their roles.
-
-### LESSON: Offensive Positions 2 (OP2)
-**Topics covered:** Wide Receiver (WR), Tight End (TE), and descriptions of each of their roles.
-
-### LESSON: Defensive Positions 1 (DP1)
-**Topics covered:** Defensive Lineman (DL), Linebackers (LBs), and descriptions of each of their roles.
-
-### LESSON: Defensive Positions 2 (DP2)
-**Topics covered:** Cornerbacks (CBs), Safeties (Ss - Free/Strong), and descriptions of each of their roles.
-
-### LESSON: Penalties Intermediate 1 (PI1)
-**Topics covered:** Holding (offensive/defensive distinction), chop block, intentional grounding.
-
-### QUIZ: Rookie Fundamentals Quiz
+### QUIZ: Rookie Game Structure Quiz
 
 ### QUIZ: Rookie Final Test
 

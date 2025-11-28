@@ -1,17 +1,14 @@
 -- ============================================================================
--- TF2 (The Field 2) - Seed Data
+-- GB1 (Game Basics 1) - Seed Data
 -- ============================================================================
--- TF2 is the THIRD lesson (after GB1, TF1)
--- TF2 covers: Sidelines, out of bounds, inbounds, boundary lines
+-- GB1 is the FIRST lesson - assumes ZERO football knowledge
+-- GB1 covers: What is football? Two teams, offense/defense, end zone objective
 --
--- Prerequisites: GB1 (offense, defense, end zone), TF1 (yard lines, 100 yards)
--- Terms INTRODUCED here: Sidelines, out of bounds, inbounds, boundary
---
--- CRITICAL: NO line of scrimmage, NO hash marks, NO pylons (those come in TF3)
--- NO scoring, NO downs, NO plays yet
+-- CRITICAL: This lesson uses ONLY basic everyday words. No football jargon.
+-- Terms INTRODUCED here: offense, defense, end zone, possession
 --
 -- Structure:
--- - TF2 Lesson (9 questions, 5 shown per session, 5 completions to master)
+-- - GB1 Lesson (9 questions, 5 shown per session, 5 completions to master)
 -- ============================================================================
 
 -- ============================================================================
@@ -69,20 +66,20 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create TF2 Lesson (ORDER: 3)
+-- STEP 4: Create GB1 Lesson (ORDER: 1 - First lesson!)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
 VALUES (
-    '00000001-0000-0000-0000-000000000003',
+    '00000001-0000-0000-0000-000000000001',
     '11111111-1111-1111-1111-111111111111',
-    'The Field 2',
-    'Learn about the boundaries of the field - sidelines and what happens when players go out of bounds.',
-    3,
+    'Game Basics 1',
+    'What is football? Learn the basic objective and how two teams compete.',
+    1,
     4,
     50,
-    true,
-    'TF2',
+    false,
+    'GB1',
     5,
     5
 )
@@ -96,16 +93,16 @@ ON CONFLICT (id) DO UPDATE SET
 
 
 -- ============================================================================
--- STEP 5: Create TF2 Items (9 questions - sidelines and boundaries ONLY)
+-- STEP 5: Create GB1 Items (9 questions)
 -- ============================================================================
 
--- Q1: What are sidelines?
+-- Q1: How many teams play?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000003-0001-0000-0000-000000000001',
-    '00000001-0000-0000-0000-000000000003',
+    '00000001-0001-0000-0000-000000000001',
+    '00000001-0000-0000-0000-000000000001',
     'mcq',
-    'What are the "sidelines" on a football field?',
+    'How many teams play in a football game?',
     '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -115,11 +112,11 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000003-0001-0001-0000-000000000001',
-    '00000003-0001-0000-0000-000000000001',
+    '00000001-0001-0001-0000-000000000001',
+    '00000001-0001-0000-0000-000000000001',
     1,
-    'What are the "sidelines" on a football field?',
-    '["Lines that divide the field in half", "The boundary lines that run along the long edges of the field", "Lines that mark where players can stand", "The lines at each end zone"]',
+    'How many teams play in a football game?',
+    '["1 team", "2 teams", "3 teams", "4 teams"]',
     '{"index": 1}',
     '',
     true
@@ -127,13 +124,41 @@ VALUES (
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q2: What happens when a player steps on the sideline?
+-- Q2: What is the offense trying to do?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000003-0001-0000-0000-000000000002',
-    '00000001-0000-0000-0000-000000000003',
+    '00000001-0001-0000-0000-000000000002',
+    '00000001-0000-0000-0000-000000000001',
     'mcq',
-    'What happens when a player with the ball steps on or over the sideline?',
+    'In football, the "offense" is the team that has the ball. What is the offense trying to do?',
+    '{"correct_index": 2}',
+    '00000000-0000-0000-0000-000000000000',
+    'live',
+    1
+)
+ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (
+    '00000001-0001-0001-0000-000000000002',
+    '00000001-0001-0000-0000-000000000002',
+    1,
+    'In football, the "offense" is the team that has the ball. What is the offense trying to do?',
+    '["Stop the other team from scoring", "Kick the ball as far as possible", "Move the ball toward the opponent''s end of the field to score", "Stay in one place and protect the ball"]',
+    '{"index": 2}',
+    '',
+    true
+)
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
+
+
+-- Q3: What is the defense trying to do?
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
+VALUES (
+    '00000001-0001-0000-0000-000000000003',
+    '00000001-0000-0000-0000-000000000001',
+    'mcq',
+    'The "defense" is the team that does NOT have the ball. What is the defense trying to do?',
     '{"correct_index": 0}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -143,11 +168,11 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000003-0001-0001-0000-000000000002',
-    '00000003-0001-0000-0000-000000000002',
+    '00000001-0001-0001-0000-000000000003',
+    '00000001-0001-0000-0000-000000000003',
     1,
-    'What happens when a player with the ball steps on or over the sideline?',
-    '["They are out of bounds and the play stops", "They can keep running", "They score a point", "The other team gets the ball"]',
+    'The "defense" is the team that does NOT have the ball. What is the defense trying to do?',
+    '["Stop the offense from moving the ball and scoring", "Score points for their team", "Pass the ball to teammates", "Run with the ball toward the end zone"]',
     '{"index": 0}',
     '',
     true
@@ -155,41 +180,13 @@ VALUES (
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q3: What does "out of bounds" mean?
+-- Q4: What is the end zone?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000003-0001-0000-0000-000000000003',
-    '00000001-0000-0000-0000-000000000003',
+    '00000001-0001-0000-0000-000000000004',
+    '00000001-0000-0000-0000-000000000001',
     'mcq',
-    'What does it mean when a player is "out of bounds"?',
-    '{"correct_index": 2}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000003-0001-0001-0000-000000000003',
-    '00000003-0001-0000-0000-000000000003',
-    1,
-    'What does it mean when a player is "out of bounds"?',
-    '["They scored a point", "They are in the end zone", "They stepped outside the playing area", "They caught the ball"]',
-    '{"index": 2}',
-    '',
-    true
-)
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
-
-
--- Q4: What does "inbounds" mean?
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000003-0001-0000-0000-000000000004',
-    '00000001-0000-0000-0000-000000000003',
-    'mcq',
-    'If a player is "inbounds," where are they?',
+    'Each end of the football field has an "end zone." What is the end zone?',
     '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -199,11 +196,11 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000003-0001-0001-0000-000000000004',
-    '00000003-0001-0000-0000-000000000004',
+    '00000001-0001-0001-0000-000000000004',
+    '00000001-0001-0000-0000-000000000004',
     1,
-    'If a player is "inbounds," where are they?',
-    '["Outside the sidelines", "Inside the playing area of the field", "In the locker room", "On the bench"]',
+    'Each end of the football field has an "end zone." What is the end zone?',
+    '["Where players rest between plays", "The scoring area at each end of the field", "Where the coaches stand", "The middle of the field"]',
     '{"index": 1}',
     '',
     true
@@ -211,41 +208,13 @@ VALUES (
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q5: Where do teams stand when not playing?
+-- Q5: Teams take turns - True/False
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000003-0001-0000-0000-000000000005',
-    '00000001-0000-0000-0000-000000000003',
-    'mcq',
-    'When players are not on the field playing, where do they stand?',
-    '{"correct_index": 2}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000003-0001-0001-0000-000000000005',
-    '00000003-0001-0000-0000-000000000005',
-    1,
-    'When players are not on the field playing, where do they stand?',
-    '["In the end zone", "In the middle of the field", "On the sidelines, outside the playing area", "In the stands with fans"]',
-    '{"index": 2}',
-    '',
-    true
-)
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
-
-
--- Q6: Sidelines are on which sides of the field? - True/False
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000003-0001-0000-0000-000000000006',
-    '00000001-0000-0000-0000-000000000003',
+    '00000001-0001-0000-0000-000000000005',
+    '00000001-0000-0000-0000-000000000001',
     'binary',
-    'The sidelines run along the two long sides of the football field.',
+    'In football, the two teams take turns being on offense and defense.',
     '{"correct_boolean": true}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -255,10 +224,10 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000003-0001-0001-0000-000000000006',
-    '00000003-0001-0000-0000-000000000006',
+    '00000001-0001-0001-0000-000000000005',
+    '00000001-0001-0000-0000-000000000005',
     1,
-    'The sidelines run along the two long sides of the football field.',
+    'In football, the two teams take turns being on offense and defense.',
     '["True", "False"]',
     '{"boolean": true}',
     '',
@@ -267,13 +236,13 @@ VALUES (
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q7: What are the end lines?
+-- Q6: Which team has the ball?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000003-0001-0000-0000-000000000007',
-    '00000001-0000-0000-0000-000000000003',
+    '00000001-0001-0000-0000-000000000006',
+    '00000001-0000-0000-0000-000000000001',
     'mcq',
-    'The field also has "end lines" at the back of each end zone. What are these?',
+    'Which team has the ball - the offense or the defense?',
     '{"correct_index": 0}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -283,11 +252,11 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000003-0001-0001-0000-000000000007',
-    '00000003-0001-0000-0000-000000000007',
+    '00000001-0001-0001-0000-000000000006',
+    '00000001-0001-0000-0000-000000000006',
     1,
-    'The field also has "end lines" at the back of each end zone. What are these?',
-    '["The boundary lines at the very back of each end zone", "Lines that mark the middle of the field", "Lines where the teams line up", "Lines that show the score"]',
+    'Which team has the ball - the offense or the defense?',
+    '["The offense", "The defense", "Both teams share the ball", "Neither team has the ball"]',
     '{"index": 0}',
     '',
     true
@@ -295,14 +264,14 @@ VALUES (
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q8: Can play continue out of bounds?
+-- Q7: Basic objective
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000003-0001-0000-0000-000000000008',
-    '00000001-0000-0000-0000-000000000003',
-    'binary',
-    'Once a player with the ball goes out of bounds, the play continues.',
-    '{"correct_boolean": false}',
+    '00000001-0001-0000-0000-000000000007',
+    '00000001-0000-0000-0000-000000000001',
+    'mcq',
+    'What is the main goal for the offense in football?',
+    '{"correct_index": 2}',
     '00000000-0000-0000-0000-000000000000',
     'live',
     1
@@ -311,26 +280,26 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000003-0001-0001-0000-000000000008',
-    '00000003-0001-0000-0000-000000000008',
+    '00000001-0001-0001-0000-000000000007',
+    '00000001-0001-0000-0000-000000000007',
     1,
-    'Once a player with the ball goes out of bounds, the play continues.',
-    '["True", "False"]',
-    '{"boolean": false}',
+    'What is the main goal for the offense in football?',
+    '["Keep the ball away from the other team forever", "Kick the ball out of the stadium", "Get the ball into the opponent''s end zone to score", "Throw the ball as far as possible"]',
+    '{"index": 2}',
     '',
     true
 )
 ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q9: What forms the boundary of the playing field?
+-- Q8: Two end zones
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000003-0001-0000-0000-000000000009',
-    '00000001-0000-0000-0000-000000000003',
+    '00000001-0001-0000-0000-000000000008',
+    '00000001-0000-0000-0000-000000000001',
     'mcq',
-    'What lines form the complete boundary of the playing field?',
-    '{"correct_index": 3}',
+    'How many end zones are on a football field?',
+    '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
     1
@@ -339,12 +308,40 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000003-0001-0001-0000-000000000009',
-    '00000003-0001-0000-0000-000000000009',
+    '00000001-0001-0001-0000-000000000008',
+    '00000001-0001-0000-0000-000000000008',
     1,
-    'What lines form the complete boundary of the playing field?',
-    '["Only the sidelines", "Only the end lines", "Only the yard lines", "The sidelines and the end lines together"]',
-    '{"index": 3}',
+    'How many end zones are on a football field?',
+    '["1 - in the middle", "2 - one at each end", "4 - one in each corner", "None"]',
+    '{"index": 1}',
+    '',
+    true
+)
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
+
+
+-- Q9: Which end zone does offense want?
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
+VALUES (
+    '00000001-0001-0000-0000-000000000009',
+    '00000001-0000-0000-0000-000000000001',
+    'mcq',
+    'There are two end zones on the field. Which end zone does the offense want to reach?',
+    '{"correct_index": 1}',
+    '00000000-0000-0000-0000-000000000000',
+    'live',
+    1
+)
+ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (
+    '00000001-0001-0001-0000-000000000009',
+    '00000001-0001-0000-0000-000000000009',
+    1,
+    'There are two end zones on the field. Which end zone does the offense want to reach?',
+    '["Their own end zone (behind them)", "The opponent''s end zone (in front of them)", "Either end zone - it doesn''t matter", "The end zone in the middle of the field"]',
+    '{"index": 1}',
     '',
     true
 )
@@ -356,15 +353,15 @@ ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_r
 -- ============================================================================
 
 SELECT
-    'TF2 Lesson' as entity,
+    'GB1 Lesson' as entity,
     COUNT(*) as count
 FROM lessons
-WHERE id = '00000001-0000-0000-0000-000000000003'
+WHERE id = '00000001-0000-0000-0000-000000000001'
 
 UNION ALL
 
 SELECT
-    'TF2 Items' as entity,
+    'GB1 Items' as entity,
     COUNT(*) as count
 FROM items
-WHERE lesson_id = '00000001-0000-0000-0000-000000000003';
+WHERE lesson_id = '00000001-0000-0000-0000-000000000001';

@@ -1,12 +1,17 @@
 -- ============================================================================
 -- TF1 (The Field 1) - Seed Data
 -- ============================================================================
--- This seed creates the Rookie section and the first lesson (TF1)
--- TF1 covers: Dimensions, markings (yard lines), goal lines, end zones
+-- TF1 is the SECOND lesson (after GB1)
+-- TF1 covers: Field is 100 yards, yard lines, 50-yard line, end zone locations
+--
+-- Prerequisites: GB1 (offense, defense, end zone basic concept)
+-- Terms INTRODUCED here: 100 yards, yard lines, 50-yard line, end zone location details
+--
+-- CRITICAL: NO scoring questions, NO gameplay questions, NO touchdown mechanics
+-- This lesson is ONLY about the physical layout of the field.
 --
 -- Structure:
--- - Rookie Module (Section)
--- - TF1 Lesson (13 questions, 5 shown per session, 5 completions to master)
+-- - TF1 Lesson (9 questions, 5 shown per session, 5 completions to master)
 -- ============================================================================
 
 -- ============================================================================
@@ -50,33 +55,7 @@ ON CONFLICT (id) DO UPDATE SET
 
 
 -- ============================================================================
--- STEP 3: Create TF1 Lesson
--- ============================================================================
-
-INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
-VALUES (
-    '00000001-0000-0000-0000-000000000001',
-    '11111111-1111-1111-1111-111111111111',
-    'The Field 1',
-    '',
-    1,
-    4,
-    50,
-    false,
-    'TF1',
-    5,
-    5
-)
-ON CONFLICT (id) DO UPDATE SET
-    title = EXCLUDED.title,
-    description = EXCLUDED.description,
-    code = EXCLUDED.code,
-    items_per_session = EXCLUDED.items_per_session,
-    required_completions = EXCLUDED.required_completions;
-
-
--- ============================================================================
--- STEP 4: Create System User for content authoring (if not exists)
+-- STEP 3: Create System User for content authoring (if not exists)
 -- ============================================================================
 
 INSERT INTO users (id, clerk_user_id, email, role)
@@ -90,16 +69,43 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 5: Create TF1 Items (13 questions)
+-- STEP 4: Create TF1 Lesson (ORDER: 2)
 -- ============================================================================
 
--- Q1: Field length (Dimensions)
+INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
+VALUES (
+    '00000001-0000-0000-0000-000000000002',
+    '11111111-1111-1111-1111-111111111111',
+    'The Field 1',
+    'Learn the layout of a football field - how long it is and what the markings mean.',
+    2,
+    4,
+    50,
+    true,
+    'TF1',
+    5,
+    5
+)
+ON CONFLICT (id) DO UPDATE SET
+    title = EXCLUDED.title,
+    description = EXCLUDED.description,
+    code = EXCLUDED.code,
+    order_index = EXCLUDED.order_index,
+    items_per_session = EXCLUDED.items_per_session,
+    required_completions = EXCLUDED.required_completions;
+
+
+-- ============================================================================
+-- STEP 5: Create TF1 Items (9 questions - field layout ONLY)
+-- ============================================================================
+
+-- Q1: Field length
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000001-0001-0000-0000-000000000001',
-    '00000001-0000-0000-0000-000000000001',
+    '00000002-0001-0000-0000-000000000001',
+    '00000001-0000-0000-0000-000000000002',
     'mcq',
-    'How long is a football field from goal line to goal line?',
+    'How long is a football field (not counting the end zones)?',
     '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -109,137 +115,25 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000001-0001-0001-0000-000000000001',
-    '00000001-0001-0000-0000-000000000001',
+    '00000002-0001-0001-0000-000000000001',
+    '00000002-0001-0000-0000-000000000001',
     1,
-    'How long is a football field from goal line to goal line?',
-    '["80 yards", "100 yards", "120 yards", "150 yards"]',
+    'How long is a football field (not counting the end zones)?',
+    '["50 yards", "100 yards", "150 yards", "200 yards"]',
     '{"index": 1}',
     '',
     true
 )
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q2: What do the numbers on the field mean? (Markings)
+-- Q2: What do the numbers on the field mean?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000001-0001-0000-0000-000000000002',
-    '00000001-0000-0000-0000-000000000001',
+    '00000002-0001-0000-0000-000000000002',
+    '00000001-0000-0000-0000-000000000002',
     'mcq',
-    'What do the large numbers painted on the field (like 10, 20, 30, 40, 50) represent?',
-    '{"correct_index": 1}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000001-0001-0001-0000-000000000002',
-    '00000001-0001-0000-0000-000000000002',
-    1,
-    'What do the large numbers painted on the field (like 10, 20, 30, 40, 50) represent?',
-    '["Player jersey numbers", "The yard line location on the field", "The score", "The quarter of the game"]',
-    '{"index": 1}',
-    '',
-    true
-)
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
-
-
--- Q3: End zone depth (End zones)
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000001-0001-0000-0000-000000000003',
-    '00000001-0000-0000-0000-000000000001',
-    'binary',
-    'Each end zone is 10 yards deep.',
-    '{"correct_boolean": true}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000001-0001-0001-0000-000000000003',
-    '00000001-0001-0000-0000-000000000003',
-    1,
-    'Each end zone is 10 yards deep.',
-    '["True", "False"]',
-    '{"boolean": true}',
-    '',
-    true
-)
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
-
-
--- Q4: Yard line markings (Markings)
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000001-0001-0000-0000-000000000004',
-    '00000001-0000-0000-0000-000000000001',
-    'mcq',
-    'Yard lines are marked on the field every how many yards?',
-    '{"correct_index": 1}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000001-0001-0001-0000-000000000004',
-    '00000001-0001-0000-0000-000000000004',
-    1,
-    'Yard lines are marked on the field every how many yards?',
-    '["1 yard", "5 yards", "10 yards", "20 yards"]',
-    '{"index": 1}',
-    '',
-    true
-)
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
-
-
--- Q5: Goal line / touchdown (Goal lines)
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000001-0001-0000-0000-000000000005',
-    '00000001-0000-0000-0000-000000000001',
-    'mcq',
-    'What does a player need to do to score a touchdown?',
-    '{"correct_index": 1}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000001-0001-0001-0000-000000000005',
-    '00000001-0001-0000-0000-000000000005',
-    1,
-    'What does a player need to do to score a touchdown?',
-    '["Touch the goal line", "Cross the goal line with the ball", "Throw the ball over the goal line", "Kick the ball through the uprights"]',
-    '{"index": 1}',
-    '',
-    true
-)
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
-
-
--- Q6: Total field length (Dimensions)
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000001-0001-0000-0000-000000000006',
-    '00000001-0000-0000-0000-000000000001',
-    'mcq',
-    'Including both end zones, how long is a football field in total?',
+    'You see large numbers painted on the field like 10, 20, 30, 40, 50. What do these numbers tell you?',
     '{"correct_index": 2}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -249,137 +143,25 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000001-0001-0001-0000-000000000006',
-    '00000001-0001-0000-0000-000000000006',
+    '00000002-0001-0001-0000-000000000002',
+    '00000002-0001-0000-0000-000000000002',
     1,
-    'Including both end zones, how long is a football field in total?',
-    '["100 yards", "110 yards", "120 yards", "130 yards"]',
+    'You see large numbers painted on the field like 10, 20, 30, 40, 50. What do these numbers tell you?',
+    '["How many players are on the field", "The score of the game", "How many yards from the nearest end zone", "The time left in the game"]',
     '{"index": 2}',
     '',
     true
 )
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q7: 50-yard line (Markings)
+-- Q3: 50-yard line location
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000001-0001-0000-0000-000000000007',
-    '00000001-0000-0000-0000-000000000001',
-    'binary',
-    'The 50-yard line is at the exact center of the field.',
-    '{"correct_boolean": true}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000001-0001-0001-0000-000000000007',
-    '00000001-0001-0000-0000-000000000007',
-    1,
-    'The 50-yard line is at the exact center of the field.',
-    '["True", "False"]',
-    '{"boolean": true}',
-    '',
-    true
-)
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
-
-
--- Q8: End zone purpose (End zones)
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000001-0001-0000-0000-000000000008',
-    '00000001-0000-0000-0000-000000000001',
+    '00000002-0001-0000-0000-000000000003',
+    '00000001-0000-0000-0000-000000000002',
     'mcq',
-    'What is the primary purpose of the end zone?',
-    '{"correct_index": 1}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000001-0001-0001-0000-000000000008',
-    '00000001-0001-0000-0000-000000000008',
-    1,
-    'What is the primary purpose of the end zone?',
-    '["A rest area for tired players", "The scoring area for touchdowns", "Where the coaches stand", "A warmup area before plays"]',
-    '{"index": 1}',
-    '',
-    true
-)
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
-
-
--- Q9: Goal line location (Goal lines)
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000001-0001-0000-0000-000000000009',
-    '00000001-0000-0000-0000-000000000001',
-    'mcq',
-    'Where is the goal line located?',
-    '{"correct_index": 2}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000001-0001-0001-0000-000000000009',
-    '00000001-0001-0000-0000-000000000009',
-    1,
-    'Where is the goal line located?',
-    '["In the middle of the end zone", "At the back of the end zone", "At the front edge of the end zone", "Behind the goalposts"]',
-    '{"index": 2}',
-    '',
-    true
-)
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
-
-
--- Q10: Hash marks (Markings)
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000001-0001-0000-0000-000000000010',
-    '00000001-0000-0000-0000-000000000001',
-    'mcq',
-    'What are the short lines between the yard line numbers called?',
-    '{"correct_index": 1}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    1
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000001-0001-0001-0000-000000000010',
-    '00000001-0001-0000-0000-000000000010',
-    1,
-    'What are the short lines between the yard line numbers called?',
-    '["Sidelines", "Hash marks", "Goal markers", "Field stripes"]',
-    '{"index": 1}',
-    '',
-    true
-)
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
-
-
--- Q11: When is a touchdown scored? (Goal lines / Scoring)
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000001-0001-0000-0000-000000000011',
-    '00000001-0000-0000-0000-000000000001',
-    'mcq',
-    'At what moment is a touchdown officially scored?',
+    'Where is the 50-yard line located on the field?',
     '{"correct_index": 0}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -389,25 +171,53 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000001-0001-0001-0000-000000000011',
-    '00000001-0001-0000-0000-000000000011',
+    '00000002-0001-0001-0000-000000000003',
+    '00000002-0001-0000-0000-000000000003',
     1,
-    'At what moment is a touchdown officially scored?',
-    '["When any part of the ball crosses the goal line while a player has possession", "When the player''s entire body is in the end zone", "When the player touches the ground in the end zone", "When the referee blows the whistle"]',
+    'Where is the 50-yard line located on the field?',
+    '["In the exact middle of the field", "Near one end zone", "There is no 50-yard line", "It moves during the game"]',
     '{"index": 0}',
     '',
     true
 )
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q12: End zone location (End zones)
+-- Q4: End zone depth
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000001-0001-0000-0000-000000000012',
-    '00000001-0000-0000-0000-000000000001',
+    '00000002-0001-0000-0000-000000000004',
+    '00000001-0000-0000-0000-000000000002',
     'mcq',
-    'Where are the end zones located on a football field?',
+    'How deep is each end zone?',
+    '{"correct_index": 1}',
+    '00000000-0000-0000-0000-000000000000',
+    'live',
+    1
+)
+ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (
+    '00000002-0001-0001-0000-000000000004',
+    '00000002-0001-0000-0000-000000000004',
+    1,
+    'How deep is each end zone?',
+    '["5 yards", "10 yards", "15 yards", "20 yards"]',
+    '{"index": 1}',
+    '',
+    true
+)
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
+
+
+-- Q5: Total field length including end zones
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
+VALUES (
+    '00000002-0001-0000-0000-000000000005',
+    '00000001-0000-0000-0000-000000000002',
+    'mcq',
+    'The main field is 100 yards. Each end zone is 10 yards deep. How long is the entire field including both end zones?',
     '{"correct_index": 2}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -417,25 +227,53 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000001-0001-0001-0000-000000000012',
-    '00000001-0001-0000-0000-000000000012',
+    '00000002-0001-0001-0000-000000000005',
+    '00000002-0001-0000-0000-000000000005',
     1,
-    'Where are the end zones located on a football field?',
-    '["In the middle of the field", "On the sidelines", "At each end of the 100-yard field", "Behind the bleachers"]',
+    'The main field is 100 yards. Each end zone is 10 yards deep. How long is the entire field including both end zones?',
+    '["100 yards", "110 yards", "120 yards", "130 yards"]',
     '{"index": 2}',
     '',
     true
 )
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q13: Yard numbers direction (Markings)
+-- Q6: Yard lines every how many yards?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
-    '00000001-0001-0000-0000-000000000013',
-    '00000001-0000-0000-0000-000000000001',
+    '00000002-0001-0000-0000-000000000006',
+    '00000001-0000-0000-0000-000000000002',
+    'mcq',
+    'White lines run across the field at regular intervals. These are called yard lines. How often do the numbered yard lines appear?',
+    '{"correct_index": 1}',
+    '00000000-0000-0000-0000-000000000000',
+    'live',
+    1
+)
+ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (
+    '00000002-0001-0001-0000-000000000006',
+    '00000002-0001-0000-0000-000000000006',
+    1,
+    'White lines run across the field at regular intervals. These are called yard lines. How often do the numbered yard lines appear?',
+    '["Every 5 yards", "Every 10 yards", "Every 20 yards", "Every 25 yards"]',
+    '{"index": 1}',
+    '',
+    true
+)
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
+
+
+-- Q7: Numbers count down toward end zone - True/False
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
+VALUES (
+    '00000002-0001-0000-0000-000000000007',
+    '00000001-0000-0000-0000-000000000002',
     'binary',
-    'From the 50-yard line, yard numbers count down toward each end zone.',
+    'Starting from the 50-yard line, the numbers get smaller as you move toward either end zone (50, 40, 30, 20, 10).',
     '{"correct_boolean": true}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -445,41 +283,88 @@ ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
 INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
 VALUES (
-    '00000001-0001-0001-0000-000000000013',
-    '00000001-0001-0000-0000-000000000013',
+    '00000002-0001-0001-0000-000000000007',
+    '00000002-0001-0000-0000-000000000007',
     1,
-    'From the 50-yard line, yard numbers count down toward each end zone.',
+    'Starting from the 50-yard line, the numbers get smaller as you move toward either end zone (50, 40, 30, 20, 10).',
     '["True", "False"]',
     '{"boolean": true}',
     '',
     true
 )
-ON CONFLICT (id) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
+
+
+-- Q8: Where are the end zones?
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
+VALUES (
+    '00000002-0001-0000-0000-000000000008',
+    '00000001-0000-0000-0000-000000000002',
+    'mcq',
+    'Where are the two end zones located on a football field?',
+    '{"correct_index": 2}',
+    '00000000-0000-0000-0000-000000000000',
+    'live',
+    1
+)
+ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (
+    '00000002-0001-0001-0000-000000000008',
+    '00000002-0001-0000-0000-000000000008',
+    1,
+    'Where are the two end zones located on a football field?',
+    '["In the middle of the field", "On the sides of the field", "At opposite ends of the field", "There is only one end zone"]',
+    '{"index": 2}',
+    '',
+    true
+)
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
+
+
+-- Q9: What do smaller yard numbers mean?
+INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
+VALUES (
+    '00000002-0001-0000-0000-000000000009',
+    '00000001-0000-0000-0000-000000000002',
+    'mcq',
+    'If the offense is at the 20-yard line, what does that tell you?',
+    '{"correct_index": 1}',
+    '00000000-0000-0000-0000-000000000000',
+    'live',
+    1
+)
+ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
+
+INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
+VALUES (
+    '00000002-0001-0001-0000-000000000009',
+    '00000002-0001-0000-0000-000000000009',
+    1,
+    'If the offense is at the 20-yard line, what does that tell you?',
+    '["They are in the middle of the field", "They are 20 yards away from an end zone", "They have scored 20 points", "There are 20 minutes left"]',
+    '{"index": 1}',
+    '',
+    true
+)
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
 -- ============================================================================
 -- VERIFICATION
 -- ============================================================================
 
--- Verify the data was inserted correctly
 SELECT
-    'Modules' as entity,
-    COUNT(*) as count
-FROM modules
-WHERE sport_id = 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa'
-
-UNION ALL
-
-SELECT
-    'Lessons' as entity,
+    'TF1 Lesson' as entity,
     COUNT(*) as count
 FROM lessons
-WHERE module_id = '11111111-1111-1111-1111-111111111111'
+WHERE id = '00000001-0000-0000-0000-000000000002'
 
 UNION ALL
 
 SELECT
-    'Items' as entity,
+    'TF1 Items' as entity,
     COUNT(*) as count
 FROM items
-WHERE lesson_id = '00000001-0000-0000-0000-000000000001';
+WHERE lesson_id = '00000001-0000-0000-0000-000000000002';

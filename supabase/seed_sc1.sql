@@ -1,10 +1,17 @@
 -- ============================================================================
--- OT2 (Offensive Terms 2) - Seed Data
+-- SC1 (Scoring 1) - Seed Data
 -- ============================================================================
--- OT2 covers: Field goal, touchdown, extra point, safety
+-- SC1 is the FOURTH lesson (after GB1, TF1, TF2)
+-- SC1 covers: Touchdown (6 points), goal line, how to score a touchdown
+--
+-- Prerequisites: GB1 (offense, defense, end zone), TF1 (yard lines), TF2 (boundaries)
+-- Terms INTRODUCED here: Touchdown, goal line, 6 points, scoring
+--
+-- CRITICAL: NO field goals, NO extra points, NO downs yet
+-- Just touchdowns - the main way to score
 --
 -- Structure:
--- - OT2 Lesson (10 questions, 5 shown per session, 5 completions to master)
+-- - SC1 Lesson (9 questions, 5 shown per session, 5 completions to master)
 -- ============================================================================
 
 -- ============================================================================
@@ -62,20 +69,20 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create OT2 Lesson
+-- STEP 4: Create SC1 Lesson (ORDER: 4)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
 VALUES (
     '00000001-0000-0000-0000-000000000004',
     '11111111-1111-1111-1111-111111111111',
-    'Offensive Terms 2',
-    'Learn about scoring: touchdowns, field goals, extra points, and safeties',
+    'Scoring 1',
+    'Learn about the touchdown - the most exciting way to score in football!',
     4,
     4,
     50,
     true,
-    'OT2',
+    'SC1',
     5,
     5
 )
@@ -83,21 +90,22 @@ ON CONFLICT (id) DO UPDATE SET
     title = EXCLUDED.title,
     description = EXCLUDED.description,
     code = EXCLUDED.code,
+    order_index = EXCLUDED.order_index,
     items_per_session = EXCLUDED.items_per_session,
     required_completions = EXCLUDED.required_completions;
 
 
 -- ============================================================================
--- STEP 5: Create OT2 Items (10 questions)
+-- STEP 5: Create SC1 Items (9 questions - touchdowns ONLY)
 -- ============================================================================
 
--- Q1: What is a touchdown? (Touchdown)
+-- Q1: What is a touchdown?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000004-0001-0000-0000-000000000001',
     '00000001-0000-0000-0000-000000000004',
     'mcq',
-    'What is a touchdown in football?',
+    'What is a "touchdown" in football?',
     '{"correct_index": 2}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -110,23 +118,23 @@ VALUES (
     '00000004-0001-0001-0000-000000000001',
     '00000004-0001-0000-0000-000000000001',
     1,
-    'What is a touchdown in football?',
-    '["Kicking the ball through the goalposts", "Tackling the quarterback behind the line of scrimmage", "When a player carries or catches the ball in the opponent''s end zone", "When the defense intercepts a pass"]',
+    'What is a "touchdown" in football?',
+    '["When a player kicks the ball", "When a player is tackled", "When the offense gets the ball into the opponent''s end zone", "When a player goes out of bounds"]',
     '{"index": 2}',
     '',
     true
 )
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q2: How many points is a touchdown? (Touchdown)
+-- Q2: How many points is a touchdown?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000004-0001-0000-0000-000000000002',
     '00000001-0000-0000-0000-000000000004',
     'mcq',
     'How many points is a touchdown worth?',
-    '{"correct_index": 1}',
+    '{"correct_index": 2}',
     '00000000-0000-0000-0000-000000000000',
     'live',
     1
@@ -139,22 +147,22 @@ VALUES (
     '00000004-0001-0000-0000-000000000002',
     1,
     'How many points is a touchdown worth?',
-    '["3 points", "6 points", "7 points", "1 point"]',
-    '{"index": 1}',
+    '["1 point", "3 points", "6 points", "7 points"]',
+    '{"index": 2}',
     '',
     true
 )
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q3: What is a field goal? (Field Goal)
+-- Q3: What is the goal line?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000004-0001-0000-0000-000000000003',
     '00000001-0000-0000-0000-000000000004',
     'mcq',
-    'What is a field goal?',
-    '{"correct_index": 0}',
+    'What is the "goal line" in football?',
+    '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
     1
@@ -166,23 +174,23 @@ VALUES (
     '00000004-0001-0001-0000-000000000003',
     '00000004-0001-0000-0000-000000000003',
     1,
-    'What is a field goal?',
-    '["A kick through the uprights during a regular play, worth 3 points", "A pass completed in the end zone", "A punt that goes into the end zone", "A running play that gains more than 10 yards"]',
-    '{"index": 0}',
+    'What is the "goal line" in football?',
+    '["The 50-yard line in the middle of the field", "The line at the front of each end zone that you must cross to score", "The sideline", "The line where teams start the game"]',
+    '{"index": 1}',
     '',
     true
 )
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q4: How many points is a field goal? (Field Goal)
+-- Q4: Where is the goal line located?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000004-0001-0000-0000-000000000004',
     '00000001-0000-0000-0000-000000000004',
     'mcq',
-    'How many points is a field goal worth?',
-    '{"correct_index": 2}',
+    'Where is the goal line located on the field?',
+    '{"correct_index": 0}',
     '00000000-0000-0000-0000-000000000000',
     'live',
     1
@@ -194,22 +202,22 @@ VALUES (
     '00000004-0001-0001-0000-000000000004',
     '00000004-0001-0000-0000-000000000004',
     1,
-    'How many points is a field goal worth?',
-    '["1 point", "2 points", "3 points", "6 points"]',
-    '{"index": 2}',
+    'Where is the goal line located on the field?',
+    '["At the front edge of each end zone", "In the middle of the field", "At the back of each end zone", "On the sidelines"]',
+    '{"index": 0}',
     '',
     true
 )
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q5: What is an extra point? (Extra Point)
+-- Q5: What must cross the goal line for a touchdown?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000004-0001-0000-0000-000000000005',
     '00000001-0000-0000-0000-000000000004',
     'mcq',
-    'What is an extra point (PAT)?',
+    'To score a touchdown, what must cross the goal line?',
     '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
@@ -222,23 +230,23 @@ VALUES (
     '00000004-0001-0001-0000-000000000005',
     '00000004-0001-0000-0000-000000000005',
     1,
-    'What is an extra point (PAT)?',
-    '["A bonus touchdown awarded for excellent play", "A kick through the uprights attempted after a touchdown", "An additional down given after a first down", "A point given for fair catches"]',
+    'To score a touchdown, what must cross the goal line?',
+    '["The player''s entire body", "The ball (while a player has it)", "The player''s feet", "Nothing needs to cross - just get close"]',
     '{"index": 1}',
     '',
     true
 )
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q6: What is a safety? (Safety)
+-- Q6: Touchdown = 6 points - True/False
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000004-0001-0000-0000-000000000006',
     '00000001-0000-0000-0000-000000000004',
-    'mcq',
-    'What is a safety in football?',
-    '{"correct_index": 3}',
+    'binary',
+    'A touchdown is worth 6 points.',
+    '{"correct_boolean": true}',
     '00000000-0000-0000-0000-000000000000',
     'live',
     1
@@ -250,23 +258,23 @@ VALUES (
     '00000004-0001-0001-0000-000000000006',
     '00000004-0001-0000-0000-000000000006',
     1,
-    'What is a safety in football?',
-    '["A protective piece of equipment", "A type of defensive player", "When a kick goes out of bounds", "When the offense is tackled in their own end zone, giving the defense 2 points"]',
-    '{"index": 3}',
+    'A touchdown is worth 6 points.',
+    '["True", "False"]',
+    '{"boolean": true}',
     '',
     true
 )
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q7: How many points is a safety? (Safety)
+-- Q7: Who scores the touchdown?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000004-0001-0000-0000-000000000007',
     '00000001-0000-0000-0000-000000000004',
     'mcq',
-    'How many points is a safety worth?',
-    '{"correct_index": 1}',
+    'Which team can score a touchdown - the offense or the defense?',
+    '{"correct_index": 2}',
     '00000000-0000-0000-0000-000000000000',
     'live',
     1
@@ -278,23 +286,23 @@ VALUES (
     '00000004-0001-0001-0000-000000000007',
     '00000004-0001-0000-0000-000000000007',
     1,
-    'How many points is a safety worth?',
-    '["1 point", "2 points", "3 points", "6 points"]',
-    '{"index": 1}',
+    'Which team can score a touchdown - the offense or the defense?',
+    '["Only the offense", "Only the defense", "Either team can score a touchdown", "Neither team - touchdowns are automatic"]',
+    '{"index": 2}',
     '',
     true
 )
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q8: True/False - Touchdown + Extra Point (Touchdown/Extra Point)
+-- Q8: Which end zone does the offense want?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000004-0001-0000-0000-000000000008',
     '00000001-0000-0000-0000-000000000004',
-    'binary',
-    'A touchdown plus a successful extra point kick equals 7 total points.',
-    '{"correct_boolean": true}',
+    'mcq',
+    'To score a touchdown, which end zone must the offense reach?',
+    '{"correct_index": 1}',
     '00000000-0000-0000-0000-000000000000',
     'live',
     1
@@ -306,26 +314,26 @@ VALUES (
     '00000004-0001-0001-0000-000000000008',
     '00000004-0001-0000-0000-000000000008',
     1,
-    'A touchdown plus a successful extra point kick equals 7 total points.',
-    '["True", "False"]',
-    '{"boolean": true}',
+    'To score a touchdown, which end zone must the offense reach?',
+    '["Their own end zone (behind them)", "The opponent''s end zone (in front of them)", "Either end zone", "The end zone closest to them"]',
+    '{"index": 1}',
     '',
     true
 )
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
--- Q9: Situational - Scoring decision (Field Goal vs Touchdown)
+-- Q9: How can a player get the ball into the end zone?
 INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
 VALUES (
     '00000004-0001-0000-0000-000000000009',
     '00000001-0000-0000-0000-000000000004',
     'mcq',
-    'The Denver Broncos are close to the opponent''s end zone but it''s getting hard to advance the ball. They could try for a touchdown (6 points) or kick a field goal (3 points). When might a team choose to kick a field goal instead of going for a touchdown?',
-    '{"correct_index": 1}',
+    'A player can score a touchdown by getting the ball into the end zone. Which of these is a way to do that?',
+    '{"correct_index": 3}',
     '00000000-0000-0000-0000-000000000000',
     'live',
-    2
+    1
 )
 ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
 
@@ -334,50 +342,21 @@ VALUES (
     '00000004-0001-0001-0000-000000000009',
     '00000004-0001-0000-0000-000000000009',
     1,
-    'The Denver Broncos are close to the opponent''s end zone but it''s getting hard to advance the ball. They could try for a touchdown (6 points) or kick a field goal (3 points). When might a team choose to kick a field goal instead of going for a touchdown?',
-    '["When they want to score more points", "When they want guaranteed points rather than risk getting nothing", "When they are losing by a lot", "Field goals are always better than touchdowns"]',
-    '{"index": 1}',
+    'A player can score a touchdown by getting the ball into the end zone. Which of these is a way to do that?',
+    '["Only by running with the ball", "Only by catching the ball in the end zone", "Only by kicking the ball", "By running with it OR catching it in the end zone"]',
+    '{"index": 3}',
     '',
     true
 )
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
-
-
--- Q10: Situational - Safety scenario (Safety)
-INSERT INTO items (id, lesson_id, type, base_prompt, answer_schema_json, author_id, status, difficulty)
-VALUES (
-    '00000004-0001-0000-0000-000000000010',
-    '00000001-0000-0000-0000-000000000004',
-    'mcq',
-    'The New England Patriots have the ball near their own goal line. A running back takes the ball but is tackled in his own end zone by the Buffalo Bills defense. What is the result?',
-    '{"correct_index": 2}',
-    '00000000-0000-0000-0000-000000000000',
-    'live',
-    2
-)
-ON CONFLICT (id) DO UPDATE SET base_prompt = EXCLUDED.base_prompt;
-
-INSERT INTO item_variants (id, item_id, version, prompt_richtext, options_json, correct_answer_json, explanation_richtext, active)
-VALUES (
-    '00000004-0001-0001-0000-000000000010',
-    '00000004-0001-0000-0000-000000000010',
-    1,
-    'The New England Patriots have the ball near their own goal line. A running back takes the ball but is tackled in his own end zone by the Buffalo Bills defense. What is the result?',
-    '["Touchdown for the Bills", "The play doesn''t count", "Safety! 2 points for the Bills", "First down for the Patriots"]',
-    '{"index": 2}',
-    '',
-    true
-)
-ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json, explanation_richtext = EXCLUDED.explanation_richtext;
+ON CONFLICT (item_id, version) DO UPDATE SET prompt_richtext = EXCLUDED.prompt_richtext, options_json = EXCLUDED.options_json, correct_answer_json = EXCLUDED.correct_answer_json;
 
 
 -- ============================================================================
 -- VERIFICATION
 -- ============================================================================
 
--- Verify the data was inserted correctly
 SELECT
-    'OT2 Lesson' as entity,
+    'SC1 Lesson' as entity,
     COUNT(*) as count
 FROM lessons
 WHERE id = '00000001-0000-0000-0000-000000000004'
@@ -385,7 +364,7 @@ WHERE id = '00000001-0000-0000-0000-000000000004'
 UNION ALL
 
 SELECT
-    'OT2 Items' as entity,
+    'SC1 Items' as entity,
     COUNT(*) as count
 FROM items
 WHERE lesson_id = '00000001-0000-0000-0000-000000000004';

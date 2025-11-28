@@ -60,7 +60,7 @@ struct LessonView: View {
                                             AnswerOptionButton(
                                                 text: option,
                                                 isSelected: viewModel.selectedAnswer == index,
-                                                isCorrect: viewModel.showFeedback ? (viewModel.selectedAnswer == index ? viewModel.isCurrentAnswerCorrect : nil) : nil,
+                                                feedbackState: viewModel.showFeedback ? getAnswerFeedbackState(index: index, item: currentItem) : nil,
                                                 action: {
                                                     viewModel.selectAnswer(index)
                                                 }
@@ -189,7 +189,7 @@ struct LessonView: View {
 
     private func getMultiSelectCorrectness(index: Int, correctAnswer: ItemAnswer) -> Bool? {
         guard case .multiple(let correctIndices) = correctAnswer else { return nil }
-        
+
         // Map shuffled index to original index to check correctness
         let originalIndex = viewModel.currentOptionIndices?[index] ?? index
         let isCorrectOption = correctIndices.contains(originalIndex)
@@ -202,27 +202,91 @@ struct LessonView: View {
         }
         return nil
     }
+
+    /// Determines the feedback state for a single-choice answer option
+    private func getAnswerFeedbackState(index: Int, item: Item) -> AnswerFeedbackState {
+        let isSelected = viewModel.selectedAnswer == index
+        let originalIndex = viewModel.currentOptionIndices?[index] ?? index
+
+        // Check if this option is the correct answer
+        let isCorrectOption: Bool
+        switch item.correctAnswer {
+        case .single(let correctIndex):
+            isCorrectOption = originalIndex == correctIndex
+        case .boolean(let correctBool):
+            // For binary questions: index 0 = true, index 1 = false
+            isCorrectOption = (originalIndex == 0 && correctBool) || (originalIndex == 1 && !correctBool)
+        default:
+            isCorrectOption = false
+        }
+
+        if isSelected {
+            // This is the user's selected answer
+            return viewModel.isCurrentAnswerCorrect ? .correct : .incorrect
+        } else if isCorrectOption && !viewModel.isCurrentAnswerCorrect {
+            // This is the correct answer, and user got it wrong - show it in green
+            return .correctAnswer
+        }
+
+        return .neutral
+    }
+}
+
+// MARK: - Answer Feedback State
+enum AnswerFeedbackState {
+    case correct      // User selected this and it's correct (green)
+    case incorrect    // User selected this and it's wrong (red)
+    case correctAnswer // User didn't select this, but it's the correct answer (green, shown when user is wrong)
+    case neutral      // Not selected, not the correct answer
 }
 
 // MARK: - Answer Option Button
 struct AnswerOptionButton: View {
     let text: String
     let isSelected: Bool
-    let isCorrect: Bool?
+    let feedbackState: AnswerFeedbackState?
     let action: () -> Void
 
     private var backgroundColor: Color {
-        if let isCorrect = isCorrect {
-            return isCorrect ? .correct.opacity(0.2) : .incorrect.opacity(0.2)
+        guard let state = feedbackState else {
+            return isSelected ? .brandPrimary.opacity(0.1) : .backgroundSecondary
         }
-        return isSelected ? .brandPrimary.opacity(0.1) : .backgroundSecondary
+        switch state {
+        case .correct, .correctAnswer:
+            return .correct.opacity(0.2)
+        case .incorrect:
+            return .incorrect.opacity(0.2)
+        case .neutral:
+            return .backgroundSecondary
+        }
     }
 
     private var borderColor: Color {
-        if let isCorrect = isCorrect {
-            return isCorrect ? .correct : .incorrect
+        guard let state = feedbackState else {
+            return isSelected ? .brandPrimary : .clear
         }
-        return isSelected ? .brandPrimary : .clear
+        switch state {
+        case .correct, .correctAnswer:
+            return .correct
+        case .incorrect:
+            return .incorrect
+        case .neutral:
+            return .clear
+        }
+    }
+
+    private var trailingIcon: (name: String, color: Color)? {
+        guard let state = feedbackState else { return nil }
+        switch state {
+        case .correct:
+            return ("checkmark.circle.fill", .correct)
+        case .incorrect:
+            return ("xmark.circle.fill", .incorrect)
+        case .correctAnswer:
+            return ("checkmark.circle.fill", .correct)
+        case .neutral:
+            return nil
+        }
     }
 
     var body: some View {
@@ -235,9 +299,9 @@ struct AnswerOptionButton: View {
 
                 Spacer()
 
-                if let isCorrect = isCorrect {
-                    Image(systemName: isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
-                        .foregroundStyle(isCorrect ? Color.correct : Color.incorrect)
+                if let icon = trailingIcon {
+                    Image(systemName: icon.name)
+                        .foregroundStyle(icon.color)
                 }
             }
             .padding(.spacingM)

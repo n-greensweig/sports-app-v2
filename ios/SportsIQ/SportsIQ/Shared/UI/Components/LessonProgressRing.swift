@@ -187,15 +187,15 @@ struct LessonProgressRing: View {
                 startPoint: .top,
                 endPoint: .bottom
             )
-        } else if isInProgress {
-            // In progress (1+ completions but not done) - accent color
+        } else if isInProgress || isCurrentLesson {
+            // In progress (1+ completions but not done) OR current lesson (even with 0 completions) - accent color
             return LinearGradient(
                 colors: [accentColor.opacity(0.9), accentColor.opacity(0.75)],
                 startPoint: .top,
                 endPoint: .bottom
             )
         } else {
-            // Available but NOT started (0 completions) - GRAY like Duolingo
+            // Available but NOT started and NOT current lesson (0 completions) - GRAY like Duolingo
             return LinearGradient(
                 colors: [Color.backgroundTertiary.opacity(0.9), Color.backgroundTertiary.opacity(0.7)],
                 startPoint: .top,
@@ -205,7 +205,7 @@ struct LessonProgressRing: View {
     }
 
     private var circleBorderColor: Color {
-        if isLocked || isAvailable {
+        if isLocked || (isAvailable && !isCurrentLesson) {
             return Color.backgroundTertiary.opacity(0.5)
         } else if isCompleted {
             return accentColor.opacity(0.5)
@@ -214,7 +214,7 @@ struct LessonProgressRing: View {
     }
 
     private var shadowColor: Color {
-        if isLocked || isAvailable {
+        if isLocked || (isAvailable && !isCurrentLesson) {
             return Color.black.opacity(0.1)
         }
         return accentColor.opacity(0.4)
@@ -223,10 +223,11 @@ struct LessonProgressRing: View {
     private var iconColor: Color {
         if isLocked {
             return .textTertiary
-        } else if isAvailable {
-            // Available but not started - gray icon
+        } else if isAvailable && !isCurrentLesson {
+            // Available but not started and not current - gray icon
             return .textSecondary
         }
+        // Current lesson, in progress, or completed - white icon
         return .white
     }
 }

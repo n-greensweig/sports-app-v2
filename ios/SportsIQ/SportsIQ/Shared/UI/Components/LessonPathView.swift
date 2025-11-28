@@ -21,10 +21,32 @@ struct LessonPathView: View {
     private let verticalSpacing: CGFloat = 24
     private let horizontalOffset: CGFloat = 80  // How far nodes swing left/right
 
+    /// Determines if a lesson at a given index should be effectively locked
+    /// A lesson is locked if the previous lesson hasn't been fully completed
+    private func isLessonLocked(at index: Int) -> Bool {
+        let lesson = lessons[index]
+
+        // First lesson is never locked (unless explicitly marked as locked in DB, which shouldn't happen)
+        if index == 0 {
+            return lesson.isLocked
+        }
+
+        // For subsequent lessons, check if previous lesson is completed
+        let previousLesson = lessons[index - 1]
+        let previousCompletions = completions[previousLesson.id] ?? 0
+        let previousCompleted = previousCompletions >= previousLesson.requiredCompletions
+
+        // Lesson is locked if previous lesson isn't completed
+        return !previousCompleted
+    }
+
     /// The index of the current lesson (first unlocked, incomplete lesson)
     private var currentLessonIndex: Int? {
-        lessons.firstIndex { lesson in
-            !lesson.isLocked && (completions[lesson.id] ?? 0) < lesson.requiredCompletions
+        lessons.indices.first { index in
+            let lesson = lessons[index]
+            let isLocked = isLessonLocked(at: index)
+            let completionCount = completions[lesson.id] ?? 0
+            return !isLocked && completionCount < lesson.requiredCompletions
         }
     }
 
@@ -44,6 +66,7 @@ struct LessonPathView: View {
         let completionCount = completions[lesson.id] ?? 0
         let isSelected = selectedLessonIndex == index
         let nodeOffset = horizontalOffset(for: position)
+        let isLocked = isLessonLocked(at: index)
 
         // Full-width row container - popup overlay is attached here for correct positioning
         ZStack {
@@ -51,7 +74,7 @@ struct LessonPathView: View {
             VStack(spacing: 8) {
                 // Lesson node button
                 Button {
-                    if !lesson.isLocked {
+                    if !isLocked {
                         withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
                             if selectedLessonIndex == index {
                                 selectedLessonIndex = nil
@@ -64,7 +87,7 @@ struct LessonPathView: View {
                     LessonProgressRing(
                         completedSegments: completionCount,
                         totalSegments: lesson.requiredCompletions,
-                        isLocked: lesson.isLocked,
+                        isLocked: isLocked,
                         icon: lessonIcon(for: index),
                         accentColor: sport.accentColor,
                         size: nodeSize,
@@ -73,19 +96,19 @@ struct LessonPathView: View {
                     )
                 }
                 .buttonStyle(LessonButtonStyle())
-                .disabled(lesson.isLocked)
+                .disabled(isLocked)
 
                 // Lesson code badge (optional)
                 if let code = lesson.code {
                     Text(code)
                         .font(.caption2)
                         .fontWeight(.semibold)
-                        .foregroundStyle(lesson.isLocked ? Color.textTertiary : sport.accentColor)
+                        .foregroundStyle(isLocked ? Color.textTertiary : sport.accentColor)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 2)
                         .background(
                             Capsule()
-                                .fill(lesson.isLocked ? Color.backgroundTertiary : sport.accentColor.opacity(0.15))
+                                .fill(isLocked ? Color.backgroundTertiary : sport.accentColor.opacity(0.15))
                         )
                 }
             }

@@ -10,13 +10,9 @@ import SwiftUI
 struct HomeView: View {
     let coordinator: AppCoordinator
     @State private var viewModel: HomeViewModel
-    @State private var scrollOffset: CGFloat = 0
-    @State private var showSportSelector = true
     @State private var selectedLesson: Lesson?
     @State private var showProfile = false
-
-    // Threshold for hiding/showing sport selector
-    private let scrollThreshold: CGFloat = 50
+    @State private var showSportPicker = false
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
@@ -29,19 +25,9 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                // Collapsible Sport Selector Header
-                if !viewModel.sports.isEmpty {
-                    sportSelectorHeader
-                        .frame(height: showSportSelector ? nil : 0)
-                        .opacity(showSportSelector ? 1 : 0)
-                        .clipped()
-                }
-
-                // Main Content
+            ZStack(alignment: .top) {
+                // Main content
                 ScrollView {
-                    scrollOffsetReader
-
                     VStack(spacing: 0) {
                         if viewModel.isLoading {
                             ProgressView()
@@ -60,20 +46,64 @@ struct HomeView: View {
                         }
                     }
                 }
-                .coordinateSpace(name: "scroll")
-                .onChange(of: scrollOffset) { _, newValue in
-                    withAnimation(.easeInOut(duration: 0.25)) {
-                        if newValue > scrollThreshold {
-                            showSportSelector = false
-                        } else if newValue < scrollThreshold / 2 {
-                            showSportSelector = true
+
+                // Sport picker dropdown overlay (appears below nav bar)
+                if showSportPicker {
+                    // Dimmed background to dismiss
+                    Color.black.opacity(0.3)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                showSportPicker = false
+                            }
                         }
+
+                    VStack(spacing: 0) {
+                        SportPickerDropdown(
+                            sports: viewModel.sports,
+                            selectedSport: viewModel.selectedSport,
+                            onSportSelected: { sport in
+                                Task {
+                                    await viewModel.selectSport(sport)
+                                }
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    showSportPicker = false
+                                }
+                            },
+                            onDismiss: {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    showSportPicker = false
+                                }
+                            }
+                        )
+                        .transition(.move(edge: .top).combined(with: .opacity))
+
+                        Spacer()
                     }
                 }
             }
+            .animation(.easeInOut(duration: 0.2), value: showSportPicker)
             .navigationTitle("Home")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                // Sport Picker (top-left)
+                ToolbarItem(placement: .topBarLeading) {
+                    SportPickerButton(
+                        sports: viewModel.sports,
+                        selectedSport: Binding(
+                            get: { viewModel.selectedSport },
+                            set: { _ in }
+                        ),
+                        showPicker: $showSportPicker,
+                        onSportSelected: { sport in
+                            Task {
+                                await viewModel.selectSport(sport)
+                            }
+                        }
+                    )
+                }
+
+                // Profile button (top-right)
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showProfile = true
@@ -107,45 +137,6 @@ struct HomeView: View {
                     }
                 }
             }
-        }
-    }
-
-    // MARK: - Sport Selector Header
-    private var sportSelectorHeader: some View {
-        VStack(spacing: 0) {
-            SportSelectorView(
-                sports: viewModel.sports,
-                selectedSport: Binding(
-                    get: { viewModel.selectedSport },
-                    set: { newSport in
-                        if let sport = newSport {
-                            Task {
-                                await viewModel.selectSport(sport)
-                            }
-                        }
-                    }
-                )
-            )
-            .padding(.vertical, .spacingS)
-            .background(Color.backgroundPrimary)
-
-            Divider()
-        }
-        .animation(.easeInOut(duration: 0.25), value: showSportSelector)
-    }
-
-    // MARK: - Scroll Offset Reader
-    private var scrollOffsetReader: some View {
-        GeometryReader { geometry in
-            Color.clear
-                .preference(
-                    key: ScrollOffsetPreferenceKey.self,
-                    value: -geometry.frame(in: .named("scroll")).origin.y
-                )
-        }
-        .frame(height: 0)
-        .onPreferenceChange(ScrollOffsetPreferenceKey.self) { value in
-            scrollOffset = value
         }
     }
 
@@ -220,14 +211,6 @@ struct HomeView: View {
         .padding(.spacingXL)
         .background(Color.backgroundSecondary)
         .cornerRadius(.radiusL)
-    }
-}
-
-// MARK: - Scroll Offset Preference Key
-struct ScrollOffsetPreferenceKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = nextValue()
     }
 }
 

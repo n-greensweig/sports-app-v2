@@ -59,17 +59,6 @@ extension Sport {
         displayOrder: 1
     )
 
-    static let basketball = Sport(
-        id: UUID(uuidString: "BBBBBBBB-BBBB-BBBB-BBBB-BBBBBBBBBBBB")!,
-        name: "Basketball",
-        slug: "basketball",
-        description: "Master the fundamentals of Basketball",
-        iconName: "basketball.fill",
-        accentColorHex: "#F57C00",
-        emoji: "🏀",
-        displayOrder: 2
-    )
-
     static let baseball = Sport(
         id: UUID(uuidString: "CCCCCCCC-CCCC-CCCC-CCCC-CCCCCCCCCCCC")!,
         name: "Baseball",
@@ -78,41 +67,8 @@ extension Sport {
         iconName: "baseball.fill",
         accentColorHex: "#1976D2",
         emoji: "⚾",
-        displayOrder: 3
+        displayOrder: 2
     )
 
-    static let hockey = Sport(
-        id: UUID(uuidString: "DDDDDDDD-DDDD-DDDD-DDDD-DDDDDDDDDDDD")!,
-        name: "Hockey",
-        slug: "hockey",
-        description: "Learn the fast-paced game of Hockey",
-        iconName: "hockey.puck.fill",
-        accentColorHex: "#0288D1",
-        emoji: "🏒",
-        displayOrder: 4
-    )
-
-    static let soccer = Sport(
-        id: UUID(uuidString: "EEEEEEEE-EEEE-EEEE-EEEE-EEEEEEEEEEEE")!,
-        name: "Soccer",
-        slug: "soccer",
-        description: "Discover the world's most popular sport",
-        iconName: "soccerball",
-        accentColorHex: "#388E3C",
-        emoji: "⚽",
-        displayOrder: 5
-    )
-
-    static let golf = Sport(
-        id: UUID(uuidString: "FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF")!,
-        name: "Golf",
-        slug: "golf",
-        description: "Master the gentleman's game",
-        iconName: "figure.golf",
-        accentColorHex: "#689F38",
-        emoji: "⛳",
-        displayOrder: 6
-    )
-
-    static let mockSports = [football, basketball, baseball, hockey, soccer, golf]
+    static let mockSports = [football, baseball]
 }

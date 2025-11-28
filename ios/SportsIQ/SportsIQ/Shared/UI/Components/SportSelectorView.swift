@@ -110,9 +110,7 @@ struct SportIconButton: View {
 #Preview("Sport Icons") {
     HStack(spacing: 16) {
         SportIconButton(sport: .football, isSelected: true, size: 56) {}
-        SportIconButton(sport: .basketball, isSelected: false, size: 56) {}
         SportIconButton(sport: .baseball, isSelected: false, size: 56) {}
-        SportIconButton(sport: .hockey, isSelected: false, size: 56) {}
     }
     .padding()
 }

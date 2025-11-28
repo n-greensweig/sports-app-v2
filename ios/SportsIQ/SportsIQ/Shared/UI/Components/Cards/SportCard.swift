@@ -47,7 +47,7 @@ struct SportCard: View {
 #Preview("Sport Card") {
     VStack(spacing: .spacingM) {
         SportCard(sport: .football, action: {})
-        SportCard(sport: .basketball, action: {})
+        SportCard(sport: .baseball, action: {})
     }
     .padding()
 }

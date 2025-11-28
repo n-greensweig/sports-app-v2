@@ -187,18 +187,20 @@ struct LessonPathView: View {
         }
     }
 
-    // MARK: - Lesson Icons
+    // MARK: - Lesson Icons (Football-themed)
     private static let lessonIcons = [
-        "star.fill",
-        "book.fill",
-        "lightbulb.fill",
-        "graduationcap.fill",
-        "trophy.fill",
-        "flag.fill",
-        "target",
-        "bolt.fill",
-        "flame.fill",
-        "sparkles"
+        "football.fill",              // American football
+        "figure.american.football",   // Football player in action
+        "trophy.fill",                // Championships/winning
+        "star.fill",                  // Star plays / standout moments
+        "shield.lefthalf.filled",     // Defense
+        "arrow.up.forward",           // Gaining yards / progression
+        "clock.fill",                 // Game clock / timing
+        "whistle.fill",               // Referee / penalties
+        "sportscourt.fill",           // The field
+        "hand.raised.fill",           // Catching / fair catch
+        "arrow.triangle.branch",      // Play routes / strategy
+        "bolt.fill"                   // Speed / explosive plays
     ]
 
     private func lessonIcon(for index: Int) -> String {

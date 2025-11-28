@@ -127,11 +127,8 @@ struct LessonView: View {
                             }
 
                             // Feedback
-                            if viewModel.showFeedback, let explanation = currentItem.explanation {
-                                FeedbackCard(
-                                    isCorrect: viewModel.isCurrentAnswerCorrect,
-                                    explanation: explanation
-                                )
+                            if viewModel.showFeedback {
+                                FeedbackCard(isCorrect: viewModel.isCurrentAnswerCorrect)
                             }
 
                             Spacer()
@@ -321,27 +318,43 @@ struct MultiSelectOptionButton: View {
 // MARK: - Feedback Card
 struct FeedbackCard: View {
     let isCorrect: Bool
-    let explanation: String
+
+    // Pool of encouraging phrases for correct answers
+    private static let correctPhrases = [
+        "Great!", "Fantastic!", "Wow!", "Nice work!", "You got it!",
+        "Correct!", "Awesome!", "Perfect!", "Well done!", "Nailed it!",
+        "Excellent!", "Amazing!", "Brilliant!", "Keep it up!", "You're on fire!",
+        "Crushing it!", "Superb!", "Outstanding!", "Way to go!", "That's right!"
+    ]
+
+    // Pool of phrases for incorrect answers
+    private static let incorrectPhrases = [
+        "Not quite", "Almost!"
+    ]
+
+    private var feedbackText: String {
+        if isCorrect {
+            return Self.correctPhrases.randomElement() ?? "Correct!"
+        } else {
+            return Self.incorrectPhrases.randomElement() ?? "Not quite"
+        }
+    }
 
     var body: some View {
-        HStack(alignment: .top, spacing: .spacingM) {
-            Image(systemName: isCorrect ? "checkmark.circle.fill" : "info.circle.fill")
+        HStack(spacing: .spacingM) {
+            Image(systemName: isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
                 .font(.title2)
-                .foregroundStyle(isCorrect ? Color.correct : Color.info)
+                .foregroundStyle(isCorrect ? Color.correct : Color.incorrect)
 
-            VStack(alignment: .leading, spacing: .spacingXS) {
-                Text(isCorrect ? "Correct!" : "Not quite")
-                    .font(.heading4)
-                    .foregroundStyle(isCorrect ? Color.correct : Color.info)
+            Text(feedbackText)
+                .font(.heading4)
+                .foregroundStyle(isCorrect ? Color.correct : Color.incorrect)
 
-                Text(explanation)
-                    .font(.body)
-                    .foregroundStyle(Color.textPrimary)
-            }
+            Spacer()
         }
         .padding(.spacingM)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background((isCorrect ? Color.correct : Color.info).opacity(0.1))
+        .background((isCorrect ? Color.correct : Color.incorrect).opacity(0.1))
         .cornerRadius(.radiusM)
     }
 }

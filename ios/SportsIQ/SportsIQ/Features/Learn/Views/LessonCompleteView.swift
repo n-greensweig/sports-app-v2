@@ -9,17 +9,11 @@ import SwiftUI
 
 struct LessonCompleteView: View {
     let lesson: Lesson
-    let correctAnswers: Int
-    let totalQuestions: Int
+    let accuracyPercentage: Int
     let xpEarned: Int
     let onDismiss: () -> Void
-    
+
     @State private var showContent = false
-    
-    var accuracy: Int {
-        guard totalQuestions > 0 else { return 0 }
-        return Int((Double(correctAnswers) / Double(totalQuestions)) * 100)
-    }
     
     var body: some View {
         ZStack {
@@ -61,7 +55,7 @@ struct LessonCompleteView: View {
                 
                 // Stats Grid
                 HStack(spacing: .spacingL) {
-                    StatBox(title: "Accuracy", value: "\(accuracy)%", icon: "target")
+                    StatBox(title: "Accuracy", value: "\(accuracyPercentage)%", icon: "target")
                     StatBox(title: "XP Earned", value: "+\(xpEarned)", icon: "star.fill")
                 }
                 .opacity(showContent ? 1 : 0)
@@ -111,9 +105,8 @@ struct StatBox: View {
 #Preview {
     LessonCompleteView(
         lesson: .footballBasicsLesson1,
-        correctAnswers: 8,
-        totalQuestions: 10,
-        xpEarned: 150,
+        accuracyPercentage: 80,
+        xpEarned: 40,
         onDismiss: {}
     )
 }

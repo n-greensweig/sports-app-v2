@@ -73,6 +73,11 @@ struct ItemDTO: Codable {
                 return .multiple(indices)
             }
         case .binary:
+            // Database stores as {"boolean": true/false}
+            if let bool = json["boolean"]?.value as? Bool {
+                return .boolean(bool)
+            }
+            // Fallback for legacy format {"value": true/false}
             if let bool = json["value"]?.value as? Bool {
                 return .boolean(bool)
             }

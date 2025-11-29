@@ -33,6 +33,10 @@ class LessonViewModel {
     var correctAnswersCount = 0
     var submissions: [Submission] = []
 
+    // MARK: - Accuracy Tracking
+    /// Number of questions answered correctly on the first attempt (no retries)
+    var firstAttemptCorrectCount = 0
+
     // MARK: - Shuffling State
     var currentShuffledOptions: [String]?
     var currentOptionIndices: [Int]? // Maps shuffled index -> original index
@@ -248,14 +252,19 @@ class LessonViewModel {
             correctAnswersCount += 1
             audioManager.playCorrectSound()
             hapticManager.playCorrectFeedback()
-            
+
+            // Track first-attempt correct answers (only during initial pass, not review)
+            if !isInReviewMode {
+                firstAttemptCorrectCount += 1
+            }
+
             // Track this item as answered correctly
             answeredCorrectly.insert(currentItem.id)
-            
+
             // If this was in review queue, remove it
             if isInReviewMode {
                 reviewQueue.remove(at: reviewIndex)
-                
+
                 // Check if we just completed the lesson
                 if reviewQueue.isEmpty {
                     audioManager.playLessonCompleteSound()
@@ -266,7 +275,7 @@ class LessonViewModel {
         } else {
             audioManager.playIncorrectSound()
             hapticManager.playIncorrectFeedback()
-            
+
             // Add to review queue if not already there and not in review mode
             if !isInReviewMode && !reviewQueue.contains(where: { $0.id == currentItem.id }) {
                 reviewQueue.append(currentItem)
@@ -311,11 +320,16 @@ class LessonViewModel {
     }
 
     var showCompletionScreen = false
-    
+
+    /// XP earned = 10 points per question answered correctly on the first attempt
     var totalXPEarned: Int {
-        // Base XP + Bonus for correct answers
-        let baseXP = 10
-        return baseXP + (correctAnswersCount * 10)
+        return firstAttemptCorrectCount * 10
+    }
+
+    /// Accuracy percentage based on first-attempt correct answers vs total questions in session
+    var accuracyPercentage: Int {
+        guard totalUniqueItems > 0 else { return 0 }
+        return Int(round(Double(firstAttemptCorrectCount) / Double(totalUniqueItems) * 100))
     }
     
     @MainActor

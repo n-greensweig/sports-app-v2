@@ -173,8 +173,7 @@ struct LessonView: View {
         .fullScreenCover(isPresented: $viewModel.showCompletionScreen) {
             LessonCompleteView(
                 lesson: lesson,
-                correctAnswers: viewModel.correctAnswersCount,
-                totalQuestions: lesson.items.count,
+                accuracyPercentage: viewModel.accuracyPercentage,
                 xpEarned: viewModel.totalXPEarned,
                 onDismiss: {
                     Task {

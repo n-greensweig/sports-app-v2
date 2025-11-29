@@ -158,7 +158,7 @@ struct LessonView: View {
                                     }
                                 },
                                 color: sport.accentColor,
-                                isEnabled: viewModel.hasAnswer
+                                isEnabled: viewModel.hasAnswer && !viewModel.isSubmitting
                             )
                             .padding(.spacingM)
                         }

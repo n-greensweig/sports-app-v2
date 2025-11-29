@@ -43,6 +43,9 @@ class LessonViewModel {
     private var isInReviewMode = false // Track if we're presenting review items
     private var reviewIndex = 0 // Current index in review queue
 
+    // MARK: - Submission State
+    var isSubmitting = false // Prevents rapid double-clicks on Check Answer
+
     var totalUniqueItems: Int {
         lessonItems.count
     }
@@ -211,7 +214,11 @@ class LessonViewModel {
 
     @MainActor
     func submitAnswer() async {
+        guard !isSubmitting else { return }
         guard let currentItem = currentItem else { return }
+
+        isSubmitting = true
+        defer { isSubmitting = false }
 
         // Determine user's answer based on item type
         let userAnswer: UserAnswer

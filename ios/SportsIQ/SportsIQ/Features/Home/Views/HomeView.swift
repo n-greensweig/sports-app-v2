@@ -13,6 +13,7 @@ struct HomeView: View {
     @State private var selectedLesson: Lesson?
     @State private var showProfile = false
     @State private var showSportPicker = false
+    @State private var selectedLessonNodeIndex: Int? = nil
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
@@ -43,6 +44,15 @@ struct HomeView: View {
 
                             // Lesson Path
                             lessonPathSection
+                        }
+                    }
+                    .contentShape(Rectangle()) // Make entire scroll area tappable
+                }
+                .onTapGesture {
+                    // Dismiss popup when tapping anywhere outside the nodes
+                    if selectedLessonNodeIndex != nil {
+                        withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                            selectedLessonNodeIndex = nil
                         }
                     }
                 }
@@ -185,7 +195,8 @@ struct HomeView: View {
                         sport: sport,
                         onLessonStart: { lesson in
                             selectedLesson = lesson
-                        }
+                        },
+                        selectedLessonIndex: $selectedLessonNodeIndex
                     )
                 }
             }

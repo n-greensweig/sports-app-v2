@@ -13,6 +13,7 @@ struct LessonStartPopup: View {
     let sport: Sport
     let triangleOffsetX: CGFloat    // How far the triangle should be offset from center (to point at node)
     var isLocked: Bool = false      // Whether the lesson is locked/unavailable
+    var showAbove: Bool = false     // If true, popup appears above node with triangle pointing down
     let onStart: () -> Void
     let onDismiss: () -> Void
 
@@ -107,14 +108,15 @@ struct LessonStartPopup: View {
         .background(
             RoundedRectangle(cornerRadius: 16)
                 .fill(backgroundColor)
-                .shadow(color: backgroundColor.opacity(0.4), radius: 8, y: 4)
+                .shadow(color: backgroundColor.opacity(0.4), radius: 8, y: showAbove ? -4 : 4)
         )
-        // Triangle positioned at top, offset to point at the node
-        .overlay(alignment: .top) {
+        // Triangle positioned at top or bottom depending on showAbove
+        .overlay(alignment: showAbove ? .bottom : .top) {
             Triangle()
                 .fill(backgroundColor)
                 .frame(width: 24, height: 12)
-                .offset(x: triangleOffsetX, y: -11) // Position above the popup body
+                .rotationEffect(showAbove ? .degrees(180) : .degrees(0))
+                .offset(x: triangleOffsetX, y: showAbove ? 11 : -11)
         }
         .scaleEffect(isAppearing ? 1 : 0.8)
         .opacity(isAppearing ? 1 : 0)

@@ -13,8 +13,8 @@ struct LessonPathView: View {
     let sport: Sport
     let onLessonStart: (Lesson) -> Void  // Called when user taps "Start" in popup
 
-    // State for popup
-    @State private var selectedLessonIndex: Int? = nil
+    // Binding for popup state - allows parent to dismiss popup on background tap
+    @Binding var selectedLessonIndex: Int?
 
     // Path configuration
     private let nodeSize: CGFloat = 64
@@ -69,84 +69,93 @@ struct LessonPathView: View {
         let isLocked = isLessonLocked(at: index)
 
         // Full-width row container - popup overlay is attached here for correct positioning
-        ZStack {
-            // Node content positioned within the full-width row
-            VStack(spacing: 8) {
-                // Lesson node button - tappable even when locked to show locked popup
-                Button {
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
-                        if selectedLessonIndex == index {
-                            selectedLessonIndex = nil
-                        } else {
-                            selectedLessonIndex = index
-                        }
-                    }
-                } label: {
-                    LessonProgressRing(
-                        completedSegments: completionCount,
-                        totalSegments: lesson.requiredCompletions,
-                        isLocked: isLocked,
-                        icon: lessonIcon(for: index),
-                        accentColor: sport.accentColor,
-                        size: nodeSize,
-                        isCurrentLesson: index == currentLessonIndex,
-                        isSelected: isSelected
-                    )
-                }
-                .buttonStyle(LessonButtonStyle())
+        GeometryReader { geometry in
+            let screenHeight = UIScreen.main.bounds.height
+            let nodePositionY = geometry.frame(in: .global).midY
+            let popupHeight: CGFloat = 180 // Approximate popup height
+            let bottomSafeArea: CGFloat = 100 // Account for tab bar and safe area
+            let showAbove = nodePositionY + popupHeight + bottomSafeArea > screenHeight
 
-                // Lesson code badge (optional)
-                if let code = lesson.code {
-                    Text(code)
-                        .font(.caption2)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(isLocked ? Color.textTertiary : sport.accentColor)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 2)
-                        .background(
-                            Capsule()
-                                .fill(isLocked ? Color.backgroundTertiary : sport.accentColor.opacity(0.15))
+            ZStack {
+                // Node content positioned within the full-width row
+                VStack(spacing: 8) {
+                    // Lesson node button - tappable even when locked to show locked popup
+                    Button {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                            if selectedLessonIndex == index {
+                                selectedLessonIndex = nil
+                            } else {
+                                selectedLessonIndex = index
+                            }
+                        }
+                    } label: {
+                        LessonProgressRing(
+                            completedSegments: completionCount,
+                            totalSegments: lesson.requiredCompletions,
+                            isLocked: isLocked,
+                            icon: lessonIcon(for: index),
+                            accentColor: sport.accentColor,
+                            size: nodeSize,
+                            isCurrentLesson: index == currentLessonIndex,
+                            isSelected: isSelected
                         )
+                    }
+                    .buttonStyle(LessonButtonStyle())
+
+                    // Lesson code badge (optional)
+                    if let code = lesson.code {
+                        Text(code)
+                            .font(.caption2)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(isLocked ? Color.textTertiary : sport.accentColor)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 2)
+                            .background(
+                                Capsule()
+                                    .fill(isLocked ? Color.backgroundTertiary : sport.accentColor.opacity(0.15))
+                            )
+                    }
+                }
+                .offset(x: nodeOffset)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            // Popup appears as overlay on the full-width row
+            .overlay(alignment: showAbove ? .bottom : .top) {
+                if isSelected {
+                    // The row is full-width and centered on screen
+                    // The node is offset by nodeOffset from the row center
+                    // The popup should be centered on screen (at row center)
+                    // The triangle should point at the node (at row center + nodeOffset)
+                    LessonStartPopup(
+                        lesson: lesson,
+                        completionCount: completionCount,
+                        sport: sport,
+                        triangleOffsetX: nodeOffset, // Triangle offset from popup center to point at node
+                        isLocked: isLocked,
+                        showAbove: showAbove,
+                        onStart: {
+                            withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                selectedLessonIndex = nil
+                            }
+                            onLessonStart(lesson)
+                        },
+                        onDismiss: {
+                            withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                selectedLessonIndex = nil
+                            }
+                        }
+                    )
+                    .padding(.horizontal, 20) // 20pt padding on each side
+                    // Position popup below or above the node
+                    .offset(y: showAbove ? -(nodeSize + 24) : (nodeSize + 24))
+                    .transition(.asymmetric(
+                        insertion: .scale(scale: 0.8, anchor: showAbove ? .bottom : .top).combined(with: .opacity),
+                        removal: .scale(scale: 0.9, anchor: showAbove ? .bottom : .top).combined(with: .opacity)
+                    ))
                 }
             }
-            .offset(x: nodeOffset)
         }
-        .frame(maxWidth: .infinity)
-        // Popup appears as overlay on the full-width row
-        .overlay(alignment: .top) {
-            if isSelected {
-                // The row is full-width and centered on screen
-                // The node is offset by nodeOffset from the row center
-                // The popup should be centered on screen (at row center)
-                // The triangle should point at the node (at row center + nodeOffset)
-                LessonStartPopup(
-                    lesson: lesson,
-                    completionCount: completionCount,
-                    sport: sport,
-                    triangleOffsetX: nodeOffset, // Triangle offset from popup center to point at node
-                    isLocked: isLocked,
-                    onStart: {
-                        withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
-                            selectedLessonIndex = nil
-                        }
-                        onLessonStart(lesson)
-                    },
-                    onDismiss: {
-                        withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
-                            selectedLessonIndex = nil
-                        }
-                    }
-                )
-                .padding(.horizontal, 20) // 20pt padding on each side
-                // Position popup below the node
-                // nodeOffset positions the node from center, so add that to vertical offset calculation
-                .offset(y: nodeSize + 24)
-                .transition(.asymmetric(
-                    insertion: .scale(scale: 0.8, anchor: .top).combined(with: .opacity),
-                    removal: .scale(scale: 0.9, anchor: .top).combined(with: .opacity)
-                ))
-            }
-        }
+        .frame(height: nodeSize + 30) // Fixed height for the row
         .zIndex(isSelected ? 1 : 0) // Bring selected row to front so popup overlaps other rows
     }
 
@@ -280,6 +289,8 @@ struct UnitDivider: View {
 
 // MARK: - Preview
 #Preview("Lesson Path") {
+    @Previewable @State var selectedIndex: Int? = nil
+
     NavigationStack {
         ScrollView {
             VStack(spacing: 0) {
@@ -296,10 +307,12 @@ struct UnitDivider: View {
                         Lesson.footballBasicsLesson2.id: 1,
                         Lesson.footballBasicsLesson3.id: 0
                     ],
-                    sport: .football
-                ) { lesson in
-                    print("Tapped lesson: \(lesson.title)")
-                }
+                    sport: .football,
+                    onLessonStart: { lesson in
+                        print("Tapped lesson: \(lesson.title)")
+                    },
+                    selectedLessonIndex: $selectedIndex
+                )
 
                 UnitDivider(unitNumber: 2, sport: .football)
 
@@ -316,6 +329,8 @@ struct UnitDivider: View {
 }
 
 #Preview("Different States") {
+    @Previewable @State var selectedIndex: Int? = nil
+
     ScrollView {
         VStack(spacing: 40) {
             Text("Lesson Path States")
@@ -350,8 +365,10 @@ struct UnitDivider: View {
                     Lesson.footballBasicsLesson1.id: 3,  // Complete
                     Lesson.footballBasicsLesson2.id: 1   // In progress
                 ],
-                sport: .football
-            ) { _ in }
+                sport: .football,
+                onLessonStart: { _ in },
+                selectedLessonIndex: $selectedIndex
+            )
         }
         .padding()
     }

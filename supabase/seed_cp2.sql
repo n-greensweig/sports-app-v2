@@ -1,7 +1,7 @@
 -- ============================================================================
 -- CP2 (Common Penalties 2) - Seed Data
 -- ============================================================================
--- CP2 is the EIGHTEENTH lesson (ORDER: 18)
+-- CP2 is the TWENTIETH lesson (ORDER: 20)
 -- CP2 covers: Holding and pass interference
 --
 -- Prerequisites: CP1 (penalty basics, false start, offside)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create CP2 Lesson (ORDER: 18)
+-- STEP 4: Create CP2 Lesson (ORDER: 20)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Common Penalties 2',
     'Learn about holding and pass interference - two of the most common penalties in football.',
-    18,
+    20,
     4,
     50,
     true,

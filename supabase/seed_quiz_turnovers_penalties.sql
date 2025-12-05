@@ -4,7 +4,7 @@
 -- This quiz comes after CP2 (lesson 18) and tests TO1-CP2
 -- Contains 10 questions about turnovers and penalties
 --
--- ORDER: 25
+-- ORDER: 21 (after CP2)
 -- Type: Quiz
 -- ============================================================================
 
@@ -63,7 +63,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create Rookie Turnovers & Penalties Quiz (ORDER: 25)
+-- STEP 4: Create Rookie Turnovers & Penalties Quiz (ORDER: 21)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -72,7 +72,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Rookie Turnovers & Penalties Quiz',
     'Test your knowledge of turnovers and common penalties!',
-    25,
+    21,
     5,
     75,
     true,

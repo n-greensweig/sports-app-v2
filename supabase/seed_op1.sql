@@ -1,7 +1,7 @@
 -- ============================================================================
 -- OP1 (Offensive Positions 1) - Seed Data
 -- ============================================================================
--- OP1 is the ELEVENTH lesson (ORDER: 11)
+-- OP1 is the TWELFTH lesson (ORDER: 12, after QZ1)
 -- OP1 covers: Quarterback (QB) and Running Back (RB)
 --
 -- Prerequisites: PT1, PT2 (run plays, pass plays)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create OP1 Lesson (ORDER: 11)
+-- STEP 4: Create OP1 Lesson (ORDER: 12)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Offensive Positions 1',
     'Meet the quarterback and running back - two key players on the offense.',
-    11,
+    12,
     4,
     50,
     true,

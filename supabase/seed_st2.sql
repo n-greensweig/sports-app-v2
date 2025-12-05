@@ -1,7 +1,7 @@
 -- ============================================================================
 -- ST2 (Special Teams 2) - Seed Data
 -- ============================================================================
--- ST2 is the TWENTY-SECOND lesson (ORDER: 22)
+-- ST2 is the TWENTY-FIFTH lesson (ORDER: 25)
 -- ST2 covers: Touchback, fair catch, field goal attempts
 --
 -- Prerequisites: ST1 (kickoff, punt)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create ST2 Lesson (ORDER: 22)
+-- STEP 4: Create ST2 Lesson (ORDER: 25)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Special Teams 2',
     'Learn about touchbacks and fair catches - ways to safely receive kicks.',
-    22,
+    25,
     4,
     50,
     true,

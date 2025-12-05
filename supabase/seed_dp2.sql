@@ -1,7 +1,7 @@
 -- ============================================================================
 -- DP2 (Defensive Positions 2) - Seed Data
 -- ============================================================================
--- DP2 is the FOURTEENTH lesson (ORDER: 14)
+-- DP2 is the FIFTEENTH lesson (ORDER: 15)
 -- DP2 covers: Cornerback and safety positions
 --
 -- Prerequisites: DP1 (defensive line, linebacker)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create DP2 Lesson (ORDER: 14)
+-- STEP 4: Create DP2 Lesson (ORDER: 15)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Defensive Positions 2',
     'Meet the cornerbacks and safeties - the defenders who stop passes and protect against big plays.',
-    14,
+    15,
     4,
     50,
     true,

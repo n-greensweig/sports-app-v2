@@ -1,7 +1,7 @@
 -- ============================================================================
 -- DP1 (Defensive Positions 1) - Seed Data
 -- ============================================================================
--- DP1 is the THIRTEENTH lesson (ORDER: 13)
+-- DP1 is the FOURTEENTH lesson (ORDER: 14)
 -- DP1 covers: Defensive line and linebacker positions
 --
 -- Prerequisites: OP1, OP2 (offensive positions)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create DP1 Lesson (ORDER: 13)
+-- STEP 4: Create DP1 Lesson (ORDER: 14)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Defensive Positions 1',
     'Learn about the defensive line and linebackers - the first defenders the offense must get past.',
-    13,
+    14,
     4,
     50,
     true,

@@ -4,7 +4,7 @@
 -- This quiz comes after PT2 (lesson 10) and tests lessons GB1-PT2
 -- Contains 10 questions pulled from previous lessons
 --
--- ORDER: 10.5 (between PT2 and OP1)
+-- ORDER: 11 (between PT2 and OP1)
 -- Type: Quiz (not a regular lesson)
 -- ============================================================================
 
@@ -63,8 +63,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create Rookie Foundations Quiz (ORDER: 23 - after ST2, but logically tests GB1-PT2)
--- NOTE: We place quizzes at order 23-27 to keep lesson order intact
+-- STEP 4: Create Rookie Foundations Quiz (ORDER: 11 - after PT2, tests GB1-PT2)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -73,7 +72,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Rookie Foundations Quiz',
     'Test your knowledge of football basics, the field, scoring, and downs!',
-    23,
+    11,
     5,
     75,
     true,

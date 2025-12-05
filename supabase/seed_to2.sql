@@ -1,7 +1,7 @@
 -- ============================================================================
 -- TO2 (Turnovers 2) - Seed Data
 -- ============================================================================
--- TO2 is the SIXTEENTH lesson (ORDER: 16)
+-- TO2 is the EIGHTEENTH lesson (ORDER: 18)
 -- TO2 covers: Forced fumble, fumble recovery, pick-six
 --
 -- Prerequisites: TO1 (interception, fumble, turnover)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create TO2 Lesson (ORDER: 16)
+-- STEP 4: Create TO2 Lesson (ORDER: 18)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Turnovers 2',
     'Learn about forced fumbles, fumble recoveries, and the exciting pick-six!',
-    16,
+    18,
     4,
     50,
     true,

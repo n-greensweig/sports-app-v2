@@ -1,7 +1,7 @@
 -- ============================================================================
 -- OP2 (Offensive Positions 2) - Seed Data
 -- ============================================================================
--- OP2 is the TWELFTH lesson (ORDER: 12)
+-- OP2 is the THIRTEENTH lesson (ORDER: 13)
 -- OP2 covers: Wide Receiver (WR), Tight End (TE), and basic blocking
 --
 -- Prerequisites: OP1 (quarterback, running back)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create OP2 Lesson (ORDER: 12)
+-- STEP 4: Create OP2 Lesson (ORDER: 13)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Offensive Positions 2',
     'Meet the wide receiver and tight end - players who catch passes and help the offense.',
-    12,
+    13,
     4,
     50,
     true,

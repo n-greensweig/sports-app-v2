@@ -1,7 +1,7 @@
 -- ============================================================================
 -- CP1 (Common Penalties 1) - Seed Data
 -- ============================================================================
--- CP1 is the SEVENTEENTH lesson (ORDER: 17)
+-- CP1 is the NINETEENTH lesson (ORDER: 19)
 -- CP1 covers: False start, offside, and the snap
 --
 -- Prerequisites: TF3, OP1, DP1 (line of scrimmage, positions)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create CP1 Lesson (ORDER: 17)
+-- STEP 4: Create CP1 Lesson (ORDER: 19)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Common Penalties 1',
     'Learn about penalties - when players break the rules and what happens next.',
-    17,
+    19,
     4,
     50,
     true,

@@ -1,7 +1,7 @@
 -- ============================================================================
 -- TO1 (Turnovers 1) - Seed Data
 -- ============================================================================
--- TO1 is the FIFTEENTH lesson (ORDER: 15)
+-- TO1 is the SEVENTEENTH lesson (ORDER: 17, after QZ2)
 -- TO1 covers: Interceptions and fumbles - the basic turnover concepts
 --
 -- Prerequisites: All position lessons (OP1, OP2, DP1, DP2)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create TO1 Lesson (ORDER: 15)
+-- STEP 4: Create TO1 Lesson (ORDER: 17)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Turnovers 1',
     'Learn about interceptions and fumbles - mistakes that give the ball to the other team.',
-    15,
+    17,
     4,
     50,
     true,

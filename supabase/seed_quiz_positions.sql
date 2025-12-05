@@ -4,7 +4,7 @@
 -- This quiz comes after DP2 (lesson 14) and tests positions lessons OP1-DP2
 -- Contains 10 questions about offensive and defensive positions
 --
--- ORDER: 24
+-- ORDER: 16 (after DP2)
 -- Type: Quiz
 -- ============================================================================
 
@@ -63,7 +63,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create Rookie Positions Quiz (ORDER: 24)
+-- STEP 4: Create Rookie Positions Quiz (ORDER: 16)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -72,7 +72,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Rookie Positions Quiz',
     'Test your knowledge of offensive and defensive positions!',
-    24,
+    16,
     5,
     75,
     true,

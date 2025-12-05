@@ -1,7 +1,7 @@
 -- ============================================================================
 -- GS2 (Game Structure 2) - Seed Data
 -- ============================================================================
--- GS2 is the TWENTIETH lesson (ORDER: 20)
+-- GS2 is the TWENTY-THIRD lesson (ORDER: 23)
 -- GS2 covers: Timeouts, two-minute warning, overtime
 --
 -- Prerequisites: GS1 (quarters, halftime, game clock)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create GS2 Lesson (ORDER: 20)
+-- STEP 4: Create GS2 Lesson (ORDER: 23)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Game Structure 2',
     'Learn about timeouts, the two-minute warning, and what happens when the game is tied.',
-    20,
+    23,
     4,
     50,
     true,

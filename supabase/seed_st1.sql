@@ -1,7 +1,7 @@
 -- ============================================================================
 -- ST1 (Special Teams 1) - Seed Data
 -- ============================================================================
--- ST1 is the TWENTY-FIRST lesson (ORDER: 21)
+-- ST1 is the TWENTY-FOURTH lesson (ORDER: 24)
 -- ST1 covers: Kickoff, punt, special teams basics
 --
 -- Prerequisites: SC2, GS1 (scoring, game structure)
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create ST1 Lesson (ORDER: 21)
+-- STEP 4: Create ST1 Lesson (ORDER: 24)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Special Teams 1',
     'Learn about kickoffs and punts - special plays that transfer possession of the ball.',
-    21,
+    24,
     4,
     50,
     true,

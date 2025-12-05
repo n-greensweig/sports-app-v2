@@ -1,7 +1,7 @@
 -- ============================================================================
 -- GS1 (Game Structure 1) - Seed Data
 -- ============================================================================
--- GS1 is the NINETEENTH lesson (ORDER: 19)
+-- GS1 is the TWENTY-SECOND lesson (ORDER: 22, after QZ3)
 -- GS1 covers: Quarters, halftime, game clock basics
 --
 -- Prerequisites: Basic scoring knowledge
@@ -68,7 +68,7 @@ ON CONFLICT (clerk_user_id) DO NOTHING;
 
 
 -- ============================================================================
--- STEP 4: Create GS1 Lesson (ORDER: 19)
+-- STEP 4: Create GS1 Lesson (ORDER: 22)
 -- ============================================================================
 
 INSERT INTO lessons (id, module_id, title, description, order_index, est_minutes, xp_award, is_locked, code, items_per_session, required_completions)
@@ -77,7 +77,7 @@ VALUES (
     '11111111-1111-1111-1111-111111111111',
     'Game Structure 1',
     'Learn how a football game is organized into quarters and halves.',
-    19,
+    22,
     4,
     50,
     true,

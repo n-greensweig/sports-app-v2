@@ -273,8 +273,8 @@ struct LessonPathView: View {
         "shield.lefthalf.filled",     // Defense
         "arrow.up.forward",           // Gaining yards / progression
         "clock.fill",                 // Game clock / timing
-        "whistle.fill",               // Referee / penalties
-        "sportscourt.fill",           // The field
+        "flag.fill",                  // Penalties / flags
+        "rectangle.split.3x3.fill",   // The field / grid
         "hand.raised.fill",           // Catching / fair catch
         "arrow.triangle.branch",      // Play routes / strategy
         "bolt.fill"                   // Speed / explosive plays

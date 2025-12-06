@@ -12,6 +12,7 @@ struct LessonPathView: View {
     let completions: [UUID: Int]  // lessonId -> completionCount
     let sport: Sport
     let onLessonStart: (Lesson) -> Void  // Called when user taps "Start" in popup
+    let onVisibleSectionChange: ((LessonSection) -> Void)?  // Called when visible section changes
 
     // Binding for popup state - allows parent to dismiss popup on background tap
     @Binding var selectedLessonIndex: Int?
@@ -20,6 +21,26 @@ struct LessonPathView: View {
     private let nodeSize: CGFloat = 64
     private let verticalSpacing: CGFloat = 24
     private let horizontalOffset: CGFloat = 80  // How far nodes swing left/right
+
+    // Track visible lessons for section detection
+    @State private var visibleLessonIndices: Set<Int> = []
+    @State private var currentSection: LessonSection?
+
+    init(
+        lessons: [Lesson],
+        completions: [UUID: Int],
+        sport: Sport,
+        onLessonStart: @escaping (Lesson) -> Void,
+        selectedLessonIndex: Binding<Int?>,
+        onVisibleSectionChange: ((LessonSection) -> Void)? = nil
+    ) {
+        self.lessons = lessons
+        self.completions = completions
+        self.sport = sport
+        self.onLessonStart = onLessonStart
+        self._selectedLessonIndex = selectedLessonIndex
+        self.onVisibleSectionChange = onVisibleSectionChange
+    }
 
     /// Determines if a lesson at a given index should be effectively locked
     /// A lesson is locked if the previous lesson hasn't been fully completed
@@ -54,9 +75,56 @@ struct LessonPathView: View {
         VStack(spacing: verticalSpacing) {
             ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
                 lessonRow(lesson: lesson, index: index)
+                    .background(
+                        GeometryReader { geo in
+                            Color.clear
+                                .preference(
+                                    key: VisibleLessonPreferenceKey.self,
+                                    value: [VisibleLesson(index: index, orderIndex: lesson.orderIndex, frame: geo.frame(in: .global))]
+                                )
+                        }
+                    )
             }
         }
         .padding(.vertical, .spacingM)
+        .onPreferenceChange(VisibleLessonPreferenceKey.self) { visibleLessons in
+            updateVisibleSection(from: visibleLessons)
+        }
+    }
+
+    /// Determine which section should be displayed based on visible lessons
+    private func updateVisibleSection(from visibleLessons: [VisibleLesson]) {
+        // Filter to lessons that are actually visible on screen (in upper portion)
+        let screenHeight = UIScreen.main.bounds.height
+        let visibleThreshold = screenHeight * 0.4 // Top 40% of screen determines section
+
+        let topVisibleLessons = visibleLessons.filter { lesson in
+            lesson.frame.midY < visibleThreshold && lesson.frame.maxY > 0
+        }
+
+        // Get the topmost visible lesson's order index
+        guard let topmostLesson = topVisibleLessons.min(by: { $0.frame.minY < $1.frame.minY }) else {
+            // If no lessons in top portion, use the first visible lesson overall
+            if let firstVisible = visibleLessons.min(by: { $0.frame.minY < $1.frame.minY }) {
+                if let section = LessonSection.section(for: firstVisible.orderIndex) {
+                    notifySectionChange(section)
+                }
+            }
+            return
+        }
+
+        // Find the section for this lesson
+        if let section = LessonSection.section(for: topmostLesson.orderIndex) {
+            notifySectionChange(section)
+        }
+    }
+
+    /// Notify parent of section change (with deduplication)
+    private func notifySectionChange(_ section: LessonSection) {
+        if currentSection?.id != section.id {
+            currentSection = section
+            onVisibleSectionChange?(section)
+        }
     }
 
     // MARK: - Lesson Row
@@ -221,12 +289,27 @@ struct LessonPathView: View {
 struct SectionHeader: View {
     let title: String
     let subtitle: String?
-    let sport: Sport
+    let color: Color
 
+    /// Initialize with explicit title, subtitle, and color
+    init(title: String, subtitle: String? = nil, color: Color) {
+        self.title = title
+        self.subtitle = subtitle
+        self.color = color
+    }
+
+    /// Convenience initializer using Sport (legacy support)
     init(title: String, subtitle: String? = nil, sport: Sport) {
         self.title = title
         self.subtitle = subtitle
-        self.sport = sport
+        self.color = sport.accentColor
+    }
+
+    /// Convenience initializer using LessonSection
+    init(section: LessonSection) {
+        self.title = section.title
+        self.subtitle = section.subtitle
+        self.color = section.color
     }
 
     var body: some View {
@@ -249,8 +332,8 @@ struct SectionHeader: View {
         .padding(.vertical, 4)
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(sport.accentColor)
-                .shadow(color: sport.accentColor.opacity(0.3), radius: 4, y: 2)
+                .fill(color)
+                .shadow(color: color.opacity(0.3), radius: 4, y: 2)
         )
         .padding(.horizontal, .spacingM)
     }
@@ -284,6 +367,21 @@ struct UnitDivider: View {
         }
         .padding(.horizontal, .spacingL)
         .padding(.vertical, .spacingM)
+    }
+}
+
+// MARK: - Visible Lesson Tracking
+private struct VisibleLesson: Equatable {
+    let index: Int
+    let orderIndex: Int
+    let frame: CGRect
+}
+
+private struct VisibleLessonPreferenceKey: PreferenceKey {
+    static var defaultValue: [VisibleLesson] = []
+
+    static func reduce(value: inout [VisibleLesson], nextValue: () -> [VisibleLesson]) {
+        value.append(contentsOf: nextValue())
     }
 }
 

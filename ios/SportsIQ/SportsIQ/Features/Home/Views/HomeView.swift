@@ -14,6 +14,7 @@ struct HomeView: View {
     @State private var showProfile = false
     @State private var showSportPicker = false
     @State private var selectedLessonNodeIndex: Int? = nil
+    @State private var currentSection: LessonSection = LessonSection.defaultSection
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
@@ -27,32 +28,44 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
-                // Main content
-                ScrollView {
-                    VStack(spacing: 0) {
-                        if viewModel.isLoading {
-                            ProgressView()
-                                .frame(maxWidth: .infinity)
-                                .padding(.spacingXL)
-                                .padding(.top, 100)
-                        } else {
-                            // Error Message
-                            if let errorMessage = viewModel.errorMessage {
-                                errorView(message: errorMessage)
-                                    .padding(.spacingM)
-                            }
-
-                            // Lesson Path
-                            lessonPathSection
-                        }
+                // Main layout with sticky header
+                VStack(spacing: 0) {
+                    // Sticky Section Header - always visible below nav bar
+                    if viewModel.selectedSport != nil {
+                        SectionHeader(section: currentSection)
+                            .padding(.top, .spacingS)
+                            .padding(.bottom, .spacingS)
+                            .background(Color(UIColor.systemBackground))
+                            .animation(.easeInOut(duration: 0.25), value: currentSection.id)
                     }
-                    .contentShape(Rectangle()) // Make entire scroll area tappable
-                }
-                .onTapGesture {
-                    // Dismiss popup when tapping anywhere outside the nodes
-                    if selectedLessonNodeIndex != nil {
-                        withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
-                            selectedLessonNodeIndex = nil
+
+                    // Scrollable content
+                    ScrollView {
+                        VStack(spacing: 0) {
+                            if viewModel.isLoading {
+                                ProgressView()
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.spacingXL)
+                                    .padding(.top, 100)
+                            } else {
+                                // Error Message
+                                if let errorMessage = viewModel.errorMessage {
+                                    errorView(message: errorMessage)
+                                        .padding(.spacingM)
+                                }
+
+                                // Lesson Path (without the header, which is now sticky)
+                                lessonPathContent
+                            }
+                        }
+                        .contentShape(Rectangle()) // Make entire scroll area tappable
+                    }
+                    .onTapGesture {
+                        // Dismiss popup when tapping anywhere outside the nodes
+                        if selectedLessonNodeIndex != nil {
+                            withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                selectedLessonNodeIndex = nil
+                            }
                         }
                     }
                 }
@@ -167,38 +180,35 @@ struct HomeView: View {
         .cornerRadius(.radiusL)
     }
 
-    // MARK: - Lesson Path Section
+    // MARK: - Lesson Path Content (scrollable area below sticky header)
     @ViewBuilder
-    private var lessonPathSection: some View {
+    private var lessonPathContent: some View {
         if let sport = viewModel.selectedSport {
-            VStack(spacing: 0) {
-                // Section Header
-                SectionHeader(
-                    title: sport.name,
-                    subtitle: "Section 1, Unit 1",
-                    sport: sport
+            if viewModel.isLoadingLessons {
+                ProgressView()
+                    .frame(maxWidth: .infinity)
+                    .padding(.spacingXL)
+            } else if viewModel.lessons.isEmpty {
+                emptyLessonsView(sport: sport)
+                    .padding(.spacingM)
+            } else {
+                // Duolingo-style lesson path with popup
+                LessonPathView(
+                    lessons: viewModel.lessons,
+                    completions: viewModel.lessonCompletions,
+                    sport: sport,
+                    onLessonStart: { lesson in
+                        selectedLesson = lesson
+                    },
+                    selectedLessonIndex: $selectedLessonNodeIndex,
+                    onVisibleSectionChange: { section in
+                        // Update section with haptic feedback
+                        if currentSection.id != section.id {
+                            currentSection = section
+                            HapticManager.shared.playSectionChangeFeedback()
+                        }
+                    }
                 )
-                .padding(.top, .spacingM)
-
-                if viewModel.isLoadingLessons {
-                    ProgressView()
-                        .frame(maxWidth: .infinity)
-                        .padding(.spacingXL)
-                } else if viewModel.lessons.isEmpty {
-                    emptyLessonsView(sport: sport)
-                        .padding(.spacingM)
-                } else {
-                    // Duolingo-style lesson path with popup
-                    LessonPathView(
-                        lessons: viewModel.lessons,
-                        completions: viewModel.lessonCompletions,
-                        sport: sport,
-                        onLessonStart: { lesson in
-                            selectedLesson = lesson
-                        },
-                        selectedLessonIndex: $selectedLessonNodeIndex
-                    )
-                }
             }
         }
     }

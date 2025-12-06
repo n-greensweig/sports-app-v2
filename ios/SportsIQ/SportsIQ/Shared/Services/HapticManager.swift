@@ -61,6 +61,12 @@ class HapticManager {
         generator.impactOccurred()
     }
 
+    /// Soft haptic for section/banner changes while scrolling
+    func playSectionChangeFeedback() {
+        let generator = UIImpactFeedbackGenerator(style: .soft)
+        generator.impactOccurred(intensity: 0.6)
+    }
+
     // MARK: - Custom Haptic Patterns
 
     func playLevelUpPattern() {

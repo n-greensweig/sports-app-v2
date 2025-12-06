@@ -15,6 +15,7 @@ struct HomeView: View {
     @State private var showSportPicker = false
     @State private var selectedLessonNodeIndex: Int? = nil
     @State private var currentSection: LessonSection = LessonSection.defaultSection
+    @State private var scrollProgress: CGFloat = 0.0
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
@@ -59,6 +60,31 @@ struct HomeView: View {
                             }
                         }
                         .contentShape(Rectangle()) // Make entire scroll area tappable
+                        .background(
+                            GeometryReader { geo in
+                                Color.clear
+                                    .preference(
+                                        key: ScrollOffsetPreferenceKey.self,
+                                        value: geo.frame(in: .named("scroll")).minY
+                                    )
+                            }
+                        )
+                    }
+                    .coordinateSpace(name: "scroll")
+                    .onPreferenceChange(ScrollOffsetPreferenceKey.self) { offset in
+                        // Calculate scroll progress based on content height
+                        let lessonCount = CGFloat(viewModel.lessons.count)
+                        guard lessonCount > 0 else { return }
+
+                        // Estimate total scrollable height
+                        let rowHeight: CGFloat = 94 + 24 // nodeSize + 30 + verticalSpacing
+                        let totalHeight = lessonCount * rowHeight
+                        let screenHeight = UIScreen.main.bounds.height
+
+                        // Progress: 0 at top, 1 when fully scrolled
+                        let maxScroll = max(1, totalHeight - screenHeight + 200)
+                        let currentScroll = -offset
+                        scrollProgress = min(1, max(0, currentScroll / maxScroll))
                     }
                     .onTapGesture {
                         // Dismiss popup when tapping anywhere outside the nodes
@@ -207,7 +233,8 @@ struct HomeView: View {
                             currentSection = section
                             HapticManager.shared.playSectionChangeFeedback()
                         }
-                    }
+                    },
+                    scrollProgress: scrollProgress
                 )
             }
         }
@@ -232,6 +259,15 @@ struct HomeView: View {
         .padding(.spacingXL)
         .background(Color.backgroundSecondary)
         .cornerRadius(.radiusL)
+    }
+}
+
+// MARK: - Scroll Offset Preference Key
+private struct ScrollOffsetPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = nextValue()
     }
 }
 

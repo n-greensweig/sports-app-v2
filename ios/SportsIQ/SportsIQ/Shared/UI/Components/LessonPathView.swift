@@ -17,6 +17,9 @@ struct LessonPathView: View {
     // Binding for popup state - allows parent to dismiss popup on background tap
     @Binding var selectedLessonIndex: Int?
 
+    // Scroll progress for yard line animation (0.0 = top, 1.0 = bottom)
+    let scrollProgress: CGFloat
+
     // Path configuration
     private let nodeSize: CGFloat = 64
     private let verticalSpacing: CGFloat = 24
@@ -32,7 +35,8 @@ struct LessonPathView: View {
         sport: Sport,
         onLessonStart: @escaping (Lesson) -> Void,
         selectedLessonIndex: Binding<Int?>,
-        onVisibleSectionChange: ((LessonSection) -> Void)? = nil
+        onVisibleSectionChange: ((LessonSection) -> Void)? = nil,
+        scrollProgress: CGFloat = 0.0
     ) {
         self.lessons = lessons
         self.completions = completions
@@ -40,6 +44,7 @@ struct LessonPathView: View {
         self.onLessonStart = onLessonStart
         self._selectedLessonIndex = selectedLessonIndex
         self.onVisibleSectionChange = onVisibleSectionChange
+        self.scrollProgress = scrollProgress
     }
 
     /// Determines if a lesson at a given index should be effectively locked
@@ -72,24 +77,92 @@ struct LessonPathView: View {
     }
 
     var body: some View {
-        VStack(spacing: verticalSpacing) {
-            ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
-                lessonRow(lesson: lesson, index: index)
-                    .background(
-                        GeometryReader { geo in
-                            Color.clear
-                                .preference(
-                                    key: VisibleLessonPreferenceKey.self,
-                                    value: [VisibleLesson(index: index, orderIndex: lesson.orderIndex, frame: geo.frame(in: .global))]
-                                )
-                        }
-                    )
+        GeometryReader { geometry in
+            let containerWidth = geometry.size.width
+
+            ZStack(alignment: .top) {
+                // Yard line path (background layer)
+                YardLinePath(
+                    nodePositions: calculateNodePositions(containerWidth: containerWidth),
+                    lessonOrderIndices: lessons.map { $0.orderIndex },
+                    scrollProgress: scrollProgress,
+                    totalLessons: lessons.count
+                )
+
+                // Lesson nodes (foreground layer)
+                VStack(spacing: verticalSpacing) {
+                    ForEach(Array(lessons.enumerated()), id: \.element.id) { index, lesson in
+                        lessonRow(lesson: lesson, index: index)
+                            .background(
+                                GeometryReader { geo in
+                                    Color.clear
+                                        .preference(
+                                            key: VisibleLessonPreferenceKey.self,
+                                            value: [VisibleLesson(index: index, orderIndex: lesson.orderIndex, frame: geo.frame(in: .global))]
+                                        )
+                                }
+                            )
+                    }
+                }
+                .padding(.vertical, .spacingM)
             }
         }
-        .padding(.vertical, .spacingM)
+        .frame(height: calculateTotalHeight())
         .onPreferenceChange(VisibleLessonPreferenceKey.self) { visibleLessons in
             updateVisibleSection(from: visibleLessons)
         }
+    }
+
+    // MARK: - Node Position Calculations
+
+    /// Calculates edge positions for the dashed path connecting lesson nodes
+    /// Returns alternating bottom-edge and top-edge points so the path connects
+    /// from the bottom of one node to the top of the next
+    private func calculateNodePositions(containerWidth: CGFloat) -> [CGPoint] {
+        guard lessons.count >= 2 else { return [] }
+
+        let centerX = containerWidth / 2
+        let nodeRadius = nodeSize / 2
+        var pathPoints: [CGPoint] = []
+
+        for index in 0..<(lessons.count - 1) {
+            let currentPosition = pathPosition(for: index)
+            let nextPosition = pathPosition(for: index + 1)
+
+            let currentXOffset = horizontalOffset(for: currentPosition)
+            let nextXOffset = horizontalOffset(for: nextPosition)
+
+            // Row height is nodeSize + 30 (from lessonRow frame)
+            let rowHeight = nodeSize + 30
+
+            // Current node center Y
+            let currentCenterY = CGFloat.spacingM + CGFloat(index) * (rowHeight + verticalSpacing) + (rowHeight / 2)
+            // Next node center Y
+            let nextCenterY = CGFloat.spacingM + CGFloat(index + 1) * (rowHeight + verticalSpacing) + (rowHeight / 2)
+
+            // Bottom edge of current node
+            let bottomEdgeY = currentCenterY + nodeRadius
+            // Top edge of next node
+            let topEdgeY = nextCenterY - nodeRadius
+
+            // Add bottom edge of current node
+            pathPoints.append(CGPoint(x: centerX + currentXOffset, y: bottomEdgeY))
+            // Add top edge of next node
+            pathPoints.append(CGPoint(x: centerX + nextXOffset, y: topEdgeY))
+        }
+
+        return pathPoints
+    }
+
+    /// Calculates the total height needed for the view
+    private func calculateTotalHeight() -> CGFloat {
+        guard !lessons.isEmpty else { return 100 }
+
+        let rowHeight = nodeSize + 30
+        let totalRows = CGFloat(lessons.count)
+        let totalSpacing = CGFloat(lessons.count - 1) * verticalSpacing
+
+        return (totalRows * rowHeight) + totalSpacing + (.spacingM * 2)
     }
 
     /// Determine which section should be displayed based on visible lessons
@@ -386,43 +459,56 @@ private struct VisibleLessonPreferenceKey: PreferenceKey {
 }
 
 // MARK: - Preview
-#Preview("Lesson Path") {
+#Preview("Lesson Path with Yard Line") {
     @Previewable @State var selectedIndex: Int? = nil
+    @Previewable @State var scrollProgress: CGFloat = 0.5
 
-    NavigationStack {
-        ScrollView {
-            VStack(spacing: 0) {
-                SectionHeader(
-                    title: "The Field",
-                    subtitle: "Section 1, Unit 1",
-                    sport: .football
-                )
+    VStack {
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 0) {
+                    SectionHeader(
+                        title: "The Field",
+                        subtitle: "Section 1, Unit 1",
+                        sport: .football
+                    )
 
-                LessonPathView(
-                    lessons: Lesson.mockLessons,
-                    completions: [
-                        Lesson.footballBasicsLesson1.id: 2,
-                        Lesson.footballBasicsLesson2.id: 1,
-                        Lesson.footballBasicsLesson3.id: 0
-                    ],
-                    sport: .football,
-                    onLessonStart: { lesson in
-                        print("Tapped lesson: \(lesson.title)")
-                    },
-                    selectedLessonIndex: $selectedIndex
-                )
+                    LessonPathView(
+                        lessons: Lesson.mockLessons,
+                        completions: [
+                            Lesson.footballBasicsLesson1.id: 2,
+                            Lesson.footballBasicsLesson2.id: 1,
+                            Lesson.footballBasicsLesson3.id: 0
+                        ],
+                        sport: .football,
+                        onLessonStart: { lesson in
+                            print("Tapped lesson: \(lesson.title)")
+                        },
+                        selectedLessonIndex: $selectedIndex,
+                        scrollProgress: scrollProgress
+                    )
 
-                UnitDivider(unitNumber: 2, sport: .football)
+                    UnitDivider(unitNumber: 2, sport: .football)
 
-                SectionHeader(
-                    title: "Scoring",
-                    subtitle: "Section 1, Unit 2",
-                    sport: .football
-                )
+                    SectionHeader(
+                        title: "Scoring",
+                        subtitle: "Section 1, Unit 2",
+                        sport: .football
+                    )
+                }
             }
+            .navigationTitle("Home")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("Home")
-        .navigationBarTitleDisplayMode(.inline)
+
+        // Scroll progress slider for testing
+        VStack {
+            Slider(value: $scrollProgress, in: 0...1)
+            Text("Progress: \(Int(scrollProgress * 100))%")
+                .font(.caption)
+        }
+        .padding()
+        .background(Color.gray.opacity(0.1))
     }
 }
 
@@ -465,7 +551,8 @@ private struct VisibleLessonPreferenceKey: PreferenceKey {
                 ],
                 sport: .football,
                 onLessonStart: { _ in },
-                selectedLessonIndex: $selectedIndex
+                selectedLessonIndex: $selectedIndex,
+                scrollProgress: 1.0  // Show full path for states preview
             )
         }
         .padding()

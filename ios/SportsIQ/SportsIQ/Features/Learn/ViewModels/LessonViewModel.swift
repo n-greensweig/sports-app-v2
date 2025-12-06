@@ -285,7 +285,10 @@ class LessonViewModel {
             }
         }
 
-        // Submit to repository
+        // Show feedback immediately (before async network call)
+        showFeedback = true
+
+        // Submit to repository in background (don't block UI)
         do {
             let submission = try await learningRepository.submitAnswer(
                 userId: userId,
@@ -298,8 +301,6 @@ class LessonViewModel {
         } catch {
             print("Error submitting answer: \(error)")
         }
-
-        showFeedback = true
     }
 
     private func checkAnswer(userAnswer: UserAnswer, correctAnswer: ItemAnswer) -> Bool {

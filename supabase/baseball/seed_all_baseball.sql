@@ -1,0 +1,106 @@
+-- ============================================================================
+-- Baseball Complete Seed - Master File
+-- ============================================================================
+-- This file includes all Baseball Rookie section content in the correct order.
+-- Run this single file to seed all baseball content at once.
+--
+-- Contents:
+-- 1. Baseball Sport & Rookie Module
+-- 2. GB1 - Game Basics 1 (9 questions)
+-- 3. TF1 - The Field 1 (9 questions)
+-- 4. TF2 - The Field 2 (9 questions)
+-- 5. SC1 - Scoring 1 (9 questions)
+-- 6. AB1 - At Bats 1 (9 questions)
+-- 7. AB2 - At Bats 2 (9 questions)
+-- 8. PO1 - Positions 1 (9 questions)
+-- 9. PO2 - Positions 2 (9 questions)
+-- 10. PL1 - Plays 1 (9 questions)
+-- 11. PL2 - Plays 2 (9 questions)
+-- 12. Rookie Foundations Quiz (15 questions)
+--
+-- Total: 10 lessons + 1 quiz = 11 learning units
+-- Total Questions: 105 questions
+-- ============================================================================
+
+-- ============================================================================
+-- Run individual seed files in order using psql:
+--
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_baseball_sport.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_gb1.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_tf1.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_tf2.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_sc1.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_ab1.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_ab2.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_po1.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_po2.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_pl1.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_pl2.sql
+-- psql -h YOUR_HOST -d YOUR_DB -U postgres -f supabase/baseball/seed_quiz_foundations.sql
+--
+-- Or run them all using the Supabase SQL Editor by copying each file's contents
+-- ============================================================================
+
+-- ============================================================================
+-- QUICK REFERENCE: Baseball IDs
+-- ============================================================================
+-- Sport ID:     02ba5eba-1100-0000-0000-000000000000
+-- Module ID:    22222222-2222-2222-2222-222222222222 (Rookie)
+-- System User:  00000000-0000-0000-0000-000000000000
+--
+-- Lesson IDs:
+-- GB1:  00000002-0000-0000-0000-000000000001
+-- TF1:  00000002-0000-0000-0000-000000000002
+-- TF2:  00000002-0000-0000-0000-000000000003
+-- SC1:  00000002-0000-0000-0000-000000000004
+-- AB1:  00000002-0000-0000-0000-000000000005
+-- AB2:  00000002-0000-0000-0000-000000000006
+-- PO1:  00000002-0000-0000-0000-000000000007
+-- PO2:  00000002-0000-0000-0000-000000000008
+-- PL1:  00000002-0000-0000-0000-000000000009
+-- PL2:  00000002-0000-0000-0000-00000000000a
+-- Quiz: 00000002-0000-0000-0000-00000000000b
+-- ============================================================================
+
+-- ============================================================================
+-- LESSON DEPENDENCY CHAIN (Visual):
+-- ============================================================================
+-- GB1 (What is baseball?)
+--   ↓
+-- TF1 (The diamond, bases)
+--   ↓
+-- TF2 (Foul lines, pitcher's mound)
+--   ↓
+-- SC1 (Runs, home runs, RBIs)
+--   ↓
+-- AB1 (Strikes, balls, count)
+--   ↓
+-- AB2 (Types of hits, batting order)
+--   ↓
+-- PO1 (Pitcher, catcher, infielders)
+--   ↓
+-- PO2 (Outfielders, DH)
+--   ↓
+-- PL1 (Force outs, tag outs, fly outs)
+--   ↓
+-- PL2 (Double plays, stealing bases)
+--   ↓
+-- Rookie Foundations Quiz
+-- ============================================================================
+
+-- ============================================================================
+-- CONCEPTS INTRODUCED PER LESSON:
+-- ============================================================================
+-- GB1: inning, batting team, fielding team, run, out, top/bottom of inning
+-- TF1: diamond, bases, first/second/third base, home plate, infield, outfield
+-- TF2: foul lines, fair/foul territory, pitcher's mound, batter's box, dugout
+-- SC1: run (detailed), RBI, home run, grand slam
+-- AB1: strike, ball, count, strikeout, walk, full count, strike zone
+-- AB2: single, double, triple, batting order, lineup, leadoff hitter
+-- PO1: pitcher, catcher, battery, first/second/third baseman, shortstop
+-- PO2: left/center/right fielder, designated hitter (DH)
+-- PL1: force out, tag out, fly out, ground out, pop fly, line drive, tag up
+-- PL2: double play, stolen base, caught stealing, pickoff, triple play
+-- ============================================================================
+
+SELECT 'Baseball Rookie Section Ready for Seeding!' as status;

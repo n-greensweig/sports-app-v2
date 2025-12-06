@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+// MARK: - Shake Effect for Incorrect Answers
+struct ShakeEffect: GeometryEffect {
+    var amount: CGFloat = 6
+    var shakesPerUnit: CGFloat = 3
+    var animatableData: CGFloat
+
+    func effectValue(size: CGSize) -> ProjectionTransform {
+        ProjectionTransform(CGAffineTransform(
+            translationX: amount * sin(animatableData * .pi * shakesPerUnit),
+            y: 0
+        ))
+    }
+}
+
 struct LessonView: View {
     let lesson: Lesson
     let sport: Sport
@@ -129,11 +143,16 @@ struct LessonView: View {
                             // Feedback
                             if viewModel.showFeedback {
                                 FeedbackCard(isCorrect: viewModel.isCurrentAnswerCorrect)
+                                    .transition(.asymmetric(
+                                        insertion: .move(edge: .bottom).combined(with: .opacity),
+                                        removal: .opacity
+                                    ))
                             }
 
                             Spacer()
                         }
                         .padding(.spacingM)
+                        .animation(.spring(response: 0.35, dampingFraction: 0.8), value: viewModel.showFeedback)
                     }
 
                     // Bottom Action Button
@@ -149,6 +168,10 @@ struct LessonView: View {
                                 color: sport.accentColor
                             )
                             .padding(.spacingM)
+                            .transition(.asymmetric(
+                                insertion: .scale(scale: 0.9).combined(with: .opacity),
+                                removal: .opacity
+                            ))
                         } else {
                             PrimaryButton(
                                 title: "Check Answer",
@@ -161,8 +184,10 @@ struct LessonView: View {
                                 isEnabled: viewModel.hasAnswer && !viewModel.isSubmitting
                             )
                             .padding(.spacingM)
+                            .transition(.opacity)
                         }
                     }
+                    .animation(.spring(response: 0.3, dampingFraction: 0.8), value: viewModel.showFeedback)
                 } else {
                     Spacer()
                 }
@@ -246,6 +271,12 @@ struct AnswerOptionButton: View {
     let feedbackState: AnswerFeedbackState?
     let action: () -> Void
 
+    // Animation states
+    @State private var bounceValue: CGFloat = 0
+    @State private var shakeValue: CGFloat = 0
+    @State private var showSparkle = false
+    @State private var pulseOpacity: Double = 1.0
+
     private var backgroundColor: Color {
         guard let state = feedbackState else {
             return isSelected ? .brandPrimary.opacity(0.1) : .backgroundSecondary
@@ -301,6 +332,15 @@ struct AnswerOptionButton: View {
                 if let icon = trailingIcon {
                     Image(systemName: icon.name)
                         .foregroundStyle(icon.color)
+                        .scaleEffect(feedbackState == .correct ? 1.0 + bounceValue * 0.3 : 1.0)
+                        .animation(.spring(response: 0.2, dampingFraction: 0.4), value: bounceValue)
+                        .overlay {
+                            // Sparkle effect for correct answers
+                            if showSparkle {
+                                SparkleView(color: .correct)
+                                    .allowsHitTesting(false)
+                            }
+                        }
                 }
             }
             .padding(.spacingM)
@@ -309,10 +349,45 @@ struct AnswerOptionButton: View {
             .cornerRadius(.radiusM)
             .overlay(
                 RoundedRectangle(cornerRadius: .radiusM)
-                    .stroke(borderColor, lineWidth: 2)
+                    .stroke(borderColor, lineWidth: feedbackState == .correctAnswer ? 3 : 2)
+                    .opacity(feedbackState == .correctAnswer ? pulseOpacity : 1.0)
             )
         }
         .buttonStyle(.plain)
+        .modifier(ShakeEffect(animatableData: shakeValue))
+        .onChange(of: feedbackState) { _, newValue in
+            guard let state = newValue else { return }
+            switch state {
+            case .correct:
+                // Immediate bounce + sparkle
+                bounceValue = 1.0
+                showSparkle = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    bounceValue = 0
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    showSparkle = false
+                }
+            case .incorrect:
+                // Immediate shake
+                shakeValue = 1
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    shakeValue = 0
+                }
+            case .correctAnswer:
+                // Pulse the correct answer
+                withAnimation(.easeInOut(duration: 0.3).repeatCount(2, autoreverses: true)) {
+                    pulseOpacity = 0.4
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                    pulseOpacity = 1.0
+                }
+            case .neutral:
+                break
+            }
+        }
+        .animation(.spring(response: 0.2, dampingFraction: 0.4), value: bounceValue)
+        .animation(.linear(duration: 0.4), value: shakeValue)
     }
 }
 
@@ -322,6 +397,11 @@ struct MultiSelectOptionButton: View {
     let isSelected: Bool
     let isCorrect: Bool?
     let action: () -> Void
+
+    // Animation states
+    @State private var bounceValue: CGFloat = 0
+    @State private var shakeValue: CGFloat = 0
+    @State private var showSparkle = false
 
     private var backgroundColor: Color {
         if let isCorrect = isCorrect {
@@ -335,6 +415,16 @@ struct MultiSelectOptionButton: View {
             return isCorrect ? .correct : .incorrect
         }
         return isSelected ? .brandPrimary : .clear
+    }
+
+    // Determine if this option was a correct selection by the user
+    private var isCorrectSelection: Bool {
+        isSelected && isCorrect == true
+    }
+
+    // Determine if this option was an incorrect selection by the user
+    private var isIncorrectSelection: Bool {
+        isSelected && isCorrect == false
     }
 
     var body: some View {
@@ -363,6 +453,15 @@ struct MultiSelectOptionButton: View {
                 if let isCorrect = isCorrect {
                     Image(systemName: isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
                         .foregroundStyle(isCorrect ? Color.correct : Color.incorrect)
+                        .scaleEffect(isCorrectSelection ? 1.0 + bounceValue * 0.3 : 1.0)
+                        .animation(.spring(response: 0.2, dampingFraction: 0.4), value: bounceValue)
+                        .overlay {
+                            // Sparkle effect for correct selections
+                            if showSparkle && isCorrectSelection {
+                                SparkleView(color: .correct)
+                                    .allowsHitTesting(false)
+                            }
+                        }
                 }
             }
             .padding(.spacingM)
@@ -375,6 +474,29 @@ struct MultiSelectOptionButton: View {
             )
         }
         .buttonStyle(.plain)
+        .modifier(ShakeEffect(animatableData: shakeValue))
+        .onChange(of: isCorrect) { _, newValue in
+            guard newValue != nil else { return }
+            if isCorrectSelection {
+                // Immediate bounce + sparkle
+                bounceValue = 1.0
+                showSparkle = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    bounceValue = 0
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    showSparkle = false
+                }
+            } else if isIncorrectSelection {
+                // Immediate shake
+                shakeValue = 1
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    shakeValue = 0
+                }
+            }
+        }
+        .animation(.spring(response: 0.2, dampingFraction: 0.4), value: bounceValue)
+        .animation(.linear(duration: 0.4), value: shakeValue)
     }
 }
 

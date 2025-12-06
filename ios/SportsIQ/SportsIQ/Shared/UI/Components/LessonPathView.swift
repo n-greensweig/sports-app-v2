@@ -179,7 +179,7 @@ struct LessonPathView: View {
         guard let topmostLesson = topVisibleLessons.min(by: { $0.frame.minY < $1.frame.minY }) else {
             // If no lessons in top portion, use the first visible lesson overall
             if let firstVisible = visibleLessons.min(by: { $0.frame.minY < $1.frame.minY }) {
-                if let section = LessonSection.section(for: firstVisible.orderIndex) {
+                if let section = LessonSection.section(for: firstVisible.orderIndex, sportSlug: sport.slug) {
                     notifySectionChange(section)
                 }
             }
@@ -187,7 +187,7 @@ struct LessonPathView: View {
         }
 
         // Find the section for this lesson
-        if let section = LessonSection.section(for: topmostLesson.orderIndex) {
+        if let section = LessonSection.section(for: topmostLesson.orderIndex, sportSlug: sport.slug) {
             notifySectionChange(section)
         }
     }
@@ -337,8 +337,8 @@ struct LessonPathView: View {
         }
     }
 
-    // MARK: - Lesson Icons (Football-themed)
-    private static let lessonIcons = [
+    // MARK: - Lesson Icons (Sport-specific)
+    private static let footballIcons = [
         "football.fill",              // American football
         "figure.american.football",   // Football player in action
         "trophy.fill",                // Championships/winning
@@ -353,8 +353,41 @@ struct LessonPathView: View {
         "bolt.fill"                   // Speed / explosive plays
     ]
 
+    private static let baseballIcons = [
+        "baseball.fill",              // Baseball
+        "figure.baseball",            // Batter in action
+        "trophy.fill",                // Championships/winning
+        "star.fill",                  // Star plays / standout moments
+        "hand.raised.fill",           // Catching
+        "arrow.up.forward",           // Running bases / progression
+        "clock.fill",                 // Game timing / innings
+        "diamond.fill",               // Diamond / field shape
+        "target",                     // Strike zone / accuracy
+        "bolt.fill",                  // Speed / fastball
+        "flag.fill",                  // Home run / foul poles
+        "sportscourt.fill"            // The field / stadium
+    ]
+
+    private static let defaultIcons = [
+        "star.fill",
+        "trophy.fill",
+        "bolt.fill",
+        "flag.fill",
+        "target",
+        "clock.fill"
+    ]
+
     private func lessonIcon(for index: Int) -> String {
-        Self.lessonIcons[index % Self.lessonIcons.count]
+        let icons: [String]
+        switch sport.slug {
+        case "football":
+            icons = Self.footballIcons
+        case "baseball":
+            icons = Self.baseballIcons
+        default:
+            icons = Self.defaultIcons
+        }
+        return icons[index % icons.count]
     }
 }
 

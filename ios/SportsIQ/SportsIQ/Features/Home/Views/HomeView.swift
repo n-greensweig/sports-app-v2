@@ -168,6 +168,16 @@ struct HomeView: View {
             }
             .task {
                 await viewModel.loadData()
+                // Set initial section based on selected sport
+                if let sport = viewModel.selectedSport {
+                    currentSection = LessonSection.defaultSection(forSport: sport.slug)
+                }
+            }
+            .onChange(of: viewModel.selectedSport?.slug) { _, newSlug in
+                // Update section when sport changes
+                if let slug = newSlug {
+                    currentSection = LessonSection.defaultSection(forSport: slug)
+                }
             }
             .navigationDestination(item: $selectedLesson) { lesson in
                 if let sport = viewModel.selectedSport {

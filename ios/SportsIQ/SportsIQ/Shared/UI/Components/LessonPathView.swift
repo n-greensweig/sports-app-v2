@@ -79,9 +79,19 @@ struct LessonPathView: View {
     var body: some View {
         GeometryReader { geometry in
             let containerWidth = geometry.size.width
+            let totalHeight = calculateTotalHeight()
 
             ZStack(alignment: .top) {
-                // Yard line path (background layer)
+                // Football field background (bottommost layer) - only for football
+                if sport.slug == "football" {
+                    FootballFieldBackground(
+                        totalHeight: totalHeight,
+                        scrollOffset: -scrollProgress * totalHeight * 0.5,
+                        sportColor: sport.accentColor
+                    )
+                }
+
+                // Yard line path (middle layer)
                 YardLinePath(
                     nodePositions: calculateNodePositions(containerWidth: containerWidth),
                     lessonOrderIndices: lessons.map { $0.orderIndex },

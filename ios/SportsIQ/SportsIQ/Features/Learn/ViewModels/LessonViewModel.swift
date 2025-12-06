@@ -12,7 +12,9 @@ class LessonViewModel {
     // MARK: - Dependencies
     private let lesson: Lesson
     private let userId: UUID
+    private let sportId: UUID
     private let learningRepository: LearningRepository
+    private let userRepository: UserRepository
     private let audioManager: AudioManager
     private let hapticManager: HapticManager
 
@@ -50,6 +52,11 @@ class LessonViewModel {
     // MARK: - Submission State
     var isSubmitting = false // Prevents rapid double-clicks on Check Answer
 
+    // MARK: - Streak Tracking
+    var updatedStreak: Streak?
+    var streakMilestoneReached: StreakMilestone?
+    private var previousStreakCount: Int = 0
+
     var totalUniqueItems: Int {
         lessonItems.count
     }
@@ -86,21 +93,27 @@ class LessonViewModel {
     /// - Parameters:
     ///   - lesson: The lesson to present
     ///   - userId: The current user's ID
+    ///   - sportId: The sport ID for streak tracking
     ///   - previouslySeenItemIds: IDs of items the user has seen in previous sessions
     ///   - learningRepository: Repository for submitting answers
+    ///   - userRepository: Repository for user/streak operations
     ///   - audioManager: Audio feedback manager
     ///   - hapticManager: Haptic feedback manager
     init(
         lesson: Lesson,
         userId: UUID,
+        sportId: UUID,
         previouslySeenItemIds: Set<UUID> = [],
         learningRepository: LearningRepository,
+        userRepository: UserRepository,
         audioManager: AudioManager,
         hapticManager: HapticManager
     ) {
         self.lesson = lesson
         self.userId = userId
+        self.sportId = sportId
         self.learningRepository = learningRepository
+        self.userRepository = userRepository
         self.audioManager = audioManager
         self.hapticManager = hapticManager
 
@@ -122,15 +135,19 @@ class LessonViewModel {
     convenience init(
         lesson: Lesson,
         userId: UUID,
+        sportId: UUID,
         learningRepository: LearningRepository,
+        userRepository: UserRepository,
         audioManager: AudioManager,
         hapticManager: HapticManager
     ) {
         self.init(
             lesson: lesson,
             userId: userId,
+            sportId: sportId,
             previouslySeenItemIds: [],
             learningRepository: learningRepository,
+            userRepository: userRepository,
             audioManager: audioManager,
             hapticManager: hapticManager
         )
@@ -342,8 +359,35 @@ class LessonViewModel {
                 score: totalXPEarned
             )
             print("✅ Lesson completed successfully")
+
+            // Update streak after lesson completion
+            await updateStreakAfterCompletion()
         } catch {
             print("❌ Error completing lesson: \(error)")
+        }
+    }
+
+    @MainActor
+    private func updateStreakAfterCompletion() async {
+        do {
+            // Get previous streak to compare
+            let previousStreak = try await userRepository.getStreak(userId: userId, sportId: sportId)
+            previousStreakCount = previousStreak?.currentStreak ?? 0
+
+            // Update streak
+            let newStreak = try await userRepository.updateStreak(userId: userId, sportId: sportId)
+            updatedStreak = newStreak
+
+            // Check for milestone (only if streak actually increased)
+            if newStreak.isMilestone && previousStreakCount < newStreak.currentStreak {
+                streakMilestoneReached = newStreak.milestoneType
+                hapticManager.playStreakPattern()
+                audioManager.playStreakSound()
+            }
+
+            print("✅ Streak updated: \(newStreak.currentStreak) days")
+        } catch {
+            print("❌ Error updating streak: \(error)")
         }
     }
 

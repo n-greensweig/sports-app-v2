@@ -21,6 +21,9 @@ struct StreakDTO: Codable {
 
     /// Convert DTO to Domain entity
     func toDomain() throws -> Streak {
+        guard let uuid = UUID(uuidString: id) else {
+            throw DTOConversionError.invalidUUID(field: "id", value: id)
+        }
         guard let userUuid = UUID(uuidString: user_id) else {
             throw DTOConversionError.invalidUUID(field: "user_id", value: user_id)
         }
@@ -36,15 +39,13 @@ struct StreakDTO: Codable {
         }
 
         return Streak(
+            id: uuid,
             userId: userUuid,
             sportId: sportUuid,
             currentStreak: current_days,
             longestStreak: longest_days,
-            lastActivityDate: lastCheckinDate
+            lastActivityDate: lastCheckinDate,
+            freezeDaysAvailable: freeze_days_available
         )
     }
 }
-
-// Note: Streak domain entity is defined in XPEvent.swift with different structure
-// The existing Streak doesn't have id or freezeDaysAvailable fields
-// toDTO() method not implemented yet - will be added when domain model is updated to match database schema

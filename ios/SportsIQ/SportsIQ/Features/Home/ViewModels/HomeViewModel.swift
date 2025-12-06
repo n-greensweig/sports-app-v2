@@ -20,7 +20,9 @@ class HomeViewModel {
     var lessons: [Lesson] = []
     var lessonCompletions: [UUID: Int] = [:]  // lessonId -> completionCount
     var userProgress: UserProgress?
+    var currentStreak: Streak?
     var isLoading = false
+    var isLoadingStreak = false
     var isLoadingLessons = false
     var errorMessage: String?
 
@@ -55,9 +57,13 @@ class HomeViewModel {
                 selectedSport = firstSport
             }
 
-            // Load user progress and lessons for selected sport
+            // Load user progress, streak, and lessons for selected sport
             if let sport = selectedSport {
                 userProgress = try await userRepository.getUserProgress(
+                    userId: userId,
+                    sportId: sport.id
+                )
+                currentStreak = try await userRepository.getStreak(
                     userId: userId,
                     sportId: sport.id
                 )
@@ -79,9 +85,13 @@ class HomeViewModel {
         // Save to UserDefaults
         UserDefaults.standard.set(sport.id.uuidString, forKey: Self.lastSelectedSportIdKey)
 
-        // Load progress and lessons for newly selected sport
+        // Load progress, streak, and lessons for newly selected sport
         do {
             userProgress = try await userRepository.getUserProgress(
+                userId: userId,
+                sportId: sport.id
+            )
+            currentStreak = try await userRepository.getStreak(
                 userId: userId,
                 sportId: sport.id
             )

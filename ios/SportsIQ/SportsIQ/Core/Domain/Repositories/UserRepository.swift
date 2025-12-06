@@ -23,4 +23,13 @@ protocol UserRepository {
 
     /// Update user progress
     func updateUserProgress(_ progress: UserProgress) async throws -> UserProgress
+
+    // MARK: - Streak Management
+
+    /// Get user's streak for a specific sport
+    func getStreak(userId: UUID, sportId: UUID) async throws -> Streak?
+
+    /// Update user's streak after completing a lesson
+    /// - Returns: The updated streak (creates one if it doesn't exist)
+    func updateStreak(userId: UUID, sportId: UUID) async throws -> Streak
 }

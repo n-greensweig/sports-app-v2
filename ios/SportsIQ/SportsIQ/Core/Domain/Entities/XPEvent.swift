@@ -45,13 +45,79 @@ struct XPEvent: Identifiable, Codable {
     let relatedItemId: UUID? // Lesson, Module, etc.
 }
 
+/// Celebration intensity levels for milestones
+enum CelebrationIntensity {
+    case low
+    case medium
+    case high
+    case extreme
+
+    var particleCount: Int {
+        switch self {
+        case .low: return 30
+        case .medium: return 50
+        case .high: return 80
+        case .extreme: return 120
+        }
+    }
+}
+
+/// Streak milestone thresholds
+enum StreakMilestone: Int, CaseIterable {
+    case fiveDays = 5
+    case oneWeek = 7
+    case twoWeeks = 14
+    case oneMonth = 30
+    case fiftyDays = 50
+    case hundredDays = 100
+    case oneYear = 365
+
+    var title: String {
+        switch self {
+        case .fiveDays: return "5 Day Streak!"
+        case .oneWeek: return "1 Week Streak!"
+        case .twoWeeks: return "2 Week Streak!"
+        case .oneMonth: return "1 Month Streak!"
+        case .fiftyDays: return "50 Day Streak!"
+        case .hundredDays: return "100 Day Streak!"
+        case .oneYear: return "1 Year Streak!"
+        }
+    }
+
+    var celebrationMessage: String {
+        switch self {
+        case .fiveDays: return "You're building a great habit!"
+        case .oneWeek: return "A full week of learning!"
+        case .twoWeeks: return "Two weeks strong!"
+        case .oneMonth: return "Incredible dedication!"
+        case .fiftyDays: return "You're unstoppable!"
+        case .hundredDays: return "Triple digits - legendary!"
+        case .oneYear: return "A whole year - you're a true champion!"
+        }
+    }
+
+    var celebrationIntensity: CelebrationIntensity {
+        switch self {
+        case .fiveDays: return .low
+        case .oneWeek: return .medium
+        case .twoWeeks: return .medium
+        case .oneMonth: return .high
+        case .fiftyDays: return .high
+        case .hundredDays: return .extreme
+        case .oneYear: return .extreme
+        }
+    }
+}
+
 /// Streak tracking
-struct Streak: Codable {
+struct Streak: Codable, Identifiable {
+    let id: UUID
     let userId: UUID
     let sportId: UUID
-    let currentStreak: Int
-    let longestStreak: Int
-    let lastActivityDate: Date
+    var currentStreak: Int
+    var longestStreak: Int
+    var lastActivityDate: Date
+    var freezeDaysAvailable: Int
 
     func isActiveToday() -> Bool {
         Calendar.current.isDateInToday(lastActivityDate) ||
@@ -60,6 +126,16 @@ struct Streak: Codable {
 
     func shouldIncrementStreak() -> Bool {
         Calendar.current.isDateInYesterday(lastActivityDate)
+    }
+
+    /// Check if current streak is a milestone
+    var isMilestone: Bool {
+        StreakMilestone.allCases.map(\.rawValue).contains(currentStreak)
+    }
+
+    /// Get the milestone type if current streak is a milestone
+    var milestoneType: StreakMilestone? {
+        StreakMilestone(rawValue: currentStreak)
     }
 }
 
@@ -111,10 +187,12 @@ extension DailyGoal {
 
 extension Streak {
     static let mockStreak = Streak(
+        id: UUID(),
         userId: UUID(),
         sportId: Sport.football.id,
         currentStreak: 7,
         longestStreak: 14,
-        lastActivityDate: Date()
+        lastActivityDate: Date(),
+        freezeDaysAvailable: 0
     )
 }

@@ -35,7 +35,9 @@ struct LessonView: View {
         self._viewModel = State(initialValue: LessonViewModel(
             lesson: lesson,
             userId: coordinator.currentUser?.id ?? UUID(),
+            sportId: sport.id,
             learningRepository: coordinator.learningRepository,
+            userRepository: coordinator.userRepository,
             audioManager: coordinator.audioManager,
             hapticManager: coordinator.hapticManager
         ))
@@ -200,6 +202,8 @@ struct LessonView: View {
                 lesson: lesson,
                 accuracyPercentage: viewModel.accuracyPercentage,
                 xpEarned: viewModel.totalXPEarned,
+                currentStreak: viewModel.updatedStreak?.currentStreak ?? 0,
+                streakMilestone: viewModel.streakMilestoneReached,
                 onDismiss: {
                     Task {
                         await viewModel.completeLesson()

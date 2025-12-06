@@ -250,6 +250,172 @@ final class SupabaseUserRepository: UserRepository {
         print("🗑️ Invalidated progress cache for user: \(userId), sport: \(sportId)")
     }
 
+    // MARK: - Streak Management
+
+    func getStreak(userId: UUID, sportId: UUID) async throws -> Streak? {
+        #if DEBUG
+        print("🔄 SupabaseUserRepository.getStreak(user: \(userId), sport: \(sportId))")
+        #endif
+
+        return try await executeWithRetry { () -> Streak? in
+            let response = try await self.client
+                .from("streaks")
+                .select()
+                .eq("user_id", value: userId.uuidString)
+                .eq("sport_id", value: sportId.uuidString)
+                .limit(1)
+                .execute()
+
+            let dtos: [StreakDTO] = try self.decode(response.data, as: [StreakDTO].self)
+
+            guard let dto = dtos.first else {
+                #if DEBUG
+                print("❌ No streak found")
+                #endif
+                return nil
+            }
+
+            let streak = try dto.toDomain()
+            #if DEBUG
+            print("✅ Streak fetched: \(streak.currentStreak) days")
+            #endif
+            return streak
+        }
+    }
+
+    func updateStreak(userId: UUID, sportId: UUID) async throws -> Streak {
+        #if DEBUG
+        print("🔄 SupabaseUserRepository.updateStreak(user: \(userId), sport: \(sportId))")
+        #endif
+
+        let existing = try await getStreak(userId: userId, sportId: sportId)
+        let today = Calendar.current.startOfDay(for: Date())
+
+        if let streak = existing {
+            let lastActivity = Calendar.current.startOfDay(for: streak.lastActivityDate)
+
+            if lastActivity == today {
+                // Already logged today, return unchanged
+                #if DEBUG
+                print("✅ Already logged today, streak unchanged: \(streak.currentStreak)")
+                #endif
+                return streak
+            } else if Calendar.current.isDateInYesterday(streak.lastActivityDate) {
+                // Consecutive day - increment
+                return try await incrementStreak(streak)
+            } else {
+                // Streak broken - reset
+                #if DEBUG
+                print("⚠️ Streak broken, resetting to 1")
+                #endif
+                return try await resetStreak(streak)
+            }
+        } else {
+            // First time - create streak
+            return try await createStreak(userId: userId, sportId: sportId)
+        }
+    }
+
+    private func createStreak(userId: UUID, sportId: UUID) async throws -> Streak {
+        #if DEBUG
+        print("🔄 Creating new streak for user: \(userId)")
+        #endif
+
+        let payload = StreakInsertPayload(
+            user_id: userId.uuidString,
+            sport_id: sportId.uuidString,
+            current_days: 1,
+            longest_days: 1,
+            last_checkin_date: formatDate(Date()),
+            freeze_days_available: 0
+        )
+
+        let response = try await client
+            .from("streaks")
+            .insert(payload)
+            .select()
+            .limit(1)
+            .execute()
+
+        let dtos: [StreakDTO] = try decode(response.data, as: [StreakDTO].self)
+        guard let dto = dtos.first else {
+            throw NetworkError.noData
+        }
+
+        let streak = try dto.toDomain()
+        #if DEBUG
+        print("✅ Created new streak with 1 day")
+        #endif
+        return streak
+    }
+
+    private func incrementStreak(_ streak: Streak) async throws -> Streak {
+        let newCurrentDays = streak.currentStreak + 1
+        let newLongestDays = max(streak.longestStreak, newCurrentDays)
+
+        #if DEBUG
+        print("🔄 Incrementing streak from \(streak.currentStreak) to \(newCurrentDays)")
+        #endif
+
+        let payload = StreakUpdatePayload(
+            current_days: newCurrentDays,
+            longest_days: newLongestDays,
+            last_checkin_date: formatDate(Date())
+        )
+
+        let response = try await client
+            .from("streaks")
+            .update(payload)
+            .eq("id", value: streak.id.uuidString)
+            .select()
+            .limit(1)
+            .execute()
+
+        let dtos: [StreakDTO] = try decode(response.data, as: [StreakDTO].self)
+        guard let dto = dtos.first else {
+            throw NetworkError.noData
+        }
+
+        let updatedStreak = try dto.toDomain()
+        #if DEBUG
+        print("✅ Streak incremented to \(newCurrentDays) days")
+        #endif
+        return updatedStreak
+    }
+
+    private func resetStreak(_ streak: Streak) async throws -> Streak {
+        let payload = StreakUpdatePayload(
+            current_days: 1,
+            longest_days: streak.longestStreak,
+            last_checkin_date: formatDate(Date())
+        )
+
+        let response = try await client
+            .from("streaks")
+            .update(payload)
+            .eq("id", value: streak.id.uuidString)
+            .select()
+            .limit(1)
+            .execute()
+
+        let dtos: [StreakDTO] = try decode(response.data, as: [StreakDTO].self)
+        guard let dto = dtos.first else {
+            throw NetworkError.noData
+        }
+
+        let updatedStreak = try dto.toDomain()
+        #if DEBUG
+        print("⚠️ Streak reset to 1 day (was broken)")
+        #endif
+        return updatedStreak
+    }
+
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: date)
+    }
+
     // MARK: - Networking Helpers
 
     private func executeWithRetry<T>(_ operation: @escaping () async throws -> T) async throws -> T {
@@ -310,4 +476,21 @@ private extension NSLock {
         defer { unlock() }
         return block()
     }
+}
+
+// MARK: - Streak Payload Types
+
+private struct StreakInsertPayload: Encodable {
+    let user_id: String
+    let sport_id: String
+    let current_days: Int
+    let longest_days: Int
+    let last_checkin_date: String
+    let freeze_days_available: Int
+}
+
+private struct StreakUpdatePayload: Encodable {
+    let current_days: Int
+    let longest_days: Int
+    let last_checkin_date: String
 }

@@ -14,6 +14,10 @@ import SwiftUI
 struct OlaBallApp: App {
     @State private var appCoordinator: AppCoordinator
     @State private var supabaseService = SupabaseService.shared
+    @Environment(\.scenePhase) private var scenePhase
+
+    // Keep a reference to userRepository for streak checks
+    private let userRepository: SupabaseUserRepository
 
     init() {
         // Print configuration in debug mode
@@ -22,14 +26,16 @@ struct OlaBallApp: App {
         #endif
 
         // Initialize repositories
-        let userRepository = SupabaseUserRepository()
-        let learningRepository = SupabaseLearningRepository(userRepository: userRepository)
+        let userRepo = SupabaseUserRepository()
+        let learningRepository = SupabaseLearningRepository(userRepository: userRepo)
         let gameRepository = SupabaseGameRepository()
+
+        self.userRepository = userRepo
 
         // Initialize app coordinator
         self._appCoordinator = State(initialValue: AppCoordinator(
             learningRepository: learningRepository,
-            userRepository: userRepository,
+            userRepository: userRepo,
             gameRepository: gameRepository
         ))
     }
@@ -41,6 +47,49 @@ struct OlaBallApp: App {
                 .onOpenURL { url in
                     handleIncomingURL(url)
                 }
+                .onChange(of: scenePhase) { _, newPhase in
+                    handleScenePhaseChange(newPhase)
+                }
+        }
+    }
+
+    private func handleScenePhaseChange(_ phase: ScenePhase) {
+        switch phase {
+        case .active:
+            // User opened app - cancel any pending reminder
+            NotificationManager.shared.cancelStreakReminder()
+
+        case .background:
+            // User left app - schedule reminder if needed
+            Task {
+                await scheduleStreakReminderIfNeeded()
+            }
+
+        case .inactive:
+            break
+
+        @unknown default:
+            break
+        }
+    }
+
+    private func scheduleStreakReminderIfNeeded() async {
+        guard let user = appCoordinator.currentUser else { return }
+
+        // Football sport ID
+        let footballId = UUID(uuidString: "0105433b-5bdd-4093-b6b1-157a0c3c515e")!
+
+        do {
+            if let streak = try await userRepository.getStreak(userId: user.id, sportId: footballId) {
+                // Only schedule if they haven't practiced today
+                if !Calendar.current.isDateInToday(streak.lastActivityDate) {
+                    NotificationManager.shared.scheduleStreakReminder(currentStreak: streak.currentStreak)
+                }
+            }
+        } catch {
+            #if DEBUG
+            print("Error checking streak for notification: \(error)")
+            #endif
         }
     }
 }

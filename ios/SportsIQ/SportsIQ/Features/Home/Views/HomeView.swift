@@ -55,6 +55,16 @@ struct HomeView: View {
                                         .padding(.spacingM)
                                 }
 
+                                // Streak Card (only show if streak > 0)
+                                if let streak = viewModel.currentStreak, streak.currentStreak > 0 {
+                                    StreakCard(
+                                        currentStreak: streak.currentStreak,
+                                        longestStreak: streak.longestStreak
+                                    )
+                                    .padding(.horizontal, .spacingM)
+                                    .padding(.bottom, .spacingM)
+                                }
+
                                 // Lesson Path (without the header, which is now sticky)
                                 lessonPathContent
                             }

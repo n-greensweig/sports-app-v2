@@ -1,6 +1,6 @@
 # SportsIQ
 
-**Learn sports like a pro — Duolingo for sports fans**
+**Learn sports like a pro — the ultimate sports education app**
 
 <p align="center">
   <em>From novice to expert, Ola Ball helps you understand the game you love.</em>
@@ -283,7 +283,7 @@ For questions or feedback:
 ## Acknowledgments
 
 Inspired by:
-- Duolingo's proven learning mechanics
+- Proven spaced repetition learning mechanics
 - The passion of sports fans at all levels
 - The desire to make sports knowledge accessible to everyone
 

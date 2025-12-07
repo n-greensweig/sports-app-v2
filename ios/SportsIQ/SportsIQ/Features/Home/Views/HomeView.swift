@@ -238,7 +238,7 @@ struct HomeView: View {
                 emptyLessonsView(sport: sport)
                     .padding(.spacingM)
             } else {
-                // Duolingo-style lesson path with popup
+                // Gamified lesson path with popup
                 LessonPathView(
                     lessons: viewModel.lessons,
                     completions: viewModel.lessonCompletions,

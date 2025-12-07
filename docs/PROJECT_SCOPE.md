@@ -23,7 +23,7 @@
 
 ## Executive Summary
 
-**SportsIQ** (alternative names: Strategize, StrategEyes) is a sports education platform that combines the proven learning mechanics of Duolingo with real-time sports knowledge acquisition. The app serves users across all skill levels—from complete novices to advanced fans—helping them deepen their understanding of sports while watching live games or practicing independently.
+**SportsIQ** (alternative names: Strategize, StrategEyes) is a sports education platform that combines proven spaced repetition learning mechanics with real-time sports knowledge acquisition. The app serves users across all skill levels—from complete novices to advanced fans—helping them deepen their understanding of sports while watching live games or practicing independently.
 
 ### Key Differentiators
 
@@ -119,7 +119,7 @@ An app that meets users at their level with:
 ## Core Features
 
 ### 1. Learn Mode (Practice)
-**Duolingo-style structured lessons**
+**Gamified structured lessons**
 
 - **Modules**: Thematic groupings (e.g., "Offensive Formations", "Defensive Coverages")
 - **Lessons**: 5-minute sessions with 6-8 questions

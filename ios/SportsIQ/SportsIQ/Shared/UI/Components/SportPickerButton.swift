@@ -2,7 +2,7 @@
 //  SportPickerButton.swift
 //  Ola Ball
 //
-//  A Duolingo-style sport picker that shows the current sport emoji in the toolbar.
+//  A sport picker that shows the current sport emoji in the toolbar.
 //  Tapping it reveals a horizontal row of available sports below the nav bar.
 //
 
@@ -76,7 +76,7 @@ struct SportPickerIcon: View {
     var body: some View {
         Button(action: onTap) {
             VStack(spacing: 6) {
-                // Icon container (like Duolingo's flag rounded rectangles)
+                // Icon container with rounded rectangle style
                 ZStack {
                     RoundedRectangle(cornerRadius: 14)
                         .fill(sport.accentColor.opacity(0.12))

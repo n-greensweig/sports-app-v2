@@ -2,7 +2,7 @@
 //  LessonProgressRing.swift
 //  Ola Ball
 //
-//  A Duolingo-style circular lesson button with progress ring segments
+//  A circular lesson button with progress ring segments
 //
 
 import SwiftUI
@@ -187,7 +187,7 @@ struct LessonProgressRing: View {
                 endPoint: .bottom
             )
         } else {
-            // Available but NOT started and NOT current lesson (0 completions) - GRAY like Duolingo
+            // Available but NOT started and NOT current lesson (0 completions) - GRAY
             return LinearGradient(
                 colors: [Color.backgroundTertiary.opacity(0.9), Color.backgroundTertiary.opacity(0.7)],
                 startPoint: .top,
@@ -313,7 +313,7 @@ struct LessonButtonStyle: ButtonStyle {
 #Preview("Lesson Progress Ring States") {
     ScrollView {
         VStack(spacing: 40) {
-            Text("Duolingo-Style Lesson Nodes")
+            Text("Lesson Node States")
                 .font(.headline)
 
             // Row 1: Progress states

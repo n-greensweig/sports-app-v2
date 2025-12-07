@@ -2,7 +2,7 @@
 //  LessonStartPopup.swift
 //  Ola Ball
 //
-//  Duolingo-style popup that appears when tapping a lesson node
+//  Popup that appears when tapping a lesson node
 //
 
 import SwiftUI

@@ -9,7 +9,7 @@
 
 ## Quick Project Summary
 
-**SportsIQ** is a Duolingo-style sports education app that helps fans of all levels learn about sports through:
+**SportsIQ** is a gamified sports education app that helps fans of all levels learn about sports through:
 - Structured bite-sized lessons (≤5 minutes)
 - Real-time prompts during live games
 - Spaced repetition for retention

@@ -2,7 +2,7 @@
 //  LessonPathView.swift
 //  Ola Ball
 //
-//  A Duolingo-style winding path of lesson nodes
+//  A winding path of lesson nodes with progress tracking
 //
 
 import SwiftUI
@@ -455,7 +455,7 @@ struct SectionHeader: View {
     }
 }
 
-// MARK: - Unit Divider (like treasure chest in Duolingo)
+// MARK: - Unit Divider
 struct UnitDivider: View {
     let unitNumber: Int
     let sport: Sport

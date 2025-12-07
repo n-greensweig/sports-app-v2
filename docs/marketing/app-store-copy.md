@@ -6,7 +6,7 @@ This document contains all marketing copy for the App Store listing.
 **SportsIQ**
 
 ## Subtitle (30 characters max)
-**Learn Sports Like Duolingo**
+**Master Sports Knowledge**
 
 Alternative options:
 - `Master Sports Knowledge` (23 chars)
@@ -131,7 +131,7 @@ sports,football,learn,education,quiz,trivia,gamification,nfl,training,knowledge,
 sports education,football learning,sports quiz,nfl trivia,gamified learning,sports knowledge,fan
 
 **Option 3** (100 chars):
-sports,football,nfl,learn,education,quiz,trivia,game,knowledge,training,fan,study,duolingo,gamify
+sports,football,nfl,learn,education,quiz,trivia,game,knowledge,training,fan,study,lessons,gamify
 
 ## What's New (Version 1.0)
 

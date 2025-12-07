@@ -82,4 +82,67 @@ class MockLearningRepository: LearningRepository {
         // Return all tracked completions (mock doesn't filter by sport)
         return lessonCompletionCounts
     }
+
+    // MARK: - Test-Out Methods
+
+    private var testOutAttempts: [TestOutAttempt] = []
+
+    func getTestOut(moduleId: UUID) async throws -> TestOut? {
+        try await Task.sleep(nanoseconds: 300_000_000)
+        // Mock: Return test-out for Rookie module
+        if moduleId == Module.rookie.id {
+            return TestOut.rookieTestOut
+        }
+        return nil
+    }
+
+    func getTestOutEligibility(userId: UUID, moduleId: UUID) async throws -> TestOutEligibility {
+        try await Task.sleep(nanoseconds: 300_000_000)
+
+        // Check if already passed
+        if testOutAttempts.contains(where: { $0.moduleId == moduleId && $0.passed }) {
+            return .alreadyPassed
+        }
+
+        // Count recent attempts (last 24h)
+        let recentAttempts = testOutAttempts.filter {
+            $0.moduleId == moduleId &&
+            $0.attemptedAt > Date().addingTimeInterval(-24 * 60 * 60)
+        }
+
+        if recentAttempts.count >= 2 {
+            let cooldownEnds = recentAttempts.first!.attemptedAt.addingTimeInterval(24 * 60 * 60)
+            return .inCooldown(until: cooldownEnds)
+        }
+
+        return TestOutEligibility(
+            canAttempt: true,
+            attemptsRemaining: 2 - recentAttempts.count,
+            cooldownEndsAt: nil,
+            hasPassed: false
+        )
+    }
+
+    func getTestOutItems(moduleId: UUID) async throws -> [Item] {
+        try await Task.sleep(nanoseconds: 500_000_000)
+        // Return mock items from the first lesson for testing
+        return Array(Lesson.theField1.items.prefix(25))
+    }
+
+    func submitTestOutAttempt(userId: UUID, moduleId: UUID, score: Int, totalQuestions: Int) async throws -> TestOutAttempt {
+        try await Task.sleep(nanoseconds: 300_000_000)
+
+        let passed = score >= 20 // 20/25 to pass
+        let attempt = TestOutAttempt(
+            id: UUID(),
+            userId: userId,
+            moduleId: moduleId,
+            score: score,
+            passed: passed,
+            attemptedAt: Date()
+        )
+
+        testOutAttempts.append(attempt)
+        return attempt
+    }
 }

@@ -467,7 +467,237 @@ final class SupabaseLearningRepository: LearningRepository {
         print("✅ Found \(completions.count) lesson completions")
         return completions
     }
-    
+
+    // MARK: - Test-Out Methods
+
+    func getTestOut(moduleId: UUID) async throws -> TestOut? {
+        let response = try await executeWithRetry {
+            try await self.client
+                .from("module_test_outs")
+                .select()
+                .eq("module_id", value: moduleId.uuidString)
+                .eq("is_active", value: true)
+                .limit(1)
+                .execute()
+        }
+
+        let dtos: [TestOutDTO] = try decode(response.data, as: [TestOutDTO].self)
+        guard let dto = dtos.first else { return nil }
+        return try dto.toDomain()
+    }
+
+    func getTestOutEligibility(userId: UUID, moduleId: UUID) async throws -> TestOutEligibility {
+        // 1. Check if user has already passed
+        let passedResponse = try await client
+            .from("user_test_out_attempts")
+            .select()
+            .eq("user_id", value: userId.uuidString)
+            .eq("module_id", value: moduleId.uuidString)
+            .eq("passed", value: true)
+            .limit(1)
+            .execute()
+
+        let passedAttempts: [TestOutAttemptDTO] = try decode(passedResponse.data, as: [TestOutAttemptDTO].self)
+        if !passedAttempts.isEmpty {
+            return TestOutEligibility(
+                canAttempt: false,
+                attemptsRemaining: 0,
+                cooldownEndsAt: nil,
+                hasPassed: true
+            )
+        }
+
+        // 2. Count attempts in last 24 hours
+        let twentyFourHoursAgo = Date().addingTimeInterval(-24 * 60 * 60)
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        let cutoffString = formatter.string(from: twentyFourHoursAgo)
+
+        let recentResponse = try await client
+            .from("user_test_out_attempts")
+            .select()
+            .eq("user_id", value: userId.uuidString)
+            .eq("module_id", value: moduleId.uuidString)
+            .gte("attempted_at", value: cutoffString)
+            .order("attempted_at", ascending: true)
+            .execute()
+
+        let recentAttempts: [TestOutAttemptDTO] = try decode(recentResponse.data, as: [TestOutAttemptDTO].self)
+
+        if recentAttempts.count >= 2 {
+            // User has used both attempts - calculate when cooldown ends
+            // Cooldown ends 24h after the FIRST of the two attempts
+            if let firstAttempt = recentAttempts.first,
+               let firstAttemptDate = formatter.date(from: firstAttempt.attempted_at) {
+                let cooldownEndsAt = firstAttemptDate.addingTimeInterval(24 * 60 * 60)
+                return TestOutEligibility(
+                    canAttempt: false,
+                    attemptsRemaining: 0,
+                    cooldownEndsAt: cooldownEndsAt,
+                    hasPassed: false
+                )
+            }
+        }
+
+        return TestOutEligibility(
+            canAttempt: true,
+            attemptsRemaining: 2 - recentAttempts.count,
+            cooldownEndsAt: nil,
+            hasPassed: false
+        )
+    }
+
+    func getTestOutItems(moduleId: UUID) async throws -> [Item] {
+        // Fetch item IDs linked to this module's test-out
+        let response = try await client
+            .from("test_out_items")
+            .select("item_id")
+            .eq("module_id", value: moduleId.uuidString)
+            .order("order_index", ascending: true)
+            .execute()
+
+        struct TestOutItemRow: Decodable {
+            let item_id: String
+        }
+        let rows: [TestOutItemRow] = try decode(response.data, as: [TestOutItemRow].self)
+        let itemIds = rows.compactMap { UUID(uuidString: $0.item_id) }
+
+        guard !itemIds.isEmpty else { return [] }
+
+        // Fetch the actual items
+        let itemsResponse = try await client
+            .from("items")
+            .select()
+            .in("id", values: itemIds.map { $0.uuidString })
+            .execute()
+
+        let itemDTOs: [ItemDTO] = try decode(itemsResponse.data, as: [ItemDTO].self)
+        let variantMap = try await fetchActiveVariants(forItemIds: itemIds)
+
+        // Convert to domain items, preserving the order from test_out_items
+        var itemMap: [UUID: Item] = [:]
+        for (index, dto) in itemDTOs.enumerated() {
+            let variant = variantMap[dto.id]
+            let item = try dto.toDomain(variant: variant, orderIndex: index)
+            itemMap[item.id] = item
+        }
+
+        // Return items in the order specified by test_out_items
+        return itemIds.compactMap { itemMap[$0] }
+    }
+
+    func submitTestOutAttempt(userId: UUID, moduleId: UUID, score: Int, totalQuestions: Int) async throws -> TestOutAttempt {
+        // Get test-out config to determine passing threshold
+        guard let testOut = try await getTestOut(moduleId: moduleId) else {
+            throw NetworkError.notFound
+        }
+
+        let passed = score >= testOut.passingScore
+        let nowString = ISO8601DateFormatter().string(from: Date())
+
+        // Insert the attempt
+        struct AttemptInsertPayload: Encodable {
+            let user_id: String
+            let module_id: String
+            let score: Int
+            let passed: Bool
+            let attempted_at: String
+        }
+
+        let payload = AttemptInsertPayload(
+            user_id: userId.uuidString,
+            module_id: moduleId.uuidString,
+            score: score,
+            passed: passed,
+            attempted_at: nowString
+        )
+
+        let response = try await executeWithRetry {
+            try await self.client
+                .from("user_test_out_attempts")
+                .insert([payload])
+                .select()
+                .limit(1)
+                .execute()
+        }
+
+        let attemptDTOs: [TestOutAttemptDTO] = try decode(response.data, as: [TestOutAttemptDTO].self)
+        guard let attemptDTO = attemptDTOs.first else {
+            throw NetworkError.noData
+        }
+
+        let attempt = try attemptDTO.toDomain()
+
+        // If passed, unlock all lessons in the NEXT module
+        if passed {
+            try await unlockNextModuleViaTestOut(currentModuleId: moduleId)
+
+            // Also award XP for passing the test-out
+            let sportId = try await resolveSportId(forModule: moduleId)
+            let xpAward = score * 10 // 10 XP per correct answer
+            try await logXPEvent(userId: userId, sportId: sportId, amount: xpAward, source: "lesson")
+        }
+
+        return attempt
+    }
+
+    /// Unlocks all lessons in the next module after a successful test-out
+    private func unlockNextModuleViaTestOut(currentModuleId: UUID) async throws {
+        // Get the current module's order index
+        let currentModuleResponse = try await client
+            .from("modules")
+            .select("order_index, sport_id")
+            .eq("id", value: currentModuleId.uuidString)
+            .limit(1)
+            .execute()
+
+        struct ModuleOrderRow: Decodable {
+            let order_index: Int
+            let sport_id: String
+        }
+        let moduleRows: [ModuleOrderRow] = try decode(currentModuleResponse.data, as: [ModuleOrderRow].self)
+        guard let currentModule = moduleRows.first else {
+            throw NetworkError.notFound
+        }
+
+        // Find the next module
+        let nextModuleResponse = try await client
+            .from("modules")
+            .select("id")
+            .eq("sport_id", value: currentModule.sport_id)
+            .eq("order_index", value: currentModule.order_index + 1)
+            .limit(1)
+            .execute()
+
+        struct NextModuleRow: Decodable {
+            let id: String
+        }
+        let nextModuleRows: [NextModuleRow] = try decode(nextModuleResponse.data, as: [NextModuleRow].self)
+        guard let nextModule = nextModuleRows.first else {
+            print("⚠️ No next module found to unlock (already at last module)")
+            return
+        }
+
+        // Unlock ALL lessons in the next module
+        _ = try await executeWithRetry {
+            try await self.client
+                .from("lessons")
+                .update(["is_locked": false])
+                .eq("module_id", value: nextModule.id)
+                .execute()
+        }
+
+        print("✅ Unlocked all lessons in next module: \(nextModule.id)")
+
+        // Clear caches so UI reflects the unlocked state
+        if let nextModuleUUID = UUID(uuidString: nextModule.id) {
+            cacheLock.withLock {
+                lessonsByModule.removeValue(forKey: nextModuleUUID)
+                modulesCache.removeAll() // Clear module cache to show updated lock state
+            }
+        }
+    }
+
     // MARK: - Lesson Completion Types
 
     private struct LessonCompletionUpdatePayload: Encodable {

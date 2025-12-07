@@ -13,6 +13,7 @@ struct HomeView: View {
     @State private var selectedLesson: Lesson?
     @State private var showProfile = false
     @State private var showSportPicker = false
+    @State private var showModulePicker = false
     @State private var selectedLessonNodeIndex: Int? = nil
     @State private var currentSection: LessonSection = LessonSection.defaultSection
     @State private var scrollProgress: CGFloat = 0.0
@@ -62,6 +63,22 @@ struct HomeView: View {
                                         longestStreak: streak.longestStreak
                                     )
                                     .padding(.horizontal, .spacingM)
+                                    .padding(.bottom, .spacingM)
+                                }
+
+                                // Module Selector (horizontal scrolling tabs)
+                                if !viewModel.modules.isEmpty {
+                                    ModuleSelectorView(
+                                        modules: viewModel.modules,
+                                        selectedModule: viewModel.currentModule,
+                                        lessonCompletions: viewModel.lessonCompletions,
+                                        learningRepository: coordinator.learningRepository,
+                                        onModuleSelected: { module in
+                                            Task {
+                                                await viewModel.selectModule(module)
+                                            }
+                                        }
+                                    )
                                     .padding(.bottom, .spacingM)
                                 }
 

@@ -15,6 +15,12 @@ struct ModuleLessonsView: View {
     @State private var completions: [UUID: Int] = [:]  // lessonId -> completionCount
     @State private var isLoading = false
 
+    // Test-out state
+    @State private var testOut: TestOut?
+    @State private var testOutEligibility: TestOutEligibility?
+    @State private var showTestOutPrompt = false
+    @State private var showTestOutView = false
+
     /// The index of the current lesson (first unlocked, incomplete lesson)
     private var currentLessonIndex: Int? {
         lessons.firstIndex { lesson in
@@ -39,6 +45,12 @@ struct ModuleLessonsView: View {
                     .foregroundStyle(Color.textSecondary)
                 }
                 .padding(.bottom, .spacingS)
+
+                // Test-Out Button (if available)
+                if let testOut = testOut, let eligibility = testOutEligibility {
+                    testOutCard(testOut: testOut, eligibility: eligibility)
+                        .padding(.bottom, .spacingS)
+                }
 
                 Divider()
 
@@ -74,19 +86,150 @@ struct ModuleLessonsView: View {
         .navigationBarTitleDisplayMode(.large)
         .task {
             await loadLessons()
+            await loadTestOutInfo()
+        }
+        .sheet(isPresented: $showTestOutPrompt) {
+            if let testOut = testOut, let eligibility = testOutEligibility {
+                TestOutPromptView(
+                    testOut: testOut,
+                    module: module,
+                    eligibility: eligibility,
+                    onStartTest: { showTestOutView = true },
+                    onSkip: { /* Just dismiss */ }
+                )
+                .presentationDetents([.medium])
+            }
+        }
+        .fullScreenCover(isPresented: $showTestOutView) {
+            if let testOut = testOut {
+                NavigationStack {
+                    TestOutView(
+                        testOut: testOut,
+                        module: module,
+                        sport: sport,
+                        coordinator: coordinator,
+                        onComplete: { passed in
+                            showTestOutView = false
+                            if passed {
+                                // Refresh eligibility after passing
+                                Task { await loadTestOutInfo() }
+                            }
+                        }
+                    )
+                }
+            }
         }
     }
+
+    // MARK: - Test-Out Card
+
+    @ViewBuilder
+    private func testOutCard(testOut: TestOut, eligibility: TestOutEligibility) -> some View {
+        Button {
+            showTestOutPrompt = true
+        } label: {
+            HStack(spacing: .spacingM) {
+                // Icon
+                ZStack {
+                    Circle()
+                        .fill(testOutCardColor(eligibility).opacity(0.15))
+                        .frame(width: 44, height: 44)
+
+                    Image(systemName: testOutIcon(eligibility))
+                        .font(.title3)
+                        .foregroundStyle(testOutCardColor(eligibility))
+                }
+
+                // Text
+                VStack(alignment: .leading, spacing: .spacingXS) {
+                    Text("Test Out of \(module.title)")
+                        .font(.body.bold())
+                        .foregroundStyle(Color.textPrimary)
+
+                    Text(testOutStatusText(eligibility, testOut: testOut))
+                        .font(.caption)
+                        .foregroundStyle(Color.textSecondary)
+                }
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(Color.textTertiary)
+            }
+            .padding(.spacingM)
+            .background(testOutCardColor(eligibility).opacity(0.08))
+            .cornerRadius(.radiusL)
+            .overlay(
+                RoundedRectangle(cornerRadius: .radiusL)
+                    .stroke(testOutCardColor(eligibility).opacity(0.2), lineWidth: 1)
+            )
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func testOutCardColor(_ eligibility: TestOutEligibility) -> Color {
+        if eligibility.hasPassed {
+            return .correct
+        } else if eligibility.canAttempt {
+            return .brandPrimary
+        } else {
+            return .warning
+        }
+    }
+
+    private func testOutIcon(_ eligibility: TestOutEligibility) -> String {
+        if eligibility.hasPassed {
+            return "checkmark.seal.fill"
+        } else if eligibility.canAttempt {
+            return "graduationcap.fill"
+        } else {
+            return "clock.badge.exclamationmark"
+        }
+    }
+
+    private func testOutStatusText(_ eligibility: TestOutEligibility, testOut: TestOut) -> String {
+        if eligibility.hasPassed {
+            return "Passed! Next module unlocked"
+        } else if eligibility.canAttempt {
+            return "Score \(testOut.passingScore)/\(testOut.totalQuestions) to skip ahead"
+        } else {
+            return eligibility.statusMessage
+        }
+    }
+
+    // MARK: - Loading
 
     private func loadLessons() async {
         isLoading = true
         do {
             lessons = try await coordinator.learningRepository.getLessons(moduleId: module.id)
-            // TODO: Load user's completion counts from repository
-            // completions = try await coordinator.learningRepository.getLessonCompletions(moduleId: module.id)
+            // Load completion counts
+            if let userId = coordinator.currentUser?.id {
+                completions = try await coordinator.learningRepository.getLessonCompletions(
+                    userId: userId,
+                    sportId: sport.id
+                )
+            }
         } catch {
             print("Error loading lessons: \(error)")
         }
         isLoading = false
+    }
+
+    private func loadTestOutInfo() async {
+        guard let userId = coordinator.currentUser?.id else { return }
+
+        do {
+            testOut = try await coordinator.learningRepository.getTestOut(moduleId: module.id)
+            if testOut != nil {
+                testOutEligibility = try await coordinator.learningRepository.getTestOutEligibility(
+                    userId: userId,
+                    moduleId: module.id
+                )
+            }
+        } catch {
+            print("Error loading test-out info: \(error)")
+        }
     }
 }
 

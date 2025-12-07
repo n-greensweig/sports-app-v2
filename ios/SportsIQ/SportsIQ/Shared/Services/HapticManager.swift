@@ -71,21 +71,21 @@ class HapticManager {
 
     func playLevelUpPattern() {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
-            playMediumImpact()
+            playLightImpact()
             return
         }
 
         var events: [CHHapticEvent] = []
 
-        // Create ascending pattern
+        // Create ascending pattern (gentler)
         for i in 0..<3 {
             let intensity = CHHapticEventParameter(
                 parameterID: .hapticIntensity,
-                value: Float(0.5 + Double(i) * 0.2)
+                value: Float(0.3 + Double(i) * 0.15)
             )
             let sharpness = CHHapticEventParameter(
                 parameterID: .hapticSharpness,
-                value: 0.5
+                value: 0.35
             )
 
             let event = CHHapticEvent(
@@ -176,16 +176,16 @@ class HapticManager {
     /// Triple tap celebration for perfect scores
     func playPerfectScorePattern() {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
-            playHeavyImpact()
+            playMediumImpact()
             return
         }
 
         var events: [CHHapticEvent] = []
 
-        // Triple tap celebration
+        // Triple tap celebration (gentler)
         for i in 0..<3 {
-            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.9)
-            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.6)
+            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.6)
+            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.4)
 
             let event = CHHapticEvent(
                 eventType: .hapticTransient,

@@ -11,6 +11,7 @@ struct LessonPathView: View {
     let lessons: [Lesson]
     let completions: [UUID: Int]  // lessonId -> completionCount
     let sport: Sport
+    let moduleId: UUID  // Current module for section lookup
     let onLessonStart: (Lesson) -> Void  // Called when user taps "Start" in popup
     let onVisibleSectionChange: ((LessonSection) -> Void)?  // Called when visible section changes
 
@@ -33,6 +34,7 @@ struct LessonPathView: View {
         lessons: [Lesson],
         completions: [UUID: Int],
         sport: Sport,
+        moduleId: UUID,
         onLessonStart: @escaping (Lesson) -> Void,
         selectedLessonIndex: Binding<Int?>,
         onVisibleSectionChange: ((LessonSection) -> Void)? = nil,
@@ -41,6 +43,7 @@ struct LessonPathView: View {
         self.lessons = lessons
         self.completions = completions
         self.sport = sport
+        self.moduleId = moduleId
         self.onLessonStart = onLessonStart
         self._selectedLessonIndex = selectedLessonIndex
         self.onVisibleSectionChange = onVisibleSectionChange
@@ -189,7 +192,7 @@ struct LessonPathView: View {
         guard let topmostLesson = topVisibleLessons.min(by: { $0.frame.minY < $1.frame.minY }) else {
             // If no lessons in top portion, use the first visible lesson overall
             if let firstVisible = visibleLessons.min(by: { $0.frame.minY < $1.frame.minY }) {
-                if let section = LessonSection.section(for: firstVisible.orderIndex, sportSlug: sport.slug) {
+                if let section = LessonSection.section(for: firstVisible.orderIndex, moduleId: moduleId) {
                     notifySectionChange(section)
                 }
             }
@@ -197,7 +200,7 @@ struct LessonPathView: View {
         }
 
         // Find the section for this lesson
-        if let section = LessonSection.section(for: topmostLesson.orderIndex, sportSlug: sport.slug) {
+        if let section = LessonSection.section(for: topmostLesson.orderIndex, moduleId: moduleId) {
             notifySectionChange(section)
         }
     }
@@ -406,52 +409,69 @@ struct SectionHeader: View {
     let title: String
     let subtitle: String?
     let color: Color
+    let onTap: (() -> Void)?
 
     /// Initialize with explicit title, subtitle, and color
-    init(title: String, subtitle: String? = nil, color: Color) {
+    init(title: String, subtitle: String? = nil, color: Color, onTap: (() -> Void)? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.color = color
+        self.onTap = onTap
     }
 
     /// Convenience initializer using Sport (legacy support)
-    init(title: String, subtitle: String? = nil, sport: Sport) {
+    init(title: String, subtitle: String? = nil, sport: Sport, onTap: (() -> Void)? = nil) {
         self.title = title
         self.subtitle = subtitle
         self.color = sport.accentColor
+        self.onTap = onTap
     }
 
     /// Convenience initializer using LessonSection
-    init(section: LessonSection) {
+    init(section: LessonSection, onTap: (() -> Void)? = nil) {
         self.title = section.title
         self.subtitle = section.subtitle
         self.color = section.color
+        self.onTap = onTap
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            if let subtitle = subtitle {
-                Text(subtitle.uppercased())
-                    .font(.subheadline)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.white.opacity(0.9))
-                    .tracking(1.5)
-            }
+        Button {
+            onTap?()
+        } label: {
+            VStack(alignment: .leading, spacing: 6) {
+                if let subtitle = subtitle {
+                    Text(subtitle.uppercased())
+                        .font(.subheadline)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.white.opacity(0.9))
+                        .tracking(1.5)
+                }
 
-            Text(title)
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundStyle(.white)
+                Text(title)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.white)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.spacingM)
+            .padding(.vertical, 4)
+            .background(
+                ZStack {
+                    // Bottom layer for depth effect (darker, offset down)
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(color.opacity(0.6))
+                        .offset(y: 4)
+
+                    // Main button surface
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(color)
+                }
+            )
+            .padding(.horizontal, .spacingM)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.spacingM)
-        .padding(.vertical, 4)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(color)
-                .shadow(color: color.opacity(0.3), radius: 4, y: 2)
-        )
-        .padding(.horizontal, .spacingM)
+        .buttonStyle(.plain)
+        .disabled(onTap == nil)
     }
 }
 
@@ -524,6 +544,7 @@ private struct VisibleLessonPreferenceKey: PreferenceKey {
                             Lesson.footballBasicsLesson3.id: 0
                         ],
                         sport: .football,
+                        moduleId: Module.rookie.id,
                         onLessonStart: { lesson in
                             print("Tapped lesson: \(lesson.title)")
                         },
@@ -593,6 +614,7 @@ private struct VisibleLessonPreferenceKey: PreferenceKey {
                     Lesson.footballBasicsLesson2.id: 1   // In progress
                 ],
                 sport: .football,
+                moduleId: Module.rookie.id,
                 onLessonStart: { _ in },
                 selectedLessonIndex: $selectedIndex,
                 scrollProgress: 1.0  // Show full path for states preview

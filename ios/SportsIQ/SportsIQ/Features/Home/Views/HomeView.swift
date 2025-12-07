@@ -13,7 +13,7 @@ struct HomeView: View {
     @State private var selectedLesson: Lesson?
     @State private var showProfile = false
     @State private var showSportPicker = false
-    @State private var showModulePicker = false
+    @State private var showModuleList = false
     @State private var selectedLessonNodeIndex: Int? = nil
     @State private var currentSection: LessonSection = LessonSection.defaultSection
     @State private var scrollProgress: CGFloat = 0.0
@@ -32,13 +32,20 @@ struct HomeView: View {
             ZStack(alignment: .top) {
                 // Main layout with sticky header
                 VStack(spacing: 0) {
-                    // Sticky Section Header - always visible below nav bar
-                    if viewModel.selectedSport != nil {
-                        SectionHeader(section: currentSection)
-                            .padding(.top, .spacingS)
-                            .padding(.bottom, .spacingS)
-                            .background(Color(UIColor.systemBackground))
-                            .animation(.easeInOut(duration: 0.25), value: currentSection.id)
+                    // Sticky Section Header - tappable to show module list
+                    if viewModel.selectedSport != nil, let currentModule = viewModel.currentModule {
+                        SectionHeader(
+                            title: currentSection.title,
+                            subtitle: currentModule.title,
+                            color: currentSection.color,
+                            onTap: {
+                                showModuleList = true
+                            }
+                        )
+                        .padding(.top, .spacingS)
+                        .padding(.bottom, .spacingS)
+                        .background(Color(UIColor.systemBackground))
+                        .animation(.easeInOut(duration: 0.25), value: currentSection.id)
                     }
 
                     // Scrollable content
@@ -63,22 +70,6 @@ struct HomeView: View {
                                         longestStreak: streak.longestStreak
                                     )
                                     .padding(.horizontal, .spacingM)
-                                    .padding(.bottom, .spacingM)
-                                }
-
-                                // Module Selector (horizontal scrolling tabs)
-                                if !viewModel.modules.isEmpty {
-                                    ModuleSelectorView(
-                                        modules: viewModel.modules,
-                                        selectedModule: viewModel.currentModule,
-                                        lessonCompletions: viewModel.lessonCompletions,
-                                        learningRepository: coordinator.learningRepository,
-                                        onModuleSelected: { module in
-                                            Task {
-                                                await viewModel.selectModule(module)
-                                            }
-                                        }
-                                    )
                                     .padding(.bottom, .spacingM)
                                 }
 
@@ -193,17 +184,33 @@ struct HomeView: View {
             .sheet(isPresented: $showProfile) {
                 ProfileView(coordinator: coordinator)
             }
-            .task {
-                await viewModel.loadData()
-                // Set initial section based on selected sport
+            .sheet(isPresented: $showModuleList) {
                 if let sport = viewModel.selectedSport {
-                    currentSection = LessonSection.defaultSection(forSport: sport.slug)
+                    ModuleListView(
+                        sport: sport,
+                        modules: viewModel.modules,
+                        currentModule: viewModel.currentModule,
+                        lessonCompletions: viewModel.lessonCompletions,
+                        learningRepository: coordinator.learningRepository,
+                        onModuleSelected: { module in
+                            Task {
+                                await viewModel.selectModule(module)
+                            }
+                        }
+                    )
                 }
             }
-            .onChange(of: viewModel.selectedSport?.slug) { _, newSlug in
-                // Update section when sport changes
-                if let slug = newSlug {
-                    currentSection = LessonSection.defaultSection(forSport: slug)
+            .task {
+                await viewModel.loadData()
+                // Set initial section based on current module
+                if let module = viewModel.currentModule {
+                    currentSection = LessonSection.defaultSection(forModuleId: module.id)
+                }
+            }
+            .onChange(of: viewModel.currentModule?.id) { _, newModuleId in
+                // Update section when module changes
+                if let moduleId = newModuleId {
+                    currentSection = LessonSection.defaultSection(forModuleId: moduleId)
                 }
             }
             .navigationDestination(item: $selectedLesson) { lesson in
@@ -246,7 +253,7 @@ struct HomeView: View {
     // MARK: - Lesson Path Content (scrollable area below sticky header)
     @ViewBuilder
     private var lessonPathContent: some View {
-        if let sport = viewModel.selectedSport {
+        if let sport = viewModel.selectedSport, let currentModule = viewModel.currentModule {
             if viewModel.isLoadingLessons {
                 ProgressView()
                     .frame(maxWidth: .infinity)
@@ -260,6 +267,7 @@ struct HomeView: View {
                     lessons: viewModel.lessons,
                     completions: viewModel.lessonCompletions,
                     sport: sport,
+                    moduleId: currentModule.id,
                     onLessonStart: { lesson in
                         selectedLesson = lesson
                     },

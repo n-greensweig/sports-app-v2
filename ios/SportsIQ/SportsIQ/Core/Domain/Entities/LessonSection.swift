@@ -27,6 +27,14 @@ struct LessonSection: Identifiable, Equatable {
     }
 }
 
+// MARK: - Module Identifiers
+extension LessonSection {
+    /// Known module IDs for section lookup
+    static let footballRookieModuleId = UUID(uuidString: "11111111-1111-1111-1111-111111111111")!
+    static let footballVeteranModuleId = UUID(uuidString: "33333333-3333-3333-3333-333333333333")!
+    static let baseballRookieModuleId = UUID(uuidString: "22222222-2222-2222-2222-222222222222")!
+}
+
 // MARK: - Football Rookie Section Definitions
 extension LessonSection {
 
@@ -89,6 +97,65 @@ extension LessonSection {
         )
     ]
 
+    /// All sections for the Football Veteran module
+    /// Covers intermediate concepts: penalties, formations, clock management, lingo, league structure
+    static let footballVeteranSections: [LessonSection] = [
+        // Section 1: Rules & Penalties (PEN1, PEN2)
+        // Covers: Common penalties, penalty enforcement
+        LessonSection(
+            id: "veteran_penalties",
+            title: "Rules & Penalties",
+            subtitle: "Veteran, Unit 1",
+            color: Color(hex: "#C62828"), // Red - penalties/flags
+            startOrderIndex: 1,
+            endOrderIndex: 2
+        ),
+
+        // Section 2: Formations & Alignments (FMT1, FMT2)
+        // Covers: Offensive and defensive formations
+        LessonSection(
+            id: "veteran_formations",
+            title: "Formations & Alignments",
+            subtitle: "Veteran, Unit 2",
+            color: Color(hex: "#1565C0"), // Blue - strategy
+            startOrderIndex: 3,
+            endOrderIndex: 4
+        ),
+
+        // Section 3: Clock Management (CLK1)
+        // Covers: Game clock, play clock, timeouts, two-minute drill
+        LessonSection(
+            id: "veteran_clock",
+            title: "Clock Management",
+            subtitle: "Veteran, Unit 3",
+            color: Color(hex: "#F57C00"), // Orange - time pressure
+            startOrderIndex: 5,
+            endOrderIndex: 5
+        ),
+
+        // Section 4: Football Lingo (LNG1, LNG2)
+        // Covers: Common phrases, slang, announcer terminology
+        LessonSection(
+            id: "veteran_lingo",
+            title: "Football Lingo",
+            subtitle: "Veteran, Unit 4",
+            color: Color(hex: "#2E7D32"), // Green - communication
+            startOrderIndex: 6,
+            endOrderIndex: 7
+        ),
+
+        // Section 5: League Structure (LG1, LG2, STR1 + Veteran Quiz)
+        // Covers: NFL divisions, conferences, playoffs, strategy basics
+        LessonSection(
+            id: "veteran_league",
+            title: "The NFL",
+            subtitle: "Veteran, Unit 5",
+            color: Color(hex: "#7B1FA2"), // Purple - big picture
+            startOrderIndex: 8,
+            endOrderIndex: 11
+        )
+    ]
+
     /// All sections for the Baseball Rookie module
     static let baseballRookieSections: [LessonSection] = [
         // Section 1: Welcome to Baseball
@@ -142,7 +209,21 @@ extension LessonSection {
         )
     ]
 
-    /// Get sections for a given sport slug
+    /// Get sections for a given module ID
+    static func sections(forModuleId moduleId: UUID) -> [LessonSection] {
+        switch moduleId {
+        case footballRookieModuleId:
+            return footballRookieSections
+        case footballVeteranModuleId:
+            return footballVeteranSections
+        case baseballRookieModuleId:
+            return baseballRookieSections
+        default:
+            return footballRookieSections // Fallback
+        }
+    }
+
+    /// Get sections for a given sport slug (defaults to Rookie)
     static func sections(forSport sportSlug: String) -> [LessonSection] {
         switch sportSlug {
         case "football":
@@ -165,11 +246,22 @@ extension LessonSection {
         return sportSections.first { $0.contains(lessonOrderIndex: orderIndex) }
     }
 
+    /// Find the section for a given lesson order index and module
+    static func section(for orderIndex: Int, moduleId: UUID) -> LessonSection? {
+        let moduleSections = sections(forModuleId: moduleId)
+        return moduleSections.first { $0.contains(lessonOrderIndex: orderIndex) }
+    }
+
     /// Default section to show when no lessons are visible
     static let defaultSection = footballRookieSections[0]
 
     /// Default section for a given sport
     static func defaultSection(forSport sportSlug: String) -> LessonSection {
         sections(forSport: sportSlug).first ?? defaultSection
+    }
+
+    /// Default section for a given module
+    static func defaultSection(forModuleId moduleId: UUID) -> LessonSection {
+        sections(forModuleId: moduleId).first ?? defaultSection
     }
 }

@@ -70,7 +70,7 @@ All content provided in the App, including but not limited to:
 - Graphics, logos, and trademarks
 - Software and code
 
-...is owned by SportsIQ or its licensors and is protected by copyright, trademark, and other intellectual property laws.
+...is owned by Ola Ball or its licensors and is protected by copyright, trademark, and other intellectual property laws.
 
 ## 5. User-Generated Content
 
@@ -115,11 +115,11 @@ We reserve the right to change subscription prices with at least 30 days' notice
 
 ### Our Rights
 
-All intellectual property rights in the App and its content belong to SportsIQ or our licensors. These Terms do not grant you any ownership rights.
+All intellectual property rights in the App and its content belong to Ola Ball or our licensors. These Terms do not grant you any ownership rights.
 
 ### Trademarks
 
-"SportsIQ" and related logos are trademarks of NSG LLC. You may not use our trademarks without prior written permission.
+"Ola Ball" and related logos are trademarks of NSG LLC. You may not use our trademarks without prior written permission.
 
 ### Feedback
 
@@ -153,7 +153,7 @@ We do not warrant that:
 
 ## 11. Limitation of Liability
 
-TO THE MAXIMUM EXTENT PERMITTED BY LAW, SPORTSIQ AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR:
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, OLA BALL AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR:
 
 - Any indirect, incidental, special, consequential, or punitive damages
 - Loss of profits, data, use, or goodwill
@@ -166,7 +166,7 @@ Some jurisdictions do not allow the exclusion of certain warranties or limitatio
 
 ## 12. Indemnification
 
-You agree to indemnify, defend, and hold harmless SportsIQ and its affiliates from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from:
+You agree to indemnify, defend, and hold harmless Ola Ball and its affiliates from any claims, damages, losses, liabilities, and expenses (including legal fees) arising from:
 - Your use of the App
 - Your violation of these Terms
 - Your violation of any third-party rights
@@ -220,7 +220,7 @@ Upon termination:
 
 ### Entire Agreement
 
-These Terms, together with our Privacy Policy, constitute the entire agreement between you and SportsIQ regarding the App.
+These Terms, together with our Privacy Policy, constitute the entire agreement between you and Ola Ball regarding the App.
 
 ### Severability
 
@@ -236,7 +236,7 @@ You may not assign or transfer these Terms without our prior written consent. We
 
 ### No Agency
 
-These Terms do not create any agency, partnership, joint venture, or employment relationship between you and SportsIQ.
+These Terms do not create any agency, partnership, joint venture, or employment relationship between you and Ola Ball.
 
 ### Force Majeure
 
@@ -252,4 +252,4 @@ If you have questions about these Terms, please contact us:
 
 ---
 
-**By using SportsIQ, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.**
+**By using Ola Ball, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.**

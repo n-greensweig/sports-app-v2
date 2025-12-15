@@ -77,8 +77,6 @@
 	<string>Ola Ball needs access to your microphone for audio-based quiz questions and pronunciation practice.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Ola Ball needs access to your photo library to save your achievements and share your learning progress.</string>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>We use tracking to provide personalized learning experiences and improve our app. Your privacy is important to us.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

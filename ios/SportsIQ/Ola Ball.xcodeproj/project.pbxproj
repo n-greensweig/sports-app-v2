@@ -24,23 +24,9 @@
 		B55B178E2EC9461300098907 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		B5703E802ECE9F8F004B1DDC /* Exceptions for "SportsIQ" folder in "Ola Ball" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-				PrivacyInfo.xcprivacy,
-			);
-			target = B55B150B2EC8DA4500098907 /* Ola Ball */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B55B150E2EC8DA4500098907 /* SportsIQ */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				B5703E802ECE9F8F004B1DDC /* Exceptions for "SportsIQ" folder in "Ola Ball" target */,
-			);
 			path = SportsIQ;
 			sourceTree = "<group>";
 		};

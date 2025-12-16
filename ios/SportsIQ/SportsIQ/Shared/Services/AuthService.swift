@@ -536,6 +536,126 @@ class AuthService {
         print("✅ User profile updated")
     }
 
+    // MARK: - Account Deletion
+
+    /// Delete the current user's account and all associated data
+    @MainActor
+    func deleteAccount() async throws {
+        guard let userId = currentUser?.id else {
+            throw AuthError.notAuthenticated
+        }
+
+        let userIdString = userId.uuidString
+        isLoading = true
+        defer { isLoading = false }
+
+        do {
+            // Delete user data from app tables (order matters due to foreign keys)
+            // Tables with foreign key dependencies on other user tables are deleted first
+
+            // Delete SRS cards (srs_reviews should CASCADE delete)
+            try? await supabase.from("srs_cards")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            // Delete submissions (submission_judgments should CASCADE delete)
+            try? await supabase.from("submissions")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            // Delete progress and completion data
+            try? await supabase.from("user_lesson_completions")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            try? await supabase.from("user_item_stats")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            try? await supabase.from("user_xp_events")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            try? await supabase.from("streaks")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            try? await supabase.from("user_badges")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            try? await supabase.from("user_progress")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            // Delete test-out data
+            try? await supabase.from("test_out_attempts")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            // Delete sessions and analytics
+            try? await supabase.from("analytics_events")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            try? await supabase.from("sessions")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            // Delete social data
+            try? await supabase.from("friends")
+                .delete()
+                .or("user_id.eq.\(userIdString),friend_user_id.eq.\(userIdString)")
+                .execute()
+
+            try? await supabase.from("devices")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            // Delete live mode data
+            try? await supabase.from("live_prompt_windows")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            // Delete user profile
+            try? await supabase.from("user_profiles")
+                .delete()
+                .eq("user_id", value: userIdString)
+                .execute()
+
+            // Delete the user record
+            try await supabase.from("users")
+                .delete()
+                .eq("id", value: userIdString)
+                .execute()
+
+            // Sign out from Supabase Auth
+            try await supabase.auth.signOut()
+
+            self.session = nil
+            self.currentUser = nil
+
+            print("✅ Account deleted successfully")
+
+        } catch {
+            print("❌ Account deletion failed: \(error.localizedDescription)")
+            throw AuthError.deleteAccountFailed
+        }
+    }
+
     // MARK: - Helper Methods
 
     /// Get current user ID
@@ -587,6 +707,7 @@ enum AuthError: LocalizedError {
     case passwordUpdateFailed
     case notAuthenticated
     case invalidCredentials
+    case deleteAccountFailed
 
     var errorDescription: String? {
         switch self {
@@ -612,6 +733,8 @@ enum AuthError: LocalizedError {
             return "You must be signed in to perform this action."
         case .invalidCredentials:
             return "Invalid email or password."
+        case .deleteAccountFailed:
+            return "Failed to delete account. Please try again or contact support."
         }
     }
 }

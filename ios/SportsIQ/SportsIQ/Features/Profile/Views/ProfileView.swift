@@ -12,6 +12,9 @@ struct ProfileView: View {
     @State private var viewModel: ProfileViewModel
     @State private var showSignOutAlert = false
     @State private var isSigningOut = false
+    @State private var showDeleteAccountAlert = false
+    @State private var isDeletingAccount = false
+    @State private var deleteErrorMessage: String?
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
@@ -50,13 +53,26 @@ struct ProfileView: View {
 
                 Spacer()
 
-                // Sign Out Button
-                ProfileActionButton(
-                    icon: "arrow.right.square.fill",
-                    label: isSigningOut ? "Signing Out..." : "Sign Out",
-                    action: { showSignOutAlert = true },
-                    isDestructive: true
-                )
+                // Action Buttons
+                VStack(spacing: .spacingS) {
+                    // Sign Out Button
+                    ProfileActionButton(
+                        icon: "arrow.right.square.fill",
+                        label: isSigningOut ? "Signing Out..." : "Sign Out",
+                        action: { showSignOutAlert = true },
+                        isDestructive: false
+                    )
+                    .disabled(isSigningOut || isDeletingAccount)
+
+                    // Delete Account Button
+                    ProfileActionButton(
+                        icon: "trash.fill",
+                        label: isDeletingAccount ? "Deleting Account..." : "Delete Account",
+                        action: { showDeleteAccountAlert = true },
+                        isDestructive: true
+                    )
+                    .disabled(isSigningOut || isDeletingAccount)
+                }
                 .padding(.horizontal, .spacingM)
                 .padding(.bottom, .spacingL)
             }
@@ -71,6 +87,24 @@ struct ProfileView: View {
             } message: {
                 Text("Are you sure you want to sign out?")
             }
+            .alert("Delete Account", isPresented: $showDeleteAccountAlert) {
+                Button("Cancel", role: .cancel) { }
+                Button("Delete", role: .destructive) {
+                    Task {
+                        await deleteAccount()
+                    }
+                }
+            } message: {
+                Text("Are you sure you want to delete your account? This action cannot be undone. All your progress, achievements, and data will be permanently deleted.")
+            }
+            .alert("Error", isPresented: .init(
+                get: { deleteErrorMessage != nil },
+                set: { if !$0 { deleteErrorMessage = nil } }
+            )) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(deleteErrorMessage ?? "An unknown error occurred.")
+            }
         }
     }
 
@@ -84,6 +118,17 @@ struct ProfileView: View {
             print("❌ Sign out error: \(error.localizedDescription)")
         }
         isSigningOut = false
+    }
+
+    private func deleteAccount() async {
+        isDeletingAccount = true
+        do {
+            try await coordinator.authService.deleteAccount()
+        } catch {
+            deleteErrorMessage = error.localizedDescription
+            print("❌ Delete account error: \(error.localizedDescription)")
+        }
+        isDeletingAccount = false
     }
 }
 

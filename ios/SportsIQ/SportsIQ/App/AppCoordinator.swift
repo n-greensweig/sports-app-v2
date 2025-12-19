@@ -11,20 +11,31 @@ import SwiftUI
 @Observable
 class AppCoordinator {
     // MARK: - Dependencies
-    let learningRepository: LearningRepository
-    let userRepository: UserRepository
+    var learningRepository: LearningRepository
+    var userRepository: UserRepository
     let gameRepository: GameRepository
     let authService: AuthService
     let audioManager: AudioManager
     let hapticManager: HapticManager
 
     // MARK: - State
+
+    /// Current user (authenticated or guest)
     var currentUser: User? {
-        authService.currentUser
+        if authService.isGuestMode {
+            return authService.guestUser
+        }
+        return authService.currentUser
     }
 
+    /// Whether the user is authenticated (includes guest mode)
     var isAuthenticated: Bool {
-        authService.isAuthenticated
+        authService.isAuthenticated || authService.isGuestMode
+    }
+
+    /// Whether the user is in guest mode
+    var isGuestMode: Bool {
+        authService.isGuestMode
     }
 
     init(

@@ -14,6 +14,7 @@ struct HomeView: View {
     @State private var showProfile = false
     @State private var showSportPicker = false
     @State private var showModuleList = false
+    @State private var showSignUp = false
     @State private var selectedLessonNodeIndex: Int? = nil
     @State private var currentSection: LessonSection = LessonSection.defaultSection
     @State private var scrollProgress: CGFloat = 0.0
@@ -51,6 +52,15 @@ struct HomeView: View {
                     // Scrollable content
                     ScrollView {
                         VStack(spacing: 0) {
+                            // Guest mode banner
+                            if coordinator.isGuestMode {
+                                GuestBanner {
+                                    showSignUp = true
+                                }
+                                .padding(.horizontal, .spacingM)
+                                .padding(.vertical, .spacingS)
+                            }
+
                             if viewModel.isLoading {
                                 ProgressView()
                                     .frame(maxWidth: .infinity)
@@ -183,6 +193,9 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showProfile) {
                 ProfileView(coordinator: coordinator)
+            }
+            .sheet(isPresented: $showSignUp) {
+                SignUpView()
             }
             .sheet(isPresented: $showModuleList) {
                 if let sport = viewModel.selectedSport {

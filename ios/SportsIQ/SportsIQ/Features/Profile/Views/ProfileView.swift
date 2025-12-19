@@ -15,6 +15,7 @@ struct ProfileView: View {
     @State private var showDeleteAccountAlert = false
     @State private var isDeletingAccount = false
     @State private var deleteErrorMessage: String?
+    @State private var showSignUp = false
 
     init(coordinator: AppCoordinator) {
         self.coordinator = coordinator
@@ -27,56 +28,16 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: .spacingL) {
-                // Profile Header
-                VStack(spacing: .spacingM) {
-                    // Avatar
-                    Circle()
-                        .fill(Color.brandPrimary.opacity(0.2))
-                        .frame(width: 100, height: 100)
-                        .overlay(
-                            Image(systemName: "person.fill")
-                                .font(.system(size: 48))
-                                .foregroundStyle(Color.brandPrimary)
-                        )
-
-                    if let user = coordinator.currentUser {
-                        Text(user.displayName ?? user.username)
-                            .font(.heading2)
-                            .foregroundStyle(Color.textPrimary)
-
-                        Text("@\(user.username)")
-                            .font(.body)
-                            .foregroundStyle(Color.textSecondary)
-                    }
+                if coordinator.isGuestMode {
+                    guestProfileContent
+                } else {
+                    authenticatedProfileContent
                 }
-                .padding(.spacingL)
-
-                Spacer()
-
-                // Action Buttons
-                VStack(spacing: .spacingS) {
-                    // Sign Out Button
-                    ProfileActionButton(
-                        icon: "arrow.right.square.fill",
-                        label: isSigningOut ? "Signing Out..." : "Sign Out",
-                        action: { showSignOutAlert = true },
-                        isDestructive: false
-                    )
-                    .disabled(isSigningOut || isDeletingAccount)
-
-                    // Delete Account Button
-                    ProfileActionButton(
-                        icon: "trash.fill",
-                        label: isDeletingAccount ? "Deleting Account..." : "Delete Account",
-                        action: { showDeleteAccountAlert = true },
-                        isDestructive: true
-                    )
-                    .disabled(isSigningOut || isDeletingAccount)
-                }
-                .padding(.horizontal, .spacingM)
-                .padding(.bottom, .spacingL)
             }
             .navigationTitle("Profile")
+            .sheet(isPresented: $showSignUp) {
+                SignUpView()
+            }
             .alert("Sign Out", isPresented: $showSignOutAlert) {
                 Button("Cancel", role: .cancel) { }
                 Button("Sign Out", role: .destructive) {
@@ -105,6 +66,141 @@ struct ProfileView: View {
             } message: {
                 Text(deleteErrorMessage ?? "An unknown error occurred.")
             }
+        }
+    }
+
+    // MARK: - Guest Profile Content
+
+    private var guestProfileContent: some View {
+        VStack(spacing: .spacingL) {
+            // Guest Avatar
+            VStack(spacing: .spacingM) {
+                Circle()
+                    .fill(Color.textTertiary.opacity(0.2))
+                    .frame(width: 100, height: 100)
+                    .overlay(
+                        Image(systemName: "person.fill.questionmark")
+                            .font(.system(size: 48))
+                            .foregroundStyle(Color.textTertiary)
+                    )
+
+                Text("Guest")
+                    .font(.heading2)
+                    .foregroundStyle(Color.textPrimary)
+
+                Text("Progress saved locally")
+                    .font(.body)
+                    .foregroundStyle(Color.textSecondary)
+            }
+            .padding(.spacingL)
+
+            // Info card
+            VStack(alignment: .leading, spacing: .spacingS) {
+                HStack(spacing: .spacingS) {
+                    Image(systemName: "info.circle.fill")
+                        .foregroundStyle(Color.brandPrimary)
+                    Text("About Guest Mode")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(Color.textPrimary)
+                }
+
+                Text("Your progress is saved on this device only. Create an account to sync your progress across devices and never lose your learning journey.")
+                    .font(.caption)
+                    .foregroundStyle(Color.textSecondary)
+            }
+            .padding(.spacingM)
+            .background(Color.brandPrimary.opacity(0.08))
+            .cornerRadius(.radiusM)
+            .padding(.horizontal, .spacingM)
+
+            Spacer()
+
+            // Action Buttons
+            VStack(spacing: .spacingS) {
+                // Create Account Button (prominent)
+                Button {
+                    showSignUp = true
+                } label: {
+                    HStack {
+                        Image(systemName: "person.badge.plus")
+                            .foregroundStyle(.white)
+                        Text("Create Account")
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.white)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.spacingM)
+                    .background(Color.brandPrimary)
+                    .cornerRadius(.radiusM)
+                }
+
+                // Sign Out Button (clears data)
+                ProfileActionButton(
+                    icon: "arrow.right.square.fill",
+                    label: isSigningOut ? "Signing Out..." : "Sign Out & Clear Data",
+                    action: { showSignOutAlert = true },
+                    isDestructive: true
+                )
+                .disabled(isSigningOut)
+            }
+            .padding(.horizontal, .spacingM)
+            .padding(.bottom, .spacingL)
+        }
+    }
+
+    // MARK: - Authenticated Profile Content
+
+    private var authenticatedProfileContent: some View {
+        VStack(spacing: .spacingL) {
+            // Profile Header
+            VStack(spacing: .spacingM) {
+                // Avatar
+                Circle()
+                    .fill(Color.brandPrimary.opacity(0.2))
+                    .frame(width: 100, height: 100)
+                    .overlay(
+                        Image(systemName: "person.fill")
+                            .font(.system(size: 48))
+                            .foregroundStyle(Color.brandPrimary)
+                    )
+
+                if let user = coordinator.currentUser {
+                    Text(user.displayName ?? user.username)
+                        .font(.heading2)
+                        .foregroundStyle(Color.textPrimary)
+
+                    Text("@\(user.username)")
+                        .font(.body)
+                        .foregroundStyle(Color.textSecondary)
+                }
+            }
+            .padding(.spacingL)
+
+            Spacer()
+
+            // Action Buttons
+            VStack(spacing: .spacingS) {
+                // Sign Out Button
+                ProfileActionButton(
+                    icon: "arrow.right.square.fill",
+                    label: isSigningOut ? "Signing Out..." : "Sign Out",
+                    action: { showSignOutAlert = true },
+                    isDestructive: false
+                )
+                .disabled(isSigningOut || isDeletingAccount)
+
+                // Delete Account Button
+                ProfileActionButton(
+                    icon: "trash.fill",
+                    label: isDeletingAccount ? "Deleting Account..." : "Delete Account",
+                    action: { showDeleteAccountAlert = true },
+                    isDestructive: true
+                )
+                .disabled(isSigningOut || isDeletingAccount)
+            }
+            .padding(.horizontal, .spacingM)
+            .padding(.bottom, .spacingL)
         }
     }
 

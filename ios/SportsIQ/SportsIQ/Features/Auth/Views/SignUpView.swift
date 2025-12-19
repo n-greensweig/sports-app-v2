@@ -211,9 +211,11 @@ struct SignUpView: View {
                             .frame(height: 50)
                             .cornerRadius(12)
 
-                            // Sign up with Google (placeholder)
+                            // Sign up with Google
                             Button {
-                                errorMessage = "Google Sign Up coming soon!"
+                                Task {
+                                    await handleGoogleSignUp()
+                                }
                             } label: {
                                 HStack {
                                     Image(systemName: "g.circle.fill")
@@ -230,6 +232,7 @@ struct SignUpView: View {
                                         .stroke(Color.gray.opacity(0.3), lineWidth: 1)
                                 )
                             }
+                            .disabled(isLoading)
                         }
                         .padding(.horizontal, .spacingXL)
 
@@ -304,6 +307,22 @@ struct SignUpView: View {
             }
 
             _ = try await authService.signInWithApple(credential: credential, nonce: nonce)
+            // AuthService will update the auth state, which will trigger navigation
+            dismiss()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+
+        isLoading = false
+    }
+
+    private func handleGoogleSignUp() async {
+        errorMessage = nil
+        isLoading = true
+
+        do {
+            let (idToken, nonce) = try await GoogleSignInManager.shared.signIn()
+            _ = try await authService.signInWithGoogle(idToken: idToken, nonce: nonce)
             // AuthService will update the auth state, which will trigger navigation
             dismiss()
         } catch {

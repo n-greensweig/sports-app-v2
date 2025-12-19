@@ -28,9 +28,20 @@ class AuthService {
     /// Current Supabase session
     private(set) var session: Supabase.Session?
 
-    /// Authentication state
+    /// Authentication state (includes guest mode)
     var isAuthenticated: Bool {
         session != nil && currentUser != nil
+    }
+
+    /// Whether the app is currently in guest mode
+    var isGuestMode: Bool {
+        GuestSessionManager.shared.isGuestMode
+    }
+
+    /// Guest user (synthetic user for guest sessions)
+    var guestUser: User? {
+        guard isGuestMode else { return nil }
+        return GuestSessionManager.shared.getGuestUser()
     }
 
     /// Loading state
@@ -110,6 +121,9 @@ class AuthService {
         isLoading = true
         defer { isLoading = false }
 
+        // Check if we're converting from guest mode
+        let wasGuestMode = isGuestMode
+
         do {
             // Sign up with Supabase Auth
             let authResponse = try await supabase.auth.signUp(
@@ -129,6 +143,11 @@ class AuthService {
             self.session = authResponse.session
             self.currentUser = newUser
 
+            // Migrate guest data if converting from guest mode
+            if wasGuestMode {
+                await migrateGuestData(to: userId)
+            }
+
             print("✅ User signed up successfully: \(username)")
             return newUser
 
@@ -141,11 +160,36 @@ class AuthService {
         }
     }
 
+    /// Migrate guest data to a new authenticated user
+    private func migrateGuestData(to userId: UUID) async {
+        do {
+            let migrationService = GuestDataMigrationService()
+            try await migrationService.migrateToAuthenticatedUser(
+                guestUserId: GuestSessionManager.shared.guestUserId,
+                newUserId: userId
+            )
+            // Clear guest session after successful migration
+            GuestSessionManager.shared.endGuestSession()
+            print("✅ Guest data migrated successfully")
+        } catch {
+            // Migration failure shouldn't block account creation
+            print("⚠️ Guest data migration failed: \(error)")
+            // Still clear guest session
+            GuestSessionManager.shared.endGuestSession()
+        }
+    }
+
     /// Sign in with email and password
     @MainActor
     func signIn(email: String, password: String) async throws -> User {
         isLoading = true
         defer { isLoading = false }
+
+        // If signing into existing account, discard guest data (per user preference)
+        if isGuestMode {
+            GuestSessionManager.shared.endGuestSession()
+            print("ℹ️ Guest data discarded - signing into existing account")
+        }
 
         do {
             // Sign in with Supabase Auth
@@ -183,6 +227,13 @@ class AuthService {
         isLoading = true
         defer { isLoading = false }
 
+        // Handle guest mode sign out
+        if isGuestMode {
+            GuestSessionManager.shared.endGuestSession()
+            print("✅ Guest session ended")
+            return
+        }
+
         do {
             try await supabase.auth.signOut()
             self.session = nil
@@ -192,6 +243,22 @@ class AuthService {
             print("❌ Sign out failed: \(error.localizedDescription)")
             throw AuthError.signOutFailed
         }
+    }
+
+    // MARK: - Guest Mode
+
+    /// Continue as a guest user (no account required)
+    @MainActor
+    func continueAsGuest() {
+        GuestSessionManager.shared.startGuestSession()
+        print("✅ Continuing as guest")
+    }
+
+    /// Sign out guest and clear all local data
+    @MainActor
+    func signOutGuest() {
+        GuestSessionManager.shared.endGuestSession()
+        print("✅ Guest signed out, data cleared")
     }
 
     // MARK: - Social Authentication

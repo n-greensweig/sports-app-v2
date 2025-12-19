@@ -335,8 +335,31 @@ struct LoginView: View {
                         .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                 )
             }
+
+            // Continue as Guest
+            guestModeSection
         }
         .padding(.horizontal, .spacingL)
+    }
+
+    private var guestModeSection: some View {
+        VStack(spacing: .spacingXS) {
+            Button {
+                HapticManager.shared.playSelectionFeedback()
+                authService.continueAsGuest()
+            } label: {
+                Text("Continue as Guest")
+                    .fontWeight(.medium)
+                    .foregroundStyle(Color.textSecondary)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 44)
+            }
+
+            Text("Progress saved locally. Create an account to sync across devices.")
+                .font(.caption)
+                .foregroundStyle(.tertiary)
+                .multilineTextAlignment(.center)
+        }
     }
 
     private var signUpLinkSection: some View {

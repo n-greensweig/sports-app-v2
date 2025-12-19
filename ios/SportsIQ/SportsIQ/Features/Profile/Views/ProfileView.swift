@@ -211,7 +211,9 @@ struct ProfileView: View {
         do {
             try await coordinator.authService.signOut()
         } catch {
+            #if DEBUG
             print("❌ Sign out error: \(error.localizedDescription)")
+            #endif
         }
         isSigningOut = false
     }
@@ -222,7 +224,9 @@ struct ProfileView: View {
             try await coordinator.authService.deleteAccount()
         } catch {
             deleteErrorMessage = error.localizedDescription
+            #if DEBUG
             print("❌ Delete account error: \(error.localizedDescription)")
+            #endif
         }
         isDeletingAccount = false
     }

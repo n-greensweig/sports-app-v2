@@ -260,8 +260,8 @@ final class LocalLearningRepository: LearningRepository {
     }
 
     func getLessonCompletions(userId: UUID, sportId: UUID) async throws -> [UUID: Int] {
-        guard userId == guestUserId else { return [:] }
-
+        // For guest mode, we always return local completions
+        // The userId parameter is kept for protocol conformance but not used for filtering
         let completions = localDataStore.load(forKey: .lessonCompletions, as: LocalLessonCompletionsContainer.self)
             ?? LocalLessonCompletionsContainer()
 

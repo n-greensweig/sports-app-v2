@@ -3,20 +3,22 @@
 //  Ola Ball
 //
 //  Configuration helper to access app credentials
-//  Values are read from Secrets.swift (gitignored)
+//  Values are read from environment variables first, with fallback to Secrets.swift (gitignored)
 //
 
 import Foundation
 
 enum Config {
     /// Supabase project URL
+    /// Reads from SUPABASE_URL environment variable, falls back to Secrets.swift for local development
     static var supabaseURL: String {
-        return Secrets.supabaseURL
+        ProcessInfo.processInfo.environment["SUPABASE_URL"] ?? Secrets.supabaseURL
     }
 
     /// Supabase anonymous/public key for client-side requests
+    /// Reads from SUPABASE_ANON_KEY environment variable, falls back to Secrets.swift for local development
     static var supabaseAnonKey: String {
-        return Secrets.supabaseAnonKey
+        ProcessInfo.processInfo.environment["SUPABASE_ANON_KEY"] ?? Secrets.supabaseAnonKey
     }
 
     /// Debug helper to verify configuration

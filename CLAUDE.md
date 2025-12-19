@@ -284,6 +284,53 @@ See `/supabase/seed_tf1.sql` and `/supabase/seed_tf2.sql` for examples.
 
 ---
 
+## Deployment Checklist
+
+### Supabase Configuration (Required Before App Store Release)
+
+**CRITICAL: The current Supabase anon key has been exposed in git history and MUST be regenerated.**
+
+#### 1. Regenerate API Key
+1. Go to Supabase Dashboard → Project Settings → API
+2. Click "Regenerate" on the `anon` public key
+3. Update your local `Secrets.swift` with the new key
+4. Update CI/CD environment variables with the new key
+
+#### 2. Environment Variables for CI/CD
+The app reads credentials from environment variables first, falling back to `Secrets.swift` for local development.
+
+Set these in your CI/CD pipeline (Xcode Cloud, GitHub Actions, etc.):
+```
+SUPABASE_URL=https://gzghfnqpzjmcsenrnjme.supabase.co
+SUPABASE_ANON_KEY=<your-new-regenerated-key>
+```
+
+#### 3. Xcode Cloud / CI Configuration
+For Xcode Cloud, add environment variables in App Store Connect:
+1. Go to App Store Connect → Your App → Xcode Cloud → Workflows
+2. Edit your workflow → Environment Variables
+3. Add `SUPABASE_URL` and `SUPABASE_ANON_KEY`
+
+#### 4. Local Development Setup
+For local development, ensure `Secrets.swift` exists at:
+```
+ios/SportsIQ/SportsIQ/Shared/Utils/Secrets.swift
+```
+
+With contents:
+```swift
+import Foundation
+
+enum Secrets {
+    static let supabaseURL = "https://gzghfnqpzjmcsenrnjme.supabase.co"
+    static let supabaseAnonKey = "<your-key-here>"
+}
+```
+
+**Note:** `Secrets.swift` is gitignored and should never be committed.
+
+---
+
 ## Development Principles
 
 **Avoid:** Business logic in views, hardcoded dependencies, ignoring errors, force unwrapping, platform code in domain, committing secrets, allowing lesson shortcuts.

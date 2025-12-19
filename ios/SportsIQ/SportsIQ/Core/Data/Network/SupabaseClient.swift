@@ -38,7 +38,14 @@ class SupabaseService {
     private init() {
         // Validate configuration
         guard let url = URL(string: Config.supabaseURL) else {
-            fatalError("Invalid Supabase URL in configuration")
+            // In debug mode, crash immediately to catch configuration issues
+            assertionFailure("Invalid Supabase URL in configuration")
+            // In production, use a placeholder URL that will fail gracefully on API calls
+            self.client = SupabaseClient(
+                supabaseURL: URL(string: "https://invalid.supabase.co")!,
+                supabaseKey: Config.supabaseAnonKey
+            )
+            return
         }
 
         // Initialize Supabase client

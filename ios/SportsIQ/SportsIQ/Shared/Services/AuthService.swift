@@ -72,9 +72,13 @@ class AuthService {
             let userId = session.user.id
             await fetchUserProfile(userId: userId)
 
+            #if DEBUG
             print("✅ Session loaded successfully")
+            #endif
         } catch {
+            #if DEBUG
             print("ℹ️ No existing session found: \(error.localizedDescription)")
+            #endif
             self.session = nil
             self.currentUser = nil
         }
@@ -91,7 +95,9 @@ class AuthService {
 
     @MainActor
     private func handleAuthStateChange(_ event: AuthChangeEvent, session: Supabase.Session?) async {
+        #if DEBUG
         print("🔐 Auth state changed: \(event)")
+        #endif
 
         self.session = session
 
@@ -148,14 +154,20 @@ class AuthService {
                 await migrateGuestData(to: userId)
             }
 
+            #if DEBUG
             print("✅ User signed up successfully: \(username)")
+            #endif
             return newUser
 
         } catch let error as AuthError {
+            #if DEBUG
             print("❌ Sign up failed: \(error.localizedDescription)")
+            #endif
             throw error
         } catch {
+            #if DEBUG
             print("❌ Sign up failed: \(error.localizedDescription)")
+            #endif
             throw AuthError.signUpFailed
         }
     }
@@ -170,10 +182,14 @@ class AuthService {
             )
             // Clear guest session after successful migration
             GuestSessionManager.shared.endGuestSession()
+            #if DEBUG
             print("✅ Guest data migrated successfully")
+            #endif
         } catch {
             // Migration failure shouldn't block account creation
+            #if DEBUG
             print("⚠️ Guest data migration failed: \(error)")
+            #endif
             // Still clear guest session
             GuestSessionManager.shared.endGuestSession()
         }
@@ -188,7 +204,9 @@ class AuthService {
         // If signing into existing account, discard guest data (per user preference)
         if isGuestMode {
             GuestSessionManager.shared.endGuestSession()
+            #if DEBUG
             print("ℹ️ Guest data discarded - signing into existing account")
+            #endif
         }
 
         do {
@@ -209,14 +227,20 @@ class AuthService {
                 throw AuthError.userNotFound
             }
 
+            #if DEBUG
             print("✅ User signed in successfully: \(user.username)")
+            #endif
             return user
 
         } catch let error as AuthError {
+            #if DEBUG
             print("❌ Sign in failed: \(error.localizedDescription)")
+            #endif
             throw error
         } catch {
+            #if DEBUG
             print("❌ Sign in failed: \(error.localizedDescription)")
+            #endif
             throw AuthError.signInFailed
         }
     }
@@ -230,7 +254,9 @@ class AuthService {
         // Handle guest mode sign out
         if isGuestMode {
             GuestSessionManager.shared.endGuestSession()
+            #if DEBUG
             print("✅ Guest session ended")
+            #endif
             return
         }
 
@@ -238,9 +264,13 @@ class AuthService {
             try await supabase.auth.signOut()
             self.session = nil
             self.currentUser = nil
+            #if DEBUG
             print("✅ User signed out successfully")
+            #endif
         } catch {
+            #if DEBUG
             print("❌ Sign out failed: \(error.localizedDescription)")
+            #endif
             throw AuthError.signOutFailed
         }
     }
@@ -251,14 +281,18 @@ class AuthService {
     @MainActor
     func continueAsGuest() {
         GuestSessionManager.shared.startGuestSession()
+        #if DEBUG
         print("✅ Continuing as guest")
+        #endif
     }
 
     /// Sign out guest and clear all local data
     @MainActor
     func signOutGuest() {
         GuestSessionManager.shared.endGuestSession()
+        #if DEBUG
         print("✅ Guest signed out, data cleared")
+        #endif
     }
 
     // MARK: - Social Authentication
@@ -309,14 +343,20 @@ class AuthService {
                 throw AuthError.userNotFound
             }
 
+            #if DEBUG
             print("✅ User signed in with Apple: \(user.username)")
+            #endif
             return user
 
         } catch let error as AuthError {
+            #if DEBUG
             print("❌ Apple sign in failed: \(error.localizedDescription)")
+            #endif
             throw error
         } catch {
+            #if DEBUG
             print("❌ Apple sign in failed: \(error.localizedDescription)")
+            #endif
             throw AuthError.appleSignInFailed
         }
     }
@@ -360,7 +400,9 @@ class AuthService {
                 
                 if let existing = existingUser {
                     // User exists, just link it
+                    #if DEBUG
                     print("ℹ️ User already exists in database, linking profile...")
+                    #endif
                     await fetchUserProfile(userId: UUID(uuidString: existing.id)!)
                 } else {
                     // Create user profile for new Google sign-in
@@ -380,14 +422,20 @@ class AuthService {
                 throw AuthError.userNotFound
             }
 
+            #if DEBUG
             print("✅ User signed in with Google: \(user.username)")
+            #endif
             return user
 
         } catch let error as AuthError {
+            #if DEBUG
             print("❌ Google sign in failed: \(error.localizedDescription)")
+            #endif
             throw error
         } catch {
+            #if DEBUG
             print("❌ Google sign in failed: \(error.localizedDescription)")
+            #endif
             // Throw the original error to see details in UI
             throw error
         }
@@ -399,9 +447,13 @@ class AuthService {
     func resetPassword(email: String) async throws {
         do {
             try await supabase.auth.resetPasswordForEmail(email)
+            #if DEBUG
             print("✅ Password reset email sent to: \(email)")
+            #endif
         } catch {
+            #if DEBUG
             print("❌ Password reset failed: \(error.localizedDescription)")
+            #endif
             throw AuthError.passwordResetFailed
         }
     }
@@ -414,9 +466,13 @@ class AuthService {
 
         do {
             try await supabase.auth.update(user: UserAttributes(password: newPassword))
+            #if DEBUG
             print("✅ Password updated successfully")
+            #endif
         } catch {
+            #if DEBUG
             print("❌ Password update failed: \(error.localizedDescription)")
+            #endif
             throw AuthError.passwordUpdateFailed
         }
     }
@@ -445,10 +501,14 @@ class AuthService {
                 .value
 
             self.currentUser = try userDTO.toDomain(profile: profileDTO)
+            #if DEBUG
             print("✅ User profile fetched: \(currentUser?.username ?? "Unknown")")
+            #endif
 
         } catch {
+            #if DEBUG
             print("❌ Failed to fetch user profile: \(error.localizedDescription)")
+            #endif
         }
     }
 
@@ -506,7 +566,9 @@ class AuthService {
         // Create initial user_progress records for each sport
         try await createInitialProgressRecords(userId: id)
 
+        #if DEBUG
         print("✅ User profile created in database: \(username)")
+        #endif
 
         return try createdUserDTO.toDomain(profile: createdProfileDTO)
     }
@@ -553,7 +615,9 @@ class AuthService {
                 .execute()
                 .value
 
+            #if DEBUG
             print("✅ Created initial progress records for \(progressRecords.count) sports")
+            #endif
         }
     }
 
@@ -600,7 +664,9 @@ class AuthService {
         // Refresh user profile
         await fetchUserProfile(userId: userId)
 
+        #if DEBUG
         print("✅ User profile updated")
+        #endif
     }
 
     // MARK: - Account Deletion
@@ -715,10 +781,14 @@ class AuthService {
             self.session = nil
             self.currentUser = nil
 
+            #if DEBUG
             print("✅ Account deleted successfully")
+            #endif
 
         } catch {
+            #if DEBUG
             print("❌ Account deletion failed: \(error.localizedDescription)")
+            #endif
             throw AuthError.deleteAccountFailed
         }
     }
@@ -752,9 +822,13 @@ class AuthService {
             // Reload the current session to update our state
             await loadCurrentSession()
 
+            #if DEBUG
             print("✅ Email confirmed and session created!")
+            #endif
         } catch {
+            #if DEBUG
             print("❌ Failed to handle auth callback: \(error.localizedDescription)")
+            #endif
             throw AuthError.signInFailed
         }
     }

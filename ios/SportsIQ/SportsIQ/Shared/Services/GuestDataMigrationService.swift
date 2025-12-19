@@ -33,7 +33,9 @@ class GuestDataMigrationService {
     ///   - guestUserId: The UUID that was used for the guest session
     ///   - newUserId: The UUID of the newly created authenticated user
     func migrateToAuthenticatedUser(guestUserId: UUID, newUserId: UUID) async throws {
+        #if DEBUG
         print("🔄 Starting guest data migration from \(guestUserId) to \(newUserId)")
+        #endif
 
         // 1. Migrate user progress
         if let localProgress = localDataStore.load(forKey: .userProgress, as: LocalUserProgress.self) {
@@ -55,7 +57,9 @@ class GuestDataMigrationService {
             try await migrateXPEvents(xpEvents, to: newUserId)
         }
 
+        #if DEBUG
         print("✅ Guest data migration completed successfully")
+        #endif
     }
 
     // MARK: - Private Migration Methods
@@ -93,7 +97,9 @@ class GuestDataMigrationService {
             .upsert(payload, onConflict: "user_id,sport_id")
             .execute()
 
+        #if DEBUG
         print("✅ Migrated user progress: \(localProgress.totalXP) XP, \(localProgress.lessonsCompleted) lessons")
+        #endif
     }
 
     private func migrateCompletions(_ container: LocalLessonCompletionsContainer, to userId: UUID) async throws {
@@ -125,7 +131,9 @@ class GuestDataMigrationService {
             .upsert(payloads, onConflict: "user_id,lesson_id")
             .execute()
 
+        #if DEBUG
         print("✅ Migrated \(payloads.count) lesson completions")
+        #endif
     }
 
     private func migrateStreak(_ localStreak: LocalStreak, to userId: UUID) async throws {
@@ -155,7 +163,9 @@ class GuestDataMigrationService {
             .upsert(payload, onConflict: "user_id,sport_id")
             .execute()
 
+        #if DEBUG
         print("✅ Migrated streak: \(localStreak.currentDays) days")
+        #endif
     }
 
     private func migrateXPEvents(_ container: LocalXPEventsContainer, to userId: UUID) async throws {
@@ -183,7 +193,9 @@ class GuestDataMigrationService {
             .insert(payloads)
             .execute()
 
+        #if DEBUG
         print("✅ Migrated \(payloads.count) XP events")
+        #endif
     }
 
     // MARK: - Summary

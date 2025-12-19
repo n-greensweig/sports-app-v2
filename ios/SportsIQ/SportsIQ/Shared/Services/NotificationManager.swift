@@ -41,7 +41,9 @@ class NotificationManager: NSObject {
 
             return granted
         } catch {
+            #if DEBUG
             print("Notification permission error: \(error)")
+            #endif
             return false
         }
     }
@@ -82,13 +84,13 @@ class NotificationManager: NSObject {
         )
 
         notificationCenter.add(request) { error in
+            #if DEBUG
             if let error = error {
                 print("Failed to schedule streak reminder: \(error)")
             } else {
-                #if DEBUG
                 print("Scheduled streak reminder for 8 PM")
-                #endif
             }
+            #endif
         }
     }
 

@@ -237,11 +237,22 @@ struct SignUpView: View {
                         .padding(.horizontal, .spacingXL)
 
                         // Terms and privacy
-                        Text("By signing up, you agree to our Terms of Service and Privacy Policy")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, .spacingXL)
+                        VStack(spacing: 4) {
+                            Text("By signing up, you agree to our")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            HStack(spacing: 4) {
+                                Link("Terms of Service", destination: URL(string: "https://n-greensweig.github.io/sports-app-v2/terms-of-service.html")!)
+                                    .font(.caption)
+                                Text("and")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                Link("Privacy Policy", destination: URL(string: "https://n-greensweig.github.io/sports-app-v2/privacy-policy.html")!)
+                                    .font(.caption)
+                            }
+                        }
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, .spacingXL)
 
                         Spacer()
                     }

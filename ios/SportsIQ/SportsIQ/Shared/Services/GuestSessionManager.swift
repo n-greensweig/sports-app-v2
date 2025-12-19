@@ -55,7 +55,9 @@ class GuestSessionManager {
     @MainActor
     func startGuestSession() {
         isGuestMode = true
+        #if DEBUG
         print("✅ Guest session started with ID: \(guestUserId)")
+        #endif
     }
 
     /// End the guest session and clear all local data
@@ -72,7 +74,9 @@ class GuestSessionManager {
         // Disable guest mode
         isGuestMode = false
 
+        #if DEBUG
         print("✅ Guest session ended, data cleared")
+        #endif
     }
 
     /// Get a synthetic User object for the guest

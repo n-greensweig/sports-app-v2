@@ -88,6 +88,12 @@ struct ModuleLessonsView: View {
             await loadLessons()
             await loadTestOutInfo()
         }
+        .onAppear {
+            // Refresh completions when returning from LessonView
+            Task {
+                await refreshCompletions()
+            }
+        }
         .sheet(isPresented: $showTestOutPrompt) {
             if let testOut = testOut, let eligibility = testOutEligibility {
                 TestOutPromptView(
@@ -204,16 +210,28 @@ struct ModuleLessonsView: View {
         do {
             lessons = try await coordinator.learningRepository.getLessons(moduleId: module.id)
             // Load completion counts
-            if let userId = coordinator.currentUser?.id {
-                completions = try await coordinator.learningRepository.getLessonCompletions(
-                    userId: userId,
-                    sportId: sport.id
-                )
-            }
+            await refreshCompletions()
         } catch {
+            #if DEBUG
             print("Error loading lessons: \(error)")
+            #endif
         }
         isLoading = false
+    }
+
+    /// Refresh only the completion counts (called on appear to update after lesson completion)
+    private func refreshCompletions() async {
+        guard let userId = coordinator.currentUser?.id else { return }
+        do {
+            completions = try await coordinator.learningRepository.getLessonCompletions(
+                userId: userId,
+                sportId: sport.id
+            )
+        } catch {
+            #if DEBUG
+            print("Error refreshing completions: \(error)")
+            #endif
+        }
     }
 
     private func loadTestOutInfo() async {
@@ -228,7 +246,9 @@ struct ModuleLessonsView: View {
                 )
             }
         } catch {
+            #if DEBUG
             print("Error loading test-out info: \(error)")
+            #endif
         }
     }
 }

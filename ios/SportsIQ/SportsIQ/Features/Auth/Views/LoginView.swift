@@ -484,7 +484,9 @@ struct LoginView: View {
                 triggerShake = true
                 HapticManager.shared.playIncorrectFeedback()
             }
+            #if DEBUG
             print("DEBUG: Google Sign In Error: \(error)")
+            #endif
         }
 
         isLoading = false

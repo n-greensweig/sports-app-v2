@@ -191,7 +191,26 @@ struct LessonView: View {
                     }
                     .animation(.spring(response: 0.3, dampingFraction: 0.8), value: viewModel.showFeedback)
                 } else {
-                    Spacer()
+                    // Show error state when no items are available
+                    VStack(spacing: .spacingL) {
+                        Image(systemName: "exclamationmark.triangle")
+                            .font(.system(size: 48))
+                            .foregroundStyle(Color.textTertiary)
+
+                        Text("Unable to load lesson content")
+                            .font(.heading4)
+                            .foregroundStyle(Color.textPrimary)
+
+                        Text("Please try again later")
+                            .font(.body)
+                            .foregroundStyle(Color.textSecondary)
+
+                        Button("Go Back") {
+                            dismiss()
+                        }
+                        .buttonStyle(.bordered)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
         }
@@ -207,6 +226,7 @@ struct LessonView: View {
                 onDismiss: {
                     Task {
                         await viewModel.completeLesson()
+                        viewModel.isDismissing = true
                         viewModel.showCompletionScreen = false
                         dismiss()
                     }

@@ -52,6 +52,9 @@ class LessonViewModel {
     // MARK: - Submission State
     var isSubmitting = false // Prevents rapid double-clicks on Check Answer
 
+    // MARK: - Dismissal State
+    var isDismissing = false // True when lesson is being dismissed to prevent blank screen
+
     // MARK: - Streak Tracking
     var updatedStreak: Streak?
     var streakMilestoneReached: StreakMilestone?
@@ -62,8 +65,8 @@ class LessonViewModel {
     }
 
     var currentItem: Item? {
-        // If completion screen is showing, return the last item to keep the view stable
-        if showCompletionScreen {
+        // If completion screen is showing or dismissing, return the last item to keep the view stable
+        if showCompletionScreen || isDismissing {
             return lessonItems.last
         }
 
@@ -126,6 +129,13 @@ class LessonViewModel {
 
         // Track which items we're showing this session
         self.sessionItemIds = lessonItems.map { $0.id }
+
+        #if DEBUG
+        if lessonItems.isEmpty {
+            print("⚠️ LessonViewModel: No items for lesson '\(lesson.title)' (id: \(lesson.id))")
+            print("   lesson.items.count: \(lesson.items.count)")
+        }
+        #endif
 
         // Prepare first item
         prepareCurrentItem()

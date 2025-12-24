@@ -22,6 +22,11 @@ struct LessonDTO: Codable {
     let updated_at: String
     let deleted_at: String?
 
+    // Multi-completion system fields
+    let code: String?
+    let items_per_session: Int?
+    let required_completions: Int?
+
     /// Convert DTO to Domain entity
     func toDomain(items: [Item] = []) throws -> Lesson {
         guard let uuid = UUID(uuidString: id) else {
@@ -40,7 +45,10 @@ struct LessonDTO: Codable {
             estimatedMinutes: est_minutes,
             xpAward: xp_award,
             isLocked: is_locked,
-            items: items // Items passed in or empty array
+            items: items,
+            code: code,
+            itemsPerSession: items_per_session ?? 5,
+            requiredCompletions: required_completions ?? 5
         )
     }
 }
@@ -60,7 +68,10 @@ extension Lesson {
             is_locked: isLocked,
             created_at: ISO8601DateFormatter().string(from: Date()),
             updated_at: ISO8601DateFormatter().string(from: Date()),
-            deleted_at: nil
+            deleted_at: nil,
+            code: code,
+            items_per_session: itemsPerSession,
+            required_completions: requiredCompletions
         )
     }
 }
